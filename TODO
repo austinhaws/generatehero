@@ -1,0 +1,7 @@
+[ ] hash code and save each generated character so that they can be retrieved later
+
+
+run unit tests: vendor/bin/phpunit
+code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html coverage
+composer:
+	- update autolaod: composer dumpautoload -o

@@ -1,4 +1,5 @@
 <?php
+namespace Heroes\enums;
 
 abstract class BonusTypes {
     // attributes

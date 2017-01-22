@@ -1,4 +1,9 @@
 <?php
+namespace Heroes\tables;
+
+use Heroes\engine\Engine;
+use Heroes\hero\Hero;
+use Heroes\enums\BonusTypes;
 
 /**
  * Class TableAttributes
@@ -25,6 +30,12 @@ class TableAttributes
      */
     public function applyAttributeBonuses(Hero &$hero)
     {
+        $attributes = ['intelligenceQuotient', 'mentalEndurance', 'mentalAffinity', 'physicalStrength', 'physicalProwess', 'physicalEndurance', 'physicalBeauty', 'speed'];
+        foreach ($attributes as $attribute) {
+            if ($hero->$attribute >= 16) {
+                $hero->$attribute += $this->engine->roller->rollDice(1, 6);
+            }
+        }
         $this->applyAttributeBonus_IQ($hero);
         $this->applyAttributeBonus_MentalEndurance($hero);
         $this->applyAttributeBonus_MentalAffinity($hero);
@@ -32,6 +43,7 @@ class TableAttributes
         $this->applyAttributeBonus_PhysicalProwess($hero);
         $this->applyAttributeBonus_PhysicalEndurance($hero);
         $this->applyAttributeBonus_PhysicalBeauty($hero);
+        $this->applyAttributeBonus_Speed($hero);
 
         $this->calculateHitPoints($hero);
     }
@@ -42,14 +54,15 @@ class TableAttributes
         $hpBonus = $this->engine->roller->rollDice(1, 6);
         $hero->hitPoints += $hpBonus;
         $hero->addBonus(BonusTypes::HIT_POINTS, $hpBonus, 'Starting character bonus hit points');
+
     }
 
     private function applyAttributeBonus_IQ(Hero &$hero)
     {
         if ($hero->intelligenceQuotient >= $this->bonusesBegin) {
             // one time bonus to all skills
-            $bonus = $hero->intelligenceQuotient -= 14;
-            throw new Exception('add bonus to skills ' . $bonus);
+            $bonus = $hero->intelligenceQuotient - 14;
+            throw new \Exception('add bonus to skills ' . $bonus);
         }
 
         $hero->iq = $hero->intelligenceQuotient * 10;
@@ -60,7 +73,7 @@ class TableAttributes
         if ($hero->mentalEndurance >= $this->bonusesBegin) {
             // psionic attack / insanity save bonus
             $bonus = 1 + floor(($hero->mentalEndurance - 16) / 2);
-            throw new Exception("add bonus to psionic attack / insanity save bonus $bonus");
+            throw new \Exception("add bonus to psionic attack / insanity save bonus $bonus");
         }
     }
 
@@ -94,7 +107,7 @@ class TableAttributes
                     break;
             }
             // MA trust/intimidate
-            throw new Exception("add bonus to trust/intimidate $bonus");
+            throw new \Exception("add bonus to trust/intimidate $bonus");
         }
     }
 
@@ -102,7 +115,7 @@ class TableAttributes
     {
         if ($hero->physicalStrength >= $this->bonusesBegin) {
             $bonus = $hero->physicalStrength - 15;
-            throw new Exception("add bonus to hand to hand combat damage $bonus");
+            throw new \Exception("add bonus to hand to hand combat damage $bonus");
         }
 
         // carry/lift/throw weights
@@ -122,7 +135,7 @@ class TableAttributes
     {
         if ($hero->physicalProwess >= $this->bonusesBegin) {
             $bonus = 1 + floor(($hero->physicalProwess - 16) / 2);
-            throw new Exception("add bonus to parry, dodge, and strike $bonus");
+            throw new \Exception("add bonus to parry, dodge, and strike $bonus");
         }
     }
 
@@ -135,10 +148,10 @@ class TableAttributes
             } else {
                 $bonus = 6 + ($hero->physicalEndurance - 18) * 2;
             }
-            throw new Exception("add bonus to save vs coma/death $bonus");
+            throw new \Exception("add bonus to save vs coma/death $bonus");
 
             $bonus = 1 + floor(($hero->physicalEndurance - 16) / 2);
-            throw new Exception("add bonus to save vs poison & Magic $bonus");
+            throw new \Exception("add bonus to save vs poison & Magic $bonus");
         }
     }
 
@@ -151,7 +164,12 @@ class TableAttributes
             $bonus = [35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 83, 86, 90, 92][$hero->physicalBeauty - 17];
         }
         if ($bonus) {
-            throw new Exception("add bonus to charm/impress $bonus");
+            throw new \Exception("add bonus to charm/impress $bonus");
         }
+    }
+
+    private function applyAttributeBonus_Speed(Hero &$hero)
+    {
+        $hero->runsMilesPerHour = $hero->speed * 0.6818;
     }
 }

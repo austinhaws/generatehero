@@ -1,6 +1,5 @@
 <?php
-require_once 'enums/BonusTypes.inc';
-require_once 'classes/Bonus.inc';
+namespace Heroes\hero;
 
 class Hero {
     // abilities
@@ -17,6 +16,7 @@ class Hero {
     public $carryThrowWeight;
     public $liftWeight;
     public $iq;
+    public $runsMilesPerHour;
 
     // health
     public $hitPoints;
@@ -36,17 +36,10 @@ class Hero {
         $this->bonuses[] = new Bonus($bonusType, $value, $message);
     }
 
+    /**
+     * @return string the character information
+     */
     public function outputCharacter() {
-        throw new Exception('did you cover all this stuff?');
-/*
- * Other calculations
- *  [ ] Spd - spd * 20 = # of yards ran per minute (turn this to miles per hour or a football 4x40 stat)
- *
- *
- * rolling attributes:
- *  [ ] attributes of 16 or higher get a one time bonus of 1d6
- *
- *
- */
+        return json_encode($this);
     }
 }

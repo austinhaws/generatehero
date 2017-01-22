@@ -1,6 +1,6 @@
 <?php
 
-require_once 'classes/Roller.inc';
+namespace Heroes\engine;
 
 /**
  * Class Engine
@@ -13,5 +13,9 @@ class Engine {
     public function __construct()
     {
         $this->roller = new Roller();
+    }
+
+    public function setRoller(Roller $roller) {
+        $this->roller = $roller;
     }
 }

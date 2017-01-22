@@ -2,11 +2,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include 'classes/HeroGenerator.inc';
+// composer autoloading
+require_once __DIR__.'/vendor/autoload.php';
 
-$heroGenerator = new HeroGenerator();
-$character = $heroGenerator->generate();
 
-echo json_encode($character);
-
-echo 'dont forget unit tests';
+// generate a character and output the json
+echo (new \Heroes\HeroGenerator())->generate();
