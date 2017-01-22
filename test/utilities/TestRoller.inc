@@ -5,6 +5,9 @@ use Heroes\engine\Roller;
 
 class TestRoller extends Roller
 {
+    const SIDES = 'sides';
+    const ROLL = 'roll';
+
     private $testRolls;
 
     /**
@@ -32,15 +35,15 @@ class TestRoller extends Roller
      */
     private function getRoll($numberSides) {
         if (!count($this->testRolls)) {
-            throw new \Exception('out of rolls');
+            throw new \Exception("out of rolls for sides: ${numberSides}");
         }
 
         $roll = array_shift($this->testRolls);
 
-        if ($roll['sides'] != $numberSides) {
+        if ($roll[TestRoller::SIDES] != $numberSides) {
             throw new \Exception("test roll sides don't match; expected: {$numberSides}; got: {$roll->sides}");
         }
-        return $roll['roll'];
+        return $roll[TestRoller::ROLL];
     }
 
 
@@ -56,10 +59,12 @@ class TestRoller extends Roller
 
     /**
      * make sure all the rolls were used
-     *
      * @return bool true if there are no rolls left
+     * @throws \Exception if there are rolls not yet used then throws exception
      */
     public function verifyTestRolls() {
-        return !count($this->testRolls);
+        if (count($this->testRolls)) {
+            throw new \Exception('there are unused test rolls');
+        }
     }
 }

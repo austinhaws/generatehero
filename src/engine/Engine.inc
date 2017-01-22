@@ -9,10 +9,12 @@ namespace Heroes\engine;
  */
 class Engine {
     public $roller;
+    public $tableRoller;
 
     public function __construct()
     {
         $this->roller = new Roller();
+        $this->tableRoller = new TableRoller($this);
     }
 
     public function setRoller(Roller $roller) {
