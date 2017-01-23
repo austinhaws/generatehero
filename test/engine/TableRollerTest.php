@@ -2,7 +2,6 @@
 namespace Heroes\test\engine;
 
 use Heroes\engine\Engine;
-use Heroes\engine\TableRoller;
 use Heroes\engine\Table;
 use Heroes\tests\utilities\TestRoll;
 use Heroes\tests\utilities\TestRoller;
