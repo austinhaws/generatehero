@@ -3,8 +3,10 @@
 namespace Heroes;
 
 use Heroes\engine\Engine;
+use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
+use Heroes\tables\TableAttributes;
 
 class HeroGenerator
 {
@@ -14,7 +16,7 @@ class HeroGenerator
     public function __construct()
     {
         $this->engine = new Engine();
-        $this->characterBasics = new CharacterBasics();
+        $this->characterBasics = new CharacterBasics($this->engine);
     }
 
     public function generate()
@@ -27,16 +29,26 @@ class HeroGenerator
 //        [ ] option 3 : point buy?
 //        [ ] option 4 ?? what other ways to generate scores for a generator
 
+        if ($this->engine->roller->rollDice('is crazy?', 1, 100) == 100) {
+            $crazy = $this->engine->tableRoller->rollTable('power category: crazy', [
+                new TableEntry(1, 30, 'frenzy'),
+                new TableEntry(31, 60, 'association'),
+                new TableEntry(61, 85, 'personalities'),
+                new TableEntry(86, 10, 'crazy'),
+            ]);
+throw new \Exception("I am crazy!:$crazy");
+        }
+
 
         // step 3 - determine super abilities
         $this->generatePowerCategory($hero);
-
 
         // step 4 - education / skills
 
         // step 5 - alignment
 
         // step 6 - character start
+
         $this->characterBasics->generateCharacterBasics($hero);
 
         // step 2 - hit points / sdc : can't get HPs until scores are settled through super abilities/education... :(
@@ -56,33 +68,20 @@ class HeroGenerator
      */
     private function generatePowerCategory(Hero &$hero)
     {
-        $roll = $this->engine->roller->rollDice('power category', 1, 102);
+        $class = $this->engine->tableRoller->rollTable('power category', [
+           new TableEntry(1, 10, 'experiment'),
+           new TableEntry(11, 20, 'robotics'),
+           new TableEntry(21, 30, 'bionics/implants'),
+           new TableEntry(31, 40, 'special training'),
+           new TableEntry(41, 50, 'mutants'),
+           new TableEntry(51, 60, 'psionics'),
+           new TableEntry(61, 70, 'physical training'),
+           new TableEntry(71, 80, 'magic'),
+           new TableEntry(81, 90, 'hardware'),
+           new TableEntry(91, 100, 'aliens'),
+           new TableEntry(101, 101, 'crazy'),
+        ]);
 
-// use table roller, have result be a class name string to use to create the new class
-        if ($roll <= 10) {
-            throw new \Exception('experiment');
-        } else if ($roll <= 20) {
-            throw new \Exception('robotics');
-        } else if ($roll <= 30) {
-            throw new \Exception('bionics/implants');
-        } else if ($roll <= 40) {
-            throw new \Exception('special training');
-        } else if ($roll <= 50) {
-            throw new \Exception('mutants');
-        } else if ($roll <= 60) {
-            throw new \Exception('psionics');
-        } else if ($roll <= 70) {
-            throw new \Exception('physical training');
-        } else if ($roll <= 80) {
-            throw new \Exception('magic');
-        } else if ($roll <= 90) {
-            throw new \Exception('hardware');
-        } else if ($roll <= 100) {
-            throw new \Exception('aliens');
-        } else if ($roll <= 101) {
-            throw new \Exception('insane');
-        } else if ($roll <= 102) {
-            throw new \Exception('multiple personality');
-        }
+        echo "chosen class is: $class\n";
     }
 }

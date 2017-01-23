@@ -2,7 +2,7 @@
 namespace Heroes\test\engine;
 
 use Heroes\engine\Engine;
-use Heroes\engine\Table;
+use Heroes\engine\TableEntry;
 use Heroes\tests\utilities\TestRoll;
 use Heroes\tests\utilities\TestRoller;
 
@@ -33,7 +33,7 @@ class TableRollerTest extends \PHPUnit_Framework_TestCase
         $this->engine->roller->setTestRolls([new TestRoll(20, 15, 'single entry test')]);
 
         $this->assertEquals(1, $this->engine->tableRoller->rollTable('single entry test', [
-            new Table(1, 20, 1),
+            new TableEntry(1, 20, 1),
         ]));
 
         $this->engine->roller->verifyTestRolls();
@@ -44,10 +44,10 @@ class TableRollerTest extends \PHPUnit_Framework_TestCase
         $this->engine->roller->setTestRolls([new TestRoll(80, 65, 'multiple entry test')]);
 
         $this->assertEquals(4, $this->engine->tableRoller->rollTable('multiple entry test', [
-            new Table(1, 20, 1),
-            new Table(21, 40, 2),
-            new Table(41, 60, 3),
-            new Table(61, 80, 4),
+            new TableEntry(1, 20, 1),
+            new TableEntry(21, 40, 2),
+            new TableEntry(41, 60, 3),
+            new TableEntry(61, 80, 4),
         ]));
 
         $this->engine->roller->verifyTestRolls();
