@@ -3,7 +3,15 @@ namespace Heroes\engine;
 
 class Roller
 {
-    public function rollDice($numberDice, $numberSides)
+    /**
+     * roll a dice
+     *
+     * @param $name string name of the roll for testing purposes and informational
+     * @param $numberDice int number of dice to roll
+     * @param $numberSides int maximum number on the dice
+     * @return int result of the roll
+     */
+    public function rollDice($name, $numberDice, $numberSides)
     {
         $roll = 0;
         for ($x = 0; $x < $numberDice; $x++) {

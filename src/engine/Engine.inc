@@ -16,8 +16,4 @@ class Engine {
         $this->roller = new Roller();
         $this->tableRoller = new TableRoller($this);
     }
-
-    public function setRoller(Roller $roller) {
-        $this->roller = $roller;
-    }
 }

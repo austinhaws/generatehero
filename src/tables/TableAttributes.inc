@@ -33,7 +33,7 @@ class TableAttributes
         $attributes = ['intelligenceQuotient', 'mentalEndurance', 'mentalAffinity', 'physicalStrength', 'physicalProwess', 'physicalEndurance', 'physicalBeauty', 'speed'];
         foreach ($attributes as $attribute) {
             if ($hero->$attribute >= 16) {
-                $hero->$attribute += $this->engine->roller->rollDice(1, 6);
+                $hero->$attribute += $this->engine->roller->rollDice('=16 attribute bonus', 1, 6);
             }
         }
         $this->applyAttributeBonus_IQ($hero);
@@ -51,7 +51,7 @@ class TableAttributes
     private function calculateHitPoints(Hero &$hero)
     {
         // add 1d6
-        $hpBonus = $this->engine->roller->rollDice(1, 6);
+        $hpBonus = $this->engine->roller->rollDice('starting hps bonus', 1, 6);
         $hero->hitPoints += $hpBonus;
         $hero->addBonus(BonusTypes::HIT_POINTS, $hpBonus, 'Starting character bonus hit points');
 

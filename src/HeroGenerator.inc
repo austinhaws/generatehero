@@ -4,14 +4,17 @@ namespace Heroes;
 
 use Heroes\engine\Engine;
 use Heroes\hero\Hero;
+use Heroes\tables\CharacterBasics;
 
 class HeroGenerator
 {
     private $engine;
+    private $characterBasics;
 
     public function __construct()
     {
         $this->engine = new Engine();
+        $this->characterBasics = new CharacterBasics();
     }
 
     public function generate()
@@ -27,7 +30,6 @@ class HeroGenerator
 
         // step 3 - determine super abilities
         $this->generatePowerCategory($hero);
-        // optional - crazy/multiple personality
 
 
         // step 4 - education / skills
@@ -35,7 +37,7 @@ class HeroGenerator
         // step 5 - alignment
 
         // step 6 - character start
-        $this->generateCharacterBasics();
+        $this->characterBasics->generateCharacterBasics($hero);
 
         // step 2 - hit points / sdc : can't get HPs until scores are settled through super abilities/education... :(
         // rounding out character
@@ -54,8 +56,9 @@ class HeroGenerator
      */
     private function generatePowerCategory(Hero &$hero)
     {
-        $roll = $this->engine->roller->rollDice(1, 102);
+        $roll = $this->engine->roller->rollDice('power category', 1, 102);
 
+// use table roller, have result be a class name string to use to create the new class
         if ($roll <= 10) {
             throw new \Exception('experiment');
         } else if ($roll <= 20) {
@@ -81,18 +84,5 @@ class HeroGenerator
         } else if ($roll <= 102) {
             throw new \Exception('multiple personality');
         }
-    }
-
-    private function generateCharacterBasics(Hero &$hero)
-    {
-        // birth order
-        // weight
-        // height
-        // disposition
-        // life savings
-        // land of origin
-        // type of environment
-        // social / economic background
-        // when super power manifested
     }
 }

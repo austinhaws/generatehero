@@ -4,7 +4,6 @@ namespace Heroes\tests\tables;
 use Heroes\engine\Engine;
 use Heroes\tables\TableAttributes;
 use Heroes\hero\Hero;
-
 use Heroes\tests\utilities\TestRoller;
 
 class TableAttributesTest extends \PHPUnit_Framework_TestCase
@@ -17,7 +16,7 @@ class TableAttributesTest extends \PHPUnit_Framework_TestCase
         parent::__construct($name, $data, $dataName);
 
         $this->engine = new Engine();
-        $this->engine->setRoller(new TestRoller());
+        $this->engine->roller = new TestRoller();
         $this->tableAttributes = new TableAttributes($this->engine);
     }
 

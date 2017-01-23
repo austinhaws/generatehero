@@ -21,6 +21,17 @@ class Hero {
     // health
     public $hitPoints;
 
+    // optionals
+    public $birthOrder;
+    public $weight;
+    public $height;
+    public $disposition;
+    public $lifeSavings;
+    public $landOfOrigin;
+    public $environment;
+    public $socialEconomic;
+    public $whenManifested;
+
     // logs tell how bonuses got applied to character for what reason
     // array of BonusesTypes
     public $bonuses = [];
