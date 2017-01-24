@@ -8,14 +8,32 @@ class TestRoll
     public $roll;
     public $name;
 
-    function __construct($sides, $roll, $name)
+    // don't care about rolls until getting a roll with this name; if this is set to true then don't care ever again so just roll away
+    public $dontCareUntil;
+
+    // defaults are only for if using dontcareuntil
+    function __construct($sides = false, $roll = false, $name = false)
     {
         $this->sides = $sides;
         $this->roll = $roll;
         $this->name = $name;
+        $this->dontCareUntil = false;
     }
 
-    public function validate($numberSides, $name) {
+    /**
+     * this roll is a place holder until the test cares again
+     *
+     * @param $until true = forever, string = until that roll comes up
+     * @return TestRoll this for chaining
+     */
+    public function dontCareUntil($until)
+    {
+        $this->dontCareUntil = $until;
+        return $this;
+    }
+
+    public function validate($numberSides, $name)
+    {
         if ($this->sides != $numberSides) {
             throw new \Exception("test roll sides don't match ($name)! expected: '$numberSides'; got: '{$this->sides}'");
         }

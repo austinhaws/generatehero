@@ -7,16 +7,15 @@ use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
 use Heroes\tables\TableAttributes;
+use Heroes\hero\crazy\Frenzy;
 
 class HeroGenerator
 {
-    private $engine;
-    private $characterBasics;
+    public $engine;
 
     public function __construct()
     {
         $this->engine = new Engine();
-        $this->characterBasics = new CharacterBasics($this->engine);
     }
 
     public function generate()
@@ -30,13 +29,14 @@ class HeroGenerator
 //        [ ] option 4 ?? what other ways to generate scores for a generator
 
         if ($this->engine->roller->rollDice('is crazy?', 1, 100) == 100) {
-            $crazy = $this->engine->tableRoller->rollTable('power category: crazy', [
-                new TableEntry(1, 30, 'frenzy'),
-                new TableEntry(31, 60, 'association'),
-                new TableEntry(61, 85, 'personalities'),
-                new TableEntry(86, 10, 'crazy'),
+            $crazy = $this->engine->tableRoller->rollTable('crazy element', [
+                new TableEntry(1, 30, 'Frenzy'),
+                new TableEntry(31, 60, 'Association'),
+                new TableEntry(61, 85, 'Personalities'),
+                new TableEntry(86, 100, 'Crazy'),
             ]);
-throw new \Exception("I am crazy!:$crazy");
+            $crazy = "Heroes\\hero\\crazy\\$crazy";
+            $hero->crazy = new $crazy($this->engine);
         }
 
 
@@ -49,7 +49,8 @@ throw new \Exception("I am crazy!:$crazy");
 
         // step 6 - character start
 
-        $this->characterBasics->generateCharacterBasics($hero);
+        $characterBasics = new CharacterBasics($this->engine);
+        $characterBasics->generateCharacterBasics($hero);
 
         // step 2 - hit points / sdc : can't get HPs until scores are settled through super abilities/education... :(
         // rounding out character
@@ -57,7 +58,7 @@ throw new \Exception("I am crazy!:$crazy");
         // after skills are determined, and all bonuses to abilities are gathered, then apply bonuses based on abilities
         (new TableAttributes($this->engine))->applyAttributeBonuses($hero);
 
-        return $hero->outputCharacter();
+        return $hero;
     }
 
     /**
@@ -79,9 +80,9 @@ throw new \Exception("I am crazy!:$crazy");
            new TableEntry(71, 80, 'magic'),
            new TableEntry(81, 90, 'hardware'),
            new TableEntry(91, 100, 'aliens'),
-           new TableEntry(101, 101, 'crazy'),
         ]);
 
+        // TODO: hook up powers
         echo "chosen class is: $class\n";
     }
 }

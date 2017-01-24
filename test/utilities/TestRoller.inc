@@ -38,8 +38,12 @@ class TestRoller extends Roller
         }
 
         $roll = array_shift($this->testRolls);
-
-        $roll->validate($numberSides, $name);
+        if (!$roll->dontCareUntil || $roll->dontCareUntil === $name) {
+            $roll->validate($numberSides, $name);
+        } else {
+            // not going to use it, so put it back on the front
+            array_unshift($this->testRolls, $roll);
+        }
 
         return $roll->roll;
     }

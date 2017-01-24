@@ -32,6 +32,9 @@ class Hero {
     public $socialEconomic;
     public $whenManifested;
 
+    // false or a class of BaseCrazy type
+    public $crazy = null;
+
     // logs tell how bonuses got applied to character for what reason
     // array of BonusesTypes
     public $bonuses = [];
