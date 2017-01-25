@@ -26,10 +26,13 @@ class PersonalityQuirk
 class Personalities extends BaseCrazy
 {
     // additional personalities besides the character's main personality
-    public $personalities;
+    public $personalities = [];
+
+    // note: personalities take over: severe shock or trauma, coma or near death, hypnosis, telepathic probe, hypnotic suggestion, mind wipe
 
     function create()
     {
+        // this is in addition to the main personality. a result of 1 here means 2 total personalities.
         $numberPersonalities = $this->engine->tableRoller->rollTable('Personalities: total', [
             new TableEntry(30, 1),
             new TableEntry(50, 2),
@@ -73,6 +76,8 @@ class Personalities extends BaseCrazy
                     throw new \Exception("invalid personality alignment: {$personality->alignment}");
             }
             $personality->quirk = $this->{'quirk' . $goodEvil}();
+
+            $this->personalities[] = $personality;
         }
     }
 

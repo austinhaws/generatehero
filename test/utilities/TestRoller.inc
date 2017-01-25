@@ -6,6 +6,7 @@ use Heroes\engine\Roller;
 class TestRoller extends Roller
 {
     private $testRolls;
+    private $rollIndex;
 
     /**
      * override original roller to do preentered rolls
@@ -39,7 +40,8 @@ class TestRoller extends Roller
 
         $roll = array_shift($this->testRolls);
         if (!$roll->dontCareUntil || $roll->dontCareUntil === $name) {
-            $roll->validate($numberSides, $name);
+            $this->rollIndex++;
+            $roll->validate($numberSides, $name, $this->rollIndex);
         } else {
             // not going to use it, so put it back on the front
             array_unshift($this->testRolls, $roll);
@@ -56,6 +58,7 @@ class TestRoller extends Roller
      */
     public function setTestRolls($testRolls)
     {
+        $this->rollIndex = 0;
         $this->testRolls =& $testRolls;
     }
 
@@ -67,7 +70,7 @@ class TestRoller extends Roller
     public function verifyTestRolls() {
         $count = count($this->testRolls);
         if ($count && ($count != 1 || !$this->testRolls[0]->dontCareUntil)) {
-            throw new \Exception('there are unused test rolls');
+            throw new \Exception("Only used {$this->rollIndex} rolls and there are unused test rolls");
         }
     }
 }

@@ -56,6 +56,6 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->testRoller->verifyTestRolls();
 
         $this->assertNotNull($hero->crazy);
-        $this->assertEquals($hero->crazy->popeye, 'Garlic');
+        $this->assertEquals('Garlic', $hero->crazy->popeye);
     }
 }
