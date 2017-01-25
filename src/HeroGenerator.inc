@@ -8,6 +8,7 @@ use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
 use Heroes\tables\TableAttributes;
 use Heroes\hero\crazy\Frenzy;
+use Heroes\hero\crazy\Association;
 
 class HeroGenerator
 {
@@ -30,13 +31,14 @@ class HeroGenerator
 
         if ($this->engine->roller->rollDice('is crazy?', 1, 100) == 100) {
             $crazy = $this->engine->tableRoller->rollTable('crazy element', [
-                new TableEntry(1, 30, 'Frenzy'),
-                new TableEntry(31, 60, 'Association'),
-                new TableEntry(61, 85, 'Personalities'),
-                new TableEntry(86, 100, 'Crazy'),
+                new TableEntry(30, 'Frenzy'),
+                new TableEntry(60, 'Association'),
+                new TableEntry(85, 'Personalities'),
+                new TableEntry(100, 'Crazy'),
             ]);
             $crazy = "Heroes\\hero\\crazy\\$crazy";
             $hero->crazy = new $crazy($this->engine);
+            $hero->crazy->create();
         }
 
 
@@ -70,16 +72,16 @@ class HeroGenerator
     private function generatePowerCategory(Hero &$hero)
     {
         $class = $this->engine->tableRoller->rollTable('power category', [
-           new TableEntry(1, 10, 'experiment'),
-           new TableEntry(11, 20, 'robotics'),
-           new TableEntry(21, 30, 'bionics/implants'),
-           new TableEntry(31, 40, 'special training'),
-           new TableEntry(41, 50, 'mutants'),
-           new TableEntry(51, 60, 'psionics'),
-           new TableEntry(61, 70, 'physical training'),
-           new TableEntry(71, 80, 'magic'),
-           new TableEntry(81, 90, 'hardware'),
-           new TableEntry(91, 100, 'aliens'),
+           new TableEntry(10, 'experiment'),
+           new TableEntry(20, 'robotics'),
+           new TableEntry(30, 'bionics/implants'),
+           new TableEntry(40, 'special training'),
+           new TableEntry(50, 'mutants'),
+           new TableEntry(60, 'psionics'),
+           new TableEntry(70, 'physical training'),
+           new TableEntry(80, 'magic'),
+           new TableEntry(90, 'hardware'),
+           new TableEntry(100, 'aliens'),
         ]);
 
         // TODO: hook up powers

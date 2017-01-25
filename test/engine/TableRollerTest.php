@@ -33,7 +33,7 @@ class TableRollerTest extends \PHPUnit_Framework_TestCase
         $this->engine->roller->setTestRolls([new TestRoll(20, 15, 'single entry test')]);
 
         $this->assertEquals(1, $this->engine->tableRoller->rollTable('single entry test', [
-            new TableEntry(1, 20, 1),
+            new TableEntry(20, 1),
         ]));
 
         $this->engine->roller->verifyTestRolls();
@@ -44,10 +44,10 @@ class TableRollerTest extends \PHPUnit_Framework_TestCase
         $this->engine->roller->setTestRolls([new TestRoll(80, 65, 'multiple entry test')]);
 
         $this->assertEquals(4, $this->engine->tableRoller->rollTable('multiple entry test', [
-            new TableEntry(1, 20, 1),
-            new TableEntry(21, 40, 2),
-            new TableEntry(41, 60, 3),
-            new TableEntry(61, 80, 4),
+            new TableEntry(20, 1),
+            new TableEntry(40, 2),
+            new TableEntry(60, 3),
+            new TableEntry(80, 4),
         ]));
 
         $this->engine->roller->verifyTestRolls();

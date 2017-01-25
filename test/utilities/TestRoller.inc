@@ -28,7 +28,7 @@ class TestRoller extends Roller
      * get a roll from the pre-determined rolls list
      *
      * @param $name string informational name of why this roll is being made
-     * @param $numberSides int how many sides the roll should ahve
+     * @param $numberSides int how many sides the roll should have
      * @return int the pre-determined roll value
      * @throws \Exception if roll doesn't match then exception throws
      */
@@ -65,7 +65,8 @@ class TestRoller extends Roller
      * @throws \Exception if there are rolls not yet used then throws exception
      */
     public function verifyTestRolls() {
-        if (count($this->testRolls)) {
+        $count = count($this->testRolls);
+        if ($count && ($count != 1 || !$this->testRolls[0]->dontCareUntil)) {
             throw new \Exception('there are unused test rolls');
         }
     }

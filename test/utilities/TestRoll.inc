@@ -38,7 +38,7 @@ class TestRoll
             throw new \Exception("test roll sides don't match ($name)! expected: '$numberSides'; got: '{$this->sides}'");
         }
         if ($this->name != $name) {
-            throw new \Exception("test roll name doesn't match! expected: '$name'; got '{$this->name}'");
+            throw new \Exception("test roll name doesn't match! rolling: '$name'; test roll has: '{$this->name}'");
         }
 
     }

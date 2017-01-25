@@ -26,13 +26,36 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->testRoller->setTestRolls([
             new TestRoll(100, 100, 'is crazy?'),
             new TestRoll(100, 1, 'crazy element'),
+            new TestRoll(100, 12, 'Frenzy: condition'),
 
             // all done being crazy
             new TestRoll(100, 1, 'power category'),
             (new TestRoll())->dontCareUntil(true),
         ]);
+
         $hero = $this->heroGenerator->generate();
+        $this->testRoller->verifyTestRolls();
+
         $this->assertNotNull($hero->crazy);
         $this->assertTrue($hero->crazy instanceof Frenzy);
+    }
+
+    public function testGenerate_isCrazy_association() {
+        $this->testRoller->setTestRolls([
+            new TestRoll(100, 100, 'is crazy?'),
+            new TestRoll(100, 60, 'crazy element'),
+            new TestRoll(100, 31, 'Association: association'),
+            new TestRoll(100, 1, 'Popeye: power food'),
+
+            // all done being crazy
+            new TestRoll(100, 1, 'power category'),
+            (new TestRoll())->dontCareUntil(true),
+        ]);
+
+        $hero = $this->heroGenerator->generate();
+        $this->testRoller->verifyTestRolls();
+
+        $this->assertNotNull($hero->crazy);
+        $this->assertEquals($hero->crazy->popeye, 'Garlic');
     }
 }

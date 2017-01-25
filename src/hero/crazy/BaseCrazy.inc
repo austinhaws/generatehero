@@ -1,7 +1,16 @@
 <?php
 namespace Heroes\hero\crazy;
 
-interface BaseCrazy
+use Heroes\engine\Engine;
+
+abstract class BaseCrazy
 {
-    function create();
+    protected $engine;
+
+    function __construct(Engine $engine)
+    {
+        $this->engine = $engine;
+    }
+
+    abstract function create();
 }

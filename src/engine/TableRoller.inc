@@ -23,9 +23,8 @@ class TableRoller {
             throw new \Exception('empty table');
         }
 
-        $min = $table[0]->min;
         $max = $table[count($table) - 1]->max;
-        $roll = $this->engine->roller->rollDice("$name", $min, $max);
+        $roll = $this->engine->roller->rollDice("$name", 1, $max);
 
         for ($x = 0; $x < count($table) && $table[$x]->max < $roll; $x++) {
             // move to the next table entry
