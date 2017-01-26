@@ -39,6 +39,9 @@ class Hero {
     // array of BonusesTypes
     public $bonuses = [];
 
+    // if the character picks up an insanity it is loaded here (pg 24)
+    public $insanities = [];
+
     /**
      * explain why a character got a certain bonus
      *

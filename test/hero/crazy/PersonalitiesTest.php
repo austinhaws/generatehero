@@ -2,9 +2,8 @@
 
 namespace Heroes\test\hero\crazy;
 
-use Heroes\hero\crazy\Association;
 use Heroes\hero\crazy\Personalities;
-use Heroes\hero\crazy\Personality;
+use Heroes\hero\Hero;
 use Heroes\HeroGenerator;
 use Heroes\tests\utilities\TestRoll;
 use Heroes\tests\utilities\TestRoller;
@@ -26,6 +25,7 @@ class PersonalitiesTest extends \PHPUnit_Framework_TestCase
     public function testAssociation_notPopey()
     {
         $personalities = new Personalities($this->heroGenerator->engine);
+        $hero = new Hero();
 
         $this->testRoller->setTestRolls([
             // 3 personalities
@@ -52,7 +52,7 @@ class PersonalitiesTest extends \PHPUnit_Framework_TestCase
             // hypochondriac
             new TestRoll(100, 81, 'Quirk Evil'),
         ]);
-        $personalities->create();
+        $personalities->create($hero);
         $this->testRoller->verifyTestRolls();
 
         $this->assertEquals(3, count($personalities->personalities));

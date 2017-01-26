@@ -2,13 +2,14 @@
 namespace Heroes\hero\crazy;
 
 use Heroes\engine\TableEntry;
+use Heroes\hero\Hero;
 
 class Association extends BaseCrazy
 {
     public $association;
     public $popeye;
 
-    function create()
+    function create(Hero &$hero)
     {
         $this->association = $this->engine->tableRoller->rollTable('Association: association', [
             new TableEntry(16, 'Daytime Complex'),

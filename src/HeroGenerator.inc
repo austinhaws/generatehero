@@ -7,8 +7,9 @@ use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
 use Heroes\tables\TableAttributes;
-use Heroes\hero\crazy\Frenzy;
 use Heroes\hero\crazy\Association;
+use Heroes\hero\crazy\Crazy;
+use Heroes\hero\crazy\Frenzy;
 
 class HeroGenerator
 {
@@ -38,7 +39,7 @@ class HeroGenerator
             ]);
             $crazy = "Heroes\\hero\\crazy\\$crazy";
             $hero->crazy = new $crazy($this->engine);
-            $hero->crazy->create();
+            $hero->crazy->create($hero);
         }
 
 
@@ -83,8 +84,5 @@ class HeroGenerator
            new TableEntry(90, 'hardware'),
            new TableEntry(100, 'aliens'),
         ]);
-
-        // TODO: hook up powers
-        echo "chosen class is: $class\n";
     }
 }

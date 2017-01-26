@@ -2,12 +2,13 @@
 namespace Heroes\hero\crazy;
 
 use Heroes\engine\TableEntry;
+use Heroes\hero\Hero;
 
 class Frenzy extends BaseCrazy
 {
     public $condition;
 
-    function create()
+    function create(Hero &$hero)
     {
         $this->condition = $this->engine->tableRoller->rollTable('Frenzy: condition', [
            new TableEntry(20, 'Intense Frustration'),

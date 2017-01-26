@@ -3,11 +3,13 @@ namespace Heroes\hero\insanity;
 
 class Insanity
 {
-    private $engine;
+    public $type;
+    public $description;
 
-    function __construct($engine)
+    function __construct($type, $description)
     {
-        $this->engine = $engine;
+        $this->type = $type;
+        $this->description = $description;
     }
 
 }

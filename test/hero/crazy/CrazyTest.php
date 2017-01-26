@@ -2,13 +2,13 @@
 
 namespace Heroes\test\hero\crazy;
 
-use Heroes\hero\crazy\Frenzy;
+use Heroes\hero\crazy\Crazy;
 use Heroes\hero\Hero;
 use Heroes\HeroGenerator;
 use Heroes\tests\utilities\TestRoll;
 use Heroes\tests\utilities\TestRoller;
 
-class FrenzyTest extends \PHPUnit_Framework_TestCase
+class CrazyTest extends \PHPUnit_Framework_TestCase
 {
     private $heroGenerator;
     private $testRoller;
@@ -22,17 +22,20 @@ class FrenzyTest extends \PHPUnit_Framework_TestCase
         $this->heroGenerator->engine->roller = $this->testRoller;
     }
 
-    public function testFrenzy()
+    public function testCrazy()
     {
-        $frenzy = new Frenzy($this->heroGenerator->engine);
+        $crazy = new Crazy($this->heroGenerator->engine);
 
         $this->testRoller->setTestRolls([
-            new TestRoll(100, 10, 'Frenzy: condition'),
+            new TestRoll(100, 13, 'Insanity: Phobia'),
+            new TestRoll(100, 13, 'Insanity: Phobia'),
+            new TestRoll(2, 1, 'Obsession: love/hate'),
+            new TestRoll(100, 56, 'Insanity: Obsession'),
         ]);
         $hero = new Hero();
-        $frenzy->create($hero);
+        $crazy->create($hero);
         $this->testRoller->verifyTestRolls();
 
-        $this->assertEquals('Intense Frustration', $frenzy->condition);
+        $this->assertEquals(3, count($hero->insanities));
     }
 }

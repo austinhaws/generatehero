@@ -2,6 +2,7 @@
 namespace Heroes\hero\crazy;
 
 use Heroes\engine\Engine;
+use Heroes\hero\Hero;
 
 abstract class BaseCrazy
 {
@@ -12,5 +13,5 @@ abstract class BaseCrazy
         $this->engine = $engine;
     }
 
-    abstract function create();
+    abstract function create(Hero &$hero);
 }
