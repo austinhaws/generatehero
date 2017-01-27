@@ -23,7 +23,7 @@ class TestRoll
     /**
      * this roll is a place holder until the test cares again
      *
-     * @param $until true = forever, string = until that roll comes up
+     * @param $until boolean|string true = forever, string = until that roll comes up
      * @return TestRoll this for chaining
      */
     public function dontCareUntil($until)

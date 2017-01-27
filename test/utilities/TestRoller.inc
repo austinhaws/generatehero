@@ -39,7 +39,10 @@ class TestRoller extends Roller
         }
 
         $roll = array_shift($this->testRolls);
-        if (!$roll->dontCareUntil || $roll->dontCareUntil === $name) {
+        if ($roll->dontCareUntil === $name) {
+            $roll = array_shift($this->testRolls);
+        }
+        if (!$roll->dontCareUntil) {
             $this->rollIndex++;
             $roll->validate($numberSides, $name, $this->rollIndex);
         } else {

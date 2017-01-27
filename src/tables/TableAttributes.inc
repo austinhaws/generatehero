@@ -30,12 +30,6 @@ class TableAttributes
      */
     public function applyAttributeBonuses(Hero &$hero)
     {
-        $attributes = ['intelligenceQuotient', 'mentalEndurance', 'mentalAffinity', 'physicalStrength', 'physicalProwess', 'physicalEndurance', 'physicalBeauty', 'speed'];
-        foreach ($attributes as $attribute) {
-            if ($hero->$attribute >= 16) {
-                $hero->$attribute += $this->engine->roller->rollDice('=16 attribute bonus', 1, 6);
-            }
-        }
         $this->applyAttributeBonus_IQ($hero);
         $this->applyAttributeBonus_MentalEndurance($hero);
         $this->applyAttributeBonus_MentalAffinity($hero);

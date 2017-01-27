@@ -24,12 +24,17 @@ class HeroGenerator
     {
         $hero = new Hero();
 
-        // step 1 - attributes (rolling/calculating them)
-//        [ ] option 1 : roll
-//        [ ] option 2 : roll extras, keep highest
-//        [ ] option 3 : point buy?
-//        [ ] option 4 ?? what other ways to generate scores for a generator
+        // step 1 - attributes (3d6; +1d6 if >= 16)
+        $attributes = ['intelligenceQuotient', 'mentalEndurance', 'mentalAffinity', 'physicalStrength', 'physicalProwess', 'physicalEndurance', 'physicalBeauty', 'speed'];
+        foreach ($attributes as $attribute) {
+            $hero->$attribute = $this->engine->roller->rollDice($attribute, 3, 6);
+            if ($hero->$attribute >= 16) {
+                $hero->$attribute += $this->engine->roller->rollDice('=16 attribute bonus', 1, 6);
+            }
+        }
 
+
+        // is the hero crazy?
         if ($this->engine->roller->rollDice('is crazy?', 1, 100) == 100) {
             $crazy = $this->engine->tableRoller->rollTable('crazy element', [
                 new TableEntry(30, 'Frenzy'),
