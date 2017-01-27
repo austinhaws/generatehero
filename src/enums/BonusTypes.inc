@@ -15,4 +15,10 @@ abstract class BonusTypes {
     // health
     const HIT_POINTS = 'Hit Points';
     const SDC = 'SDC';
+
+    // combat
+    const ATTACKS_PER_MELEE = 'Attacks per melee';
+    const PARRY = 'Parry';
+    const ROLL = 'Roll';
+    const SKILL = 'Skill';
 }

@@ -57,7 +57,11 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
             new TestRoll(6, 2, 'speed'),
 
             new TestRoll(100, 1, 'is crazy?'),
-            new TestRoll(100, 1, 'power category'),
+            new TestRoll(100, 100, 'power category'),
+
+            // -- skip alien stuff -- //
+
+            (new TestRoll())->dontCareUntil('Alignment'),
             new TestRoll(100, 1, 'Alignment'),
 
             new TestRoll(100, 30, 'birth order'),
@@ -74,7 +78,6 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
         ]);
         $hero = $this->heroGenerator->generate();
         $this->testRoller->verifyTestRolls();
-        var_dump($hero);
     }
 
     public function testGenerate_isCrazy_frenzy()
@@ -86,7 +89,7 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
             new TestRoll(100, 12, 'Frenzy: condition'),
 
             // all done being crazy
-            new TestRoll(100, 1, 'power category'),
+            new TestRoll(100, 100, 'power category'),
             (new TestRoll())->dontCareUntil(true),
         ]);
 
@@ -106,7 +109,7 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
             new TestRoll(100, 1, 'Popeye: power food'),
 
             // all done being crazy
-            new TestRoll(100, 1, 'power category'),
+            new TestRoll(100, 100, 'power category'),
             (new TestRoll())->dontCareUntil(true),
         ]);
 

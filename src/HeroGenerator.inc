@@ -10,6 +10,7 @@ use Heroes\tables\TableAttributes;
 use Heroes\hero\crazy\Association;
 use Heroes\hero\crazy\Crazy;
 use Heroes\hero\crazy\Frenzy;
+use Heroes\hero\classes\Aliens;
 
 class HeroGenerator
 {
@@ -89,16 +90,19 @@ class HeroGenerator
     private function generatePowerCategory(Hero &$hero)
     {
         $class = $this->engine->tableRoller->rollTable('power category', [
-           new TableEntry(10, 'experiment'),
-           new TableEntry(20, 'robotics'),
-           new TableEntry(30, 'bionics/implants'),
-           new TableEntry(40, 'special training'),
-           new TableEntry(50, 'mutants'),
-           new TableEntry(60, 'psionics'),
-           new TableEntry(70, 'physical training'),
-           new TableEntry(80, 'magic'),
-           new TableEntry(90, 'hardware'),
-           new TableEntry(100, 'aliens'),
+           new TableEntry(10, 'Experiment'),
+           new TableEntry(20, 'Robotics'),
+           new TableEntry(30, 'BionicsImplants'),
+           new TableEntry(40, 'SpecialTraining'),
+           new TableEntry(50, 'Mutants'),
+           new TableEntry(60, 'Psionics'),
+           new TableEntry(70, 'PhysicalTraining'),
+           new TableEntry(80, 'Magic'),
+           new TableEntry(90, 'Hardware'),
+           new TableEntry(100, 'Aliens'),
         ]);
+
+        $class = "Heroes\\hero\\classes\\$class";
+        $hero->class = (new $class($this->engine))->create($hero);
     }
 }
