@@ -21,6 +21,62 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->heroGenerator->engine->roller = $this->testRoller;
     }
 
+    public function testGenerate()
+    {
+        $this->testRoller->setTestRolls([
+            new TestRoll(6, 3, 'intelligenceQuotient'),
+            new TestRoll(6, 1, 'intelligenceQuotient'),
+            new TestRoll(6, 2, 'intelligenceQuotient'),
+
+            new TestRoll(6, 3, 'mentalEndurance'),
+            new TestRoll(6, 1, 'mentalEndurance'),
+            new TestRoll(6, 2, 'mentalEndurance'),
+
+            new TestRoll(6, 3, 'mentalAffinity'),
+            new TestRoll(6, 1, 'mentalAffinity'),
+            new TestRoll(6, 2, 'mentalAffinity'),
+
+            new TestRoll(6, 3, 'physicalStrength'),
+            new TestRoll(6, 1, 'physicalStrength'),
+            new TestRoll(6, 2, 'physicalStrength'),
+
+            new TestRoll(6, 3, 'physicalProwess'),
+            new TestRoll(6, 1, 'physicalProwess'),
+            new TestRoll(6, 2, 'physicalProwess'),
+
+            new TestRoll(6, 3, 'physicalEndurance'),
+            new TestRoll(6, 1, 'physicalEndurance'),
+            new TestRoll(6, 2, 'physicalEndurance'),
+
+            new TestRoll(6, 3, 'physicalBeauty'),
+            new TestRoll(6, 1, 'physicalBeauty'),
+            new TestRoll(6, 2, 'physicalBeauty'),
+
+            new TestRoll(6, 3, 'speed'),
+            new TestRoll(6, 1, 'speed'),
+            new TestRoll(6, 2, 'speed'),
+
+            new TestRoll(100, 1, 'is crazy?'),
+            new TestRoll(100, 1, 'power category'),
+            new TestRoll(100, 1, 'Alignment'),
+
+            new TestRoll(100, 30, 'birth order'),
+            new TestRoll(100, 30, 'weight'),
+            new TestRoll(100, 30, 'height'),
+            new TestRoll(100, 30, 'disposition'),
+            new TestRoll(100, 30, 'life savings'),
+            new TestRoll(100, 30, 'land of origin'),
+            new TestRoll(100, 30, 'environment'),
+            new TestRoll(100, 30, 'social/economic background'),
+            new TestRoll(100, 30, 'when manifested'),
+
+            new TestRoll(6, 2, 'starting hps bonus'),
+        ]);
+        $hero = $this->heroGenerator->generate();
+        $this->testRoller->verifyTestRolls();
+        var_dump($hero);
+    }
+
     public function testGenerate_isCrazy_frenzy()
     {
         $this->testRoller->setTestRolls([

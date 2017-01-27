@@ -44,9 +44,9 @@ class TableAttributes
 
     private function calculateHitPoints(Hero &$hero)
     {
-        // add 1d6
+        // physical endurance + 1d6
         $hpBonus = $this->engine->roller->rollDice('starting hps bonus', 1, 6);
-        $hero->hitPoints += $hpBonus;
+        $hero->hitPoints = $hero->physicalEndurance + $hpBonus;
         $hero->addBonus(BonusTypes::HIT_POINTS, $hpBonus, 'Starting character bonus hit points');
 
     }

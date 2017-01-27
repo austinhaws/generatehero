@@ -32,6 +32,8 @@ class Hero {
     public $socialEconomic;
     public $whenManifested;
 
+    public $alignment;
+
     // false or a class of BaseCrazy type
     public $crazy = null;
 
