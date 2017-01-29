@@ -21,4 +21,8 @@ abstract class BonusTypes {
     const PARRY = 'Parry';
     const ROLL = 'Roll';
     const SKILL = 'Skill';
+    const DODGE = 'Dodge';
+
+    // other
+    const MONEY = 'Money';
 }

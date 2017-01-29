@@ -23,8 +23,8 @@ class Hero
     public $runsMilesPerHour;
 
     // health
-    public $hitPoints;
-    public $sdc;
+    public $hitPoints = 0;
+    public $sdc = 0;
 
     // optionals
     public $birthOrder;
@@ -37,6 +37,8 @@ class Hero
     public $socialEconomic;
     public $whenManifested;
 
+    public $money = 0;
+
     public $alignment;
 
     public $skills;
@@ -45,9 +47,12 @@ class Hero
     public $class;
 
     // combat
-    public $attacksPerMelee;
+    public $attacksPerMelee = 2;
     public $parry;
     public $roll;
+    public $dodge;
+    // private because setting should keep the max and not be cumulative
+    private $naturalArmor;
 
     // false or a class of BaseCrazy type
     public $crazy = null;
@@ -59,6 +64,9 @@ class Hero
     // if the character picks up an insanity it is loaded here (pg 24)
     public $insanities = [];
 
+    // abilities and super abilities of the hero; array of Ability classes
+    public $abilities = [];
+
     function __construct()
     {
         $this->skills = [
@@ -67,6 +75,7 @@ class Hero
             Skills::ESCAPE_ARTIST => 0,
             Skills::MECHANICAL_REPAIR => 0,
             Skills::PICK_LOCKS => 0,
+            Skills::SWIMMING => 0,
         ];
     }
 
@@ -131,6 +140,14 @@ class Hero
                 $this->roll += $value;
                 break;
 
+            case BonusTypes::DODGE:
+                $this->dodge += $value;
+                break;
+
+            case BonusTypes::MONEY:
+                $this->money += $value;
+                break;
+
             default:
                 throw new \Exception("How is this bonus applied? - $bonusType");
         }
@@ -161,5 +178,25 @@ class Hero
     public function outputCharacter()
     {
         return json_encode($this);
+    }
+
+    /**
+     * ability or super ability of the hero
+     *
+     * @param Ability $ability new ability
+     */
+    public function addAbility(Ability $ability)
+    {
+        $this->abilities[] = $ability;
+    }
+
+    /**
+     * keep the max natural armor
+     *
+     * @param $naturalArmor int possible new natural armor value
+     */
+    public function setNaturalArmor($naturalArmor)
+    {
+        $this->naturalArmor = max($naturalArmor ? $naturalArmor : 0, $this->naturalArmor);
     }
 }
