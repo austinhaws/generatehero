@@ -4,7 +4,6 @@ namespace Heroes\hero\classes;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTypes;
-use Heroes\enums\Skills;
 use Heroes\hero\Ability;
 use Heroes\hero\Hero;
 

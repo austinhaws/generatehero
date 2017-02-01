@@ -77,6 +77,7 @@ class HeroGenerator
         // rounding out character
 
         // after skills are determined, and all bonuses to abilities are gathered, then apply bonuses based on abilities
+throw new \Exception("apply all heroes bonuses (saved until end so that \"set\" bonuses can get the biggest value and then apply all the bonuses on top of that)");
         (new TableAttributes($this->engine))->applyAttributeBonuses($hero);
 
         return $hero;
