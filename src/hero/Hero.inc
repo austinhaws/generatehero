@@ -71,12 +71,29 @@ class Hero
     {
         $this->skills = [
             Skills::CLIMBING => 0,
+            Skills::CONCEALMENT => 0,
             Skills::ELECTRICAL_REPAIR => 0,
             Skills::ESCAPE_ARTIST => 0,
             Skills::MECHANICAL_REPAIR => 0,
+            Skills::PALMING => 0,
             Skills::PICK_LOCKS => 0,
+            Skills::PICK_POCKET => 0,
+            Skills::PROWL => 0,
             Skills::SWIMMING => 0,
         ];
+    }
+
+    /**
+     * set a value instead of adding to it. keep the larger value
+     *
+     * @param $bonusType String BonusTypes constant of the bonus
+     * @param $value number/string how much the bonus is
+     * @param $message string why they get this bonus
+     * @throws \Exception
+     */
+    public function setBonus($bonusType, $value, $message)
+    {
+
     }
 
     /**
@@ -95,28 +112,35 @@ class Hero
         switch ($bonusType) {
             case BonusTypes::SKILL:
                 throw new \Exception('Skills should instead use addSkillBonus');
-                break;
+
             case BonusTypes::INTELLIGENCE_QUOTIENT:
                 $this->intelligenceQuotient += $value;
                 break;
+
             case BonusTypes::MENTAL_ENDURANCE:
                 $this->mentalEndurance += $value;
                 break;
+
             case BonusTypes::MENTAL_AFFINITY:
                 $this->mentalAffinity += $value;
                 break;
+
             case BonusTypes::PHYSICAL_STRENGTH:
                 $this->physicalStrength += $value;
                 break;
+
             case BonusTypes::PHYSICAL_PROWESS:
                 $this->physicalProwess += $value;
                 break;
+
             case BonusTypes::PHYSICAL_ENDURANCE:
                 $this->physicalEndurance += $value;
                 break;
+
             case BonusTypes::PHYSICAL_BEAUTY:
                 $this->physicalBeauty += $value;
                 break;
+
             case BonusTypes::SPEED:
                 $this->speed += $value;
                 break;
@@ -124,6 +148,7 @@ class Hero
             case BonusTypes::HIT_POINTS:
                 $this->hitPoints += $value;
                 break;
+
             case BonusTypes::SDC:
                 $this->sdc += $value;
                 break;
@@ -173,6 +198,27 @@ class Hero
     }
 
     /**
+     * sets skill to the max of current/new value
+     *
+     * @param $skill string the skill
+     * @param $value int the value of the skill
+     * @param $message string reason for setting the skill
+     * @throws \Exception
+     */
+    public function setSkillBonus($skill, $value, $message)
+    {
+        if (!isset($this->skills[$skill])) {
+            throw new \Exception("Skill default not set: $skill");
+        }
+
+        if ($this->skills[$skill] < $value) {
+            $this->bonuses[] = new Bonus(BonusTypes::SKILL . ' (set) - ' . $skill, $value, $message);
+            $this->skills[$skill] = $value;
+        }
+
+    }
+
+    /**
      * @return string the character information
      */
     public function outputCharacter()
@@ -183,11 +229,18 @@ class Hero
     /**
      * ability or super ability of the hero
      *
-     * @param Ability $ability new ability
+     * @param Ability $ability new ability to try to add
+     * @return boolean true if the ability was added, false if it already existed
      */
     public function addAbility(Ability $ability)
     {
-        $this->abilities[] = $ability;
+        $found = count(array_filter($this->abilities, function (Ability $testAbility) use ($ability) {
+           return $testAbility->title == $ability->title;
+        }));
+        if (!$found) {
+            $this->abilities[] = $ability;
+        }
+        return $found ? false : true;
     }
 
     /**

@@ -24,7 +24,7 @@ class TableRoller {
         }
 
         $max = $table[count($table) - 1]->max;
-        $roll = $this->engine->roller->rollDice("$name", 1, $max);
+        $roll = $this->engine->roller->rollDice(new Roll("$name", 1, $max));
 
         for ($x = 0; $x < count($table) && $table[$x]->max < $roll; $x++) {
             // move to the next table entry

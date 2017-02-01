@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTypes;
 use Heroes\enums\Skills;
@@ -25,7 +26,7 @@ class Aliens extends BaseClass
     function create(Hero &$hero)
     {
         $hero->addBonus(BonusTypes::SDC, 20, 'Alien base SDC');
-        
+
         $this->rollAppearance($hero);
 
         $this->rollPhysiologicalModification($hero);
@@ -57,7 +58,7 @@ class Aliens extends BaseClass
             new TableEntry(88, [4, 6]),
             new TableEntry(100, [6, 6]),
         ]);
-        $money = $this->engine->roller->rollDice('Alien: Money', $dice, $sides);
+        $money = $this->engine->roller->rollDice(new Roll('Alien: Money', $dice, $sides));
         $hero->addBonus(BonusTypes::MONEY, $money * 1000, 'Alien: Money');
     }
 
@@ -78,7 +79,7 @@ class Aliens extends BaseClass
     private function rollEquipment(Hero &$hero)
     {
         // clothes
-        $this->earthClothesDisguise = $this->engine->roller->rollDice('Alien: equipment', 1, 100) <= 40 ? 'None' : 'Several suits of clothing';
+        $this->earthClothesDisguise = $this->engine->roller->rollDice(new Roll('Alien: equipment', 1, 100)) <= 40 ? 'None' : 'Several suits of clothing';
 
         // special weapon
         $this->specialWeapon = $this->engine->tableRoller->rollTable('Alien: Special Weapon', [
@@ -105,17 +106,17 @@ class Aliens extends BaseClass
         switch ($result) {
             case 'none':
                 $this->familiarity = 'No familiarity with Earth\'s culture, science, or laws. However, can understand, speak, and write English quite well.';
-                $hero->addSkillBonus(Skills::LANGUAGE, 88, 'Alien: Familiarity - none');
+                $hero->setSkillBonus(Skills::LANGUAGE, 88, 'Alien: Familiarity - none');
                 break;
 
             case 'some':
                 $this->familiarity = 'Some familiarity with Earth, its major nations, cultures, and laws. Can speak, read, and write four Earth languages.';
-                $hero->addSkillBonus(Skills::LANGUAGE, 90, 'Alien: Familiarity - some');
+                $hero->setSkillBonus(Skills::LANGUAGE, 90, 'Alien: Familiarity - some');
                 break;
 
             case 'studied':
                 $this->familiarity = 'Has studied Earth intensely and is as knowledgeable as a well-informed native human. Can speak, read and write six different Earth languages fluently.';
-                $hero->addSkillBonus(Skills::LANGUAGE, 98, 'Alien: Familiarity - studied');
+                $hero->setSkillBonus(Skills::LANGUAGE, 98, 'Alien: Familiarity - studied');
                 break;
 
             default:
@@ -198,7 +199,7 @@ class Aliens extends BaseClass
 
     private function rollSuperabilities(Hero &$hero)
     {
-        $class = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
+        $abilities = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
             new TableEntry(49, 'super abiltities'),
             new TableEntry(60, 'Psionics'),
             new TableEntry(69, 'Experiment'),
@@ -206,7 +207,12 @@ class Aliens extends BaseClass
             new TableEntry(89, 'Mystic - wizard/spells only'),
             new TableEntry(100, 'Bionics'),
         ]);
-        throw new \Exception("Alien superabilities: $class (pg 56)");
+        switch ($abilities) {
+            case 'super abilities':
+                break;
+            default:
+                throw new \Exception("Alien superabilities: $abilities (pg 56)");
+        }
     }
 
     private function rollPhysiologicalModification(Hero &$hero)
@@ -224,21 +230,21 @@ class Aliens extends BaseClass
         switch ($result) {
             case 'High Gravity':
                 $this->physiologicalModification = 'High Gravity: The gravitational force of the alien\'s homeworld was considerably greater than Earth\'s. This has given the alien a greater mass and physical endurance, but he is much faster and lighter on our planet Earth than on his homeworld. Short in height.';
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice('Alien: High Gravity - SDC', 3, 4) * 10, 'Alien: High Gravity');
-                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice('Alien: High Gravity - PS', 2, 4), 'Alien: High Gravity');
+                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: High Gravity - SDC', 3, 4)) * 10, 'Alien: High Gravity');
+                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice(new Roll('Alien: High Gravity - PS', 2, 4)), 'Alien: High Gravity');
                 $hero->addBonus(BonusTypes::SPEED, $hero->speed * 2, 'Alien: High Gravity');
                 break;
 
             case 'Low Gravity':
                 $this->physiologicalModification = 'Low Gravity: The alien\'s homeworld had a much lighter gravity than Earth\'s. This has made the alien much taller than a typical human. Although the increased gravitational pull of our planet Earth slows the alien, it also provides him with somehwat greater mass.';
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice('Alien: Low Gravity - SDC', 1, 4) * 10, 'Alien: Low Gravity');
-                $hero->addBonus(BonusTypes::PHYSICAL_PROWESS, $this->engine->roller->rollDice('Alien: Low Gravity - PS', 2, 4), 'Alien: Low Gravity');
+                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: Low Gravity - SDC', 1, 4)) * 10, 'Alien: Low Gravity');
+                $hero->addBonus(BonusTypes::PHYSICAL_PROWESS, $this->engine->roller->rollDice(new Roll('Alien: Low Gravity - PS', 2, 4)), 'Alien: Low Gravity');
                 $hero->addBonus(BonusTypes::SPEED, -1 * floor($hero->speed / 2), 'Alien: Low Gravity');
                 break;
 
             case 'High Radiation':
                 $this->physiologicalModification = 'High Radiation: Constant exposure to radiation has made the alien impervious to the effects of radiation levels that would normally kill a human. Unfortunately, the alien radiates low levels of radioactivity that could harm humans if exposed to him for a few weeks. Consequently, the alien must wear a radiation proof suit to protect human allies. Tall in height.';
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice('Alien: High Radiation - SDC', 1, 4) * 10, 'Alien: High Radiation');
+                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: High Radiation - SDC', 1, 4)) * 10, 'Alien: High Radiation');
                 $hero->addAbility(new Ability('See Ultraviolet', 'Can see in to the ultraviolet range of light.'));
                 break;
 
@@ -263,7 +269,7 @@ class Aliens extends BaseClass
 
             case 'Abrasive Atmosphere':
                 $this->physiologicalModification = 'Abrasive Atmosphere: High scathing winds or corrosive atmosphere is this alien\'s natural environment. This being has developed a tough thick skin or leathery plating like a rhinoceros. Short in height';
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice('Alien: Abrasive - SDC', 3, 6) * 10, 'Alien: Abrasive Atmosphere');
+                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: Abrasive - SDC', 3, 6)) * 10, 'Alien: Abrasive Atmosphere');
                 $hero->setNaturalArmor(12);
                 break;
 
@@ -408,8 +414,8 @@ class Aliens extends BaseClass
 
             case 'Stocky':
                 $this->appearance .= 'Stocky, exceptionally broad or husky person about twice as broad as a normal human.';
-                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice('Stocky: PS', 1, 4), 'Stocky');
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice('Stocky: SDC', 4, 4), 'Stocky');
+                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice(new Roll('Stocky: PS', 1, 4)), 'Stocky');
+                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Stocky: SDC', 4, 4)), 'Stocky');
                 break;
         }
     }
@@ -448,7 +454,7 @@ class Aliens extends BaseClass
 
             case 'Humanoid Amphibian':
                 $this->appearance = 'Humanoid Amphibian: Soft, smooth skin; webbed hands and feet; semi-aquatic. Can hold breath up to 20 minutes. Skin color is green-brown-tan-yellow-blotchy.';
-                $hero->addSkillBonus(Skills::SWIMMING, 90, 'Alien: Humanoid Amphibian');
+                $hero->setSkillBonus(Skills::SWIMMING, 90, 'Alien: Humanoid Amphibian');
                 break;
             case 'Vegetation':
                 $this->appearance = 'Vegetation: Composed of the same essence as earth plant-life. Various shades of green or yellow.';
@@ -463,8 +469,8 @@ class Aliens extends BaseClass
 
             case 'Humanoid Canine':
                 $this->appearance = 'Humanoid Canine: Dog-like features, body fur or extreme body hair, dark eyes.';
-                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice('Alien: Canine - PS', 1, 4), 'Alien: Humanoid Canine');
-                $hero->addBonus(BonusTypes::SPEED, $this->engine->roller->rollDice('Alien: Canine - Speed', 1, 4), 'Alien: Humanoid Canine');
+                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice(new Roll('Alien: Canine - PS', 1, 4)), 'Alien: Humanoid Canine');
+                $hero->addBonus(BonusTypes::SPEED, $this->engine->roller->rollDice(new Roll('Alien: Canine - Speed', 1, 4)), 'Alien: Humanoid Canine');
                 $hero->addBonus(BonusTypes::SDC, 10, 'Alien: Humanoid Canine');
                 break;
 
@@ -486,13 +492,13 @@ class Aliens extends BaseClass
 
             case 'Humanoid Ape':
                 $this->appearance = 'Humanoid Ape: Resembles an ape (no tail); long arms, fur covered or extremely hairy body';
-                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice('Aline: Ape - PS', 1, 6), 'Alien: Ape');
+                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice(new Roll('Aline: Ape - PS', 1, 6)), 'Alien: Ape');
                 $hero->addBonus(BonusTypes::SDC, 20, 'Alien: Ape');
                 break;
 
             case 'Humanoid Aquatic':
                 $this->appearance = 'Humanoid Aquatic: Fish, dolphin, or whale; webbed feet and hands, smooth or scaly skin, blowhole or gills, no body hair, brightly colored.';
-                $hero->addSkillBonus(Skills::SWIMMING, 90, 'Alien: Aquatic');
+                $hero->setSkillBonus(Skills::SWIMMING, 90, 'Alien: Aquatic');
                 $hero->addBonus(BonusTypes::SDC, 20, 'Alien: Aquatic');
                 break;
 

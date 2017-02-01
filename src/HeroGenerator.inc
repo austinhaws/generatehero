@@ -3,6 +3,7 @@
 namespace Heroes;
 
 use Heroes\engine\Engine;
+use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
@@ -28,15 +29,15 @@ class HeroGenerator
         // step 1 - attributes (3d6; +1d6 if >= 16)
         $attributes = ['intelligenceQuotient', 'mentalEndurance', 'mentalAffinity', 'physicalStrength', 'physicalProwess', 'physicalEndurance', 'physicalBeauty', 'speed'];
         foreach ($attributes as $attribute) {
-            $hero->$attribute = $this->engine->roller->rollDice($attribute, 3, 6);
+            $hero->$attribute = $this->engine->roller->rollDice(new Roll($attribute, 3, 6));
             if ($hero->$attribute >= 16) {
-                $hero->$attribute += $this->engine->roller->rollDice('=16 attribute bonus', 1, 6);
+                $hero->$attribute += $this->engine->roller->rollDice(new Roll('=16 attribute bonus', 1, 6));
             }
         }
 
 
         // is the hero crazy?
-        if ($this->engine->roller->rollDice('is crazy?', 1, 100) == 100) {
+        if ($this->engine->roller->rollDice(new Roll('is crazy?', 1, 100)) == 100) {
             $crazy = $this->engine->tableRoller->rollTable('crazy element', [
                 new TableEntry(30, 'Frenzy'),
                 new TableEntry(60, 'Association'),

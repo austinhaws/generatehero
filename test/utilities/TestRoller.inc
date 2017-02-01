@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\tests\utilities;
 
+use Heroes\engine\Roll;
 use Heroes\engine\Roller;
 
 class TestRoller extends Roller
@@ -11,18 +12,16 @@ class TestRoller extends Roller
     /**
      * override original roller to do preentered rolls
      *
-     * @param $name string name for debugging/informational
-     * @param $numberDice int how many dice to roll
-     * @param $numberSides int how many sides on each dice
+     * @param $roll Roll the roll to roll
      * @return int total of all the rolls
      */
-    public function rollDice($name, $numberDice, $numberSides)
+    public function rollDice(Roll $roll)
     {
-        $roll = 0;
-        for ($x = 0; $x < $numberDice; $x++) {
-            $roll += $this->getRoll($name, $numberSides);
+        $result = 0;
+        for ($x = 0; $x < $roll->numberDice; $x++) {
+            $result += $this->getRoll($roll->name, $roll->numberSides);
         }
-        return $roll;
+        return $result;
     }
 
     /**

@@ -2,6 +2,7 @@
 namespace Heroes\tables;
 
 use Heroes\engine\Engine;
+use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 use Heroes\hero\insanity\Insanity;
@@ -117,7 +118,7 @@ class TableInsanity
                 break;
 
             case TableInsanity::OBSESSION:
-                $detail = ($this->engine->roller->rollDice('Obsession: love/hate', 1, 2) == 1 ? 'Love ' : 'Hate ')
+                $detail = ($this->engine->roller->rollDice(new Roll('Obsession: love/hate', 1, 2)) == 1 ? 'Love ' : 'Hate ')
                     . $this->engine->tableRoller->rollTable('Insanity: Obsession', [
                         New TableEntry(5, 'Timelines: '),
                         New TableEntry(12, 'High Technology: Acquire/Use'),
@@ -136,7 +137,7 @@ class TableInsanity
                     ]);
 
                 if (strpos($detail, 'Timelines') !== false) {
-                    $detail .= $this->engine->roller->rollDice('Timeline', 1, 2) == 1 ? 'Punctuality' : 'Tardiness';
+                    $detail .= $this->engine->roller->rollDice(new Roll('Timeline', 1, 2)) == 1 ? 'Punctuality' : 'Tardiness';
                 }
                 break;
 
@@ -179,7 +180,7 @@ class TableInsanity
 
                 // additional details
                 if (strpos($detail, 'Manic Depressive') !== false) {
-                    if ($this->engine->roller->rollDice('Manic Depressive: Alcoholism', 1, 100) <= 30) {
+                    if ($this->engine->roller->rollDice(new Roll('Manic Depressive: Alcoholism', 1, 100)) <= 30) {
                         $this->addInsanity($hero, TableInsanity::ALCOHOLISM);
                     }
                 } else if ($detail === 'Mindless Aggression: ') {
@@ -187,8 +188,8 @@ class TableInsanity
                         new TableEntry(94, 'Semi-Functional: when frustrated, angry, or upset, there is a 72% likelihood of going berserk and lashing out at anyone/everyone around until killed or confined; will take 3-18 minutes of confinement to regain composure.'),
                         new TableEntry(100, 'Non-Functional/Homicidal: Continually going berserk until confined or killed; have one lucid day a week and try to talk your way out of confinement.'),
                     ]);
-                } else if (strpos($detail, 'Schizophrenia') !== false && $this->engine->roller->rollDice('Schizophrenia: Addiction', 1, 100) <= 50) {
-                    $this->addInsanity($hero, $this->engine->roller->rollDice('Schizophrenia: Addiction Type', 1, 2) == 1 ? TableInsanity::ALCOHOLISM : TableInsanity::DRUGS);
+                } else if (strpos($detail, 'Schizophrenia') !== false && $this->engine->roller->rollDice(new Roll('Schizophrenia: Addiction', 1, 100)) <= 50) {
+                    $this->addInsanity($hero, $this->engine->roller->rollDice(new Roll('Schizophrenia: Addiction Type', 1, 2)) == 1 ? TableInsanity::ALCOHOLISM : TableInsanity::DRUGS);
                 }
                 break;
 

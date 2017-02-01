@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\crazy;
 
+use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 
@@ -65,7 +66,7 @@ class Personalities extends BaseCrazy
                 case 'Unprincipled':
                 case 'Anarchist':
                     // selfish
-                    $goodEvil = $this->engine->roller->rollDice('Personality: selfish', 1, 2) == 2 ? 'Good' : 'Evil';
+                    $goodEvil = $this->engine->roller->rollDice(new Roll('Personality: selfish', 1, 2)) == 2 ? 'Good' : 'Evil';
                     break;
                 case 'Miscreant':
                 case 'Aberrant':

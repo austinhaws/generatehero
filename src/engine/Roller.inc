@@ -11,12 +11,27 @@ class Roller
      * @param $numberSides int maximum number on the dice
      * @return int result of the roll
      */
-    public function rollDice($name, $numberDice, $numberSides)
+    private function _rollDice($name, $numberDice, $numberSides)
     {
         $roll = 0;
         for ($x = 0; $x < $numberDice; $x++) {
             $roll += mt_rand(1, $numberSides);
         }
         return $roll;
+    }
+
+    /**
+     * roll a dice roll
+     *
+     * @param Roll $roll the roll details
+     * @return int the final result
+     */
+    public function rollDice(Roll $roll)
+    {
+        $result = 0;
+        for ($x = 0; $x < $roll->numberDice; $x++) {
+            $result += mt_rand(1, $roll->numberSides);
+        }
+        return $result;
     }
 }
