@@ -68,10 +68,9 @@ class TableSuperAbilities
 
             new TableEntry(6, new Ability('Extraordinary Mental Affinity', 'An aura of likability, confidence, and trust radiates from this character. He or she is so dynamic that they are often the center of attention and make the opposite sex swoon.'),
                 [
-                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Extraordinary Mental Affinity Bonus', 2, 4), 'Extraordinary Mental Affinity'),
+                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Extraordinary Mental Affinity', 2, 4), 'Extraordinary Mental Affinity'),
                     new Bonus(Bonus::BONUS_TYPE_SET, BonusTypes::ATTRIBUTE_MENTAL_AFFINITY, 24, 'Extraordinary Mental Affinity'),
-add skills
-type for deception/sleight of hand
+                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_GROUP_DECEPTION_SLEIGHT_OF_HAND, 10, 'Extraordinary Mental Affinity'),
                 ]),
 
             new TableEntry(9, new Ability('Bend Light', 'The ability to bend light allows the character to manipulate light radiation like a prism. THis can produce a number of effects. 1 - Separate the colors bands of light to produce a colored light beam or radiate about 70 watts of colored light; Range: 100ft. 2 - Parries lasers and other light beams by bending the light around him, or a 10ft area, to deflect the beam. Roll just like a normal parry. 3 - Can see in to the infrared and ultraviolet light range; 100ft maximum distance.')),
@@ -103,7 +102,7 @@ type for deception/sleight of hand
                 [
                     new Bonus(Bonus::BONUS_TYPE_SET, BonusTypes::SKILL_CLIMBING, 90, 'Adhesion'),
                     new Bonus(Bonus::BONUS_TYPE_SET, BonusTypes::SKILL_PROWL, 90, 'Adhesion'),
-                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_PICK_POCKET, 30, 'Adhesion'),
+                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_PICK_POCKETS, 30, 'Adhesion'),
                     new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_PALMING, 30, 'Adhesion'),
                     new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_CONCEALMENT, 30, 'Adhesion'),
                 ]),
@@ -120,7 +119,11 @@ type for deception/sleight of hand
 
             new TableEntry(67, new Ability('Heightened Sense of Smell', 'temp')),
 
-            new TableEntry(70, new Ability('Extraordinary Mental ENdurance', 'temp')),
+            new TableEntry(70, new Ability('Extraordinary Mental Endurance', 'A very mentally stable and strong personality that is difficult to suppress or break. This guy has a will of iron.'),
+                [
+                    new Bonus(Bonus::BONUS_TYPE_SET, BonusTypes::ATTRIBUTE_MENTAL_ENDURANCE, 20, 'Extraordinary Mental Endurance'),
+                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Extraordinary Mental Endurance', 2, 4), 'Extraordinary Mental Endurance'),
+                ]),
 
             new TableEntry(73, new Ability('Impervious to Fire & Heat', 'temp')),
 

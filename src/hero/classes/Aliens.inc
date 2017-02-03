@@ -5,6 +5,7 @@ use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTypes;
 use Heroes\hero\Ability;
+use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 
 class Aliens extends BaseClass
@@ -24,7 +25,7 @@ class Aliens extends BaseClass
 
     function create(Hero &$hero)
     {
-        $hero->addBonus(BonusTypes::SDC, 20, 'Alien base SDC');
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTypes::SDC, 20, 'Alien base SDC'));
 
         $this->rollAppearance($hero);
 
@@ -229,46 +230,46 @@ class Aliens extends BaseClass
         switch ($result) {
             case 'High Gravity':
                 $this->physiologicalModification = 'High Gravity: The gravitational force of the alien\'s homeworld was considerably greater than Earth\'s. This has given the alien a greater mass and physical endurance, but he is much faster and lighter on our planet Earth than on his homeworld. Short in height.';
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: High Gravity - SDC', 3, 4)) * 10, 'Alien: High Gravity');
-                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice(new Roll('Alien: High Gravity - PS', 2, 4)), 'Alien: High Gravity');
-                $hero->addBonus(BonusTypes::SPEED, $hero->speed * 2, 'Alien: High Gravity');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: High Gravity - SDC', 3, 4)) * 10, 'Alien: High Gravity'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Alien: High Gravity - PS', 2, 4), 'Alien: High Gravity'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTypes::ATTRIBUTE_SPEED, 2, 'Alien: High Gravity'));
                 break;
 
             case 'Low Gravity':
                 $this->physiologicalModification = 'Low Gravity: The alien\'s homeworld had a much lighter gravity than Earth\'s. This has made the alien much taller than a typical human. Although the increased gravitational pull of our planet Earth slows the alien, it also provides him with somehwat greater mass.';
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: Low Gravity - SDC', 1, 4)) * 10, 'Alien: Low Gravity');
-                $hero->addBonus(BonusTypes::PHYSICAL_PROWESS, $this->engine->roller->rollDice(new Roll('Alien: Low Gravity - PS', 2, 4)), 'Alien: Low Gravity');
-                $hero->addBonus(BonusTypes::SPEED, -1 * floor($hero->speed / 2), 'Alien: Low Gravity');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: Low Gravity - SDC', 1, 4)) * 10, 'Alien: Low Gravity'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Alien: Low Gravity - PS', 2, 4), 'Alien: Low Gravity'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTypes::ATTRIBUTE_SPEED, .5, 'Alien: Low Gravity'));
                 break;
 
             case 'High Radiation':
                 $this->physiologicalModification = 'High Radiation: Constant exposure to radiation has made the alien impervious to the effects of radiation levels that would normally kill a human. Unfortunately, the alien radiates low levels of radioactivity that could harm humans if exposed to him for a few weeks. Consequently, the alien must wear a radiation proof suit to protect human allies. Tall in height.';
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: High Radiation - SDC', 1, 4)) * 10, 'Alien: High Radiation');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: High Radiation - SDC', 1, 4)) * 10, 'Alien: High Radiation'));
                 $hero->addAbility(new Ability('See Ultraviolet', 'Can see in to the ultraviolet range of light.'));
                 break;
 
             case 'Frozen World':
                 $this->physiologicalModification = 'Frozen World: Extremely low temperatures and arctic conditions ravage this world. As a result, the alien can withstand deadly cold, ice, and harsh frozen environments. The alien can not tolerate war temperatures, like a steamy 35° Fahrenheit. Thus, he must always wear a protective insulated suit, with a special refrigerator unit.';
-                $hero->addBonus(BonusTypes::SDC, 40, 'Alien: Frozen World');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 40, 'Alien: Frozen World'));
                 $hero->addAbility(new Ability('Impervious: Cold', 'Impervious to even deadly cold.'));
                 break;
 
             case 'Thermo World':
                 $this->physiologicalModification = 'Thermo World: The alien\'s homeworld makes a sauna feel cool. Must wear a protective suit with a heating unit. The alien can not tolerate any temperature below 98° Fahrenheit.';
-                $hero->addBonus(BonusTypes::SDC, 30, 'Alien: ThermoWorld');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 30, 'Alien: ThermoWorld'));
                 $hero->addAbility(new Ability('Impervious: Heat and Fire', 'Impervious to heat and fire.'));
 
                 break;
 
             case 'Twilight Word':
                 $this->physiologicalModification = 'Twilight World: An extremely dark, night-like world, which makes the alien extremely sensitive to light and dark. While the alien can see well in darkness, light more than 60 watts is considered bright and 100 watts blinding. Protective, photosensitive visor or goggles must be worn to see in the light. Very short in height.';
-                $hero->addBonus(BonusTypes::SDC, 10, 'Alien: Twilight World');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 10, 'Alien: Twilight World'));
                 $hero->addAbility(new Ability('Nightvision', 'Nightvision - 600ft. Sensitive hearing'));
                 break;
 
             case 'Abrasive Atmosphere':
                 $this->physiologicalModification = 'Abrasive Atmosphere: High scathing winds or corrosive atmosphere is this alien\'s natural environment. This being has developed a tough thick skin or leathery plating like a rhinoceros. Short in height';
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: Abrasive - SDC', 3, 6)) * 10, 'Alien: Abrasive Atmosphere');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Alien: Abrasive - SDC', 3, 6)) * 10, 'Alien: Abrasive Atmosphere'));
                 $hero->setNaturalArmor(12);
                 break;
 
@@ -324,13 +325,13 @@ class Aliens extends BaseClass
             case 'Ambidextrous':
                 $this->appearance .= "$characteristic - Can use the right and left hand with equal skill and dexterity.";
                 $bonusReason = 'Alien: ambidextrous';
-                $hero->addBonus(BonusTypes::ATTACKS_PER_MELEE, 1, $bonusReason);
-                $hero->addBonus(BonusTypes::PARRY, 1, $bonusReason);
-                $hero->addSkillBonus(Skills::CLIMBING, 10, $bonusReason);
-                $hero->addSkillBonus(Skills::ESCAPE_ARTIST, 5, $bonusReason);
-                $hero->addSkillBonus(Skills::PICK_LOCKS, 5, $bonusReason);
-                $hero->addSkillBonus(Skills::MECHANICAL_REPAIR, 5, $bonusReason);
-                $hero->addSkillBonus(Skills::ELECTRICAL_REPAIR, 5, $bonusReason);
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTACKS_PER_MELEE, 1, $bonusReason));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::PARRY, 1, $bonusReason));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_CLIMBING, 10, $bonusReason));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_ESCAPE_ARTIST, 5, $bonusReason));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_PICK_LOCKS, 5, $bonusReason));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_MECHANICAL_ENGINEERING, 5, $bonusReason));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_ELECTRICAL_ENGINEER, 5, $bonusReason));
                 break;
 
             case 'Odd hair color':
@@ -379,13 +380,13 @@ class Aliens extends BaseClass
 
             case 'Prehensile feet/toes':
                 $this->appearance .= 'Prehensile Feet/Toes: the feet greatly resemble a monkey\'s feet with long figer-like toes and thumb like appendage for grabbing and holding. The prehensile foot is not developed enough to throw an object or fire a gun but can easily pickup and hold/carry items, press buttons, untie rope, turn doorknobs, pull levers and even play the piano.';
-                $hero->addSkillBonus(Skills::CLIMBING, 30, 'Alien: Prehensile feet/toes');
-                $hero->addBonus(BonusTypes::DODGE, 1, 'Alien: Prehensile feet/toes');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_CLIMBING, 30, 'Alien: Prehensile feet/toes'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::DODGE, 1, 'Alien: Prehensile feet/toes'));
                 break;
 
             case 'Scaly skin':
                 $this->appearance .= 'Scaly Skin: a tough, smooth, reptilian skin with small scales.';
-                $hero->addBonus(BonusTypes::SDC, 30, 'Alien: Prehensile feet/toes');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 30, 'Alien: Prehensile feet/toes'));
                 break;
 
             case 'No body hair':
@@ -398,23 +399,23 @@ class Aliens extends BaseClass
 
             case 'Tough, lumpy skin':
                 $this->appearance .= 'Tough, lumpy skin.';
-                $hero->addBonus(BonusTypes::SDC, 30, 'Alien: Tough Lumpy Skin');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 30, 'Alien: Tough Lumpy Skin'));
                 break;
 
             case 'Prehensile tail':
                 $this->appearance .= 'Prehensile Tail: Have grown an additional appendage: a tail. While it may be difficult to conceal it, it does have some advantages. Like the prehensile tail of a monkey it can seize and grasp. The tail cannot be sued to untie rope or string, nor fire a weapon. HOwever, it can be used to turn knobs, and press buttons. It is also possible to hold blunt objects and use them as a club. +1 to strike/parry with the tail.';
-                $hero->addSkillBonus(Skills::CLIMBING, 20, 'Prehensile Tail');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_CLIMBING, 20, 'Prehensile Tail'));
                 break;
 
             case 'Retractable claws':
                 $this->appearance .= 'Retractable Claws: Claws like a cat in the fingers. The small claws do minimal damage (2D4 + Physical Strength).';
-                $hero->addSkillBonus(Skills::CLIMBING, 10, 'Retractable Claws');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_CLIMBING, 10, 'Retractable Claws'));
                 break;
 
             case 'Stocky':
                 $this->appearance .= 'Stocky, exceptionally broad or husky person about twice as broad as a normal human.';
-                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice(new Roll('Stocky: PS', 1, 4)), 'Stocky');
-                $hero->addBonus(BonusTypes::SDC, $this->engine->roller->rollDice(new Roll('Stocky: SDC', 4, 4)), 'Stocky');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Stocky: PS', 1, 4), 'Stocky'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, new Roll('Stocky: SDC', 4, 4), 'Stocky'));
                 break;
         }
     }
@@ -448,29 +449,29 @@ class Aliens extends BaseClass
 
             case 'Insect Appearance':
                 $this->appearance = 'Insect Appearance: Large eyes, antennae, claw-like hands and feet, no body hair, exoskeleton. +1D6 Damage in Hand to Hand combat.';
-                $hero->addBonus(BonusTypes::SDC, 100, 'Alien: Insect Appearance');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 100, 'Alien: Insect Appearance'));
                 break;
 
             case 'Humanoid Amphibian':
                 $this->appearance = 'Humanoid Amphibian: Soft, smooth skin; webbed hands and feet; semi-aquatic. Can hold breath up to 20 minutes. Skin color is green-brown-tan-yellow-blotchy.';
-                $hero->setSkillBonus(Skills::SWIMMING, 90, 'Alien: Humanoid Amphibian');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_SWIMMING, 90, 'Alien: Humanoid Amphibian'));
                 break;
             case 'Vegetation':
                 $this->appearance = 'Vegetation: Composed of the same essence as earth plant-life. Various shades of green or yellow.';
-                $hero->addBonus(BonusTypes::SDC, 40, 'Alien: Vegetation');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 40, 'Alien: Vegetation'));
                 break;
 
             case 'Humanoid Reptilian':
                 $this->appearance = 'Humanoid Reptilian: Lizard like features, leathery or scaly skin, little or no body hair, long fingers.';
-                $hero->addBonus(BonusTypes::SDC, 40, 'Alien: Humanoid Reptilian');
-                $hero->addBonus(BonusTypes::PHYSICAL_PROWESS, 2, 'Alien: Humanoid Reptilian');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 40, 'Alien: Humanoid Reptilian'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_PHYSICAL_PROWESS, 2, 'Alien: Humanoid Reptilian'));
                 break;
 
             case 'Humanoid Canine':
                 $this->appearance = 'Humanoid Canine: Dog-like features, body fur or extreme body hair, dark eyes.';
-                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice(new Roll('Alien: Canine - PS', 1, 4)), 'Alien: Humanoid Canine');
-                $hero->addBonus(BonusTypes::SPEED, $this->engine->roller->rollDice(new Roll('Alien: Canine - Speed', 1, 4)), 'Alien: Humanoid Canine');
-                $hero->addBonus(BonusTypes::SDC, 10, 'Alien: Humanoid Canine');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Alien: Canine - PS', 1, 4), 'Alien: Humanoid Canine'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_SPEED, new Roll('Alien: Canine - Speed', 1, 4), 'Alien: Humanoid Canine'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 10, 'Alien: Humanoid Canine'));
                 break;
 
             case 'Humanoid Avian':
@@ -479,26 +480,26 @@ class Aliens extends BaseClass
 
             case 'Humanoid Mineral':
                 $this->appearance = 'Humanoid Mineral: Rocky or crystalline appearance. Natural body armor';
-                $hero->addBonus(BonusTypes::SDC, 180, 'Alien: Mineral');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 180, 'Alien: Mineral'));
                 break;
 
             case 'Humanoid Feline':
                 $this->appearance = 'Humanoid Feline: Cat like features, bright oval eyes, fur covered body, pointy ears.';
-                $hero->addBonus(BonusTypes::PHYSICAL_PROWESS, 2, 'Alien: Feline');
-                $hero->addBonus(BonusTypes::SPEED, 2, 'Alien: Feline');
-                $hero->addBonus(BonusTypes::SDC, 10, 'Alien: Feline');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_PHYSICAL_PROWESS, 2, 'Alien: Feline'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_SPEED, 2, 'Alien: Feline'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 10, 'Alien: Feline'));
                 break;
 
             case 'Humanoid Ape':
                 $this->appearance = 'Humanoid Ape: Resembles an ape (no tail); long arms, fur covered or extremely hairy body';
-                $hero->addBonus(BonusTypes::PHYSICAL_STRENGTH, $this->engine->roller->rollDice(new Roll('Aline: Ape - PS', 1, 6)), 'Alien: Ape');
-                $hero->addBonus(BonusTypes::SDC, 20, 'Alien: Ape');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Aline: Ape - PS', 1, 6), 'Alien: Ape'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 20, 'Alien: Ape'));
                 break;
 
             case 'Humanoid Aquatic':
                 $this->appearance = 'Humanoid Aquatic: Fish, dolphin, or whale; webbed feet and hands, smooth or scaly skin, blowhole or gills, no body hair, brightly colored.';
-                $hero->setSkillBonus(Skills::SWIMMING, 90, 'Alien: Aquatic');
-                $hero->addBonus(BonusTypes::SDC, 20, 'Alien: Aquatic');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SKILL_SWIMMING, 90, 'Alien: Aquatic'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTypes::SDC, 20, 'Alien: Aquatic'));
                 break;
 
             default:

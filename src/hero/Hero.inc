@@ -38,7 +38,7 @@ class Hero
 
     public $alignment;
 
-    public $skills;
+    public $skills = [];
 
     // alien/mutant/etc
     public $class;
@@ -63,22 +63,6 @@ class Hero
 
     // abilities and super abilities of the hero; array of Ability classes
     public $abilities = [];
-
-    function __construct()
-    {
-        $this->skills = [
-            Skills::CLIMBING => 0,
-            Skills::CONCEALMENT => 0,
-            Skills::ELECTRICAL_REPAIR => 0,
-            Skills::ESCAPE_ARTIST => 0,
-            Skills::MECHANICAL_REPAIR => 0,
-            Skills::PALMING => 0,
-            Skills::PICK_LOCKS => 0,
-            Skills::PICK_POCKET => 0,
-            Skills::PROWL => 0,
-            Skills::SWIMMING => 0,
-        ];
-    }
 
     /**
      * add a bonus to the character; it will be applied later after all bonuses gathered

@@ -8,7 +8,11 @@ use Heroes\engine\Roll;
  * tracks a bonus given to the character; as the character gains abilities and powers they get more powerful, this tracks from where it all came
  */
 class Bonus {
+    // add the value to the target
     const BONUS_TYPE_ADD = "add";
+    // multiply the target by the value of the bonus; don't forget to floor the value
+    const BONUS_TYPE_MULTIPLY = "multiply";
+    // set the target to the value
     const BONUS_TYPE_SET = "set";
 
     // use BONUS_TYPE constants

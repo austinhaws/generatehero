@@ -11,3 +11,8 @@ composer:
 
 
 if a test is not running, make sure file ends with .php
+
+
+skills all ahve a base %; do the base percentages BEFORE adding bonuses to character
+review skills to see if they add anything to character
+WP Skills are either on or off, don't add percentages for them
