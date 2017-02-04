@@ -8,12 +8,24 @@ use Heroes\engine\Roll;
  * tracks a bonus given to the character; as the character gains abilities and powers they get more powerful, this tracks from where it all came
  */
 class Bonus {
-    // add the value to the target
-    const BONUS_TYPE_ADD = "add";
-    // multiply the target by the value of the bonus; don't forget to floor the value
-    const BONUS_TYPE_MULTIPLY = "multiply";
+    // - ordered in order of operation - //
+    // set a flag on the hero; like double carry weight
+    const BONUS_TYPE_SET_FLAG = 'flag';
+
     // set the target to the value
-    const BONUS_TYPE_SET = "set";
+    const BONUS_TYPE_SET = 'set';
+
+    // add the value to the target
+    const BONUS_TYPE_ADD = 'add';
+
+    // multiply the target by the value of the bonus; don't forget to floor the value
+    const BONUS_TYPE_MULTIPLY = 'multiply';
+
+    // just a bonus something that is not numeric that the character gains
+    const BONUS_TYPE_STRING = 'string';
+
+
+
 
     // use BONUS_TYPE constants
     public $bonusType;

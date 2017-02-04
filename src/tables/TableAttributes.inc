@@ -4,7 +4,7 @@ namespace Heroes\tables;
 use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\hero\Hero;
-use Heroes\enums\BonusTypes;
+use Heroes\enums\BonusTargets;
 
 /**
  * Class TableAttributes
@@ -48,7 +48,7 @@ class TableAttributes
         // physical endurance + 1d6
         $hpBonus = $this->engine->roller->rollDice(new Roll('starting hps bonus', 1, 6));
         $hero->hitPoints = $hero->physicalEndurance + $hpBonus;
-        $hero->addBonus(BonusTypes::HIT_POINTS, $hpBonus, 'Starting character bonus hit points');
+        $hero->addBonus(BonusTargets::HIT_POINTS, $hpBonus, 'Starting character bonus hit points');
 
     }
 

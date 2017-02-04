@@ -1,7 +1,7 @@
 <?php
 namespace Heroes\enums;
 
-abstract class BonusTypes {
+abstract class BonusTargets {
     // == ATTRIBUTES == //
     const ATTRIBUTE_INTELLIGENCE_QUOTIENT = 'IQ';
     const ATTRIBUTE_MENTAL_ENDURANCE = 'Mental Endurance';
@@ -18,16 +18,38 @@ abstract class BonusTypes {
 
     // == COMBAT == //
     const ATTACKS_PER_MELEE = 'Attacks per melee';
-    const PARRY = 'Parry';
-    const ROLL = 'Roll';
     const DODGE = 'Dodge';
+    const INITIATIVE = 'Initiative';
+    const PARRY = 'Parry';
+    const PHYSICAL_DAMAGE = 'Physical Damage';
+    const ROLL = 'Roll';
+    const SAVE_COMMA_DEATH = 'Save: comma/Death';
+    // note that save magic/psionics/toxins is in addition to PE bonus
+    const SAVE_MAGIC_PSIONICS_TOXINS = 'Save: Magic/Psionics/Toxins';
+    const STRIKE = 'Strike';
 
     // == OTHER == //
     const MONEY = 'Money';
 
 
-    // deception/sleight-of-hand : concealment, disguise, escape artist, forgery, intelligence, impersonation, interrogation, palming, pick locks, pick pockets
-    const SKILL_GROUP_DECEPTION_SLEIGHT_OF_HAND = 'deception/sleight of hand';
+    // == FLAGS == //
+    // can carry and lift double the normal amount
+    const FLAG_DOUBLE_CARRY = 'double carry';
+
+
+    // == NON-NUMERIC BONUSES == //
+    // description of some sort of bonus ability/attribute the character receives that has no numeric significance for the character
+    const DESCRIPTION = 'Description';
+
+
+    // == SKILL GROUPS == //
+    // deception/sleight-of-hand: concealment, disguise, escape artist, forgery, intelligence, impersonation, interrogation, palming, pick locks, pick pockets
+    const SKILL_GROUP_DECEPTION_SLEIGHT_OF_HAND = 'group: deception/sleight of hand';
+    // physical skills: skills requiring dexterity and prowess: acrobatics, archery, athletics, boxing, running, fencing, swimming, gymnastics, swimming, prowl
+    const SKILL_GROUP_PHYSICAL = 'group: physical';
+    // delicate light touch: demolitions, pick pocket, pick locks, palming, sewing, escape artist, forgery, first aid, medical doctor, paramedic, climbing, art, writing
+    const SKILL_GROUP_DELICATE_TOUCH = 'group: delicate, light touch';
+
 
     // == SKILLS == //
     // - COMMUNICATIONS - //
@@ -113,19 +135,19 @@ abstract class BonusTypes {
     const SKILL_WRESTLING = 'Wrestling';
 
     // - Pilot basic (ground, air, and water) (secondary skills) - //
-    const SKILL_AUTOMOBILE = 'Automobile';
-    const SKILL_RACE_CAR = 'Race car';
-    const SKILL_MOTORCYCLE = 'Motorcycle';
-    const SKILL_TRUCK = 'Truck';
-    const SKILL_AIRPLANE_OLD_STYLE = 'Airplane - old style';
-    const SKILL_BOATS_SAIL = 'Boats: sail';
-    const SKILL_BOATS_MOTOR = 'Boats: motor';
-    const SKILL_PILOT_ADVANCED = 'Pilot, advanced';
-    const SKILL_HELICOPTER_BASIC = 'Helicopter, basic';
-    const SKILL_HELICOPTER_COMBAT = 'Helicopter, combat';
-    const SKILL_JET_COMMERCIAL = 'Jet commercial';
-    const SKILL_JET_FIGHTER = 'Jet fighter';
-    const SKILL_SPACE_SHUTTLE = 'Space shuttle';
+    const SKILL_PILOT_AUTOMOBILE = 'Automobile';
+    const SKILL_PILOT_RACE_CAR = 'Race car';
+    const SKILL_PILOT_MOTORCYCLE = 'Motorcycle';
+    const SKILL_PILOT_TRUCK = 'Truck';
+    const SKILL_PILOT_AIRPLANE_OLD_STYLE = 'Airplane - old style';
+    const SKILL_PILOT_BOATS_SAIL = 'Boats: sail';
+    const SKILL_PILOT_BOATS_MOTOR = 'Boats: motor';
+    const SKILL_PILOT_PILOT_ADVANCED = 'Pilot, advanced';
+    const SKILL_PILOT_HELICOPTER_BASIC = 'Helicopter, basic';
+    const SKILL_PILOT_HELICOPTER_COMBAT = 'Helicopter, combat';
+    const SKILL_PILOT_JET_COMMERCIAL = 'Jet commercial';
+    const SKILL_PILOT_JET_FIGHTER = 'Jet fighter';
+    const SKILL_PILOT_SPACE_SHUTTLE = 'Space shuttle';
 
     // - Pilot related skills - //
     const SKILL_NAVIGATION = 'Navigation (air, land, water)';
