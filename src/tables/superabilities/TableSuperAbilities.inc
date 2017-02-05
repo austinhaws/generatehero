@@ -232,7 +232,6 @@ class TableSuperAbilities
      */
     private function rollMajor()
     {
-throw new \Exception('Rolling Major Super Ability need implemented');
-//        $hero->addAbility($ability);
+echo "Rolling Major Super Ability need implemented\n";
     }
 }

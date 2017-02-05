@@ -102,7 +102,7 @@ class Hero
                 $this->addBonus($bonus);
             }
         }
-        return $found;
+        return !$found;
     }
 
     /**

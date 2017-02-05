@@ -59,7 +59,7 @@ class Aliens extends BaseClass
             new TableEntry(100, [6, 6]),
         ]);
         $money = $this->engine->roller->rollDice(new Roll('Alien: Money', $dice, $sides));
-        $hero->addBonus(BonusTargets::MONEY, $money * 1000, 'Alien: Money');
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, $money * 1000, 'Alien: Money'));
     }
 
     private function rollVehicle(Hero &$hero)
@@ -106,17 +106,17 @@ class Aliens extends BaseClass
         switch ($result) {
             case 'none':
                 $this->familiarity = 'No familiarity with Earth\'s culture, science, or laws. However, can understand, speak, and write English quite well.';
-                $hero->setSkillBonus(Skills::LANGUAGE, 88, 'Alien: Familiarity - none');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_LANGUAGE, 88, 'Alien: Familiarity - none'));
                 break;
 
             case 'some':
                 $this->familiarity = 'Some familiarity with Earth, its major nations, cultures, and laws. Can speak, read, and write four Earth languages.';
-                $hero->setSkillBonus(Skills::LANGUAGE, 90, 'Alien: Familiarity - some');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_LANGUAGE, 90, 'Alien: Familiarity - some'));
                 break;
 
             case 'studied':
                 $this->familiarity = 'Has studied Earth intensely and is as knowledgeable as a well-informed native human. Can speak, read and write six different Earth languages fluently.';
-                $hero->setSkillBonus(Skills::LANGUAGE, 98, 'Alien: Familiarity - studied');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_LANGUAGE, 98, 'Alien: Familiarity - studied'));
                 break;
 
             default:
@@ -194,7 +194,7 @@ class Aliens extends BaseClass
 
     private function rollEducation(Hero &$hero)
     {
-        throw new \Exception('alien - roll education');
+        echo "TODO : alien - roll education\n";
     }
 
     private function rollSuperabilities(Hero &$hero)
@@ -211,7 +211,7 @@ class Aliens extends BaseClass
             case 'super abilities':
                 break;
             default:
-                throw new \Exception("Alien superabilities: $abilities (pg 56)");
+                echo "Alien superabilities: $abilities (pg 56)\n";
         }
     }
 

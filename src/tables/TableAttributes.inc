@@ -3,8 +3,9 @@ namespace Heroes\tables;
 
 use Heroes\engine\Engine;
 use Heroes\engine\Roll;
-use Heroes\hero\Hero;
 use Heroes\enums\BonusTargets;
+use Heroes\hero\Bonus;
+use Heroes\hero\Hero;
 
 /**
  * Class TableAttributes
@@ -48,7 +49,7 @@ class TableAttributes
         // physical endurance + 1d6
         $hpBonus = $this->engine->roller->rollDice(new Roll('starting hps bonus', 1, 6));
         $hero->hitPoints = $hero->physicalEndurance + $hpBonus;
-        $hero->addBonus(BonusTargets::HIT_POINTS, $hpBonus, 'Starting character bonus hit points');
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::HIT_POINTS, $hpBonus, 'Starting character bonus hit points'));
 
     }
 
@@ -57,7 +58,7 @@ class TableAttributes
         if ($hero->intelligenceQuotient >= $this->bonusesBegin) {
             // one time bonus to all skills
             $bonus = $hero->intelligenceQuotient - 14;
-            throw new \Exception('add bonus to skills ' . $bonus);
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_ALL, $bonus, 'IQ Skill Bonus'));
         }
 
         $hero->iq = $hero->intelligenceQuotient * 10;

@@ -8,10 +8,8 @@ use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
 use Heroes\tables\TableAttributes;
-use Heroes\hero\crazy\Association;
-use Heroes\hero\crazy\Crazy;
-use Heroes\hero\crazy\Frenzy;
-use Heroes\hero\classes\Aliens;
+
+// these "use" statements ARE needed because they are dynamically named class creations
 
 class HeroGenerator
 {
@@ -77,7 +75,11 @@ class HeroGenerator
         // rounding out character
 
         // after skills are determined, and all bonuses to abilities are gathered, then apply bonuses based on abilities
-throw new \Exception("apply all heroes bonuses (saved until end so that \"set\" bonuses can get the biggest value and then apply all the bonuses on top of that)");
+echo "apply all heroes bonuses (saved until end so that \"set\" bonuses can get the biggest value and then apply all the bonuses on top of that)\n";
+// set a flag that bonuses have been applied so that when bonuses are added by attribute bonuses they get applied immediately; if a "set" bonus is added after bonuses are calculated, then throw exception?
+
+
+        // now that attributes are determined, determine their bonuses
         (new TableAttributes($this->engine))->applyAttributeBonuses($hero);
 
         return $hero;

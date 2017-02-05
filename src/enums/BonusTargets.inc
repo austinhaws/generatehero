@@ -49,6 +49,8 @@ abstract class BonusTargets {
     const SKILL_GROUP_PHYSICAL = 'group: physical';
     // delicate light touch: demolitions, pick pocket, pick locks, palming, sewing, escape artist, forgery, first aid, medical doctor, paramedic, climbing, art, writing
     const SKILL_GROUP_DELICATE_TOUCH = 'group: delicate, light touch';
+    // all skills
+    const SKILL_GROUP_ALL = "group: all";
 
 
     // == SKILLS == //

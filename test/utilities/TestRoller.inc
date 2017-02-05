@@ -42,16 +42,16 @@ class TestRoller extends Roller
         if (!$roll) {
             throw new \Exception("Test Roll does not exist for: $name ($numberSides)");
         }
-
-        if ($roll->dontCareUntil) {
+        if ($roll->dontCareUntil && $roll->dontCareUntil !== $name) {
             // not going to use it, so put it back on the front
             array_unshift($this->testRolls, $roll);
+            $result = mt_rand(1, $numberSides);
         } else {
             $this->rollIndex++;
             $roll->validate($numberSides, $name, $this->rollIndex);
+            $result = $roll->roll;
         }
-
-        return $roll->roll;
+        return $result;
     }
 
 
