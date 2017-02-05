@@ -96,12 +96,12 @@ class TableSuperAbilities
                 ])),
 
             new TableEntry(27, new Ability('Radar', 'Range: 400ft+ lOOft per level of experience. The radar super ability sends out high-frequency radio waves which bounce off objects, returning and indicating the direction and distance of the reflecting objects. This power provides the super being with a crude type of see in the dark ability, enabling him to know/sense the location of objects and movements. Abilities Include: Interpreting Shapes: 50%+ 8% per level of experience. Estimating Distance: 60% + 8% per level of experience. Estimating Direction: 60% + 8% per level of experience. Estimating Speed: 40% + 8% per level of experience Estimating exact location: 40% + 8% per level of experience. No minuses apply when blinded or in darkness. Note: Radar does not go through cloth, wood or people. Consequently, the character can not see or sense through walls or doors. Likewise, while he may sense a car, estimate its speed, direction and distance, he can not tell how many people are in the vehicle. This ability is especially useful in the dark, long distances, and combat (providing relatively full view of the combat area). Disadvantages: Radar is totally fouled in the rain, snow, dust or sandstorms, and by similar multiple, obscuring, images. NO BONUSES apply under these conditions, including no additional attacks per melee. If these conditions exist at night/dark or while blinded the radar is ineffective and the character is blind and suffers with all the minuses that usually apply. Smoke also fouls radar, but not as severely as the aforementioned conditions. All the abilities to estimate speed, direction, distance, shape and location are -30%. All bonuses are reduced by half.', [
-                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::INITIATIVE, 4, 'Radar'),
-                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 2, 'Radar'),
-                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 2, 'Radar'),
-                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 3, 'Radar'),
-                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTACKS_PER_MELEE, 1, 'Radar'),
-                ])),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::INITIATIVE, 4, 'Radar'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 2, 'Radar'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 2, 'Radar'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 3, 'Radar'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTACKS_PER_MELEE, 1, 'Radar'),
+            ])),
 
             new TableEntry(31, new Ability('Flight: Wingless', 'The impressive ability to fly without any apparent means of propulsion.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTACKS_PER_MELEE, 1, 'Flight: Wingless'),
@@ -161,7 +161,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Healing Factor: PE', 2, 4), 'Healing Factor'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 25, 'Healing Factor'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, 20, 'Healing Factor'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC_PSIONICS_TOXINS , 3, 'Healing Factor'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC_PSIONICS_TOXINS, 3, 'Healing Factor'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Recovers 3 SDC every 10 minutes (18 per hour)', 'Healing Factor'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Recovers one hit point every 15 minutes (4 per hour)', 'Healing Factor'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Special super healing: Can instantly regenerate 2D6 hit points two times per day (24 hour period)', 'Healing Factor'),
@@ -201,8 +201,8 @@ class TableSuperAbilities
             new TableEntry(84, new Ability('Energy Resistance', 'Range: Self; Duration: Constant; Attacks Per Melee: None; Bonuses: None; This power makes the character extremely resistant to all energy based attacks. No physical damage is sustained by the first 20 points of energy attacks in a melee round. Energy attacks beyond the 20 points do only half damage. The character\'s resistance to energy includes fue, electricity, lasers and pure energy. The person is completely invulnerable to stun-type energy weapons. Energy resistance is not effective against radiation damage.')),
 
             new TableEntry(87, new Ability('Heightened Sense of Touch', 'The character has a superior tactile sense. He can easily recognize very slight differences in textures by touch.', [
-                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_DELICATE_TOUCH, 10, 'Heightened Sense of Touch'),
-                ])),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_DELICATE_TOUCH, 10, 'Heightened Sense of Touch'),
+            ])),
 
             new TableEntry(90, new Ability('Super Vision: Ultraviolet & Infrared', 'This power enables the character to see in the infrared and ultraviolet spectrum of light radiation. Both types of light are clearly visible to this person. Infrared also provides a hued type of nightvision allowing the character to see clearly in the dark.')),
 
@@ -232,6 +232,92 @@ class TableSuperAbilities
      */
     private function rollMajor()
     {
-echo "Rolling Major Super Ability need implemented\n";
+        echo "Rolling Major Super Ability need implemented\n";
+        return $this->engine->tableRoller->rollTable('Super Ability: Major', [
+            new TableEntry(2, new Ability('Animal Metamorphosis', 'temp')),
+
+            new TableEntry(4, new Ability('Chameleon', 'temp')),
+
+            new TableEntry(7, new Ability('Alter Physical Structure: Stone', 'temp')),
+
+            new TableEntry(9, new Ability('Control Elemental Force: Water', 'temp')),
+
+            new TableEntry(11, new Ability('Invisibility', 'temp')),
+
+            new TableEntry(13, new Ability('Energy Absorption', 'temp')),
+
+            new TableEntry(16, new Ability('Control Others', 'temp')),
+
+            new TableEntry(19, new Ability('Shape Change', 'temp')),
+
+            new TableEntry(22, new Ability('Darkness Control', 'temp')),
+
+            new TableEntry(24, new Ability('Gravity Manipulation', 'temp')),
+
+            new TableEntry(27, new Ability('Alter Physical Structure: Ice', 'temp')),
+
+            new TableEntry(30, new Ability('Intangibility', 'temp')),
+
+            new TableEntry(32, new Ability('Growth', 'temp')),
+
+            new TableEntry(35, new Ability('Create Force Field', 'temp')),
+
+            new TableEntry(38, new Ability('Control Elemental Force: Air', 'temp')),
+
+            new TableEntry(41, new Ability('Animal Abilities', 'temp')),
+
+            new TableEntry(43, new Ability('Sonic Speed', 'temp')),
+
+            new TableEntry(46, new Ability('Alter Physical Structure: Fire', 'The ability to transform into a being of living fire, as well as manipulate and control aspects of fire. Abilities: Continuous bolt of flame, fire ball, create wall or circle of flame, radiate heat, and super nova.', [
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::NATURAL_ARMOR_RATING, 14, 'Alter Physical Structure: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'The natural protection extends to attacks by normal human beings. Unless protected in some way, attackers w1ll take 4D6 damage each time the person strikes the blazing hero.', 'Alter Physical Structure: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to fire and heat (does no damage). Note that electricity, lasers, and energy all do full damage.', 'Alter Physical Structure: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Flight is a possibility while in flame form.', 'Alter Physical Structure: Fire'),
+            ])),
+
+            new TableEntry(48, new Ability('Magnetism', 'temp')),
+
+            new TableEntry(50, new Ability('Stretching', 'temp')),
+
+            new TableEntry(53, new Ability('Invulnerability', 'temp')),
+
+            new TableEntry(56, new Ability('Alter Physical Structure: Electricity', 'An incredible transformation into a living electrical conduit, as well as the ability to manipulate and control aspects of electricity. Abilities: Fire Electrical Ray, Mini-Lightning Bolt, Lightning Bolt, Electric Flight, and Generate Electricity.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 40, 'Alter Physical Structure: Electricity'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to electrical attacks (do no damage).', 'Alter Physical Structure: Electricity'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Fire and energy attacks do half damage.', 'Alter Physical Structure: Electricity'),
+            ])),
+
+            new TableEntry(59, new Ability('Control Elemental Force: Earth', 'temp')),
+
+            new TableEntry(62, new Ability('Sonic Flight', 'temp')),
+
+            new TableEntry(64, new Ability('Teleport', 'temp')),
+
+            new TableEntry(67, new Ability('Alter Physical Structure: Liquid', 'temp')),
+
+            new TableEntry(70, new Ability('Disruptive Touch', 'temp')),
+
+            new TableEntry(73, new Ability('Alter Physical Structure: Metal', 'temp')),
+
+            new TableEntry(75, new Ability('Mechano-Link', 'temp')),
+
+            new TableEntry(78, new Ability('Control Elemental Force: Fire', 'temp')),
+
+            new TableEntry(81, new Ability('Mimic', 'temp')),
+
+            new TableEntry(83, new Ability('Karmic Power', 'temp')),
+
+            new TableEntry(86, new Ability('Sonic Power', 'temp')),
+
+            new TableEntry(89, new Ability('Vibration', 'temp')),
+
+            new TableEntry(92, new Ability('Shrink', 'temp')),
+
+            new TableEntry(95, new Ability('Plant Control', 'temp')),
+
+            new TableEntry(98, new Ability('Transferal/Possession', 'temp')),
+
+            new TableEntry(100, new Ability('Weight Manipulation', 'temp')),
+        ]);
     }
 }

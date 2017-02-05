@@ -20,6 +20,7 @@ abstract class BonusTargets {
     const ATTACKS_PER_MELEE = 'Attacks per melee';
     const DODGE = 'Dodge';
     const INITIATIVE = 'Initiative';
+    const NATURAL_ARMOR_RATING = "Natural Armor Rating";
     const PARRY = 'Parry';
     const PHYSICAL_DAMAGE = 'Physical Damage';
     const ROLL = 'Roll';
