@@ -69,7 +69,7 @@ class TableAttributes
         if ($hero->mentalEndurance >= $this->bonusesBegin) {
             // psionic attack / insanity save bonus
             $bonus = 1 + floor(($hero->mentalEndurance - 16) / 2);
-            throw new \Exception("add bonus to psionic attack / insanity save bonus $bonus");
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONIC_ATTACK_INSANITY, $bonus, 'Mental Endurance'));
         }
     }
 
@@ -103,7 +103,7 @@ class TableAttributes
                     break;
             }
             // MA trust/intimidate
-            throw new \Exception("add bonus to trust/intimidate $bonus");
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::TRUST_INTIMIDATE, $bonus, 'Mental Affinity'));
         }
     }
 
@@ -111,7 +111,7 @@ class TableAttributes
     {
         if ($hero->physicalStrength >= $this->bonusesBegin) {
             $bonus = $hero->physicalStrength - 15;
-            throw new \Exception("add bonus to hand to hand combat damage $bonus");
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PHYSICAL_DAMAGE, $bonus, 'Physical Strength'));
         }
 
         // carry/lift/throw weights
@@ -131,7 +131,9 @@ class TableAttributes
     {
         if ($hero->physicalProwess >= $this->bonusesBegin) {
             $bonus = 1 + floor(($hero->physicalProwess - 16) / 2);
-            throw new \Exception("add bonus to parry, dodge, and strike $bonus");
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, $bonus, 'Physical Prowess Bonus'));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, $bonus, 'Physical Prowess Bonus'));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, $bonus, 'Physical Prowess Bonus'));
         }
     }
 
@@ -144,10 +146,10 @@ class TableAttributes
             } else {
                 $bonus = 6 + ($hero->physicalEndurance - 18) * 2;
             }
-            throw new \Exception("add bonus to save vs coma/death $bonus");
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, $bonus, 'Physical Endurance Bonus'));
 
             $bonus = 1 + floor(($hero->physicalEndurance - 16) / 2);
-            throw new \Exception("add bonus to save vs poison & Magic $bonus");
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC_PSIONICS_TOXINS, $bonus, 'Physical Endurance Bonus'));
         }
     }
 
@@ -160,7 +162,7 @@ class TableAttributes
             $bonus = [35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 83, 86, 90, 92][$hero->physicalBeauty - 17];
         }
         if ($bonus) {
-            throw new \Exception("add bonus to charm/impress $bonus");
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::CHARM_IMPRESS, $bonus, 'Physical Beauty'));
         }
     }
 

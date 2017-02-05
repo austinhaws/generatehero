@@ -26,10 +26,13 @@ abstract class BonusTargets {
     const SAVE_COMMA_DEATH = 'Save: comma/Death';
     // note that save magic/psionics/toxins is in addition to PE bonus
     const SAVE_MAGIC_PSIONICS_TOXINS = 'Save: Magic/Psionics/Toxins';
+    const SAVE_PSIONIC_ATTACK_INSANITY = 'Save: Psionic Attack/Insanity';
+    const TRUST_INTIMIDATE = 'Trust/Intimidate';
     const STRIKE = 'Strike';
 
     // == OTHER == //
     const MONEY = 'Money';
+    const CHARM_IMPRESS = 'Charm/Impress';
 
 
     // == FLAGS == //

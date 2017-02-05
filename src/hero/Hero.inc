@@ -40,6 +40,9 @@ class Hero
 
     public $skills = [];
 
+    // bonus to charm/impress rolls
+    public $charmImpress;
+
     // alien/mutant/etc
     public $class;
 
