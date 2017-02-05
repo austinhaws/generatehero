@@ -38,15 +38,17 @@ class TestRoller extends Roller
         }
 
         $roll = array_shift($this->testRolls);
-        if ($roll->dontCareUntil === $name) {
-            $roll = array_shift($this->testRolls);
+
+        if (!$roll) {
+            throw new \Exception("Test Roll does not exist for: $name ($numberSides)");
         }
-        if (!$roll->dontCareUntil) {
-            $this->rollIndex++;
-            $roll->validate($numberSides, $name, $this->rollIndex);
-        } else {
+
+        if ($roll->dontCareUntil) {
             // not going to use it, so put it back on the front
             array_unshift($this->testRolls, $roll);
+        } else {
+            $this->rollIndex++;
+            $roll->validate($numberSides, $name, $this->rollIndex);
         }
 
         return $roll->roll;

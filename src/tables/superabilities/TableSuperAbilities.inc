@@ -143,17 +143,18 @@ class TableSuperAbilities
                     new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_CONCEALMENT, 30, 'Adhesion'),
                 ])),
 
-            new TableEntry(50, new Ability('Flight: Winged (' . $this->engine->tableRoller->rollTable('Winged Flight: Wing Type', [
-                    new TableEntry(35, 'Leather'),
-                    new TableEntry(70, 'Feather'),
-                    new TableEntry(100, 'Insect'),
-                ]) . ')', 'This super being has physical wings that give him the power of flight. Unfortunately, wings are difficult to conceal. This can make a secret identity a bit of a problem. However, wings can be carefully folded, tucked, and restrained with minimal discomfort. Wings that are pulled back and strapped in place impairs the characters mobility.', [
+            new TableEntry(50, new Ability('Flight: Winged', 'This super being has physical wings that give him the power of flight. Unfortunately, wings are difficult to conceal. This can make a secret identity a bit of a problem. However, wings can be carefully folded, tucked, and restrained with minimal discomfort. Wings that are pulled back and strapped in place impairs the characters mobility.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTACKS_PER_MELEE, 1, 'Flight: Winged'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 2, 'Flight: Winged'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 2, 'Flight: Winged'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 4, 'Flight: Winged'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PHYSICAL_DAMAGE, 4, 'Flight: Winged'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 40, 'Flight: Winged'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, [
+                    new TableEntry(35, 'Leather Wings'),
+                    new TableEntry(70, 'Feather Wings'),
+                    new TableEntry(100, 'Insect Wings'),
+                ], 'Flight: Winged')
             ])),
 
             new TableEntry(54, new Ability('Healing Factor', 'This power provides incredible recuperative abilities and immunity to disease and toxins.', [
@@ -176,7 +177,7 @@ class TableSuperAbilities
             new TableEntry(60, new Ability('Extraordinary Physical Endurance', 'An extremely tough individual who can withstand a great amount of physical strain or punishment.',
                 [
                     new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Extraordinary Physical Endurance', 2, 6), 'Extraordinary Physical Endurance'),
-                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, $this->engine->roller->rollDice(new Roll('Extraordinary Physical Endurance: SDC', 4, 4)) * 10, 'Extraordinary Physical Endurance'),
+                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Extraordinary Physical Endurance: SDC', 4, 4, 10), 'Extraordinary Physical Endurance'),
                 ])),
 
             new TableEntry(64, new Ability('Energy Expulsion: Energy', 'Range: 600ft maximum (183m); Damage: 2D6 + 1D6 for each level of experience; Duration: Instant; Attacks Per Melee: Same as hand to hand. Each blast counts as one hand to hand attack or action for that melee; Bonuses: + 3 to strike if an aimed shot, +1 to strike if shooting wild; The character can generate energy which can be released in directed pulses. The energy pulse or blast is fired from the fingertips, hand or eyes. Can regulate the strength of each blast in increments of 1D6.')),

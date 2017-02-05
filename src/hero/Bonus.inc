@@ -21,11 +21,6 @@ class Bonus {
     // multiply the target by the value of the bonus; don't forget to floor the value
     const BONUS_TYPE_MULTIPLY = 'multiply';
 
-    // just a bonus something that is not numeric that the character gains
-    const BONUS_TYPE_STRING = 'string';
-
-
-
 
     // use BONUS_TYPE constants
     public $bonusType;
@@ -43,7 +38,7 @@ class Bonus {
      * Bonus constructor.
      * @param $bonusType string - add or set?
      * @param $bonusTarget string - BonusTargets enum what type of bonus?
-     * @param $value int|Roll - what is the benefit of this bonus? Roll objects are lazy rolled at the time they are needed
+     * @param $value int|Roll|array - what is the benefit of this bonus? Roll objects are lazy rolled at the time they are needed; array of table entries rolled if needed
      * @param $explanation string - why did they get this bonus?
      */
     function __construct($bonusType, $bonusTarget, $value, $explanation)

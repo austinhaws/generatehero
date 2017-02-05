@@ -61,8 +61,7 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
 
             // -- skip alien stuff -- //
 
-            (new TestRoll())->dontCareUntil('Alignment'),
-            new TestRoll(100, 1, 'Alignment'),
+            (new TestRoll())->dontCareUntil('Alignment')->andRoll(100, 1, 'Alignment'),
 
             new TestRoll(100, 30, 'birth order'),
             new TestRoll(100, 30, 'weight'),
@@ -83,8 +82,7 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGenerate_isCrazy_frenzy()
     {
         $this->testRoller->setTestRolls([
-            (new TestRoll())->dontCareUntil('is crazy?'),
-            new TestRoll(100, 100, 'is crazy?'),
+            (new TestRoll())->dontCareUntil('is crazy?')->andRoll(100, 100, 'is crazy?'),
             new TestRoll(100, 1, 'crazy element'),
             new TestRoll(100, 12, 'Frenzy: condition'),
 
@@ -102,8 +100,7 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerate_isCrazy_association() {
         $this->testRoller->setTestRolls([
-            (new TestRoll())->dontCareUntil('is crazy?'),
-            new TestRoll(100, 100, 'is crazy?'),
+            (new TestRoll())->dontCareUntil('is crazy?')->andRoll(100, 100, 'is crazy?'),
             new TestRoll(100, 60, 'crazy element'),
             new TestRoll(100, 31, 'Association: association'),
             new TestRoll(100, 1, 'Popeye: power food'),

@@ -200,7 +200,7 @@ class Aliens extends BaseClass
     private function rollSuperabilities(Hero &$hero)
     {
         $abilities = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
-            new TableEntry(49, 'super abiltities'),
+            new TableEntry(49, 'super abilities'),
             new TableEntry(60, 'Psionics'),
             new TableEntry(69, 'Experiment'),
             new TableEntry(79, 'Robotics'),
