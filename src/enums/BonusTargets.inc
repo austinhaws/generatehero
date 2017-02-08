@@ -35,6 +35,10 @@ abstract class BonusTargets {
     const MONEY = 'Money';
     const CHARM_IMPRESS = 'Charm/Impress';
 
+    // one-off categories; if not set then don't show
+    const BALANCE_WALK_TIGHTROPE = 'Balance/Walk Tightrope';
+    const MAINTAIN_GRIP_HOLD_FOOTING = 'Maintain grip, hold, or footing';
+
 
     // == FLAGS == //
     // can carry and lift double the normal amount

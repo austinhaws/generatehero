@@ -232,13 +232,27 @@ class TableSuperAbilities
      */
     private function rollMajor()
     {
-        echo "Rolling Major Super Ability need implemented\n";
         return $this->engine->tableRoller->rollTable('Super Ability: Major', [
-            new TableEntry(2, new Ability('Animal Metamorphosis', 'temp')),
+            new TableEntry(1, new Ability('Animal Metamorphosis - Rodent', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            ])),
 
-            new TableEntry(4, new Ability('Chameleon', 'temp')),
+            new TableEntry(2, new Ability('Animal Metamorphosis - Musteloid', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            ])),
 
-            new TableEntry(7, new Ability('Alter Physical Structure: Stone', 'temp')),
+            new TableEntry(4, new Ability('Chameleon', 'A truly unique power that allows the person to blend into and adapt to his environment. Chameleon is an ability that enables the person to change color and texture to blend into his environment. A sort of bio-aura surrounds the character so that even his clothes seem to change to adapt to the surrounding area. Movement destroys the effectiveness of the chameleon ability.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Adhesion: the ability to stick to surfaces.', 'Chameleon'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Hold Breath for up to 10 minutes.', 'Chameleon'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Feign Death by lowering one\'s body temperature and respiration.', 'Chameleon'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_PROWL, 65, 'Chameleon'),
+            ])),
+
+            new TableEntry(7, new Ability('Alter Physical Structure: Stone', 'Turns the person into living stone.', [
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::NATURAL_ARMOR_RATING, 16, 'Alter Physical Structure: Stone'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 600, 'Alter Physical Structure: Stone'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Alter Physical Structure: Stone - Physical Strength', 2, 6), 'Alter Physical Structure: Stone'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to cold.', 'Alter Physical Structure: Stone'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'The stone form is cool enough to avoid detection by infrared or heat sensors.', 'Alter Physical Structure: Stone'),
+            ])),
 
             new TableEntry(9, new Ability('Control Elemental Force: Water', 'temp')),
 
@@ -254,7 +268,14 @@ class TableSuperAbilities
 
             new TableEntry(24, new Ability('Gravity Manipulation', 'temp')),
 
-            new TableEntry(27, new Ability('Alter Physical Structure: Ice', 'temp')),
+            new TableEntry(27, new Ability('Alter Physical Structure: Ice', 'The startling ability to transform into a being of living ice, as well as manipulate and control aspects of cold. Snow and ice can be created by an extraordinary means of water condensation and freezing of moisture out of thin air. In this way the super being can create snow and ice. Abilities: Create snow and/or ice, create and hurl ice balls, create and hurl ice shards, ice wall or shield, encase in ice, and general ice.', [
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::NATURAL_ARMOR_RATING, 14, 'Alter Physical Structure: Ice'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 50, 'Alter Physical Structure: Ice'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Conventional weapons, like knives and guns, do one-half their normal damage.', 'Alter Physical Structure: Ice'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Lasers do no damage, reflecting and bouncing off the reflective surface of the ice.', 'Alter Physical Structure: Ice'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Explosives, including grenades, dynamite, nitro, and plastic explosives, all do 1/2 damage.', 'Alter Physical Structure: Ice'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to cold.', 'Alter Physical Structure: Ice'),
+            ])),
 
             new TableEntry(30, new Ability('Intangibility', 'temp')),
 
@@ -264,7 +285,35 @@ class TableSuperAbilities
 
             new TableEntry(38, new Ability('Control Elemental Force: Air', 'temp')),
 
-            new TableEntry(41, new Ability('Animal Abilities', 'temp')),
+            new TableEntry(39, new Ability('Animal Abilities - Bear', 'This power gives humanoid characters the traits, abilities and instincts of a particular type of animaL It does not actually transform the person into an animal. The character can also control (to a limited degree) any animals that fall into his general type. Actual communication/dialog is impossible, but the character understands the general meanings of grunts, growls, whines, and facial and tail expressions. The animals Will look toward the super being as the leader of a pack and will follow his actions. Commands will be limited to stop, go, attack, wait, run, etc. Hands are thick, With heavy short fingers; ears are small The character is tough husky and bulky, yet nimble.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Cold does half damage.', 'Animal Abilities - Bear'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Bear: SDC', 2, 4, 10), 'Animal Abilities - Bear'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Animal Abilities - Bear: PS', 3, 6), 'Animal Abilities - Bear'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Animal Abilities - Bear: PE', 3, 6), 'Animal Abilities - Bear'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary sense of smell allows the character to detect very faint scent traces. Tracking by smell is possible (like a bloodhound) at a 40% + 5% per level of experience. Recognizing a person\'s scent is also possible, with a 48% effectiveness.', 'Animal Abilities - Bear'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 2D4 bears or dogs.', 'Animal Abilities - Bear'),
+            ])),
+
+            new TableEntry(40, new Ability('Animal Abilities - Bird', 'This power gives humanoid characters the traits, abilities and instincts of a particular type of animaL It does not actually transform the person into an animal. The character can also control (to a limited degree) any animals that fall into his general type. Actual communication/dialog is impossible, but the character understands the general meanings of grunts, growls, whines, and facial and tail expressions. The animals Will look toward the super being as the leader of a pack and will follow his actions. Commands will be limited to stop, go, attack, wait, run, etc. Large, round eyes; tends to be thin, but muscular.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Glide: same power as teh minor super ability.', 'Animal Abilities - Bird'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, '180 degree arc of vision. It is extremely difficult to sneak up on this character.', 'Animal Abilities - Bird'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary vision is approximately six times better than normal human\'s. That means an 18 inch (.4m) object can be seen clearly, in perfect detail, up to one mile (1.6km) away.', 'Animal Abilities - Bird'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::INITIATIVE, 2, 'Animal Abilities - Bird'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 1, 'Animal Abilities - Bird'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 1, 'Animal Abilities - Bird'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 4D4 birds.', 'Animal Abilities - Bird'),
+            ])),
+
+            new TableEntry(41, new Ability('Animal Abilities - Reptile', 'Round eyes, small ears and minimal body hair.', [
+                new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTargets::ATTRIBUTE_SPEED, 2, 'Animal Abilities - Reptile'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Leap up to 8ft (2.4m) straight up and 15ft lengthwise (4.6m).', 'Animal Abilities - Reptile'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_CLIMBING, 82, 'Animal Abilities - Reptile'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::MAINTAIN_GRIP_HOLD_FOOTING, 72, 'Animal Abilities - Reptile'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::BALANCE_WALK_TIGHTROPE, 62, 'Animal Abilities - Reptile'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Reptile: SDC', 1, 4, 10), 'Animal Abilities - Reptile'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Animal Abilities - Reptile: PP', 1, 6), 'Animal Abilities - Reptile'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control up to 6D6 reptiles of any kind.', 'Animal Abilities - Reptile'),
+            ])),
 
             new TableEntry(43, new Ability('Sonic Speed', 'temp')),
 
@@ -293,11 +342,20 @@ class TableSuperAbilities
 
             new TableEntry(64, new Ability('Teleport', 'temp')),
 
-            new TableEntry(67, new Ability('Alter Physical Structure: Liquid', 'temp')),
+            new TableEntry(67, new Ability('Alter Physical Structure: Liquid', 'The weird power to transform into a being of living water-like liquid. Abilities: Water bolt, water behemoth, water merge, manipulate shape, and limited invulnerability.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 20, 'Alter Physical Structure: Liquid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'The character radiates no heat when in water form; thus he can not be detected or tracked by infrared or heat sensors.', 'Alter Physical Structure: Liquid'),
+            ])),
 
             new TableEntry(70, new Ability('Disruptive Touch', 'temp')),
 
-            new TableEntry(73, new Ability('Alter Physical Structure: Metal', 'temp')),
+            new TableEntry(73, new Ability('Alter Physical Structure: Metal', 'A power that transforms the character into a living juggernaut of metal.', [
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::NATURAL_ARMOR_RATING, 17, 'Alter Physical Structure: Metal'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 800, 'Alter Physical Structure: Metal'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Alter Physical Structure: Metal - Physical Strength', 3, 4), 'Alter Physical Structure: Metal'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to cold.', 'Alter Physical Structure: Metal'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'The metal form is cool enough to avoid detection by infrared or heat sensors.', 'Alter Physical Structure: Metal'),
+            ])),
 
             new TableEntry(75, new Ability('Mechano-Link', 'temp')),
 
@@ -318,6 +376,105 @@ class TableSuperAbilities
             new TableEntry(98, new Ability('Transferal/Possession', 'temp')),
 
             new TableEntry(100, new Ability('Weight Manipulation', 'temp')),
+
+            new TableEntry(101, new Ability('Animal Abilities - Canine', 'This power gives humanoid characters the traits, abilities and instincts of a particular type of animaL It does not actually transform the person into an animal. The character can also control (to a limited degree) any animals that fall into his general type. Actual communication/dialog is impossible, but the character understands the general meanings of grunts, growls, whines, and facial and tail expressions. The animals Will look toward the super being as the leader of a pack and will follow his actions. Commands will be limited to stop, go, attack, wait, run, etc. Pointed ears; large, flat nose, and small, pointed, canine-like teeth.', [
+                new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTargets::ATTRIBUTE_SPEED, 2, 'Animal Abilities - Canine'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_SPEED, 10, 'Animal Abilities - Canine'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Canine: SDC', 1, 4, 10), 'Animal Abilities - Canine'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Animal Abilities - Canine: PS', 1, 6), 'Animal Abilities - Canine'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Animal Abilities - Canine: PE', 1, 6), 'Animal Abilities - Canine'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary sense of smell allows the character to detect very faint scent traces. Tracking by smell, like a bloodhound, is possible at a skill proficiency of 50%+ 4% per level of experience. Recognizing a person by scent is also possible at a 56% effectiveness.', 'Animal Abilities - Canine'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 3D4 dogs.', 'Animal Abilities - Bear'),
+            ])),
+
+            new TableEntry(102, new Ability('Animal Abilities - Cat: small, domesticated', 'This power gives humanoid characters the traits, abilities and instincts of a particular type of animal It does not actually transform the person into an animal. The character can also control (to a limited degree) any animals that fall into his general type. Actual communication/dialog is impossible, but the character understands the general meanings of grunts, growls, whines, and facial and tail expressions. The animals Will look toward the super being as the leader of a pack and will follow his actions. Commands will be limited to stop, go, attack, wait, run, etc. Large slanted eyes, and pointed ears.', [
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_CLIMBING, 50, 'Animal Abilities - Cat (domestic)'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_PROWL, 70, 'Animal Abilities - Cat (domestic)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::BALANCE_WALK_TIGHTROPE, 60, 'Animal Abilities - Cat (domestic)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 4, 'Animal Abilities - Cat (domestic)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Superior vision allows the character to see about twice as good as a normal human. Nightvision - 60ft.', 'Animal Abilities - Cat (domestic)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Animal Abilities - Cat (domestic): PP', 1, 6), 'Animal Abilities - Cat (domestic)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Leap up to 6ft straight up or across (1.8m).', 'Animal Abilities - Cat (domestic)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 2d6 domestic cats.', 'Animal Abilities - Cat (domestic)'),
+            ])),
+
+            new TableEntry(103, new Ability('Animal Abilities - Cat: big wild predators', 'Large slanted eyes; large, pointed ears, and add 30 pounds to the weight (all muscle).', [
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_CLIMBING, 65, 'Animal Abilities - Cat (big)'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_PROWL, 55, 'Animal Abilities - Cat (big)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Cat (big)', 1, 6, 10), 'Animal Abilities - Cat (big)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Animal Abilities - Cat (big)', 1, 6), 'Animal Abilities - Cat (big)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Animal Abilities - Cat (big)', 2, 4), 'Animal Abilities - Cat (big)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Superior vision allows the character to see about two times better than a normal human. Nightvision 60ft.', 'Animal Abilities - Cat (big)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary leaper: 20ft (6.1m) straight up and 40ft (12.2m) across/horizontally.', 'Animal Abilities - Cat (big)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Roar that can be heard up to a mile and a half(2km) away.', 'Animal Abilities - Cat (big)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 2d4 cats of any kind.', 'Animal Abilities - Cat (big)'),
+            ])),
+
+            new TableEntry(104, new Ability('Animal Abilities - Fish', 'Small ears, roundish eyes, pale complexion, and slightly webbed fingers and toes', [
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_SWIMMING, 98, 'Animal Abilities - Fish'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Breathe underwater indefinitely.', 'Animal Abilities - Fish'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Physical Strength (P.S.) becomes doubled when underwater only.', 'Animal Abilities - Fish'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Nightvision 60ft out of the water; 120ft in the water (18 or 48m).', 'Animal Abilities - Fish'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Fish: SDC', 1, 4, 10), 'Animal Abilities - Fish'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Animal Abilities - Fish: PP', 1, 4), 'Animal Abilities - Fish'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 4D6 fish of any kind.', 'Animal Abilities - Fish'),
+            ])),
+
+            new TableEntry(105, new Ability('Animal Abilities - Hoofed', 'Including horse; and cloven, like deer, antelope, etc. Long face; powerful, muscular legs, and pointed ears', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Hoofed: SDC', 1, 6, 10), 'Animal Abilities - Hoofed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Animal Abilities - Hoofed: PE', 2, 6), 'Animal Abilities - Hoofed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Animal Abilities - Hoofed: PS', 2, 4), 'Animal Abilities - Hoofed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Keen sense of hearing, about double a normal human\'s.', 'Animal Abilities - Hoofed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Leap up to 6ft ( 1.8m) high and 15ft (4.6m) lengthwise.', 'Animal Abilities - Hoofed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Kick attack does 2D6 damage (plus P.S. damage bonus).', 'Animal Abilities - Hoofed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 2D6 of any hoofed animal.', 'Animal Abilities - Hoofed'),
+            ])),
+
+            new TableEntry(106, new Ability('Animal Abilities - Musteloid', 'Short in stature; small eyes; small, furry ears; husky build and clawed fingers.', [
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_CLIMBING, 39, 'Animal Abilities - Musteloid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Natural digging ability: This is the ability to dig through dirt, mud, or sand. Only the character\'s body moves through the earth; no tunnel is left behind.', 'Animal Abilities - Musteloid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Tunneling is a digging process that leaves a passable tunnel. Tunnels near the surface can be used as pit traps.', 'Animal Abilities - Musteloid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Excavation means being able to hollow out large, underground chambers. Characters with Excavation can also dig under buildings, roads, and other structures to weaken their foundations.', 'Animal Abilities - Musteloid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Clawed fingers do 1D8 damage as weapons/punch', 'Animal Abilities - Musteloid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 6, 'Animal Abilities - Musteloid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Nightvision 60ft (18m)', 'Animal Abilities - Musteloid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Musteloid: SDC', 1, 4, 10), 'Animal Abilities - Musteloid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Animal Abilities - Musteloid: PS', 1, 6), 'Animal Abilities - Musteloid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 1D8 of any type of musteloids.', 'Animal Abilities - Musteloid'),
+            ])),
+
+            new TableEntry(107, new Ability('Animal Abilities - Nocturnal Animal', 'Large, round eyes.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary vision approximately 10 times better than a normal human. This means the character can clearly see an 18 inch item up to two miles away (3.2km).', 'Animal Abilities - Nocturnal Animal'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Nightvision 600ft (183m).', 'Animal Abilities - Nocturnal Animal'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary sense of smell allows the character to detect very faint scent traces. Identify person by scent is a 48% chance.', 'Animal Abilities - Nocturnal Animal'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_TRACKING, 40, 'Animal Abilities - Nocturnal Animal'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_PROWL, 70, 'Animal Abilities - Nocturnal Animal'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 20, 'Animal Abilities - Nocturnal Animal'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Animal Abilities - Nocturnal Animal: PP', 1, 4), 'Animal Abilities - Nocturnal Animal'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 1D8 of any type of nocturnal animal.', 'Animal Abilities - Nocturnal Animal'),
+            ])),
+
+
+            new TableEntry(108, new Ability('Animal Metamorphosis - Cat', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            ])),
+
+            new TableEntry(109, new Ability('Animal Metamorphosis - Canine', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            ])),
+
+            new TableEntry(110, new Ability('Animal Metamorphosis - Bird', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            ])),
+
+            new TableEntry(111, new Ability('Animal Metamorphosis - Hoofed', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            ])),
+
+            new TableEntry(112, new Ability('Animal Metamorphosis - Bear', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            ])),
+
+            new TableEntry(113, new Ability('Animal Metamorphosis - Reptile', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            ])),
+
+            new TableEntry(114, new Ability('Animal Metamorphosis - Any and all animals', 'The character can completely transform into a any animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            ])),
         ]);
     }
 }
