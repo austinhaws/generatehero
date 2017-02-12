@@ -26,8 +26,14 @@ abstract class BonusTargets {
     const ROLL = 'Roll';
     const SAVE_COMMA_DEATH = 'Save: comma/Death';
     // note that save magic/psionics/toxins is in addition to PE bonus
+// TODO : break out psionics and toxins and the combo saves so that they target just one type
     const SAVE_MAGIC_PSIONICS_TOXINS = 'Save: Magic/Psionics/Toxins';
+    const SAVE_POSITION_TOXINS_GASES = 'Save: Position/Toxins/Gases';
+    const SAVE_MAGIC = 'Save: Magic';
+    const SAVE_PSIONICS = 'Save: Psionics';
     const SAVE_PSIONIC_ATTACK_INSANITY = 'Save: Psionic Attack/Insanity';
+    const SAVE_PSIONIC_MIND_CONTROL = 'Save: Psionic Mind Control';
+    const SAVE_CONTROL_OTHERS = 'Save: Control Others';
     const TRUST_INTIMIDATE = 'Trust/Intimidate';
     const STRIKE = 'Strike';
 

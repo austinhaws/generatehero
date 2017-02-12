@@ -254,19 +254,52 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'The stone form is cool enough to avoid detection by infrared or heat sensors.', 'Alter Physical Structure: Stone'),
             ])),
 
-            new TableEntry(9, new Ability('Control Elemental Force: Water', 'temp')),
+            new TableEntry(9, new Ability('Control Elemental Force: Water', 'The power to manipulate and control aspects of water. To use any of these powers there must be a source of water within a 600ft radius. Without an ample source of water the super being can not use any of the powers. Water source can be a sewer, water pipe line, pond, lake, ocean, or even rain.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Calm Water - Reduce the intensity of water turbulence. The size of waves, their speed and potential damage are reduced by half. The calming effect can be repeated in the same radius only after the initial effect lapses or is cancelled.', 'Control Elemental Force: Water'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Waves - The character is able to manipulate large sources of water to create a variety of waves in water or on land. The size and speed of the waves can be controlled by the character.', 'Control Elemental Force: Water'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Water Slam - Create a small, but powerful, wave that rises up like a hand and slams down on one specific target. The water slam towers to about 16ft tall and 6ft wide. It can also be used on land if sufficient water is available; 200 gallons or more.', 'Control Elemental Force: Water'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Water Spout - This is the tricky technique of summoning up a spout-like wave. This will push its victim skyward, bouncing atop the water spout. A large body of water must be available.', 'Control Elemental Force: Water'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Wall of Water - Call up a wave which will suspend itself to create a wall. The wall can be up to 6ft thick, 30ft tall and 30ft long. It will slow and deflect bullets and lasers. Fire type attacks that pass through do 1/2 damage. The water can be molded to the shape of a wall, circle, or dome. Because of the vast amount of water it is impossible to see beyond the wall. This ability requires a vast amount of water, like a very large swimming pool, lake, river, etc.', 'Control Elemental Force: Water'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Whirlpool - Creates a huge, spinning whirlpool in any large body of water (lake, river, sea, etc.). This watery funnel pulls and sucks all objects in or on the water into its whirling center, crushing and dragging them down into the depths. Objects caught in the outer edge will be snagged in the pull and drawn toward its center in a spiraling circle. Victims in the water will become dizzy and disoriented, with a 28% chance of drowning. Victims can be pulled, flown, or levitated to safety. Boats and ships may be able to pull themselves away.', 'Control Elemental Force: Water'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Air Bubble (under water) - The hero can create an air bubble underwater, affecting a maximum radius of eight feet. The bubble can be created around oneself or up to 140ft away. The bubble can not be moved easily; normally floating along with the tide with a slight, upward drift. Through intense concentration the person who created the bubble can direct it. Controlling the bubble consumes most of the person\'s concentration, preventing him from using any other power unless he stops the bubble. The bubble can be punctured and destroyed by any type of attack.', 'Control Elemental Force: Water'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Walk on Water - The person is able to stand, walk, run, or float atop water.', 'Control Elemental Force: Water'),
+            ])),
 
-            new TableEntry(11, new Ability('Invisibility', 'temp')),
+            new TableEntry(11, new Ability('Invisibility', 'The super being and anything he is wearing or carrying, up to 100lbs in weight, can be turned invisible at will. Neither normal vision nor nightvision can detect invisibility; however, infrared, heat sensors and motion detectors can easily locate an invisible interloper. Although the invisible character is imperceptible to the eye, he retains his physical mass, meaning that he can not go through walls nor do weapons pass through him. This also means he still makes noise (footsteps, breathing, bumps, knocks, etc.) and may be located by his noise if not careful. The character can automatically see the invisible.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Invisibility: SDC', 1, 4, 10), 'Invisibility'),
+            ])),
 
-            new TableEntry(13, new Ability('Energy Absorption', 'temp')),
+            new TableEntry(13, new Ability('Energy Absorption', 'This character is a sort of living energy sponge that can soak-up, store, and harmlessly convert and release energy.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to heat, fire, laser blasts, electricity, and other forms of energy.', 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Draining Touch - The character can drain the energy out of an item, like a car battery or energy pack, by touching it.', 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Energy Discharge - The character can touch an electrical/energy conductor and send a power surge into the system, at least temporarily short-circuiting the system, if not frying it completely.', 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Energy Flash - The character can discharge a sudden energy flash that will strike everyone within the area of the discharge. Unfortunately, the character can not control or direct the energy to strike a specific target.', 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Glow - The storage of energy can be released as light. This character can glow with up to 500 watts of light. The light can be restricted to a specific part of the body, like a hand or arm, or the entire body.', 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Shoot Light Beam - The light beam is completely harmless in that it does no damage. However. It is so bright that it can be used to temporarily blind an opponent if shot into the eyes. The beams can also be used as a beacon or searchlight. Maximum width of the beam is two feet if both hands are put together with fingers spread wide.', 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Energy Absorption: SDC', 1, 6, 10), 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Energy Absorption: PE', 1, 4), 'Energy Absorption'),
+            ])),
 
-            new TableEntry(16, new Ability('Control Others', 'temp')),
+            new TableEntry(16, new Ability('Control Others', 'This power affects any intelligent creature, or animals. It can temporarily bend the will of its victim so that they are under the complete control of the super being. The affected person will do absolutely anything the controller requests. All questions will be answered truthfully and in as much detail as requested. However, the controlled person will answer and obey only the person controlling him/her. Victims will remember their actions after being controlled.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONIC_MIND_CONTROL, 6, 'Control Others'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_CONTROL_OTHERS, 6, 'Control Others'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Control Others: MA', 2, 4), 'Control Others'),
+            ])),
 
             new TableEntry(19, new Ability('Shape Change', 'temp')),
 
-            new TableEntry(22, new Ability('Darkness Control', 'temp')),
+            new TableEntry(22, new Ability('Darkness Control', 'A power that allows the character to create and manipulate darkness.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Darkness - Create an area of total darkness up to 140ft away. The darkness is so black that normal vision, nightvision, and light amplification optic systems are ineffective.', 'Darkness Control'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Shadow Mold - The ability to become invisible in shadows or darkness. The only requirement is that the shadow or area of darkness must be man-sized. Exposure to light will dispel the darkness/shadow and reveal the character.', 'Darkness Control'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Nightvision - 600ft (183m) in normal darkness; 30ft (9.1m) in his own, unnatural, darkness.', 'Darkness Control'),
+            ])),
 
-            new TableEntry(24, new Ability('Gravity Manipulation', 'temp')),
+            new TableEntry(24, new Ability('Gravity Manipulation', 'The control and manipulation of gravity.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Reduce Gravity - Reduce gravity to a fraction. Carry up to 100 times his normal weight capacity. Leap two feet for each P.S. attribute point. Speed tripled. This effect can be placed on oneself, or others within the 120ft range, or on an area (20ft radius) up to 120ft away.', 'Gravity Manipulation'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Increase Gravity - This ability is the opposite of the reduce gravity effect, enabling the super being to create bone crushing gravitational conditions.', 'Gravity Manipulation'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Zero Gravity - Create an area with no gravity at all. Anything within the radius, or anything specifically affected, is completely weightless and will float about lOft above the ground.', 'Gravity Manipulation'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Antigravity Flight - Can hover or propel himself through the air', 'Gravity Manipulation'),
+            ])),
 
             new TableEntry(27, new Ability('Alter Physical Structure: Ice', 'The startling ability to transform into a being of living ice, as well as manipulate and control aspects of cold. Snow and ice can be created by an extraordinary means of water condensation and freezing of moisture out of thin air. In this way the super being can create snow and ice. Abilities: Create snow and/or ice, create and hurl ice balls, create and hurl ice shards, ice wall or shield, encase in ice, and general ice.', [
                 new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::NATURAL_ARMOR_RATING, 14, 'Alter Physical Structure: Ice'),
@@ -277,13 +310,33 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to cold.', 'Alter Physical Structure: Ice'),
             ])),
 
-            new TableEntry(30, new Ability('Intangibility', 'temp')),
+            new TableEntry(30, new Ability('Intangibility', 'This power affects the bonding element of molecules, making the person and 20lbs (9kg) of additional material intangible. Intangibility means that sticks and stones, punches, bullets, lasers, and most conventional attacks pass right through; harmless, like a ghost. Electricity and sonic blasts, which stimulate and agitate molecules, do half damage. Psionic attacks have full effect. Gas attacks do full damage/effect. The intangible person can not touch, pick up or carry anything, but can speak and hear as normal. The character can walk through any substance, stone, steel, earth, machines, etc, without affecting it or himself. Although the character can not glide or float, falls or explosions can not harm him. Because of the intangible state, he can sink into the earth/ground up to his nose and walk on the dense molecules, effectively walking through the earth. Likewise, he can actually walk on the dense molecules of smoke and water.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Intangibility: MA', 1, 6), 'Intangibility'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Intangibility: SDC', 1, 4, 10), 'Intangibility'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_PROWL, 20, 'Intangibility'),
+            ])),
 
-            new TableEntry(32, new Ability('Growth', 'temp')),
+            new TableEntry(32, new Ability('Growth', 'The ability to greatly increase one\'s size and mass including SDC and Physical Strength.', [
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, 14, 'Growth'),
+            ])),
 
-            new TableEntry(35, new Ability('Create Force Field', 'temp')),
+            new TableEntry(35, new Ability('Create Force Field', 'Create force field', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Force Field - Generate an invisible or semitransparent field of energy/force. The force field can be mentally shaped as a wall, circle, dome, box, or bubble.', 'Create Force Field'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Body Armor - Create a light force field that follows the contours of his body to create a sort of invisible body armor. Gases arc still effective (only the bubble closes out gases).', 'Create Force Field'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Bolts of Force - The character can create small, nearly invisible, bolts of force which can be f1red at an opponent.', 'Create Force Field'),
+            ])),
 
-            new TableEntry(38, new Ability('Control Elemental Force: Air', 'temp')),
+            new TableEntry(38, new Ability('Control Elemental Force: Air', 'The power to manipulate and control aspects of air and atmospheric conditions.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Wind Rush - Create a short powerful wind gusting to 60mph (96kmph), and can direct it at a specific target or area. The wind is so powerful that it will stagger or knock people down, blow away all objects in its path weighing less than 30 pounds (13.6kg), and break ordinary window glass.', 'Control Elemental Force: Air'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Whirlwind - Create a rotating windstorm of limited intensity. Moving in an inward and upward spiral motion, the 75mph winds will suck, hurl, and dash to the ground anyone or anything within a 20ft (6.1m) area. Anyone caught in the wind can not attack or speak for one melee. They will be snatched up and hurled approximately 20ft, taking 4D6 points of damage. The wind will affect anything weighing less than 700lbs (315kg).', 'Control Elemental Force: Air'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Ride the Wind - Manipulate air currents and wind speed to carry himself and an additional 200lbs aloft. Riding the winds is not the ability to fly, but is, more accurately, the ability to hover, rise above the ground (up to 30ft per melee), and glide. The gliding is very limited and requires the concentration of the air controller. He can still use his other powers while aloft. If he is knocked unconscious or severely hurt he loses all control and plummets down to earth.', 'Control Elemental Force: Air'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Change Wind Direction - Change the direction of the wind in a small area by manipulating air currents.', 'Control Elemental Force: Air'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Stop Wind/Control (wind) Speed - Can completely stop the wind.', 'Control Elemental Force: Air'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Air Bubble - Create a bubble or pocket of air. This can be done underwater or in a place where there is at least a minute quantity of oxygen. The bubble offers protection from gases, foul odors, etc. Bubble Radius: 6ft; Speed: The bubble can be moved, but at a limited speed factor of 10.', 'Control Elemental Force: Air'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Call Lightning - Call down a lightning bolt to strike a specific target.', 'Control Elemental Force: Air'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Atmospheric Manipulation - Darken sky: heavy overcast, creating a dark, ominous sky; Cause a loud, eerie thunderclap; Increase or decrease the wind speed; Increase or decrease precipitation; Dispel a fog; Create a fog.', 'Control Elemental Force: Air'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Resistant to cold and electricity (does half damage).', 'Control Elemental Force: Air'),
+            ])),
 
             new TableEntry(39, new Ability('Animal Abilities - Bear', 'This power gives humanoid characters the traits, abilities and instincts of a particular type of animaL It does not actually transform the person into an animal. The character can also control (to a limited degree) any animals that fall into his general type. Actual communication/dialog is impossible, but the character understands the general meanings of grunts, growls, whines, and facial and tail expressions. The animals Will look toward the super being as the leader of a pack and will follow his actions. Commands will be limited to stop, go, attack, wait, run, etc. Hands are thick, With heavy short fingers; ears are small The character is tough husky and bulky, yet nimble.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Cold does half damage.', 'Animal Abilities - Bear'),
@@ -328,7 +381,12 @@ class TableSuperAbilities
 
             new TableEntry(50, new Ability('Stretching', 'temp')),
 
-            new TableEntry(53, new Ability('Invulnerability', 'temp')),
+            new TableEntry(53, new Ability('Invulnerability', 'An almost indestructible juggernaut. Most physical attacks do no damage whatsoever! Cold, fire, heat, electricity, lasers, other types of energy, bullets, punches, falls and so on, do no damage. Gases, drugs, chemicals, poisons, toxins and rad1at1on w1ll affect the invulnerable person, but are reduced to half the usual potency (half damage, duration, effect). The character is only vulnerable to psionics, illusionary and spell magic, and magic weapons.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Invulnerability: SDC', 4, 6, 10), 'Invulnerability'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Invulnerability: PE', 1, 6), 'Invulnerability'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Invulnerability: PS', 1, 4), 'Invulnerability'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, 20, 'Invulnerability'),
+            ])),
 
             new TableEntry(56, new Ability('Alter Physical Structure: Electricity', 'An incredible transformation into a living electrical conduit, as well as the ability to manipulate and control aspects of electricity. Abilities: Fire Electrical Ray, Mini-Lightning Bolt, Lightning Bolt, Electric Flight, and Generate Electricity.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 40, 'Alter Physical Structure: Electricity'),
@@ -336,7 +394,15 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Fire and energy attacks do half damage.', 'Alter Physical Structure: Electricity'),
             ])),
 
-            new TableEntry(59, new Ability('Control Elemental Force: Earth', 'temp')),
+            new TableEntry(59, new Ability('Control Elemental Force: Earth', 'The power to manipulate and control aspects of the earth. To use any of these powers there must be a vast source of earth (stone, din, clay, sand) within a 600ft radius. The earth is molded and manipulated, not created.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Wall or Earth - Create a circle, dome, or straight wall that is 18ft long by 12ft high by 3ft thick.', 'Alter Physical Structure: Earth'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Tower of Earth - call forth a great mound of earth or stone that will shoot up, out of the ground, carrying anything under it skyward.', 'Alter Physical Structure: Earth'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Hurl Earth - Cause chunks of earth to raise up and hurl them at a target.', 'Alter Physical Structure: Earth'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Quicksand - Transform normal earth and stone into a pool of quicksand, up to 20ft deep.', 'Alter Physical Structure: Earth'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Rend Earth - The super being can split the earth like a mini-earthquake, creating a 15ft wide, 20ft deep, 40ft long crevice. Also enables creating openings in walls and buildings.', 'Alter Physical Structure: Earth'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sand/Dust Storm - The dust or sand particles can be manipulated to fill the air in order to create a sand or dust storm. The storm can be created up to 180ft away and affects a 30ft radius. Victims are blinded while in the storm, all sense of direction is lost.', 'Alter Physical Structure: Earth'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Encase in Earth - A very powerful, but controlled, ability in which the super being can cause earth (din, clay, sand) or stone (including concrete) to rise from the ground to engulf an object or person. The character has absolute control over the earth and can encase just a foot or leg, or the entire body.', 'Alter Physical Structure: Earth'),
+            ])),
 
             new TableEntry(62, new Ability('Sonic Flight', 'temp')),
 
@@ -347,7 +413,15 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'The character radiates no heat when in water form; thus he can not be detected or tracked by infrared or heat sensors.', 'Alter Physical Structure: Liquid'),
             ])),
 
-            new TableEntry(70, new Ability('Disruptive Touch', 'temp')),
+            new TableEntry(70, new Ability('Disruptive Touch', 'This lethal power actually disrupts the nervous system of the person who falls victim to it.', 'Disruptive Touch', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Disrupt Optic Nerves - temporarily blinds the person; Immobilizes the motor part of the brain causing temporary paralysis. Victims are completely incapacitated. The duration of the blindness and paralysis is 3D4 minutes.', 'Disruptive Touch'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Inflict Pain - 3D6 damage.', 'Disruptive Touch'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Death Touch - Causes 606 damage and shocks the nervous system, plunging the victim into a coma unless a successful savings throw of 15 or higher is made. The use of the Death Touch also takes its toll on the person inflicting the coma. The super being himself is drained each time he uses the Death Touch. Side effects from using the Death Touch: Reduce speed by half, -2 to strike, parry, dodge, and -2 for ALL savings throws for 2D6 melees. Side effects from multiple or continuous use of the Death Touch are cumulative.', 'Disruptive Touch'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Disruptive Touch: PE', 1, 6), 'Disruptive Touch'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Disruptive Touch: SDC', 1, 6, 10), 'Disruptive Touch'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, 10, 'Disruptive Touch'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Poisons, toxins, and drugs have only half their usual effects, damage, and duration.', 'Disruptive Touch'),
+            ])),
 
             new TableEntry(73, new Ability('Alter Physical Structure: Metal', 'A power that transforms the character into a living juggernaut of metal.', [
                 new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::NATURAL_ARMOR_RATING, 17, 'Alter Physical Structure: Metal'),
@@ -359,11 +433,32 @@ class TableSuperAbilities
 
             new TableEntry(75, new Ability('Mechano-Link', 'temp')),
 
-            new TableEntry(78, new Ability('Control Elemental Force: Fire', 'temp')),
+            new TableEntry(78, new Ability('Control Elemental Force: Fire', 'The power to manipulate and control aspects of fire.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Fire Blast - The character can create a fiery bolt or blast out of thin air and hurl it at a target.', 'Control Elemental Force: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Spontaneous Combustion - This ability causes any combustible material to ignite. Spontaneous combustion does not create a blazing fire, but only the spark to start a fire.', 'Control Elemental Force: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Fuel Flame - Quadruples the size of an existing flame or ignites a smoldering ember.', 'Control Elemental Force: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Flame Wall - Can control an existing fire (even a small one) to form a wall or circle.', 'Control Elemental Force: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extinguish Fire - Permanently extinguishes any fires within a 90ft radius, up to 120ft away. The fire controller can also bend this power to pan or cut a swath through fire (10ft wide and 320ft long).', 'Control Elemental Force: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Smoke - The character is able to generate a dense, grey-black cloud of smoke. The cloud can be created from fiery material that is up 10 90ft away. The cloud is 30 X 30 X 30 ft, temporarily impairing the vision of everyone caught in it. Victims can not see beyond the smoky cloud.', 'Control Elemental Force: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Invulnerability to Fire - Impervious to ALL types of fire and heat.', 'Control Elemental Force: Fire'),
+            ])),
 
             new TableEntry(81, new Ability('Mimic', 'temp')),
 
-            new TableEntry(83, new Ability('Karmic Power', 'temp')),
+            new TableEntry(83, new Ability('Karmic Power', 'The character is able to influence his luck and those around him via a sort of Karmic aura. Karma is an energy of positive or negative affect. Theoretically, it is an aspect of the constant struggle between good and evil; order and chaos.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 6, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 2, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 4, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_POSITION_TOXINS_GASES, 6, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONICS, 6, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, 6, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, 20, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Death blows on this character do not kill; instead only stun the character.', 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Critical damage on this character does only normal damage.', 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'On natural 20 to strike, knocks opponent unconscious for 3D4 rounds.', 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_ALL, 10, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Karmic Power: SDC', 1, 4, 10), 'Karmic Power'),
+            ])),
 
             new TableEntry(86, new Ability('Sonic Power', 'temp')),
 
