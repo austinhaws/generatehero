@@ -64,7 +64,7 @@ class TableSuperAbilities
     private function rollMinor()
     {
         return $this->engine->tableRoller->rollTable('Super Ability: Minor', [
-            new TableEntry(3, new Ability('Super Vision: Advanced Sight', 'This is a power that gives the character super sharp, crystal clear vision. Distancing vision is not unlike an eagle\'s. Although not telescopic, the vision is so sharp that the person can read a small sign or recognize a face/costume up to two miles away. Range: Two miles, plus one for every level of experience beyond level two.')),
+            new TableEntry(3, new Ability('Super Vision: Advanced Sight', 'Super sharp, crystal clear vision. Distancing vision is not unlike an eagle\'s. Although not telescopic, the vision is so sharp that the person can read a small sign or recognize a face/costume up to two miles away. Range: Two miles, plus one for every level of experience beyond level two.')),
 
             new TableEntry(6, new Ability('Extraordinary Mental Affinity', 'An aura of likability, confidence, and trust radiates from this character. He or she is so dynamic that they are often the center of attention and make the opposite sex swoon.',
                 [
@@ -73,7 +73,7 @@ class TableSuperAbilities
                     new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_DECEPTION_SLEIGHT_OF_HAND, 10, 'Extraordinary Mental Affinity'),
                 ])),
 
-            new TableEntry(9, new Ability('Bend Light', 'The ability to bend light allows the character to manipulate light radiation like a prism. THis can produce a number of effects. 1 - Separate the colors bands of light to produce a colored light beam or radiate about 70 watts of colored light; Range: 100ft. 2 - Parries lasers and other light beams by bending the light around him, or a 10ft area, to deflect the beam. Roll just like a normal parry. 3 - Can see in to the infrared and ultraviolet light range; 100ft maximum distance.')),
+            new TableEntry(9, new Ability('Bend Light', 'Manipulate light radiation like a prism. THis can produce a number of effects. 1 - Separate the colors bands of light to produce a colored light beam or radiate about 70 watts of colored light; Range: 100ft. 2 - Parries lasers and other light beams by bending the light around him, or a 10ft area, to deflect the beam. Roll just like a normal parry. 3 - Can see in to the infrared and ultraviolet light range; 100ft maximum distance.')),
 
             new TableEntry(12, new Ability('Flight: Glide', 'This power allows the super being to ride air currents and hover. Maximum gliding speed outdoors, with a strong wind or from a great height (jumping out of an airplane or skyscraper\'s rooftop), is 120mph (192kmph). However, a typical speed is more likely 10 be 40 to 50mph (64 10 80kmph). Gliding indoors is more difficult, with a maximum speed of 40mph (64kmph) and an average speed of 15mph (24km).',
                 [
@@ -172,7 +172,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Broken bones heal completely, without any sign of having ever been broken. Heals 10 times faster than normal', 'Healing Factor'),
             ])),
 
-            new TableEntry(57, new Ability('Super Vision: X-Ray', 'A power that enables the character to see through most substances. Lead and lead alloys will block x-ray vision. It requires a few moments of concentration to see through various substances. Abilities: See through fabric or paper up to four inches thick instantly. See through up to one foot (.3m) of wood, plaster, fabric, paper, vegetation; requires one melee (15 seconds) per each foot of material. See through six inches of brick, stone, concrete or metal; requires two melees (30 seconds) per each six inches.')),
+            new TableEntry(57, new Ability('Super Vision: X-Ray', 'See through most substances. Lead and lead alloys will block x-ray vision. It requires a few moments of concentration to see through various substances. Abilities: See through fabric or paper up to four inches thick instantly. See through up to one foot (.3m) of wood, plaster, fabric, paper, vegetation; requires one melee (15 seconds) per each foot of material. See through six inches of brick, stone, concrete or metal; requires two melees (30 seconds) per each six inches.')),
 
             new TableEntry(60, new Ability('Extraordinary Physical Endurance', 'An extremely tough individual who can withstand a great amount of physical strain or punishment.',
                 [
@@ -190,7 +190,7 @@ class TableSuperAbilities
                     new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Extraordinary Mental Endurance', 2, 4), 'Extraordinary Mental Endurance'),
                 ])),
 
-            new TableEntry(73, new Ability('Impervious to Fire & Heat', 'This power makes the character totally impervious to fire, including magical fire, and heat. No damage.')),
+            new TableEntry(73, new Ability('Impervious to Fire & Heat', 'Totally impervious to fire, including magical fire, and heat. No damage.')),
 
             new TableEntry(76, new Ability('Energy Expulsion: Electrical Field', 'Range: lOft area plus an additional 2ft per each level of experience; Damage: 4D6 for every 5 seconds within the energy field; Duration: One full melee (can be instantly renewed); Attacks Per Melee: One long continuous attack. No other attacks or actions can be made while the electrical field is up; Bonuses: + 2 to strike. No aimed shot is possible; area affect; This character can tum himself into a living dynamo, crackling with electrical energy. Standing stationary, the hero can generate a field of electricity around himself affecting everyone within a 12ft area (first level). Victims caught in the field will suffer a maximum of 4D6 damage for every FIVE seconds trapped in the field (equal to 3 attacks per melee). Can diminish the field\'s damage to as little as 1D6 per five seconds of exposure. While the field is up the character is impervious to electrical and energy attacks. Projectiles, bullets and thrown objects are minus -8 to strike, but do full damage if they hit. Fire is not hampered by the electrical field.')),
 
@@ -200,11 +200,11 @@ class TableSuperAbilities
 
             new TableEntry(84, new Ability('Energy Resistance', 'Range: Self; Duration: Constant; Attacks Per Melee: None; Bonuses: None; This power makes the character extremely resistant to all energy based attacks. No physical damage is sustained by the first 20 points of energy attacks in a melee round. Energy attacks beyond the 20 points do only half damage. The character\'s resistance to energy includes fue, electricity, lasers and pure energy. The person is completely invulnerable to stun-type energy weapons. Energy resistance is not effective against radiation damage.')),
 
-            new TableEntry(87, new Ability('Heightened Sense of Touch', 'The character has a superior tactile sense. He can easily recognize very slight differences in textures by touch.', [
+            new TableEntry(87, new Ability('Heightened Sense of Touch', 'Superior tactile sense - can easily recognize very slight differences in textures by touch.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_DELICATE_TOUCH, 10, 'Heightened Sense of Touch'),
             ])),
 
-            new TableEntry(90, new Ability('Super Vision: Ultraviolet & Infrared', 'This power enables the character to see in the infrared and ultraviolet spectrum of light radiation. Both types of light are clearly visible to this person. Infrared also provides a hued type of nightvision allowing the character to see clearly in the dark.')),
+            new TableEntry(90, new Ability('Super Vision: Ultraviolet & Infrared', 'See in the infrared and ultraviolet spectrum of light radiation. Both types of light are clearly visible to this person. Infrared also provides a hued type of nightvision allowing the character to see clearly in the dark.')),
 
             new TableEntry(94, new Ability('Energy Expulsion: Light', 'Range: 600ft (183m); Damage: 2D6 + 1D6 per each level of experience; Duration: Instant; Attacks Per Melee: Same as hand to hand; Bonuses: +3 to strike for aimed shot. +1 if shooting wild; The ability to draw on light energy/radiation and emit a highly concentrated bolt of light, not unlike a laser beam. The light bolt can only be fired in pulses from the fingers, hands or eyes. With experience (3rd level or higher), the character can regulate the amount of damage inflicted by the light bolt in increments of 1D6. The character can also radiate light like a human light bulb. Equal to about 100 watts, plus 25 watts per level of experience. Even at first level he can radiate enough to light up a 20 X 20ft room.')),
 
@@ -233,10 +233,10 @@ class TableSuperAbilities
     private function rollMajor()
     {
         return $this->engine->tableRoller->rollTable('Super Ability: Major', [
-            new TableEntry(1, new Ability('Animal Metamorphosis - Rodent', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            new TableEntry(1, new Ability('Animal Metamorphosis - Rodent', 'Completely transform into a rodent. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
             ])),
 
-            new TableEntry(2, new Ability('Animal Metamorphosis - Musteloid', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            new TableEntry(2, new Ability('Animal Metamorphosis - Musteloid', 'Completely transform into a musteloid. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
             ])),
 
             new TableEntry(4, new Ability('Chameleon', 'A truly unique power that allows the person to blend into and adapt to his environment. Chameleon is an ability that enables the person to change color and texture to blend into his environment. A sort of bio-aura surrounds the character so that even his clothes seem to change to adapt to the surrounding area. Movement destroys the effectiveness of the chameleon ability.', [
@@ -256,7 +256,7 @@ class TableSuperAbilities
 
             new TableEntry(9, new Ability('Control Elemental Force: Water', 'The power to manipulate and control aspects of water. To use any of these powers there must be a source of water within a 600ft radius. Without an ample source of water the super being can not use any of the powers. Water source can be a sewer, water pipe line, pond, lake, ocean, or even rain.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Calm Water - Reduce the intensity of water turbulence. The size of waves, their speed and potential damage are reduced by half. The calming effect can be repeated in the same radius only after the initial effect lapses or is cancelled.', 'Control Elemental Force: Water'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Waves - The character is able to manipulate large sources of water to create a variety of waves in water or on land. The size and speed of the waves can be controlled by the character.', 'Control Elemental Force: Water'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Waves - Manipulate large sources of water to create a variety of waves in water or on land. The size and speed of the waves can be controlled by the character.', 'Control Elemental Force: Water'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Water Slam - Create a small, but powerful, wave that rises up like a hand and slams down on one specific target. The water slam towers to about 16ft tall and 6ft wide. It can also be used on land if sufficient water is available; 200 gallons or more.', 'Control Elemental Force: Water'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Water Spout - This is the tricky technique of summoning up a spout-like wave. This will push its victim skyward, bouncing atop the water spout. A large body of water must be available.', 'Control Elemental Force: Water'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Wall of Water - Call up a wave which will suspend itself to create a wall. The wall can be up to 6ft thick, 30ft tall and 30ft long. It will slow and deflect bullets and lasers. Fire type attacks that pass through do 1/2 damage. The water can be molded to the shape of a wall, circle, or dome. Because of the vast amount of water it is impossible to see beyond the wall. This ability requires a vast amount of water, like a very large swimming pool, lake, river, etc.', 'Control Elemental Force: Water'),
@@ -271,9 +271,9 @@ class TableSuperAbilities
 
             new TableEntry(13, new Ability('Energy Absorption', 'This character is a sort of living energy sponge that can soak-up, store, and harmlessly convert and release energy.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to heat, fire, laser blasts, electricity, and other forms of energy.', 'Energy Absorption'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Draining Touch - The character can drain the energy out of an item, like a car battery or energy pack, by touching it.', 'Energy Absorption'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Energy Discharge - The character can touch an electrical/energy conductor and send a power surge into the system, at least temporarily short-circuiting the system, if not frying it completely.', 'Energy Absorption'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Energy Flash - The character can discharge a sudden energy flash that will strike everyone within the area of the discharge. Unfortunately, the character can not control or direct the energy to strike a specific target.', 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Draining Touch - Drain the energy out of an item, like a car battery or energy pack, by touching it.', 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Energy Discharge - Touch an electrical/energy conductor and send a power surge into the system, at least temporarily short-circuiting the system, if not frying it completely.', 'Energy Absorption'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Energy Flash - Discharge a sudden energy flash that will strike everyone within the area of the discharge. Unfortunately, the character can not control or direct the energy to strike a specific target.', 'Energy Absorption'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Glow - The storage of energy can be released as light. This character can glow with up to 500 watts of light. The light can be restricted to a specific part of the body, like a hand or arm, or the entire body.', 'Energy Absorption'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Shoot Light Beam - The light beam is completely harmless in that it does no damage. However. It is so bright that it can be used to temporarily blind an opponent if shot into the eyes. The beams can also be used as a beacon or searchlight. Maximum width of the beam is two feet if both hands are put together with fingers spread wide.', 'Energy Absorption'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Energy Absorption: SDC', 1, 6, 10), 'Energy Absorption'),
@@ -288,7 +288,7 @@ class TableSuperAbilities
 
             new TableEntry(19, new Ability('Shape Change', 'temp')),
 
-            new TableEntry(22, new Ability('Darkness Control', 'A power that allows the character to create and manipulate darkness.', [
+            new TableEntry(22, new Ability('Darkness Control', 'Create and manipulate darkness.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Darkness - Create an area of total darkness up to 140ft away. The darkness is so black that normal vision, nightvision, and light amplification optic systems are ineffective.', 'Darkness Control'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Shadow Mold - The ability to become invisible in shadows or darkness. The only requirement is that the shadow or area of darkness must be man-sized. Exposure to light will dispel the darkness/shadow and reveal the character.', 'Darkness Control'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Nightvision - 600ft (183m) in normal darkness; 30ft (9.1m) in his own, unnatural, darkness.', 'Darkness Control'),
@@ -323,7 +323,7 @@ class TableSuperAbilities
             new TableEntry(35, new Ability('Create Force Field', 'Create force field', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Force Field - Generate an invisible or semitransparent field of energy/force. The force field can be mentally shaped as a wall, circle, dome, box, or bubble.', 'Create Force Field'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Body Armor - Create a light force field that follows the contours of his body to create a sort of invisible body armor. Gases arc still effective (only the bubble closes out gases).', 'Create Force Field'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Bolts of Force - The character can create small, nearly invisible, bolts of force which can be f1red at an opponent.', 'Create Force Field'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Bolts of Force - Create small, nearly invisible, bolts of force which can be f1red at an opponent.', 'Create Force Field'),
             ])),
 
             new TableEntry(38, new Ability('Control Elemental Force: Air', 'The power to manipulate and control aspects of air and atmospheric conditions.', [
@@ -343,7 +343,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Bear: SDC', 2, 4, 10), 'Animal Abilities - Bear'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Animal Abilities - Bear: PS', 3, 6), 'Animal Abilities - Bear'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Animal Abilities - Bear: PE', 3, 6), 'Animal Abilities - Bear'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary sense of smell allows the character to detect very faint scent traces. Tracking by smell is possible (like a bloodhound) at a 40% + 5% per level of experience. Recognizing a person\'s scent is also possible, with a 48% effectiveness.', 'Animal Abilities - Bear'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary Sense of Smell - Detect very faint scent traces. Tracking by smell is possible (like a bloodhound) at a 40% + 5% per level of experience. Recognizing a person\'s scent is also possible, with a 48% effectiveness.', 'Animal Abilities - Bear'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 2D4 bears or dogs.', 'Animal Abilities - Bear'),
             ])),
 
@@ -377,7 +377,13 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Flight is a possibility while in flame form.', 'Alter Physical Structure: Fire'),
             ])),
 
-            new TableEntry(48, new Ability('Magnetism', 'temp')),
+            new TableEntry(48, new Ability('Magnetism', 'The power to direct, control, and manipulate aspects of magnetic forces.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Attract Metal - Attract or pull up to 3000lbs (1350kg). To magnetically affect the object, it must have at least a 20% iron/steel composition. Can pull a metal item from up to 160ft away.', 'Magnetism'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Hurl or Repel Metal Objects - Repel objects which are at least 20% iron/steel composition. This can be focused against one specific item or to repel any metallic objects within a 160ft (48.8m) area. The hurled objects can make excellent weapons.', 'Magnetism'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Magnetic Field - By placing a magnetic field around himself, the character can stop or deflect metal objects. The magnetic field will also erase any magnetic tapes, disrupt electrical frequencies, and reduce electrical attacks by half damage. Can also use the field to propel character toward (or away from) any iron object that is at least equal to his own body weight.', 'Magnetism'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Magnetize Objects - Make an iron object temporarily magnetic. Magnetized items are much like the kind of magnets available in the commercial market. They are most suitable for attaching to iron or steel objects.', 'Magnetism'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sense Iron - Sense the presence, and vague location, of iron or steel within a 25ft radius. The exact size of the items is impossible to discern. This ability can be used to detect objects beneath the ground.', 'Magnetism'),
+            ])),
 
             new TableEntry(50, new Ability('Stretching', 'temp')),
 
@@ -410,7 +416,7 @@ class TableSuperAbilities
 
             new TableEntry(67, new Ability('Alter Physical Structure: Liquid', 'The weird power to transform into a being of living water-like liquid. Abilities: Water bolt, water behemoth, water merge, manipulate shape, and limited invulnerability.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 20, 'Alter Physical Structure: Liquid'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'The character radiates no heat when in water form; thus he can not be detected or tracked by infrared or heat sensors.', 'Alter Physical Structure: Liquid'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Radiates no heat when in water form; thus he can not be detected or tracked by infrared or heat sensors.', 'Alter Physical Structure: Liquid'),
             ])),
 
             new TableEntry(70, new Ability('Disruptive Touch', 'This lethal power actually disrupts the nervous system of the person who falls victim to it.', 'Disruptive Touch', [
@@ -434,18 +440,18 @@ class TableSuperAbilities
             new TableEntry(75, new Ability('Mechano-Link', 'temp')),
 
             new TableEntry(78, new Ability('Control Elemental Force: Fire', 'The power to manipulate and control aspects of fire.', [
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Fire Blast - The character can create a fiery bolt or blast out of thin air and hurl it at a target.', 'Control Elemental Force: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Fire Blast - Create a fiery bolt or blast out of thin air and hurl it at a target.', 'Control Elemental Force: Fire'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Spontaneous Combustion - This ability causes any combustible material to ignite. Spontaneous combustion does not create a blazing fire, but only the spark to start a fire.', 'Control Elemental Force: Fire'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Fuel Flame - Quadruples the size of an existing flame or ignites a smoldering ember.', 'Control Elemental Force: Fire'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Flame Wall - Can control an existing fire (even a small one) to form a wall or circle.', 'Control Elemental Force: Fire'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extinguish Fire - Permanently extinguishes any fires within a 90ft radius, up to 120ft away. The fire controller can also bend this power to pan or cut a swath through fire (10ft wide and 320ft long).', 'Control Elemental Force: Fire'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Smoke - The character is able to generate a dense, grey-black cloud of smoke. The cloud can be created from fiery material that is up 10 90ft away. The cloud is 30 X 30 X 30 ft, temporarily impairing the vision of everyone caught in it. Victims can not see beyond the smoky cloud.', 'Control Elemental Force: Fire'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Smoke - Generate a dense, grey-black cloud of smoke. The cloud can be created from fiery material that is up 10 90ft away. The cloud is 30 X 30 X 30 ft, temporarily impairing the vision of everyone caught in it. Victims can not see beyond the smoky cloud.', 'Control Elemental Force: Fire'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Invulnerability to Fire - Impervious to ALL types of fire and heat.', 'Control Elemental Force: Fire'),
             ])),
 
             new TableEntry(81, new Ability('Mimic', 'temp')),
 
-            new TableEntry(83, new Ability('Karmic Power', 'The character is able to influence his luck and those around him via a sort of Karmic aura. Karma is an energy of positive or negative affect. Theoretically, it is an aspect of the constant struggle between good and evil; order and chaos.', [
+            new TableEntry(83, new Ability('Karmic Power', 'Influence his luck and those around him via a sort of Karmic aura. Karma is an energy of positive or negative affect. Theoretically, it is an aspect of the constant struggle between good and evil; order and chaos.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 6, 'Karmic Power'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 2, 'Karmic Power'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 4, 'Karmic Power'),
@@ -478,7 +484,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Canine: SDC', 1, 4, 10), 'Animal Abilities - Canine'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Animal Abilities - Canine: PS', 1, 6), 'Animal Abilities - Canine'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Animal Abilities - Canine: PE', 1, 6), 'Animal Abilities - Canine'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary sense of smell allows the character to detect very faint scent traces. Tracking by smell, like a bloodhound, is possible at a skill proficiency of 50%+ 4% per level of experience. Recognizing a person by scent is also possible at a 56% effectiveness.', 'Animal Abilities - Canine'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Detect very faint scent traces. Tracking by smell, like a bloodhound, is possible at a skill proficiency of 50%+ 4% per level of experience. Recognizing a person by scent is also possible at a 56% effectiveness.', 'Animal Abilities - Canine'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 3D4 dogs.', 'Animal Abilities - Bear'),
             ])),
 
@@ -487,7 +493,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_PROWL, 70, 'Animal Abilities - Cat (domestic)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::BALANCE_WALK_TIGHTROPE, 60, 'Animal Abilities - Cat (domestic)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 4, 'Animal Abilities - Cat (domestic)'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Superior vision allows the character to see about twice as good as a normal human. Nightvision - 60ft.', 'Animal Abilities - Cat (domestic)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Superior vision - See about twice as good as a normal human. Nightvision - 60ft.', 'Animal Abilities - Cat (domestic)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Animal Abilities - Cat (domestic): PP', 1, 6), 'Animal Abilities - Cat (domestic)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Leap up to 6ft straight up or across (1.8m).', 'Animal Abilities - Cat (domestic)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 2d6 domestic cats.', 'Animal Abilities - Cat (domestic)'),
@@ -499,7 +505,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Animal Abilities - Cat (big)', 1, 6, 10), 'Animal Abilities - Cat (big)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Animal Abilities - Cat (big)', 1, 6), 'Animal Abilities - Cat (big)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Animal Abilities - Cat (big)', 2, 4), 'Animal Abilities - Cat (big)'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Superior vision allows the character to see about two times better than a normal human. Nightvision 60ft.', 'Animal Abilities - Cat (big)'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Superior Vision  - See about two times better than a normal human. Nightvision 60ft.', 'Animal Abilities - Cat (big)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary leaper: 20ft (6.1m) straight up and 40ft (12.2m) across/horizontally.', 'Animal Abilities - Cat (big)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Roar that can be heard up to a mile and a half(2km) away.', 'Animal Abilities - Cat (big)'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control 2d4 cats of any kind.', 'Animal Abilities - Cat (big)'),
@@ -541,7 +547,7 @@ class TableSuperAbilities
             new TableEntry(107, new Ability('Animal Abilities - Nocturnal Animal', 'Large, round eyes.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary vision approximately 10 times better than a normal human. This means the character can clearly see an 18 inch item up to two miles away (3.2km).', 'Animal Abilities - Nocturnal Animal'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Nightvision 600ft (183m).', 'Animal Abilities - Nocturnal Animal'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary sense of smell allows the character to detect very faint scent traces. Identify person by scent is a 48% chance.', 'Animal Abilities - Nocturnal Animal'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary Sense of Smell - Detect very faint scent traces. Identify person by scent is a 48% chance.', 'Animal Abilities - Nocturnal Animal'),
                 new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_TRACKING, 40, 'Animal Abilities - Nocturnal Animal'),
                 new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_PROWL, 70, 'Animal Abilities - Nocturnal Animal'),
                 new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 20, 'Animal Abilities - Nocturnal Animal'),
@@ -550,25 +556,25 @@ class TableSuperAbilities
             ])),
 
 
-            new TableEntry(108, new Ability('Animal Metamorphosis - Cat', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            new TableEntry(108, new Ability('Animal Metamorphosis - Cat', 'Completely transform into a cat. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
             ])),
 
-            new TableEntry(109, new Ability('Animal Metamorphosis - Canine', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            new TableEntry(109, new Ability('Animal Metamorphosis - Canine', 'Completely transform into a canine. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
             ])),
 
-            new TableEntry(110, new Ability('Animal Metamorphosis - Bird', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            new TableEntry(110, new Ability('Animal Metamorphosis - Bird', 'Completely transform into a bird. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
             ])),
 
-            new TableEntry(111, new Ability('Animal Metamorphosis - Hoofed', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            new TableEntry(111, new Ability('Animal Metamorphosis - Hoofed', 'Completely transform into a hoofed. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
             ])),
 
-            new TableEntry(112, new Ability('Animal Metamorphosis - Bear', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            new TableEntry(112, new Ability('Animal Metamorphosis - Bear', 'Completely transform into a bear. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
             ])),
 
-            new TableEntry(113, new Ability('Animal Metamorphosis - Reptile', 'The character can completely transform into a particular type of animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            new TableEntry(113, new Ability('Animal Metamorphosis - Reptile', 'Completely transform into a reptile. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
             ])),
 
-            new TableEntry(114, new Ability('Animal Metamorphosis - Any and all animals', 'The character can completely transform into a any animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
+            new TableEntry(114, new Ability('Animal Metamorphosis - Any and all animals', 'Completely transform into a any animal. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [
             ])),
         ]);
     }
