@@ -71,6 +71,7 @@ abstract class BonusTargets {
 
     const UNDERSTAND_OPERATE_ALIEN_MACHINES = 'Understand and operate unknown or alien machines';
     const RECOGNIZE_IDENTIFY_PLANTS = 'Recognize and Identify Plants';
+    const IMITATE_VOICES = 'Imitate Voices';
 
 
     // == SKILLS == //

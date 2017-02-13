@@ -286,7 +286,9 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Control Others: MA', 2, 4), 'Control Others'),
             ])),
 
-            new TableEntry(19, new Ability('Shape Change', 'temp')),
+            new TableEntry(19, new Ability('Shape Change', 'Change all aspects of their physical appearance: height, weight, features, hair, eyes, skin color, etc. Voice imitation is not included. Large extra appendages, such as wings and extra limbs, can not be imitated; however, tails, horns, claws, fangs, etc., can all be grown. All changes are real physical changes, not just clever make-up. A shape-changer can transform into any humanoid creature including apes.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::IMITATE_VOICES, 15, 'Shape Change'),
+            ])),
 
             new TableEntry(22, new Ability('Darkness Control', 'Create and manipulate darkness.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Create Darkness - Create an area of total darkness up to 140ft away. The darkness is so black that normal vision, nightvision, and light amplification optic systems are ineffective.', 'Darkness Control'),
