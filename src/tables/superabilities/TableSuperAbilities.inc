@@ -442,7 +442,8 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_PILOTING_RELATED, 20, 'Mechano-Link'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_COMPUTER_ELECTRICAL_MECHANICAL, 20, 'Mechano-Link'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 2, 'Mechano-Link'),
-                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_UNDERSTAND_OPERATE_ALIEN_MACHINES, 60, 'Mechano-Link'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::UNDERSTAND_OPERATE_ALIEN_MACHINES, 60, 'Mechano-Link'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::DESCRIPTION, 'Merge and communicate with any computer system regardless of preventative programs. The character has the ability to communicate directly with computer and computer-directed machinery. The link can be as direct as touching the machine itself, or can be remote if the machine has some kind of link. Once the link is established the character can examine any of the machine\'s data or programming and can completely reprogram the machine. Performing a mechano-link with a sentient machine, one that has reached the level of self-programming and self-awareness, will mean the psionic can communicate with the machine\'s intelligence. This does not include the ability to command machines.', 'Mechano-Link'),
             ])),
 
             new TableEntry(78, new Ability('Control Elemental Force: Fire', 'The power to manipulate and control aspects of fire.', [
@@ -478,7 +479,15 @@ class TableSuperAbilities
 
             new TableEntry(92, new Ability('Shrink', 'temp')),
 
-            new TableEntry(95, new Ability('Plant Control', 'temp')),
+            new TableEntry(95, new Ability('Plant Control', 'Direct, manipulate, and grow plants at an astounding level.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Animate and Control Plants - Mentally manipulate all plant life within a 40ft radius around him. Thus, he can cause any vines, weeds, shrubs, or trees to trap and ensnare an animal, entangle someone, or cover something. He can also manipulate the larger plants to grab and hold something. Although the limbs of the plants can be made to move and function like hands and arms, they are still restricted to the fact that the plant is rooted in the soil.', 'Plant Control'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Grow Plants at an Unbelievable Rate - The character can grow most plants and shrubs, from seed to maturity, in 1D4 melees. Trees and large tree-size plants grow at a rate of 8ft (2.4m) per melee, up to 200ft (61m) tall. The growth is temporary, and the plants will return to their original size within 20 minutes or at the character\'s command.', 'Plant Control'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Alter Wood - The character can alter the strength of wood by increasing or decreasing its SDC.', 'Plant Control'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::RECOGNIZE_IDENTIFY_PLANTS, 88, 'Plant Control'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_PROWL, 10, 'Plant Control'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_CLIMBING, 10, 'Plant Control'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Plant Control: SDC', 1, 4), 'Plant Control'),
+            ])),
 
             new TableEntry(98, new Ability('Transferal/Possession', 'temp')),
 

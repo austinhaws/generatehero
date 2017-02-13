@@ -69,7 +69,8 @@ abstract class BonusTargets {
     const SKILL_GROUP_PILOTING_RELATED = 'group: all piloting related';
     const SKILL_GROUP_COMPUTER_ELECTRICAL_MECHANICAL = 'group: computer, electrical, and mechanical';
 
-    const SKILL_UNDERSTAND_OPERATE_ALIEN_MACHINES = 'Understand and operate unknown or alien machines';
+    const UNDERSTAND_OPERATE_ALIEN_MACHINES = 'Understand and operate unknown or alien machines';
+    const RECOGNIZE_IDENTIFY_PLANTS = 'Recognize and Identify Plants';
 
 
     // == SKILLS == //
