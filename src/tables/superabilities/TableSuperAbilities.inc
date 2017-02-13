@@ -449,7 +449,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Invulnerability to Fire - Impervious to ALL types of fire and heat.', 'Control Elemental Force: Fire'),
             ])),
 
-            new TableEntry(81, new Ability('Mimic', 'temp')),
+            new TableEntry(81, new Ability('Mimic', 'Imitate or mimic another person\'s physical and mental attributes (not skills nor experience), psionics, abilities, and innate magic abilities (not spell knowledge; just magic power such as those gained from weapons, objects and bestowed). A mimic can not copy/absorb mechanical abilities like those gained through bionics or robotics; nor can he mimic skills, hardware, nor special training. Only the raw physical and/or extraordinary power can be imitated. Skills, education, memories, and experience can not be copied. The mimic can imitate a person by touching him/her or by being within close proximity; 60ft radius. If the person being copied should go beyond the 60ft radius, the imitated power will fade away.')),
 
             new TableEntry(83, new Ability('Karmic Power', 'Influence his luck and those around him via a sort of Karmic aura. Karma is an energy of positive or negative affect. Theoretically, it is an aspect of the constant struggle between good and evil; order and chaos.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 6, 'Karmic Power'),
