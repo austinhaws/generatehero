@@ -400,7 +400,18 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sense Iron - Sense the presence, and vague location, of iron or steel within a 25ft radius. The exact size of the items is impossible to discern. This ability can be used to detect objects beneath the ground.', 'Magnetism'),
             ])),
 
-            new TableEntry(50, new Ability('Stretching', 'temp')),
+            new TableEntry(50, new Ability('Stretching', 'Character\'s body is super elastic and malleable, enabling him to distort and elongate limbs or the entire body.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Stretching - Neck: 4ft (I. 2m); Finger: 4ft (1.2m); Ann(s): 20ft each (6.lm); Leg(s): 35ft each (10. 7m); Body (maximum length): 150ft (45.7m)', 'Stretching'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Stretching Contortions - Flatten the entire body to as little as 2 inches thick but like clay flattened by a rolling pin, the rest of the body mass is pushed out four feet for every 601bs (27kg) of normal weight. Condense the entire body into a compact ball of one and a half feet/18 inches (.5m).', 'Stretching'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Bounceabilty - The character can puff himself up like a balloon and bounce. In this form, punches, kicks, collisions, explosive force and falls do no damage. The height of a bounce self-initiated from ground level is about six feet (1.8m) to twelve feet (3.4m). Propelling himself with his elongated arms and bouncing will triple his normal speed.', 'Stretching'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Stretching', 2, 4, 10), 'Stretching'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Stretching', 1, 6), 'Stretching'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 1, 'Stretching'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 2, 'Stretching'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 2, 'Stretching'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 3, 'Stretching'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Projectiles, such as bullets, arrows, thrown objects, punches, and kicks all do half damage.', 'Stretching'),
+            ])),
 
             new TableEntry(53, new Ability('Invulnerability', 'An almost indestructible juggernaut. Most physical attacks do no damage whatsoever! Cold, fire, heat, electricity, lasers, other types of energy, bullets, punches, falls and so on, do no damage. Gases, drugs, chemicals, poisons, toxins and rad1at1on w1ll affect the invulnerable person, but are reduced to half the usual potency (half damage, duration, effect). The character is only vulnerable to psionics, illusionary and spell magic, and magic weapons.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Invulnerability: SDC', 4, 6, 10), 'Invulnerability'),
