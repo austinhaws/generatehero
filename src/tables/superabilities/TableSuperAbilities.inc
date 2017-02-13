@@ -437,7 +437,13 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'The metal form is cool enough to avoid detection by infrared or heat sensors.', 'Alter Physical Structure: Metal'),
             ])),
 
-            new TableEntry(75, new Ability('Mechano-Link', 'temp')),
+            new TableEntry(75, new Ability('Mechano-Link', 'Link with any kind of machine so that man and machine becomes one. This means that vehicles respond to a mere thought, adding to their mobility, and weapons become more precise.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_PILOTING, 20, 'Mechano-Link'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_PILOTING_RELATED, 20, 'Mechano-Link'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_COMPUTER_ELECTRICAL_MECHANICAL, 20, 'Mechano-Link'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 2, 'Mechano-Link'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_UNDERSTAND_OPERATE_ALIEN_MACHINES, 60, 'Mechano-Link'),
+            ])),
 
             new TableEntry(78, new Ability('Control Elemental Force: Fire', 'The power to manipulate and control aspects of fire.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Fire Blast - Create a fiery bolt or blast out of thin air and hurl it at a target.', 'Control Elemental Force: Fire'),

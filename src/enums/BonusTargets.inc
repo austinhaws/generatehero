@@ -65,6 +65,11 @@ abstract class BonusTargets {
     const SKILL_GROUP_DELICATE_TOUCH = 'group: delicate, light touch';
     // all skills
     const SKILL_GROUP_ALL = "group: all";
+    const SKILL_GROUP_PILOTING = 'group: all piloting';
+    const SKILL_GROUP_PILOTING_RELATED = 'group: all piloting related';
+    const SKILL_GROUP_COMPUTER_ELECTRICAL_MECHANICAL = 'group: computer, electrical, and mechanical';
+
+    const SKILL_UNDERSTAND_OPERATE_ALIEN_MACHINES = 'Understand and operate unknown or alien machines';
 
 
     // == SKILLS == //
