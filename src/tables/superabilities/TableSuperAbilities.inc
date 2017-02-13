@@ -522,7 +522,18 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::INITIATIVE, 2, 'Sonic Power'),
             ])),
 
-            new TableEntry(89, new Ability('Vibration', 'temp')),
+            new TableEntry(89, new Ability('Vibration', 'Manipulation of vibration and air flow.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Shock Waves - Create shock waves that ripple through the earth, cracking sidewalks, walls, buildings, etc. Range: Up to a maximum of 130ft. The width of the shock wave is six feet. The character can control the range to a few feet or to the maximum distance.', 'Vibration'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Shock Blast - An amplified bolt of force that can be fired like an invisible concussion blast.', 'Vibration'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Vibrate Through Substances - Make his body vibrate so quickly that he is able to pass through solid matter. The only limitations are that he can only vibrate through inorganic (non-living) material, such as rock, concrete, processed wood, steel, etc., and speed is reduced to one third normal.', 'Vibration'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Vibrate to Become Intangible - Vibrate so fast that he becomes semitransparent and any physical attacks, such as bullets, knives, punches, etc., pass harmlessly through him. Energy attacks, fire, electricity, etc., do one third normal damage.', 'Vibration'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Feel Vibrations - Physically feel changes in air currents caused by the movement of others. This means he can not be snuck-up on or caught by surprise from a nearby opponent (long-range blasts and bullets are effective because of their great speed). This also means the character is like a living motion detector; able to sense the presence of nearby movement and even estimate their numbers and speed of approach. 66% accuracy in estimates.', 'Vibration'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 2, 'Vibration'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 2, 'Vibration'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::INITIATIVE, 6, 'Vibration'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Vibration: SDC', 1, 6, 10), 'Vibration'),
+                new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTargets::ATTRIBUTE_SPEED, 2, 'Vibration'),
+            ])),
 
             new TableEntry(92, new Ability('Shrink', 'Greatly reduce his size and mass. The super being has total control over his shrinking power and can stop at any size. He can resume his normal size at any time.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 6, 'Shrink'),
