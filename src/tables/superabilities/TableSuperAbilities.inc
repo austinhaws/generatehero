@@ -425,7 +425,18 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Encase in Earth - A very powerful, but controlled, ability in which the super being can cause earth (din, clay, sand) or stone (including concrete) to rise from the ground to engulf an object or person. The character has absolute control over the earth and can encase just a foot or leg, or the entire body.', 'Alter Physical Structure: Earth'),
             ])),
 
-            new TableEntry(62, new Ability('Sonic Flight', 'temp')),
+            new TableEntry(62, new Ability('Sonic Flight', 'Fly at the speed of sound, Mach One. Gives the character superior vision, dexterity, and reflexes.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTACKS_PER_MELEE, 1, 'Sonic Flight'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Sonic Flight: SDC', 3, 4, 10), 'Sonic Flight'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Sonic Flight: PE', 1, 4), 'Sonic Flight'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::INITIATIVE, 2, 'Sonic Flight'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 1, 'Sonic Flight'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 2, 'Sonic Flight'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 6, 'Sonic Flight'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Increased damage from physical Attacks when flying', 'Sonic Flight'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary Vision - 10 times greater than a normal human\'s; An 18 inch object can be seen with perfect clarity two miles away.', 'Sonic Flight'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Nightvision - 1000ft (305m)', 'Sonic Flight'),
+            ])),
 
             new TableEntry(64, new Ability('Teleport', 'temp')),
 
