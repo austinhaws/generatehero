@@ -370,7 +370,20 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Can control up to 6D6 reptiles of any kind.', 'Animal Abilities - Reptile'),
             ])),
 
-            new TableEntry(43, new Ability('Sonic Speed', 'temp')),
+            new TableEntry(43, new Ability('Sonic Speed', 'The power to run at supersonic speeds. Run at the speed of sound, Mach One, or approximately 670mph (1078kmph). Has sharper vision, quicker reactions, and greater dexterity than normal humans.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTACKS_PER_MELEE, 2, 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Sonic Speed: SDC', 4, 4, 10), 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Sonic Speed: PE', 1, 6), 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::INITIATIVE, 6, 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 1, 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 4, 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 6, 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 6, 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Leap ability - 60ft (18.3m) straight up and lOOft (30.5m) lengthwise.', 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Increased damage with physical attacks.', 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Superior vision about five times better than normal humans which means an 18 inch sign can be read a mile away.', 'Sonic Speed'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Nightvision - 500ft (152.5m).', 'Sonic Speed'),
+            ])),
 
             new TableEntry(46, new Ability('Alter Physical Structure: Fire', 'The ability to transform into a being of living fire, as well as manipulate and control aspects of fire. Abilities: Continuous bolt of flame, fire ball, create wall or circle of flame, radiate heat, and super nova.', [
                 new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::NATURAL_ARMOR_RATING, 14, 'Alter Physical Structure: Fire'),
