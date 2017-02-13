@@ -449,7 +449,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Nightvision - 1000ft (305m)', 'Sonic Flight'),
             ])),
 
-            new TableEntry(64, new Ability('Teleport', 'temp')),
+            new TableEntry(64, new Ability('Teleport', 'Instantly transport himself from one location to another in the blink of an eye. Weight Limitation: Self and an additional 1OOO lbs. While teleportation can be very handy, it can also be extremely dangerous, especially if the area teleported to is unknown.')),
 
             new TableEntry(67, new Ability('Alter Physical Structure: Liquid', 'The weird power to transform into a being of living water-like liquid. Abilities: Water bolt, water behemoth, water merge, manipulate shape, and limited invulnerability.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 20, 'Alter Physical Structure: Liquid'),
@@ -538,7 +538,12 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Plant Control: SDC', 1, 4), 'Plant Control'),
             ])),
 
-            new TableEntry(98, new Ability('Transferal/Possession', 'temp')),
+            new TableEntry(98, new Ability('Transferal/Possession', 'Transfer his consciousness into another person\'s body. Once inside another\'s body he completely takes over, suppressing the consciousness and personality of his host body. The memories and thoughts of the person being possessed are still his own and can not be read by the possessing character. Likewise, the possessed person can not read the thoughts of the entity who has temporarily seized control of his body. In fact, the person will have no recollection of events which occurred while his body was controlled by another. It will be as if he fell asleep the whole time. Any reports of heroics or uncharacteristic actions will come as a complete surprise. When inside another body, the character retains only his own memories, personality and skills. Any other super ability or special physical attributes are left in his own body and are totally unusable. Only the abilities of the host body can be used.  The character\'s own body drops into a dreamless, sleep-like trance. Without a mind to control it, the body is just an empty shell. Savings Throw: Non-psionics must roll 15 or higher, psionic individuals must roll 10 or higher', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_POSSESSION, 6, 'Transferal/Possession'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONIC_MIND_CONTROL, 2, 'Transferal/Possession'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Transferal/Possession: ME', 1, 4), 'Transferal/Possession'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Transferal/Possession: SDC', 1, 4, 10), 'Transferal/Possession'),
+            ])),
 
             new TableEntry(100, new Ability('Weight Manipulation', 'temp')),
 

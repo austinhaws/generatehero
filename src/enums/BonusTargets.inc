@@ -33,6 +33,7 @@ abstract class BonusTargets {
     const SAVE_PSIONICS = 'Save: Psionics';
     const SAVE_PSIONIC_ATTACK_INSANITY = 'Save: Psionic Attack/Insanity';
     const SAVE_PSIONIC_MIND_CONTROL = 'Save: Psionic Mind Control';
+    const SAVE_POSSESSION = 'Save: Possession';
     const SAVE_CONTROL_OTHERS = 'Save: Control Others';
     const TRUST_INTIMIDATE = 'Trust/Intimidate';
     const STRIKE = 'Strike';
