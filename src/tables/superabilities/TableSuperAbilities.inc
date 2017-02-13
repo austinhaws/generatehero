@@ -475,11 +475,23 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Karmic Power: SDC', 1, 4, 10), 'Karmic Power'),
             ])),
 
-            new TableEntry(86, new Ability('Sonic Power', 'temp')),
+            new TableEntry(86, new Ability('Sonic Power', 'Manipulate and control aspects of sound.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Hear Wider Spectrum of Sound - Can hear even a one decibel sound at a great distance (1OOOft). This enables him to: Estimate the distance of the sound - 6O%; Estimate speed of approach/departure - 50%; Recognize the type of sound - 6O%; Pinpoint the exact location of sound - 30%. Minuses to strike, parry and dodge in darkness or while blinded or attacking the invisible, are all reduced by half.', 'Sonic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Emit High-Pitched Whine - Will hurt, deafen, and distract all who fall prey to it. The only defense is to plug the ears. Plugging ears with fingers reduces damage and minuses by half, but also prevents any counterattacks except psionic. Ear plugs will prevent any damage and reduce minuses by half.', 'Sonic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sonic Boom or Blast - Blast or bolt of concentrated sound waves.', 'Sonic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sonar - Emitting of high-frequency sound waves which bounce off objects, returning and indicating the direction and distance of the reflecting objects. Interpreting shapes - 58%; Estimating Distance - 68%; Estimating Direction - 58; Estimating Exact Location - 42%.', 'Sonic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 1, 'Sonic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Sonic Power: SDC', 1, 4, 10), 'Sonic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 1, 'Sonic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 1, 'Sonic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::INITIATIVE, 2, 'Sonic Power'),
+            ])),
 
             new TableEntry(89, new Ability('Vibration', 'temp')),
 
-            new TableEntry(92, new Ability('Shrink', 'temp')),
+            new TableEntry(92, new Ability('Shrink', 'Greatly reduce his size and mass. The super being has total control over his shrinking power and can stop at any size. He can resume his normal size at any time.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 6, 'Shrink'),
+            ])),
 
             new TableEntry(95, new Ability('Plant Control', 'Direct, manipulate, and grow plants at an astounding level.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Animate and Control Plants - Mentally manipulate all plant life within a 40ft radius around him. Thus, he can cause any vines, weeds, shrubs, or trees to trap and ensnare an animal, entangle someone, or cover something. He can also manipulate the larger plants to grab and hold something. Although the limbs of the plants can be made to move and function like hands and arms, they are still restricted to the fact that the plant is rooted in the soil.', 'Plant Control'),
