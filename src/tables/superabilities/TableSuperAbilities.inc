@@ -556,7 +556,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Transferal/Possession: SDC', 1, 4, 10), 'Transferal/Possession'),
             ])),
 
-            new TableEntry(100, new Ability('Weight Manipulation', 'temp')),
+            new TableEntry(100, new Ability('Weight Manipulation', 'Reduce or increase the mass of organic and inorganic matter.')),
 
             new TableEntry(101, new Ability('Animal Abilities - Canine', 'This power gives humanoid characters the traits, abilities and instincts of a particular type of animaL It does not actually transform the person into an animal. The character can also control (to a limited degree) any animals that fall into his general type. Actual communication/dialog is impossible, but the character understands the general meanings of grunts, growls, whines, and facial and tail expressions. The animals Will look toward the super being as the leader of a pack and will follow his actions. Commands will be limited to stop, go, attack, wait, run, etc. Pointed ears; large, flat nose, and small, pointed, canine-like teeth.', [
                 new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTargets::ATTRIBUTE_SPEED, 2, 'Animal Abilities - Canine'),
