@@ -74,20 +74,23 @@ abstract class BonusTargets {
     const RECOGNIZE_IDENTIFY_PLANTS = 'Recognize and Identify Plants';
     const IMITATE_VOICES = 'Imitate Voices';
 
+    // == SECONDARY SKILL CATEGORIES == //
+    const SKILL_CATEGORY_COMPUTER = 'Computer';
 
     // == SKILLS == //
     // - COMMUNICATIONS - //
     const SKILL_CRYPTOGRAPHY = 'Cryptography';
     const SKILL_LASER = 'Laser';
-    const SKILL_OPTIC_SYSTEMS = 'Optic systems';
-    const SKILL_RADIO_BASIC = 'Radio: basic';
-    const SKILL_RADIO_SCRAMBLER = 'Radio: scrambler';
-    const SKILL_RADIO_SATELLITE = 'Radio: satellite';
-    const SKILL_SURVEILLANCE = 'Surveillance';
+    const SKILL_OPTIC_SYSTEMS = 'Optic Systems';
+    const SKILL_RADIO_BASIC = 'Radio: Basic';
+    const SKILL_RADIO_SCRAMBLER = 'Radio: Scrambler';
+    const SKILL_RADIO_SATELLITE = 'Radio: Satellite';
+    const SKILL_SURVEILLANCE = 'Surveillance Systems';
     const SKILL_TV_VIDEO = 'TV / Video';
 
     // - COMPUTER - //
-    const SKILL_COMPUTER_OPERATION = 'Computer operation';
+    const SKILL_COMPUTER_OPERATION = 'Computer Operation';
+    const SKILL_COMPUTER_PROGRAMMING = 'Computer Programming';
 
     // - DOMESTIC - //
     const SKILL_COOK = 'Cook';
@@ -97,96 +100,96 @@ abstract class BonusTargets {
     const SKILL_SING = 'Sing';
 
     // - ELECTRICAL - //
-    const SKILL_BASIC_ELECTRONICS = 'Basic electronics';
-    const SKILL_ELECTRICAL_ENGINEER = 'Electrical engineer';
-    const SKILL_ROBOT_ELECTRONICS = 'Robot electronics';
+    const SKILL_BASIC_ELECTRONICS = 'Basic Electronics';
+    const SKILL_ELECTRICAL_ENGINEER = 'Electrical Engineer';
+    const SKILL_ROBOT_ELECTRONICS = 'Robot Electronics';
 
     // - ESPIONAGE / MILITARY - //
     const SKILL_CONCEALMENT = 'Concealment';
-    const SKILL_DETECT_AMBUSH = 'Detect ambush';
-    const SKILL_DETECT_CONCEALMENT = 'Detect concealment';
+    const SKILL_DETECT_AMBUSH = 'Detect Ambush';
+    const SKILL_DETECT_CONCEALMENT = 'Detect Concealment';
     const SKILL_DISGUISE = 'Disguise';
-    const SKILL_ESCAPE_ARTIST = 'Escape artist';
+    const SKILL_ESCAPE_ARTIST = 'Escape Artist';
     const SKILL_FORGERY = 'Forgery';
     const SKILL_INTELLIGENCE = 'Intelligence';
     const SKILL_IMPERSONATION = 'Impersonation';
     const SKILL_INTERROGATION = 'Interrogation';
-    const SKILL_LAND_NAVIGATION = 'Land navigation';
+    const SKILL_LAND_NAVIGATION = 'Land Navigation';
     const SKILL_PALMING = 'Palming';
-    const SKILL_PICK_LOCKS = 'Pick locks';
-    const SKILL_PICK_POCKETS = 'Pick pockets';
+    const SKILL_PICK_LOCKS = 'Pick Locks';
+    const SKILL_PICK_POCKETS = 'Pick Pockets';
     const SKILL_SNIPER = 'Sniper';
     const SKILL_TRACKING = 'Tracking';
-    const SKILL_WILDERNESS_SURVIVAL = 'Wilderness survival';
+    const SKILL_WILDERNESS_SURVIVAL = 'Wilderness Survival';
 
     // - MECHANICAL - //
-    const SKILL_AUTOMOTIVE_MECHANICS = 'Automotive mechanics';
-    const SKILL_AIRCRAFT_MECHANICS = 'Aircraft mechanics';
-    const SKILL_BASIC_MECHANICS = 'Basic mechanics';
-    const SKILL_COMPUTER_REPAIR = 'Computer repair';
+    const SKILL_AUTOMOTIVE_MECHANICS = 'Automotive Mechanics';
+    const SKILL_AIRCRAFT_MECHANICS = 'Aircraft Mechanics';
+    const SKILL_BASIC_MECHANICS = 'Basic Mechanics';
+    const SKILL_COMPUTER_REPAIR = 'Computer Repair';
     const SKILL_LOCKSMITH = 'Locksmith';
-    const SKILL_ROBOT_MECHANICS = 'Robot mechanics';
-    const SKILL_MECHANICAL_ENGINEERING = 'Mechanical engineering';
+    const SKILL_ROBOT_MECHANICS = 'Robot Mechanics';
+    const SKILL_MECHANICAL_ENGINEERING = 'Mechanical Engineering';
 
     // - MEDICAL - //
-    const SKILL_CRIMINAL_SCIENCE_FORENSICS = 'Criminal science/forensics';
-    const SKILL_FIRST_AID = 'First aid';
-    const SKILL_MEDICAL_DOCTOR = 'Medical doctor';
+    const SKILL_CRIMINAL_SCIENCE_FORENSICS = 'Criminal Science/Forensics';
+    const SKILL_FIRST_AID = 'First Aid';
+    const SKILL_MEDICAL_DOCTOR = 'Medical Doctor';
     const SKILL_PARAMEDIC = 'Paramedic';
     const SKILL_PATHOLOGY = 'Pathology';
 
     // - MILITARY - //
     const SKILL_DEMOLITIONS = 'Demolitions';
-    const SKILL_DEMOLITIONS_DISPOSAL = 'Demolitions disposal';
-    const SKILL_PILOT_TANK = 'Pilot tank';
+    const SKILL_DEMOLITIONS_DISPOSAL = 'Demolitions Disposal';
+    const SKILL_PILOT_TANK = 'Pilot Tank';
 
     // - PHYSICAL - //
-    const SKILL_HAND_TO_HAND_BASIC = 'Hand to hand - basic';
-    const SKILL_HAND_TO_HAND_EXPERT = 'Hand to hand - expert';
-    const SKILL_HAND_TO_HAND_MARTIAL_ARTS = 'Hand to hand - martial arts';
+    const SKILL_HAND_TO_HAND_BASIC = 'Hand to Hand - Basic';
+    const SKILL_HAND_TO_HAND_EXPERT = 'Hand to Hand - Expert';
+    const SKILL_HAND_TO_HAND_MARTIAL_ARTS = 'Hand to Hand - Martial Arts';
     const SKILL_ACROBATICS = 'Acrobatics';
     const SKILL_ARCHERY = 'Archery';
     const SKILL_ATHLETICS = 'Athletics (general)';
-    const SKILL_BODY_BUILDING = 'Body building';
+    const SKILL_BODY_BUILDING = 'Body Building';
     const SKILL_BOXING = 'Boxing';
     const SKILL_CLIMBING = 'Climbing';
     const SKILL_RUNNING = 'Running';
     const SKILL_FENCING = 'Fencing';
     const SKILL_SWIMMING = 'Swimming';
     const SKILL_GYMNASTICS = 'Gymnastics';
-    const SKILL_SWIMMING_ADVANCED = 'Swimming advanced';
+    const SKILL_SWIMMING_ADVANCED = 'Swimming Advanced';
     const SKILL_PROWL = 'Prowl';
     const SKILL_WRESTLING = 'Wrestling';
 
     // - Pilot basic (ground, air, and water) (secondary skills) - //
     const SKILL_PILOT_AUTOMOBILE = 'Automobile';
-    const SKILL_PILOT_RACE_CAR = 'Race car';
+    const SKILL_PILOT_RACE_CAR = 'Race Car';
     const SKILL_PILOT_MOTORCYCLE = 'Motorcycle';
     const SKILL_PILOT_TRUCK = 'Truck';
     const SKILL_PILOT_AIRPLANE_OLD_STYLE = 'Airplane - old style';
-    const SKILL_PILOT_BOATS_SAIL = 'Boats: sail';
-    const SKILL_PILOT_BOATS_MOTOR = 'Boats: motor';
-    const SKILL_PILOT_PILOT_ADVANCED = 'Pilot, advanced';
-    const SKILL_PILOT_HELICOPTER_BASIC = 'Helicopter, basic';
-    const SKILL_PILOT_HELICOPTER_COMBAT = 'Helicopter, combat';
-    const SKILL_PILOT_JET_COMMERCIAL = 'Jet commercial';
-    const SKILL_PILOT_JET_FIGHTER = 'Jet fighter';
-    const SKILL_PILOT_SPACE_SHUTTLE = 'Space shuttle';
+    const SKILL_PILOT_BOATS_SAIL = 'Boats: Sail';
+    const SKILL_PILOT_BOATS_MOTOR = 'Boats: Motor';
+    const SKILL_PILOT_PILOT_ADVANCED = 'Pilot: Advanced';
+    const SKILL_PILOT_HELICOPTER_BASIC = 'Helicopter: Basic';
+    const SKILL_PILOT_HELICOPTER_COMBAT = 'Helicopter: Combat';
+    const SKILL_PILOT_JET_COMMERCIAL = 'Jet Commercial';
+    const SKILL_PILOT_JET_FIGHTER = 'Jet Fighter';
+    const SKILL_PILOT_SPACE_SHUTTLE = 'Space Shuttle';
 
     // - Pilot related skills - //
     const SKILL_NAVIGATION = 'Navigation (air, land, water)';
-    const SKILL_NAVIGATION_SPACE = 'Navigation: space';
-    const SKILL_READ_SENSORY_INSTRUMENTS = 'Read_sensory instruments';
-    const SKILL_WEAPON_SYSTEMS = 'Weapon systems (missiles, lasers, etc.)';
+    const SKILL_NAVIGATION_SPACE = 'Navigation: Space';
+    const SKILL_READ_SENSORY_INSTRUMENTS = 'Read Sensory Instruments';
+    const SKILL_WEAPON_SYSTEMS = 'Weapon Systems (missiles, lasers, etc.)';
 
     // - SCIENCE - //
     const SKILL_ASTROPHYSICS = 'Astrophysics';
     const SKILL_BIOLOGY = 'Biology';
     const SKILL_BOTANY = 'Botany';
-    const SKILL_CHEMISTRY_BASIC = 'Chemistry: basic';
-    const SKILL_CHEMISTRY_ANALYTICAL = 'Chemistry: analytical';
-    const SKILL_MATHEMATICS_BASIC = 'Mathematics: basic';
-    const SKILL_MATHEMATICS_ADVANCED = 'Mathematics: advanced';
+    const SKILL_CHEMISTRY_BASIC = 'Chemistry: Basic';
+    const SKILL_CHEMISTRY_ANALYTICAL = 'Chemistry: Analytical';
+    const SKILL_MATHEMATICS_BASIC = 'Mathematics: Basic';
+    const SKILL_MATHEMATICS_ADVANCED = 'Mathematics: Advanced';
 
     // - TECHNICAL - //
     const SKILL_ART = 'Art';
@@ -196,21 +199,175 @@ abstract class BonusTargets {
 
     // - WEAPON PROFICIENCIES - //
     // -- Ancient Weapons -- //
-    const SKILL_WP_BLUNT = 'WP blunt';
-    const SKILL_WP_CHAIN = 'WP chain';
-    const SKILL_WP_KNIFE = 'WP knife';
-    const SKILL_WP_SWORD = 'WP sword';
-    const SKILL_WP_STAFF = 'WP staff';
-    const SKILL_WP_TARGET = 'WP target';
-    const SKILL_WP_PAIRED_WEAPONS = 'WP paired weapons';
+    const SKILL_WP_BLUNT = 'WP: Blunt';
+    const SKILL_WP_CHAIN = 'WP: Chain';
+    const SKILL_WP_KNIFE = 'WP: Knife';
+    const SKILL_WP_SWORD = 'WP: Sword';
+    const SKILL_WP_STAFF = 'WP: Staff';
+    const SKILL_WP_TARGET = 'WP: Target';
+    const SKILL_WP_PAIRED_WEAPONS = 'WP: Paired Weapons';
     // -- Modern Weapons -- //
-    const SKILL_WP_REVOLVER = 'WP revolver';
-    const SKILL_WP_RIFLE = 'WP rifle';
-    const SKILL_WP_AUTOMATIC_PISTOL = 'WP automatic pistol';
-    const SKILL_WP_SUB_MACHINEGUN = 'WP sub machinegun';
-    const SKILL_WP_AUTOMATIC_RIFLE = 'WP semi & fully automatic rifle';
-    const SKILL_WP_HEAVY = 'WP heavy';
+    const SKILL_WP_REVOLVER = 'WP: Revolver';
+    const SKILL_WP_RIFLE = 'WP: Rifle';
+    const SKILL_WP_AUTOMATIC_PISTOL = 'WP: Automatic Pistol';
+    const SKILL_WP_SUB_MACHINEGUN = 'WP: Sub Machinegun';
+    const SKILL_WP_AUTOMATIC_RIFLE = 'WP: Semi & Fully Automatic Rifle';
+    const SKILL_WP_HEAVY = 'WP: Heavy';
     // -- Energy Weapons -- //
-    const SKILL_WP_ENERGY_PISTOL = 'WP energy pistol';
-    const SKILL_WP_ENERGY_RIFLE = 'WP energy rifle';
+    const SKILL_WP_ENERGY_PISTOL = 'WP: Energy Pistol';
+    const SKILL_WP_ENERGY_RIFLE = 'WP: Energy Rifle';
+
+    public static function weaponProficienciesSkills() {
+        return [
+            BonusTargets::SKILL_WP_BLUNT,
+            BonusTargets::SKILL_WP_CHAIN,
+            BonusTargets::SKILL_WP_KNIFE,
+            BonusTargets::SKILL_WP_SWORD,
+            BonusTargets::SKILL_WP_STAFF,
+            BonusTargets::SKILL_WP_TARGET,
+            BonusTargets::SKILL_WP_PAIRED_WEAPONS,
+            BonusTargets::SKILL_WP_REVOLVER,
+            BonusTargets::SKILL_WP_RIFLE,
+            BonusTargets::SKILL_WP_AUTOMATIC_PISTOL,
+            BonusTargets::SKILL_WP_SUB_MACHINEGUN,
+            BonusTargets::SKILL_WP_AUTOMATIC_RIFLE,
+            BonusTargets::SKILL_WP_HEAVY,
+            BonusTargets::SKILL_WP_ENERGY_PISTOL,
+            BonusTargets::SKILL_WP_ENERGY_RIFLE,
+        ];
+    }
+
+    public static function espionageSkills() {
+        return [
+            BonusTargets::SKILL_CONCEALMENT,
+            BonusTargets::SKILL_DETECT_AMBUSH,
+            BonusTargets::SKILL_DETECT_CONCEALMENT,
+            BonusTargets::SKILL_DISGUISE,
+            BonusTargets::SKILL_ESCAPE_ARTIST,
+            BonusTargets::SKILL_FORGERY,
+            BonusTargets::SKILL_INTELLIGENCE,
+            BonusTargets::SKILL_IMPERSONATION,
+            BonusTargets::SKILL_INTERROGATION,
+            BonusTargets::SKILL_LAND_NAVIGATION,
+            BonusTargets::SKILL_PALMING,
+            BonusTargets::SKILL_PICK_LOCKS,
+            BonusTargets::SKILL_PICK_POCKETS,
+            BonusTargets::SKILL_SNIPER,
+            BonusTargets::SKILL_TRACKING,
+            BonusTargets::SKILL_WILDERNESS_SURVIVAL,
+        ];
+    }
+
+    public static function allSkills() {
+        return [
+            BonusTargets::SKILL_CRYPTOGRAPHY,
+            BonusTargets::SKILL_LASER,
+            BonusTargets::SKILL_OPTIC_SYSTEMS,
+            BonusTargets::SKILL_RADIO_BASIC,
+            BonusTargets::SKILL_RADIO_SCRAMBLER,
+            BonusTargets::SKILL_RADIO_SATELLITE,
+            BonusTargets::SKILL_SURVEILLANCE,
+            BonusTargets::SKILL_TV_VIDEO,
+            BonusTargets::SKILL_COMPUTER_OPERATION,
+            BonusTargets::SKILL_COMPUTER_PROGRAMMING,
+            BonusTargets::SKILL_COOK,
+            BonusTargets::SKILL_DANCE,
+            BonusTargets::SKILL_FISH,
+            BonusTargets::SKILL_SEW,
+            BonusTargets::SKILL_SING,
+            BonusTargets::SKILL_BASIC_ELECTRONICS,
+            BonusTargets::SKILL_ELECTRICAL_ENGINEER,
+            BonusTargets::SKILL_ROBOT_ELECTRONICS,
+            BonusTargets::SKILL_CONCEALMENT,
+            BonusTargets::SKILL_DETECT_AMBUSH,
+            BonusTargets::SKILL_DETECT_CONCEALMENT,
+            BonusTargets::SKILL_DISGUISE,
+            BonusTargets::SKILL_ESCAPE_ARTIST,
+            BonusTargets::SKILL_FORGERY,
+            BonusTargets::SKILL_INTELLIGENCE,
+            BonusTargets::SKILL_IMPERSONATION,
+            BonusTargets::SKILL_INTERROGATION,
+            BonusTargets::SKILL_LAND_NAVIGATION,
+            BonusTargets::SKILL_PALMING,
+            BonusTargets::SKILL_PICK_LOCKS,
+            BonusTargets::SKILL_PICK_POCKETS,
+            BonusTargets::SKILL_SNIPER,
+            BonusTargets::SKILL_TRACKING,
+            BonusTargets::SKILL_WILDERNESS_SURVIVAL,
+            BonusTargets::SKILL_AUTOMOTIVE_MECHANICS,
+            BonusTargets::SKILL_AIRCRAFT_MECHANICS,
+            BonusTargets::SKILL_BASIC_MECHANICS,
+            BonusTargets::SKILL_COMPUTER_REPAIR,
+            BonusTargets::SKILL_LOCKSMITH,
+            BonusTargets::SKILL_ROBOT_MECHANICS,
+            BonusTargets::SKILL_MECHANICAL_ENGINEERING,
+            BonusTargets::SKILL_CRIMINAL_SCIENCE_FORENSICS,
+            BonusTargets::SKILL_FIRST_AID,
+            BonusTargets::SKILL_MEDICAL_DOCTOR,
+            BonusTargets::SKILL_PARAMEDIC,
+            BonusTargets::SKILL_PATHOLOGY,
+            BonusTargets::SKILL_DEMOLITIONS,
+            BonusTargets::SKILL_DEMOLITIONS_DISPOSAL,
+            BonusTargets::SKILL_PILOT_TANK,
+            BonusTargets::SKILL_HAND_TO_HAND_BASIC,
+            BonusTargets::SKILL_HAND_TO_HAND_EXPERT,
+            BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS,
+            BonusTargets::SKILL_ACROBATICS,
+            BonusTargets::SKILL_ARCHERY,
+            BonusTargets::SKILL_ATHLETICS,
+            BonusTargets::SKILL_BODY_BUILDING,
+            BonusTargets::SKILL_BOXING,
+            BonusTargets::SKILL_CLIMBING,
+            BonusTargets::SKILL_RUNNING,
+            BonusTargets::SKILL_FENCING,
+            BonusTargets::SKILL_SWIMMING,
+            BonusTargets::SKILL_GYMNASTICS,
+            BonusTargets::SKILL_SWIMMING_ADVANCED,
+            BonusTargets::SKILL_PROWL,
+            BonusTargets::SKILL_WRESTLING,
+            BonusTargets::SKILL_PILOT_AUTOMOBILE,
+            BonusTargets::SKILL_PILOT_RACE_CAR,
+            BonusTargets::SKILL_PILOT_MOTORCYCLE,
+            BonusTargets::SKILL_PILOT_TRUCK,
+            BonusTargets::SKILL_PILOT_AIRPLANE_OLD_STYLE,
+            BonusTargets::SKILL_PILOT_BOATS_SAIL,
+            BonusTargets::SKILL_PILOT_BOATS_MOTOR,
+            BonusTargets::SKILL_PILOT_PILOT_ADVANCED,
+            BonusTargets::SKILL_PILOT_HELICOPTER_BASIC,
+            BonusTargets::SKILL_PILOT_HELICOPTER_COMBAT,
+            BonusTargets::SKILL_PILOT_JET_COMMERCIAL,
+            BonusTargets::SKILL_PILOT_JET_FIGHTER,
+            BonusTargets::SKILL_PILOT_SPACE_SHUTTLE,
+            BonusTargets::SKILL_NAVIGATION,
+            BonusTargets::SKILL_NAVIGATION_SPACE,
+            BonusTargets::SKILL_READ_SENSORY_INSTRUMENTS,
+            BonusTargets::SKILL_WEAPON_SYSTEMS,
+            BonusTargets::SKILL_ASTROPHYSICS,
+            BonusTargets::SKILL_BIOLOGY,
+            BonusTargets::SKILL_BOTANY,
+            BonusTargets::SKILL_CHEMISTRY_BASIC,
+            BonusTargets::SKILL_CHEMISTRY_ANALYTICAL,
+            BonusTargets::SKILL_MATHEMATICS_BASIC,
+            BonusTargets::SKILL_MATHEMATICS_ADVANCED,
+            BonusTargets::SKILL_ART,
+            BonusTargets::SKILL_LANGUAGE,
+            BonusTargets::SKILL_PHOTOGRAPHY,
+            BonusTargets::SKILL_WRITING,
+            BonusTargets::SKILL_WP_BLUNT,
+            BonusTargets::SKILL_WP_CHAIN,
+            BonusTargets::SKILL_WP_KNIFE,
+            BonusTargets::SKILL_WP_SWORD,
+            BonusTargets::SKILL_WP_STAFF,
+            BonusTargets::SKILL_WP_TARGET,
+            BonusTargets::SKILL_WP_PAIRED_WEAPONS,
+            BonusTargets::SKILL_WP_REVOLVER,
+            BonusTargets::SKILL_WP_RIFLE,
+            BonusTargets::SKILL_WP_AUTOMATIC_PISTOL,
+            BonusTargets::SKILL_WP_SUB_MACHINEGUN,
+            BonusTargets::SKILL_WP_AUTOMATIC_RIFLE,
+            BonusTargets::SKILL_WP_HEAVY,
+            BonusTargets::SKILL_WP_ENERGY_PISTOL,
+            BonusTargets::SKILL_WP_ENERGY_RIFLE,
+        ];
+    }
 }

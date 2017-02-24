@@ -1,6 +1,8 @@
 <?php
 namespace Heroes\hero;
 
+use Heroes\enums\BonusTargets;
+
 class Hero
 {
     // abilities
@@ -38,8 +40,6 @@ class Hero
 
     public $alignment;
 
-    public $skills = [];
-
     // bonus to charm/impress rolls
     public $charmImpress;
 
@@ -66,6 +66,13 @@ class Hero
 
     // abilities and super abilities of the hero; array of Ability classes
     public $abilities = [];
+
+    // high school? college? alien? - if this is set then don't do education again
+    public $educationLevel = false;
+
+    // don't allow picking the same program more than once
+    public $educationProgramsPicked = [];
+
 
     /**
      * add a bonus to the character; it will be applied later after all bonuses gathered
@@ -95,7 +102,7 @@ class Hero
     public function addAbility(Ability $ability)
     {
         $found = count(array_filter($this->abilities, function (Ability $testAbility) use ($ability) {
-           return $testAbility->title == $ability->title;
+            return $testAbility->title == $ability->title;
         }));
         if (!$found) {
             $this->abilities[] = $ability;
@@ -116,5 +123,31 @@ class Hero
     public function setNaturalArmor($naturalArmor)
     {
         $this->naturalArmor = max($naturalArmor ? $naturalArmor : 0, $this->naturalArmor);
+    }
+
+    /**
+     * check if hero already has a skill started, and if so that the percent is higher
+     *
+     * @param $skill string the skill for which to check BonusTargets::SKILL_...
+     * @param $basePercent int the percent that this skill could be added at
+     * @return true if a skill bonus set is found for the skill that has a percent >= the passed in percent
+     */
+    public function hasSkill($skill, $basePercent)
+    {
+        $found = false;
+        $isHandToHand = $this->skillIsHandToHand($skill);
+        foreach ($this->bonuses as $bonus) {
+            if ($bonus->bonusType == Bonus::BONUS_TYPE_SET
+                && ($bonus->bonusTarget == $skill || ($isHandToHand && $this->skillIsHandToHand($bonus->bonusTarget)))
+                && $bonus->getValue() >= $basePercent) {
+                $found = true;
+                break;
+            }
+        }
+        return $found;
+    }
+
+    private function skillIsHandToHand($skill) {
+        return $skill == BonusTargets::SKILL_HAND_TO_HAND_BASIC || $skill == BonusTargets::SKILL_HAND_TO_HAND_EXPERT || $skill == BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS;
     }
 }
