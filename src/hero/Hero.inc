@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero;
 
+use Heroes\engine\Engine;
 use Heroes\enums\BonusTargets;
 
 class Hero
@@ -130,16 +131,17 @@ class Hero
      *
      * @param $skill string the skill for which to check BonusTargets::SKILL_...
      * @param $basePercent int the percent that this skill could be added at
+     * @param Engine $engine so that rolls can be made if needed
      * @return true if a skill bonus set is found for the skill that has a percent >= the passed in percent
      */
-    public function hasSkill($skill, $basePercent)
+    public function hasSkill($skill, $basePercent, Engine $engine)
     {
         $found = false;
         $isHandToHand = $this->skillIsHandToHand($skill);
         foreach ($this->bonuses as $bonus) {
             if ($bonus->bonusType == Bonus::BONUS_TYPE_SET
                 && ($bonus->bonusTarget == $skill || ($isHandToHand && $this->skillIsHandToHand($bonus->bonusTarget)))
-                && $bonus->getValue() >= $basePercent) {
+                && $bonus->getValue($engine) >= $basePercent) {
                 $found = true;
                 break;
             }
@@ -147,6 +149,12 @@ class Hero
         return $found;
     }
 
+    /**
+     * is the skill a hand-to-hand category skill?
+     *
+     * @param $skill string skill in question
+     * @return bool true if it's a hand to hand skill (basic, expert, martial)
+     */
     private function skillIsHandToHand($skill) {
         return $skill == BonusTargets::SKILL_HAND_TO_HAND_BASIC || $skill == BonusTargets::SKILL_HAND_TO_HAND_EXPERT || $skill == BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS;
     }

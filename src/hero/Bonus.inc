@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 
 /**
@@ -13,6 +14,7 @@ class Bonus {
     const BONUS_TYPE_SET_FLAG = 'flag';
 
     // set the target to the value
+    // Skills use "Set" to show that the skill is added to the character. the bonus will be 0, but just having the "set" means the character gets the skill
     const BONUS_TYPE_SET = 'set';
 
     // add the value to the target
@@ -28,7 +30,7 @@ class Bonus {
     // what attribute/skill/etc is being targeted for the bonus? use BonusTargets enum
     public $bonusTarget;
 
-    // the value of the bonus; can be a number or a Roll
+    // the value of the bonus; can be a number or a Roll; use getValue() to get the value no matter if roll or not
     public $value;
 
     // why are they getting this bonus?
@@ -47,5 +49,17 @@ class Bonus {
         $this->bonusTarget = $bonusTarget;
         $this->value = $value;
         $this->explanation = $explanation;
+    }
+
+    /**
+     * if value is a roll, roll it, otherwise return the value
+     * @param Engine $engine will use roller out of the engine
+     * @return int|String the value of the bonus
+     */
+    public function getValue(Engine $engine) {
+        if ($this->value instanceof Roll) {
+            $this->value = $engine->roller->rollDice($this->value);
+        }
+        return $this->value;
     }
 }

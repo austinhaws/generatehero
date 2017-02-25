@@ -25,7 +25,7 @@ class TestRoll
      * @param $until boolean|string true = forever, string = until that roll comes up
      * @return TestRoll this for chaining
      */
-    public function dontCareUntil($until)
+    public function dontCareUntil($until = true)
     {
         $this->dontCareUntil = $until;
         return $this;

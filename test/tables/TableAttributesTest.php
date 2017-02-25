@@ -2,8 +2,8 @@
 namespace Heroes\tests\tables;
 
 use Heroes\engine\Engine;
-use Heroes\tables\TableAttributes;
 use Heroes\hero\Hero;
+use Heroes\tables\TableAttributes;
 use Heroes\tests\utilities\TestRoller;
 
 class TableAttributesTest extends \PHPUnit_Framework_TestCase
@@ -20,11 +20,7 @@ class TableAttributesTest extends \PHPUnit_Framework_TestCase
         $this->tableAttributes = new TableAttributes($this->engine);
     }
 
-    public function testBlank() {
-
-    }
-
-    public function skip_testApplyAttributeBonuses_applyIQ() {
+    public function testApplyAttributeBonuses_applyIQ() {
         $this->engine->roller->setTestRolls([
             ['sides' => 6, 'roll' => 1],
             ['sides' => 6, 'roll' => 2],

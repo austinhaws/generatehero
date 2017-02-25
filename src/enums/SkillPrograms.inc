@@ -49,12 +49,12 @@ class SkillPrograms
      */
     public function selectSkills($numberSkills, &$hero, $percentBonus, $possibles)
     {
-        shuffle($possibles);
+        $this->engine->arrayTools->shuffle($possibles);
 
         $skills = [];
         while (count($possibles) && count($skills) < $numberSkills) {
             $skill = array_pop($possibles);
-            if (!$hero->hasSkill($skill, $percentBonus)) {
+            if (!$hero->hasSkill($skill, $percentBonus, $this->engine)) {
                 $skills[] = $skill;
             }
         }

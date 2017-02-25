@@ -96,7 +96,7 @@ class TableEducation
             }
         }
 
-        shuffle($programs);
+        $this->engine->arrayTools->shuffle($programs);
 
         // don't double pick a program
         $numberPicked = 0;
@@ -104,7 +104,7 @@ class TableEducation
             $program = array_pop($programs);
             if (!in_array($program, $hero->educationProgramsPicked)) {
                 $this->engine->skillPrograms->addSkillsForProgram($program, $percentBonus, $hero);
-                $numberPrograms++;
+                $numberPicked++;
                 $hero->educationProgramsPicked[] = $program;
             }
         }
@@ -283,14 +283,17 @@ class TableEducation
             ];
         }
 
-        $this->engine->skillPrograms->selectSkills($numberSkills, $hero, 0, $skills);
+        $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, 0, $skills);
+        foreach ($skills as $skill) {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, 'Secondary Skill'));
+        }
     }
 
     /**
      * @param Hero $hero roll for and add education level (pg 27)
      * @throws \Exception if hero's education level is invalid
      */
-    function rollEducationLevel(Hero &$hero)
+    public function rollEducationLevel(Hero &$hero)
     {
         $hero->educationLevel = $this->engine->tableRoller->rollTable('Education Level', [
             new TableEntry(9, TableEducation::HIGH_SCHOOL_GRADUATE),
@@ -350,8 +353,13 @@ class TableEducation
                 $this->pickPrograms(20, 1, $hero);
 
                 // 20% bonus, pick skills from those lists
-                $this->engine->skillPrograms->selectSkills(6, $hero, 20, BonusTargets::espionageSkills());
-                $this->engine->skillPrograms->selectSkills(4, $hero, 20, BonusTargets::weaponProficienciesSkills());
+                $skills = array_merge(
+                    $this->engine->skillPrograms->selectSkills(6, $hero, 20, BonusTargets::espionageSkills()),
+                    $this->engine->skillPrograms->selectSkills(4, $hero, 20, BonusTargets::weaponProficienciesSkills()));
+                foreach ($skills as $skill) {
+                    $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, 'Secondary Skill'));
+                }
+
                 $this->pickSecondarySkills(8, $hero);
                 break;
 

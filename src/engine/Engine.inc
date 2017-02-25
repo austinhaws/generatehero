@@ -12,11 +12,13 @@ class Engine
     public $roller;
     public $tableRoller;
     public $skillPrograms;
+    public $arrayTools;
 
     public function __construct()
     {
         $this->roller = new Roller();
         $this->tableRoller = new TableRoller($this);
         $this->skillPrograms = new SkillPrograms($this);
+        $this->arrayTools = new ArrayTools($this);
     }
 }
