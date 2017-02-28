@@ -456,7 +456,7 @@ class TableSuperAbilities
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Radiates no heat when in water form; thus he can not be detected or tracked by infrared or heat sensors.', 'Alter Physical Structure: Liquid'),
             ])),
 
-            new TableEntry(70, new Ability('Disruptive Touch', 'This lethal power actually disrupts the nervous system of the person who falls victim to it.', 'Disruptive Touch', [
+            new TableEntry(70, new Ability('Disruptive Touch', 'This lethal power actually disrupts the nervous system of the person who falls victim to it.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Disrupt Optic Nerves - temporarily blinds the person; Immobilizes the motor part of the brain causing temporary paralysis. Victims are completely incapacitated. The duration of the blindness and paralysis is 3D4 minutes.', 'Disruptive Touch'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Inflict Pain - 3D6 damage.', 'Disruptive Touch'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Death Touch - Causes 606 damage and shocks the nervous system, plunging the victim into a coma unless a successful savings throw of 15 or higher is made. The use of the Death Touch also takes its toll on the person inflicting the coma. The super being himself is drained each time he uses the Death Touch. Side effects from using the Death Touch: Reduce speed by half, -2 to strike, parry, dodge, and -2 for ALL savings throws for 2D6 melees. Side effects from multiple or continuous use of the Death Touch are cumulative.', 'Disruptive Touch'),
