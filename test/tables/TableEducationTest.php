@@ -30,7 +30,7 @@ class TableEducationTest extends \PHPUnit_Framework_TestCase
     private function checkHeroHasSkills($hero, $minimumNumberSkills)
     {
         $count = 0;
-        $allSkills = BonusTargets::allSkills();
+        $allSkills = BonusTargets::allSkills(false);
         foreach ($hero->bonuses as $bonus) {
             if (array_search($bonus->bonusTarget, $allSkills) !== false) {
                 $count++;

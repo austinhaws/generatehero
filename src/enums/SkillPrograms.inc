@@ -45,16 +45,17 @@ class SkillPrograms
      * @param $hero Hero the hero
      * @param $percentBonus int how much to set starting bonus, can add skills if their starting percent is less than this
      * @param $possibles array possible skill list
+     * @param $impossibles array|bool skills that can't be selected (probably already selected or rules disallow); this is in addition to the skills already BONUS_SET in the hero's bonus list
      * @return array skills selected
      */
-    public function selectSkills($numberSkills, &$hero, $percentBonus, $possibles)
+    public function selectSkills($numberSkills, &$hero, $percentBonus, $possibles, $impossibles)
     {
         $this->engine->arrayTools->shuffle($possibles);
 
         $skills = [];
         while (count($possibles) && count($skills) < $numberSkills) {
             $skill = array_pop($possibles);
-            if (!$hero->hasSkill($skill, $percentBonus, $this->engine)) {
+            if (!$hero->hasSkill($skill, $percentBonus, $this->engine) && (!$impossibles || false === array_search($skill, $impossibles))) {
                 $skills[] = $skill;
             }
         }
@@ -86,7 +87,7 @@ class SkillPrograms
                 break;
 
             case SkillPrograms::DOMESTIC:
-                $skills = $this->selectSkills(3, $hero, $percentBonus, [BonusTargets::SKILL_COOK, BonusTargets::SKILL_DANCE, BonusTargets::SKILL_FISH, BonusTargets::SKILL_SEW, BonusTargets::SKILL_SING,]);
+                $skills = $this->selectSkills(3, $hero, $percentBonus, [BonusTargets::SKILL_COOK, BonusTargets::SKILL_DANCE, BonusTargets::SKILL_FISH, BonusTargets::SKILL_SEW, BonusTargets::SKILL_SING,], false);
                 break;
 
             case SkillPrograms::ELECTRICAL:
@@ -100,7 +101,7 @@ class SkillPrograms
                     BonusTargets::SKILL_ESCAPE_ARTIST, BonusTargets::SKILL_FORGERY, BonusTargets::SKILL_INTELLIGENCE, BonusTargets::SKILL_IMPERSONATION,
                     BonusTargets::SKILL_INTERROGATION, BonusTargets::SKILL_LAND_NAVIGATION, BonusTargets::SKILL_PALMING, BonusTargets::SKILL_PICK_LOCKS,
                     BonusTargets::SKILL_PICK_POCKETS, BonusTargets::SKILL_SNIPER, BonusTargets::SKILL_TRACKING, BonusTargets::SKILL_WILDERNESS_SURVIVAL,
-                ]);
+                ], false);
                 break;
 
             case SkillPrograms::JOURNALIST_INVESTIGATION:
@@ -142,7 +143,7 @@ class SkillPrograms
                 $skills2 = $this->selectSkills(2, $hero, $percentBonus, [
                     BonusTargets::SKILL_PILOT_HELICOPTER_BASIC, BonusTargets::SKILL_PILOT_HELICOPTER_COMBAT, BonusTargets::SKILL_PILOT_JET_COMMERCIAL,
                     BonusTargets::SKILL_PILOT_JET_FIGHTER, BonusTargets::SKILL_PILOT_SPACE_SHUTTLE,
-                ]);
+                ], false);
                 $skills = array_merge($skills1, $skills2);
                 break;
 
@@ -152,14 +153,14 @@ class SkillPrograms
                     BonusTargets::SKILL_ACROBATICS, BonusTargets::SKILL_ARCHERY, BonusTargets::SKILL_ATHLETICS, BonusTargets::SKILL_BODY_BUILDING,
                     BonusTargets::SKILL_BOXING, BonusTargets::SKILL_CLIMBING, BonusTargets::SKILL_RUNNING, BonusTargets::SKILL_FENCING, BonusTargets::SKILL_SWIMMING,
                     BonusTargets::SKILL_GYMNASTICS, BonusTargets::SKILL_SWIMMING_ADVANCED, BonusTargets::SKILL_PROWL, BonusTargets::SKILL_WRESTLING,
-                ]);
+                ], false);
                 break;
 
             case SkillPrograms::SCIENCE:
                 $skills = $this->selectSkills(4, $hero, $percentBonus, [
                     BonusTargets::SKILL_ASTROPHYSICS, BonusTargets::SKILL_BIOLOGY, BonusTargets::SKILL_BOTANY, BonusTargets::SKILL_CHEMISTRY_BASIC,
                     BonusTargets::SKILL_CHEMISTRY_ANALYTICAL, BonusTargets::SKILL_MATHEMATICS_BASIC, BonusTargets::SKILL_MATHEMATICS_ADVANCED,
-                ]);
+                ], false);
                 $skills[] = BonusTargets::SKILL_COMPUTER_OPERATION;
                 break;
 
@@ -171,14 +172,14 @@ class SkillPrograms
                 $skills = $this->selectSkills(3, $hero, 0, [
                     BonusTargets::SKILL_WP_BLUNT, BonusTargets::SKILL_WP_CHAIN, BonusTargets::SKILL_WP_KNIFE, BonusTargets::SKILL_WP_SWORD,
                     BonusTargets::SKILL_WP_STAFF, BonusTargets::SKILL_WP_TARGET, BonusTargets::SKILL_WP_PAIRED_WEAPONS,
-                ]);
+                ], false);
                 break;
 
             case SkillPrograms::WP_MODERN_WEAPONS:
                 $skills = $this->selectSkills(3, $hero, 0, [
                     BonusTargets::SKILL_WP_REVOLVER, BonusTargets::SKILL_WP_RIFLE, BonusTargets::SKILL_WP_AUTOMATIC_PISTOL,
                     BonusTargets::SKILL_WP_SUB_MACHINEGUN, BonusTargets::SKILL_WP_AUTOMATIC_RIFLE, BonusTargets::SKILL_WP_HEAVY,
-                ]);
+                ], false);
                 break;
 
             default:

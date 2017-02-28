@@ -283,7 +283,7 @@ class TableEducation
             ];
         }
 
-        $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, 0, $skills);
+        $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, 0, $skills, false);
         foreach ($skills as $skill) {
             $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, 'Secondary Skill'));
         }
@@ -354,10 +354,11 @@ class TableEducation
 
                 // 20% bonus, pick skills from those lists
                 $skills = array_merge(
-                    $this->engine->skillPrograms->selectSkills(6, $hero, 20, BonusTargets::espionageSkills()),
-                    $this->engine->skillPrograms->selectSkills(4, $hero, 20, BonusTargets::weaponProficienciesSkills()));
+                    $this->engine->skillPrograms->selectSkills(6, $hero, 20, BonusTargets::espionageSkills(false), false),
+                    $this->engine->skillPrograms->selectSkills(4, $hero, 20, BonusTargets::weaponProficienciesSkills(false), false)
+                );
                 foreach ($skills as $skill) {
-                    $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, 'Secondary Skill'));
+                    $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 20, 'Secondary Skill'));
                 }
 
                 $this->pickSecondarySkills(8, $hero);

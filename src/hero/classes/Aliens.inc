@@ -192,9 +192,106 @@ class Aliens extends BaseClass
         }
     }
 
+    const GENERAL_STUDIES = 'General Studies';
+    const MILITARY_SPECIALIST = 'Military Specialist';
+    const SCIENCE_SPECIALIST = 'Science Specialist';
+    const COMBAT_SPECIALIST = 'Combat Specialist';
+    const ENGINEER = 'Engineer';
     private function rollEducation(Hero &$hero)
     {
-        echo "TODO : alien - roll education\n";
+        $skills = [];
+        $secondarySkills = [];
+        $skillBonus = 0;
+        $secondarySkillBonus = 0;
+
+        $educationLevel = $this->engine->tableRoller->rollTable('Alien Education', [
+            new TableEntry(20, Aliens::GENERAL_STUDIES),
+            new TableEntry(40, Aliens::MILITARY_SPECIALIST),
+            new TableEntry(60, Aliens::SCIENCE_SPECIALIST),
+            new TableEntry(80, Aliens::COMBAT_SPECIALIST),
+            new TableEntry(100, Aliens::ENGINEER),
+        ]);
+
+        switch ($educationLevel) {
+            case Aliens::GENERAL_STUDIES:
+                $skills = $this->engine->skillPrograms->selectSkills(2, $hero, 5, BonusTargets::scienceSkills(false), false);
+                $secondarySkills = $this->engine->skillPrograms->selectSkills(12, $hero, 5, BonusTargets::allSkills(true), $skills);
+                $skillBonus = 5;
+                $secondarySkillBonus = 5;
+                break;
+
+            case Aliens::MILITARY_SPECIALIST:
+                $skillBonus = $this->engine->roller->rollDice(new Roll('Alien Military Specialist Skill Bonus', 1, 20));
+                $secondarySkillBonus = 0;
+                $skills = array_merge(
+                    $this->engine->skillPrograms->selectSkills(5, $hero, $skillBonus, array_merge(BonusTargets::espionageSkills(false), BonusTargets::militarySkills(false)), false),
+                    $this->engine->skillPrograms->selectSkills(1, $hero, $skillBonus, BonusTargets::handToHandSkills(false), false),
+                    $this->engine->skillPrograms->selectSkills(3, $hero, $skillBonus, BonusTargets::physicalSkills(false), false),
+                    $this->engine->skillPrograms->selectSkills(4, $hero, $skillBonus, BonusTargets::weaponProficienciesSkills(false), false)
+                );
+                $secondarySkills = $this->engine->skillPrograms->selectSkills(4, $hero, 0, BonusTargets::allSkills(true), $skills);
+                break;
+
+            case Aliens::SCIENCE_SPECIALIST:
+                $skillBonus = $this->engine->roller->rollDice(new Roll('Alien Science Specialist Skill Bonus', 1, 20));
+                $secondarySkillBonus = 0;
+                // give computer op / read sense so that picking skills doesn't reselect these
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_COMPUTER_OPERATION, 0, 'Alien Science Specialist'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_READ_SENSORY_INSTRUMENTS, 0, 'Alien Science Specialist'));
+                $skills = array_merge(
+                    $this->engine->skillPrograms->selectSkills(2, $hero, $skillBonus, BonusTargets::communicationSkills(false), false),
+                    $this->engine->skillPrograms->selectSkills(3, $hero, $skillBonus, BonusTargets::scienceSkills(false), false),
+                    $this->engine->skillPrograms->selectSkills(2, $hero, $skillBonus, BonusTargets::medicalSkills(false), false),
+                    $this->engine->skillPrograms->selectSkills(2, $hero, $skillBonus, BonusTargets::physicalSkills(false), false)
+                );
+                $secondarySkills = $this->engine->skillPrograms->selectSkills(5, $hero, $skillBonus, array_merge(BonusTargets::allSkills(5)), $skills);
+                break;
+
+            case Aliens::COMBAT_SPECIALIST:
+                $skillBonus = 15;
+                $secondarySkillBonus = 15;
+                $handToHand = array_merge(
+                    $this->engine->skillPrograms->selectSkills(1, $hero, $skillBonus, BonusTargets::handToHandSkills(false), false),
+                    BonusTargets::SKILL_FIRST_AID
+                );
+
+                $skills = array_merge(
+                    $handToHand,
+                    $this->engine->skillPrograms->selectSkills(5, $hero, $skillBonus, BonusTargets::physicalSkills(false), $handToHand),
+                    $this->engine->skillPrograms->selectSkills(6, $hero, $skillBonus, BonusTargets::weaponProficienciesSkills(false), $handToHand)
+                );
+                $secondarySkills = $this->engine->skillPrograms->selectSkills(6, $hero, $secondarySkillBonus, BonusTargets::allSkills(true), $skills);
+                break;
+
+            case Aliens::ENGINEER:
+                $skillBonus = 20;
+                $secondarySkillBonus = 0;
+
+                $skills = $this->engine->skillPrograms->selectSkills(6, $hero, $skillBonus, array_merge(
+                    BonusTargets::electricalSkills(false),
+                    BonusTargets::mechanicalSkills(false),
+                    BonusTargets::computerSkills(false)
+                ), false);
+                $skills = array_merge($skills, $this->engine->skillPrograms->selectSkills(2, $hero, $skillBonus, BonusTargets::scienceSkills(false), $skills));
+                $skills = array_merge($skills, $this->engine->skillPrograms->selectSkills(1, $hero, $skillBonus, BonusTargets::communicationSkills(false), $skills));
+
+                $secondarySkills = $this->engine->skillPrograms->selectSkills(8, $hero, $secondarySkillBonus, BonusTargets::allSkills(true), $skills);
+                break;
+
+            default:
+                throw new \Exception('Unknown Alien Education');
+        }
+
+
+        $reason = "Alien Education: $educationLevel";
+        $hero->educationLevel = $reason;
+        foreach ($skills as $skill) {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, $reason));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, $skill, $skillBonus, $reason));
+
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $secondarySkills, 0, $reason));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, $skill, $secondarySkillBonus, $reason));
+        }
     }
 
     private function rollSuperabilities(Hero &$hero)
@@ -209,9 +306,10 @@ class Aliens extends BaseClass
         ]);
         switch ($abilities) {
             case 'super abilities':
+throw new \Exception("Alien superabilities: $abilities (pg 56)\n");
                 break;
             default:
-                echo "Alien superabilities: $abilities (pg 56)\n";
+                throw new \Exception("do alien abilities: $abilities");
         }
     }
 

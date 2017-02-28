@@ -1,7 +1,8 @@
 <?php
 namespace Heroes\enums;
 
-abstract class BonusTargets {
+abstract class BonusTargets
+{
     // == ATTRIBUTES == //
     const ATTRIBUTE_INTELLIGENCE_QUOTIENT = 'IQ';
     const ATTRIBUTE_MENTAL_ENDURANCE = 'Mental Endurance';
@@ -217,49 +218,10 @@ abstract class BonusTargets {
     const SKILL_WP_ENERGY_PISTOL = 'WP: Energy Pistol';
     const SKILL_WP_ENERGY_RIFLE = 'WP: Energy Rifle';
 
-    public static function weaponProficienciesSkills() {
-        return [
-            BonusTargets::SKILL_WP_BLUNT,
-            BonusTargets::SKILL_WP_CHAIN,
-            BonusTargets::SKILL_WP_KNIFE,
-            BonusTargets::SKILL_WP_SWORD,
-            BonusTargets::SKILL_WP_STAFF,
-            BonusTargets::SKILL_WP_TARGET,
-            BonusTargets::SKILL_WP_PAIRED_WEAPONS,
-            BonusTargets::SKILL_WP_REVOLVER,
-            BonusTargets::SKILL_WP_RIFLE,
-            BonusTargets::SKILL_WP_AUTOMATIC_PISTOL,
-            BonusTargets::SKILL_WP_SUB_MACHINEGUN,
-            BonusTargets::SKILL_WP_AUTOMATIC_RIFLE,
-            BonusTargets::SKILL_WP_HEAVY,
-            BonusTargets::SKILL_WP_ENERGY_PISTOL,
-            BonusTargets::SKILL_WP_ENERGY_RIFLE,
-        ];
-    }
-
-    public static function espionageSkills() {
-        return [
-            BonusTargets::SKILL_CONCEALMENT,
-            BonusTargets::SKILL_DETECT_AMBUSH,
-            BonusTargets::SKILL_DETECT_CONCEALMENT,
-            BonusTargets::SKILL_DISGUISE,
-            BonusTargets::SKILL_ESCAPE_ARTIST,
-            BonusTargets::SKILL_FORGERY,
-            BonusTargets::SKILL_INTELLIGENCE,
-            BonusTargets::SKILL_IMPERSONATION,
-            BonusTargets::SKILL_INTERROGATION,
-            BonusTargets::SKILL_LAND_NAVIGATION,
-            BonusTargets::SKILL_PALMING,
-            BonusTargets::SKILL_PICK_LOCKS,
-            BonusTargets::SKILL_PICK_POCKETS,
-            BonusTargets::SKILL_SNIPER,
-            BonusTargets::SKILL_TRACKING,
-            BonusTargets::SKILL_WILDERNESS_SURVIVAL,
-        ];
-    }
-
-    public static function allSkills() {
-        return [
+    public static function communicationSkills($justSecondary)
+    {
+        return $justSecondary ? []
+        : [
             BonusTargets::SKILL_CRYPTOGRAPHY,
             BonusTargets::SKILL_LASER,
             BonusTargets::SKILL_OPTIC_SYSTEMS,
@@ -268,32 +230,70 @@ abstract class BonusTargets {
             BonusTargets::SKILL_RADIO_SATELLITE,
             BonusTargets::SKILL_SURVEILLANCE,
             BonusTargets::SKILL_TV_VIDEO,
+        ];
+    }
+
+    public static function computerSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_COMPUTER_OPERATION,
+        ] : [
             BonusTargets::SKILL_COMPUTER_OPERATION,
             BonusTargets::SKILL_COMPUTER_PROGRAMMING,
+        ];
+    }
+
+    public static function domesticSkills($justSecondary)
+    {
+        return [
             BonusTargets::SKILL_COOK,
             BonusTargets::SKILL_DANCE,
             BonusTargets::SKILL_FISH,
             BonusTargets::SKILL_SEW,
             BonusTargets::SKILL_SING,
+        ];
+    }
+
+    public static function electricalSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_BASIC_ELECTRONICS,
+        ] : [
             BonusTargets::SKILL_BASIC_ELECTRONICS,
             BonusTargets::SKILL_ELECTRICAL_ENGINEER,
             BonusTargets::SKILL_ROBOT_ELECTRONICS,
+        ];
+    }
+
+    public static function espionageSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_ESCAPE_ARTIST,
+            BonusTargets::SKILL_FORGERY,
+            BonusTargets::SKILL_LAND_NAVIGATION,
+            BonusTargets::SKILL_PICK_LOCKS,
+            BonusTargets::SKILL_PICK_POCKETS,
+            BonusTargets::SKILL_WILDERNESS_SURVIVAL,
+        ] : [
             BonusTargets::SKILL_CONCEALMENT,
             BonusTargets::SKILL_DETECT_AMBUSH,
             BonusTargets::SKILL_DETECT_CONCEALMENT,
             BonusTargets::SKILL_DISGUISE,
-            BonusTargets::SKILL_ESCAPE_ARTIST,
-            BonusTargets::SKILL_FORGERY,
             BonusTargets::SKILL_INTELLIGENCE,
             BonusTargets::SKILL_IMPERSONATION,
             BonusTargets::SKILL_INTERROGATION,
-            BonusTargets::SKILL_LAND_NAVIGATION,
             BonusTargets::SKILL_PALMING,
-            BonusTargets::SKILL_PICK_LOCKS,
-            BonusTargets::SKILL_PICK_POCKETS,
             BonusTargets::SKILL_SNIPER,
             BonusTargets::SKILL_TRACKING,
-            BonusTargets::SKILL_WILDERNESS_SURVIVAL,
+        ];
+    }
+
+    public static function mechanicalSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_AUTOMOTIVE_MECHANICS,
+            BonusTargets::SKILL_BASIC_MECHANICS,
+        ] : [
             BonusTargets::SKILL_AUTOMOTIVE_MECHANICS,
             BonusTargets::SKILL_AIRCRAFT_MECHANICS,
             BonusTargets::SKILL_BASIC_MECHANICS,
@@ -301,30 +301,82 @@ abstract class BonusTargets {
             BonusTargets::SKILL_LOCKSMITH,
             BonusTargets::SKILL_ROBOT_MECHANICS,
             BonusTargets::SKILL_MECHANICAL_ENGINEERING,
+        ];
+    }
+
+    public static function medicalSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_FIRST_AID,
+        ] : [
             BonusTargets::SKILL_CRIMINAL_SCIENCE_FORENSICS,
             BonusTargets::SKILL_FIRST_AID,
             BonusTargets::SKILL_MEDICAL_DOCTOR,
             BonusTargets::SKILL_PARAMEDIC,
             BonusTargets::SKILL_PATHOLOGY,
+        ];
+    }
+
+    public static function militarySkills($justSecondary)
+    {
+        return $justSecondary ? [
+        ] : [
             BonusTargets::SKILL_DEMOLITIONS,
             BonusTargets::SKILL_DEMOLITIONS_DISPOSAL,
             BonusTargets::SKILL_PILOT_TANK,
+        ];
+
+    }
+
+    public static function handToHandSkills($justSecondary) {
+        return $justSecondary ? [
+            BonusTargets::SKILL_HAND_TO_HAND_BASIC,
+            BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS,
+        ] : [
             BonusTargets::SKILL_HAND_TO_HAND_BASIC,
             BonusTargets::SKILL_HAND_TO_HAND_EXPERT,
             BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS,
+        ];
+    }
+
+    public static function physicalSkills($justSecondary)
+    {
+        return array_merge(BonusTargets::handToHandSkills($justSecondary), $justSecondary ? [
+            BonusTargets::SKILL_ATHLETICS,
+            BonusTargets::SKILL_BODY_BUILDING,
+            BonusTargets::SKILL_CLIMBING,
+            BonusTargets::SKILL_PROWL,
+            BonusTargets::SKILL_RUNNING,
+            BonusTargets::SKILL_SWIMMING,
+        ] : [
             BonusTargets::SKILL_ACROBATICS,
             BonusTargets::SKILL_ARCHERY,
             BonusTargets::SKILL_ATHLETICS,
             BonusTargets::SKILL_BODY_BUILDING,
             BonusTargets::SKILL_BOXING,
             BonusTargets::SKILL_CLIMBING,
-            BonusTargets::SKILL_RUNNING,
             BonusTargets::SKILL_FENCING,
-            BonusTargets::SKILL_SWIMMING,
             BonusTargets::SKILL_GYMNASTICS,
-            BonusTargets::SKILL_SWIMMING_ADVANCED,
             BonusTargets::SKILL_PROWL,
+            BonusTargets::SKILL_RUNNING,
+            BonusTargets::SKILL_SWIMMING,
+            BonusTargets::SKILL_SWIMMING_ADVANCED,
             BonusTargets::SKILL_WRESTLING,
+        ]);
+    }
+
+    public static function pilotBasicSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_PILOT_AUTOMOBILE,
+            BonusTargets::SKILL_PILOT_RACE_CAR,
+            BonusTargets::SKILL_PILOT_TRUCK,
+            BonusTargets::SKILL_PILOT_MOTORCYCLE,
+            BonusTargets::SKILL_PILOT_AIRPLANE_OLD_STYLE,
+            BonusTargets::SKILL_PILOT_BOATS_SAIL,
+            BonusTargets::SKILL_PILOT_BOATS_MOTOR,
+            BonusTargets::SKILL_PILOT_HELICOPTER_BASIC,
+        ] : [
             BonusTargets::SKILL_PILOT_AUTOMOBILE,
             BonusTargets::SKILL_PILOT_RACE_CAR,
             BonusTargets::SKILL_PILOT_MOTORCYCLE,
@@ -338,10 +390,27 @@ abstract class BonusTargets {
             BonusTargets::SKILL_PILOT_JET_COMMERCIAL,
             BonusTargets::SKILL_PILOT_JET_FIGHTER,
             BonusTargets::SKILL_PILOT_SPACE_SHUTTLE,
+        ];
+    }
+
+    public static function pilotRelatedSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_NAVIGATION,
+            BonusTargets::SKILL_READ_SENSORY_INSTRUMENTS,
+        ] : [
             BonusTargets::SKILL_NAVIGATION,
             BonusTargets::SKILL_NAVIGATION_SPACE,
             BonusTargets::SKILL_READ_SENSORY_INSTRUMENTS,
             BonusTargets::SKILL_WEAPON_SYSTEMS,
+        ];
+    }
+
+    public static function scienceSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_MATHEMATICS_ADVANCED,
+        ] : [
             BonusTargets::SKILL_ASTROPHYSICS,
             BonusTargets::SKILL_BIOLOGY,
             BonusTargets::SKILL_BOTANY,
@@ -349,10 +418,27 @@ abstract class BonusTargets {
             BonusTargets::SKILL_CHEMISTRY_ANALYTICAL,
             BonusTargets::SKILL_MATHEMATICS_BASIC,
             BonusTargets::SKILL_MATHEMATICS_ADVANCED,
+    ];
+    }
+
+    public static function technicalSkills($justSecondary)
+    {
+        return [
             BonusTargets::SKILL_ART,
             BonusTargets::SKILL_LANGUAGE,
             BonusTargets::SKILL_PHOTOGRAPHY,
             BonusTargets::SKILL_WRITING,
+        ];
+    }
+
+
+    public static function wpAncientWeaponsSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_WP_BLUNT,
+            BonusTargets::SKILL_WP_CHAIN,
+            BonusTargets::SKILL_WP_KNIFE,
+        ] : [
             BonusTargets::SKILL_WP_BLUNT,
             BonusTargets::SKILL_WP_CHAIN,
             BonusTargets::SKILL_WP_KNIFE,
@@ -360,14 +446,60 @@ abstract class BonusTargets {
             BonusTargets::SKILL_WP_STAFF,
             BonusTargets::SKILL_WP_TARGET,
             BonusTargets::SKILL_WP_PAIRED_WEAPONS,
+        ];
+    }
+
+
+    public static function wpModernWeaponsSkills($justSecondary)
+    {
+        return $justSecondary ? [
+            BonusTargets::SKILL_WP_REVOLVER,
+            BonusTargets::SKILL_WP_AUTOMATIC_PISTOL,
+            BonusTargets::SKILL_WP_RIFLE,
+            BonusTargets::SKILL_WP_SUB_MACHINEGUN,
+        ] : [
             BonusTargets::SKILL_WP_REVOLVER,
             BonusTargets::SKILL_WP_RIFLE,
             BonusTargets::SKILL_WP_AUTOMATIC_PISTOL,
             BonusTargets::SKILL_WP_SUB_MACHINEGUN,
             BonusTargets::SKILL_WP_AUTOMATIC_RIFLE,
             BonusTargets::SKILL_WP_HEAVY,
+        ];
+    }
+
+    // -- Modern Weapons -- //
+
+    public static function wpEnergyWeaponsSkills($justSecondary)
+    {
+        return $justSecondary ? [
+        ] : [
             BonusTargets::SKILL_WP_ENERGY_PISTOL,
             BonusTargets::SKILL_WP_ENERGY_RIFLE,
         ];
+    }
+
+    public static function weaponProficienciesSkills($justSecondary)
+    {
+        return array_merge(BonusTargets::wpAncientWeaponsSkills($justSecondary), BonusTargets::wpEnergyWeaponsSkills($justSecondary), BonusTargets::wpModernWeaponsSkills($justSecondary));
+    }
+
+    public static function allSkills($justSecondary)
+    {
+        return array_merge(
+            BonusTargets::communicationSkills($justSecondary),
+            BonusTargets::computerSkills($justSecondary),
+            BonusTargets::domesticSkills($justSecondary),
+            BonusTargets::electricalSkills($justSecondary),
+            BonusTargets::espionageSkills($justSecondary),
+            BonusTargets::mechanicalSkills($justSecondary),
+            BonusTargets::medicalSkills($justSecondary),
+            BonusTargets::militarySkills($justSecondary),
+            BonusTargets::physicalSkills($justSecondary),
+            BonusTargets::pilotBasicSkills($justSecondary),
+            BonusTargets::pilotRelatedSkills($justSecondary),
+            BonusTargets::scienceSkills($justSecondary),
+            BonusTargets::technicalSkills($justSecondary),
+            BonusTargets::weaponProficienciesSkills($justSecondary)
+        );
     }
 }
