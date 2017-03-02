@@ -36,7 +36,8 @@ class TableEducationTest extends \PHPUnit_Framework_TestCase
                 $count++;
             }
         }
-        $this->assertTrue($count >= $minimumNumberSkills, "hero has at least minimum skill count $count >= $minimumNumberSkills");
+        $programs = implode(',', $hero->educationProgramsPicked);
+        $this->assertTrue($count >= $minimumNumberSkills, "hero has at least minimum skill count $count >= $minimumNumberSkills for {$hero->educationLevel} ($programs)");
     }
 
     /**

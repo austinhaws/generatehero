@@ -112,6 +112,16 @@ class Bionics extends BaseClass
 
     private function chooseBionics()
     {
+        // put all possible bionics in to array
+        $possibles = [
+
+        ];
+
+        // filter out by cost
+
+        // randomly choose one
+
+        // keep going until the list is empty
         echo 'CHoosing bionics needs implemented';
     }
 }

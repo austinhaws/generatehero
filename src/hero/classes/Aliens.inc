@@ -253,7 +253,7 @@ class Aliens extends BaseClass
                 $secondarySkillBonus = 15;
                 $handToHand = array_merge(
                     $this->engine->skillPrograms->selectSkills(1, $hero, $skillBonus, BonusTargets::handToHandSkills(false), false),
-                    BonusTargets::SKILL_FIRST_AID
+                    [BonusTargets::SKILL_FIRST_AID, ]
                 );
 
                 $skills = array_merge(
@@ -307,17 +307,17 @@ class Aliens extends BaseClass
         ]);
         switch ($abilities) {
             case 'super abilities':
-throw new \Exception("Alien superabilities: $abilities (pg 56)\n");
+echo "Alien superabilities: $abilities (pg 56)\n";
                 break;
             default:
-                throw new \Exception("do alien abilities: $abilities");
+echo "do alien abilities: $abilities";
         }
     }
 
     private function rollPhysiologicalModification(Hero &$hero)
     {
         // physiological modification
-        $result = $this->engine->tableRoller->rollTable('Aline: Physiological', [
+        $result = $this->engine->tableRoller->rollTable('Alien: Physiological', [
             new TableEntry(15, 'High Gravity'),
             new TableEntry(29, 'Low Gravity'),
             new TableEntry(44, 'High Radiation'),
