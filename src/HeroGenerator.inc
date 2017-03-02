@@ -8,6 +8,7 @@ use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
 use Heroes\tables\TableAttributes;
+use Heroes\tables\TableEducation;
 
 // these "use" statements ARE needed because they are dynamically named class creations
 
@@ -20,9 +21,25 @@ class HeroGenerator
         $this->engine = new Engine();
     }
 
+    /**
+     * create a hero!
+     *
+     * @return Hero the hero
+     */
     public function generate()
     {
         $hero = new Hero();
+
+        /**
+         * this process accomplishes teh following
+         *  - rolling attributes
+         *  - possible crazy hero
+         *  - determine super ability type and apply it
+         *  - roll education (if super ability type hasn't already determined it)
+         *  - alignment
+         *  - extra info (weight/originland/etc)
+         *  - and tallying all bonuses and calculations
+         */
 
         // step 1 - attributes (3d6; +1d6 if >= 16)
         $attributes = ['intelligenceQuotient', 'mentalEndurance', 'mentalAffinity', 'physicalStrength', 'physicalProwess', 'physicalEndurance', 'physicalBeauty', 'speed'];
@@ -52,6 +69,9 @@ class HeroGenerator
         $this->generatePowerCategory($hero);
 
         // step 4 - education / skills
+        if (!$hero->educationLevel) {
+            (new TableEducation($this->engine))->rollEducationLevel($hero);
+        }
 
         // step 5 - alignment
         $hero->alignment = $this->engine->tableRoller->rollTable('Alignment', [
@@ -71,8 +91,6 @@ class HeroGenerator
         $characterBasics = new CharacterBasics($this->engine);
         $characterBasics->generateCharacterBasics($hero);
 
-        // step 2 - hit points / sdc : can't get HPs until scores are settled through super abilities/education... :(
-        // rounding out character
 
         // after skills are determined, and all bonuses to abilities are gathered, then apply bonuses based on abilities
 echo "skills use a bonus 'SET' to show that they are added. Skills give bonuses and have a base start, so need to figure those out\n";
@@ -82,6 +100,9 @@ echo "apply all heroes bonuses (saved until end so that \"set\" bonuses can get 
 
         // now that attributes are determined, determine their bonuses
         (new TableAttributes($this->engine))->applyAttributeBonuses($hero);
+
+        // step 2 - hit points / sdc : can't get HPs until scores are settled through super abilities/education... :(
+        // rounding out character
 
         return $hero;
     }

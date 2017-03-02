@@ -25,6 +25,7 @@ class Aliens extends BaseClass
 
     function create(Hero &$hero)
     {
+        // all aliens have a base 20 SDC
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 20, 'Alien base SDC'));
 
         $this->rollAppearance($hero);

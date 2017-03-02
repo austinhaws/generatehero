@@ -1,5 +1,9 @@
 [ ] hash code and save each generated character so that they can be retrieved later
 
+[ ] give user choice points like class of hero, high or low rolls (roller then will scale up/down on rolls), max/min rolls
+[ ] crazy or not
+[ ] what other choices can they make?
+
 
 run unit tests: vendor/bin/phpunit
 run specific unit test method: vendor/bin/phpunit --filter testGenerate_isCrazy_association
@@ -13,6 +17,15 @@ composer:
 if a test is not running, make sure file ends with .php
 
 
-skills all ahve a base %; do the base percentages BEFORE adding bonuses to character
+skills all ahve a base %; do the "Bonus::SET" base percentages BEFORE adding bonuses to character
 review skills to see if they add anything to character
 WP Skills are either on or off, don't add percentages for them
+
+
+
+TO DO
+[ ] alien powers : pg 56 (step four, super powers)
+[ ] total bonuses at end of character creation
+	[ ] do skill "set" first to get highets possible starting value for a skill
+	[ ] do adds for bonuses
+
