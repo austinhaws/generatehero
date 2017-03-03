@@ -50,7 +50,7 @@ class Aliens extends BaseClass
 
     private function rollMoney(Hero &$hero)
     {
-        list($dice, $sides) = $this->engine->tableRoller->rollTable('Alien: Money', [
+        list($dice, $sides) = $this->engine->tableRoller->rollTable('Alien: Money Category', [
             new TableEntry(14, [1, 4]),
             new TableEntry(29, [1, 6]),
             new TableEntry(44, [2, 4]),
@@ -129,11 +129,11 @@ class Aliens extends BaseClass
     {
         $result = $this->engine->tableRoller->rollTable('Alien: Reason for Coming', [
             new TableEntry(19, 'last of race'),
-            new TableEntry(19, 'crash landed'),
-            new TableEntry(19, 'outcast'),
-            new TableEntry(19, 'intergalactic champion'),
-            new TableEntry(19, 'glory hound'),
-            new TableEntry(19, 'study earth'),
+            new TableEntry(38, 'crash landed'),
+            new TableEntry(55, 'outcast'),
+            new TableEntry(70, 'intergalactic champion'),
+            new TableEntry(85, 'glory hound'),
+            new TableEntry(100, 'study earth'),
         ]);
 
         switch ($result) {
@@ -298,7 +298,7 @@ class Aliens extends BaseClass
     private function rollSuperabilities(Hero &$hero)
     {
         $abilities = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
-            new TableEntry(49, 'super abilities'),
+            new TableEntry(49, 'Super Abilities'),
             new TableEntry(60, 'Psionics'),
             new TableEntry(69, 'Experiment'),
             new TableEntry(79, 'Robotics'),
@@ -306,11 +306,11 @@ class Aliens extends BaseClass
             new TableEntry(100, 'Bionics'),
         ]);
         switch ($abilities) {
-            case 'super abilities':
-echo "Alien superabilities: $abilities (pg 56)\n";
+            case 'Super Abilities':
+// TODO: echo "Alien superabilities: $abilities (pg 56)\n";
                 break;
             default:
-echo "do alien abilities: $abilities";
+// TODO: echo "do alien abilities: $abilities";
         }
     }
 

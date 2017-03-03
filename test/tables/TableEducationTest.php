@@ -50,7 +50,7 @@ class TableEducationTest extends \PHPUnit_Framework_TestCase
     {
         $this->engine->roller->setTestRolls([
             new TestRoll(100, $educationLevelRoll, 'Education Level', 0),
-            (new TestRoll())->dontCareUntil(),
+            (new TestRoll())->dontCareAnyMore(),
         ]);
 
         $hero = new Hero();

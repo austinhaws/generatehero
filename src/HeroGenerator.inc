@@ -93,8 +93,8 @@ class HeroGenerator
 
 
         // after skills are determined, and all bonuses to abilities are gathered, then apply bonuses based on abilities
-echo "skills use a bonus 'SET' to show that they are added. Skills give bonuses and have a base start, so need to figure those out\n";
-echo "apply all heroes bonuses (saved until end so that \"set\" bonuses can get the biggest value and then apply all the bonuses on top of that)\n";
+// TODO: echo "skills use a bonus 'SET' to show that they are added. Skills give bonuses and have a base start, so need to figure those out\n";
+// TODO: echo "apply all heroes bonuses (saved until end so that \"set\" bonuses can get the biggest value and then apply all the bonuses on top of that)\n";
 // set a flag that bonuses have been applied so that when bonuses are added by attribute bonuses they get applied immediately; if a "set" bonus is added after bonuses are calculated, then throw exception?
 
 

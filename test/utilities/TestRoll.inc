@@ -20,12 +20,22 @@ class TestRoll
     }
 
     /**
+     * better named function for not caring ever again
+     *
+     * @return TestRoll for chaining
+     */
+    public function dontCareAnyMore()
+    {
+        return $this->dontCareUntil(true);
+    }
+
+    /**
      * this roll is a place holder until the test cares again
      *
      * @param $until boolean|string true = forever, string = until that roll comes up
      * @return TestRoll this for chaining
      */
-    public function dontCareUntil($until = true)
+    public function dontCareUntil($until)
     {
         $this->dontCareUntil = $until;
         return $this;
