@@ -24,6 +24,11 @@ class Bionics extends BaseClass
 
 
     // what of this character is bionic? groups allow requirements for bionics to target a type of bionic location
+    const BODY_GROUP_FEET = 'feet';
+    const BODY_PART_FOOT_LEFT = 'left foot';
+    const BODY_PART_FOOT_RIGHT = 'right foot';
+    const BODY_PART_FOOT_BOTH = 'both feet';
+
     const BODY_GROUP_HAND = 'hand';
     const BODY_PART_HAND_LEFT = 'left hand';
     const BODY_PART_HAND_RIGHT = 'right hand';
@@ -36,6 +41,7 @@ class Bionics extends BaseClass
     const BODY_GROUP_LEG = 'leg';
     const BODY_PART_LEG_LEFT = 'left leg';
     const BODY_PART_LEG_RIGHT = 'right leg';
+    const BODY_PART_LEG_BOTH = 'both legs';
 
     const BODY_GROUP_EYE = 'eye';
     const BODY_PART_EYE_LEFT = 'left eye';
@@ -44,6 +50,8 @@ class Bionics extends BaseClass
     const BODY_GROUP_EAR = 'ear';
     const BODY_PART_EAR_LEFT = 'left ear';
     const BODY_PART_EAR_RIGHT = 'right ear';
+
+    const BODY_PART_MOUTH_THROAT = 'mouth/throat';
 
     const BODY_PART_CHEST_RIBS = 'chest/ribs';
     const BODY_PART_SKULL_FACE = 'skull/face';
@@ -170,7 +178,7 @@ class Bionics extends BaseClass
             new Bionic(500000, 'Skull and/or Face', '', [], [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Bionic Skull/Face')]),
             new Bionic(50000, 'Eye (basic)', 'simulates normal eye in appearance', [], []),
             new Bionic(100000, 'Ear (basic)', 'simulates normal ear/hearing', [], []),
-            new Bionic(250000, 'Ear (basic)', 'Mouth/throat with voice synthesizer to simulate a normal human voice', [], []),
+            new Bionic(250000, 'Mouth/Throat', 'voice synthesizer to simulate a normal human voice', [], []),
             new Bionic(75000, 'Lungs', 'simulate normal respiratory system. Can capture and regulate air much more precisely, enabling the character to hold his breath for five minutes.', [], []),
             new Bionic(1000000, 'Heart', 'functions like the real thing', [], []),
             new Bionic(1500000, 'Kidney', 'functions like the real organ.', [], []),
@@ -276,6 +284,44 @@ class Bionics extends BaseClass
             new Bionic(40000, Bionics::BODY_PART_LUNGS, false, 'Independent Oxygen Supply', 'Built in to the chest and lung cavity, increasing the time the cyborg can hold his breath to 15 minutes.', []),
             new Bionic(100000, Bionics::BODY_PART_LUNGS, false, 'Gas Filtration System', 'A miniature air filtration system that purifies impurities from the air. When exposed to gaseous toxins the system attempts to filter them out.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_GASES, 6, 'Gas Filtration System'),
+            ]),
+
+            // MOUTH AND THROAT FEATURES
+            new Bionic(150000, Bionics::BODY_PART_MOUTH_THROAT, false, 'Modulating Voice Synthesizer', 'Allows the character to change/disguise his voice by altering tone, base, pitch, etc.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::IMITATE_VOICES, 10, 'Modulating Voice Syntehsizer'),
+            ]),
+            new Bionic(80000, Bionics::BODY_PART_MOUTH_THROAT, false, 'Inaudible Frequency Range', 'Emit sound frequencies inaudible to the human ear, like a dog whistle.', []),
+            new Bionic(40000, Bionics::BODY_PART_MOUTH_THROAT, false, 'Built-In Loudspeaker', 'Amplify the loudness of his voice like a bull horn.', []),
+            new Bionic(150000, Bionics::BODY_PART_MOUTH_THROAT, false, 'Built-In Radio Scrambler', 'Have security coded and decoded conversations over the radio and telephone. Note that the person on the other end must have a scrambling system to decode received messages and to transmit coded ones.', []),
+
+            // EXOSKELETONS
+            new Bionic(1000000, false, false, 'Exoskeleton - Spine and Shoulders', '', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 50, 'Exoskeleton - Spine and Shoulders'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Spine and Shoulders'),
+            ]),
+            new Bionic(1000000, false, false, 'Exoskeleton - Arms and Shoulders', '', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Exoskeleton - Arms and Shoulders'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Arms and Shoulders'),
+            ]),
+            new Bionic(200000, Bionics::BODY_PART_HAND_LEFT, false, 'Exoskeleton - Left Hands and Wrist', '', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 10, 'Exoskeleton - Left Hands and Wrist'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Left Hands and Wrist'),
+            ]),
+            new Bionic(200000, Bionics::BODY_PART_HAND_RIGHT, false, 'Exoskeleton - Right Hands and Wrist', '', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 10, 'Exoskeleton - Right Hands and Wrist'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Right Hands and Wrist'),
+            ]),
+            new Bionic(1000000, Bionics::BODY_PART_LEG_BOTH, false, 'Exoskeleton - Legs and Hips', '', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Exoskeleton - Legs and Hips'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Legs and Hips'),
+            ]),
+            new Bionic(100000, Bionics::BODY_PART_FOOT_LEFT, false, 'Exoskeleton - Left foot and ankle', '', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 5, 'Exoskeleton - Left foot and ankle'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Left foot and ankle'),
+            ]),
+            new Bionic(100000, Bionics::BODY_PART_FOOT_RIGHT, false, 'Exoskeleton - Right foot and ankle', '', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 5, 'Exoskeleton - Right foot and ankle'),
+                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Right foot and ankle'),
             ]),
         ];
 
