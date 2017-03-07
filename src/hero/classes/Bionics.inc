@@ -166,14 +166,14 @@ class Bionics extends BaseClass
             new Bionic(300000, 'One Hand', 'P.S. 10, P.P. 10', [], []),
             new Bionic(700000, 'One Arm', 'P.S. 10, P.P. 10', [], []),
             new Bionic(1000000, 'One Leg', 'P.S. 10, Spd. 10', [], []),
-            new Bionic(500000, 'Chest and/or Partial Ribs', '', [], []),
-            new Bionic(500000, 'Skull and/or Face', '', [], []),
+            new Bionic(500000, 'Chest and/or Partial Ribs', '', [], [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 50, 'Bionic Chest/Ribs')]),
+            new Bionic(500000, 'Skull and/or Face', '', [], [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Bionic Skull/Face')]),
             new Bionic(50000, 'Eye (basic)', 'simulates normal eye in appearance', [], []),
             new Bionic(100000, 'Ear (basic)', 'simulates normal ear/hearing', [], []),
             new Bionic(250000, 'Ear (basic)', 'Mouth/throat with voice synthesizer to simulate a normal human voice', [], []),
-            new Bionic(75000, 'Lungs', 'simulate normal respiratory system', [], []),
+            new Bionic(75000, 'Lungs', 'simulate normal respiratory system. Can capture and regulate air much more precisely, enabling the character to hold his breath for five minutes.', [], []),
             new Bionic(1000000, 'Heart', 'functions like the real thing', [], []),
-            new Bionic(1500000, 'Kidney', 'functions like the real organ', [], []),
+            new Bionic(1500000, 'Kidney', 'functions like the real organ.', [], []),
 
         $possibles = [
             // BIONIC EAR SPECIAL FEATURES
@@ -271,6 +271,12 @@ class Bionics extends BaseClass
 
             new Bionic(200000, false, false, 'Mini Laser', 'A miniature laser that can be easily concealed in a secret compartment inside a bionic arm, leg, hip, chest, etc. The mini-laser is only slightly larger and bulkier than a pen flashlight, measuring about six or seven inches long and two inches wide. Range: 60ft (18. 3m); Damage: 2D4; Rate of Fire: 4 per melee; Bonus: +1 to strike.', []),
             new Bionic(30000, Bionics::BODY_PART_CHEST_RIBS, false, 'Flame Thrower', 'A small unit with a retractable nozzle and hose. Range: 16ft (4.9m); Damage: 306 plus, a 60% chance of setting combustibles ablaze. Rate of Fire: 5 short bursts per melee, each counts as one melee attack.', []),
+
+            // LUNG SPECIAL FEATURES
+            new Bionic(40000, Bionics::BODY_PART_LUNGS, false, 'Independent Oxygen Supply', 'Built in to the chest and lung cavity, increasing the time the cyborg can hold his breath to 15 minutes.', []),
+            new Bionic(100000, Bionics::BODY_PART_LUNGS, false, 'Gas Filtration System', 'A miniature air filtration system that purifies impurities from the air. When exposed to gaseous toxins the system attempts to filter them out.', [
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_GASES, 6, 'Gas Filtration System'),
+            ]),
         ];
 
 

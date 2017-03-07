@@ -26,6 +26,9 @@ abstract class BonusTargets
     const PHYSICAL_DAMAGE = 'Physical Damage';
     const ROLL = 'Roll';
     const SAVE_COMMA_DEATH = 'Save: comma/Death';
+
+    // save against gases of all types
+    const SAVE_GASES = 'Save: gases';
     // note that save magic/psionics/toxins is in addition to PE bonus
 // TODO : break out psionics and toxins and the combo saves so that they target just one type
     const SAVE_MAGIC_PSIONICS_TOXINS = 'Save: Magic/Psionics/Toxins';
