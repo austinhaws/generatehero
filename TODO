@@ -3,6 +3,7 @@
 [ ] give user choice points like class of hero, high or low rolls (roller then will scale up/down on rolls), max/min rolls
 [ ] crazy or not
 [ ] what other choices can they make?
+[ ] ben: let them "stick" decisions of the results. like keep the bionics stuck, but change out the abilities. or keep strenght the same but redo the rest. this could be really tricky? or just make the classes sticky? how to make bonuses come and go based on sticky?
 
 
 run unit tests: vendor/bin/phpunit

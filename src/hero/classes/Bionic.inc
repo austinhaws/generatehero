@@ -13,7 +13,7 @@ class Bionic
     /**
      * Bionic constructor.
      * @param $cost int how much
-     * @param $bionicLocation BionicLocation information about where the bionic piece goes
+     * @param $bionicLocation BionicLocation|bool information about where the bionic piece goes; for major pieces this is false; this allows the logic for fillsLocation to ignore major body pieces
      * @param $title string type of bionic
      * @param $description string descriptive description describing
      * @param $bonuses array bonus entries the character gets for this bionic (these bonuses get added to the characters bonuses list)

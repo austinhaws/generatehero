@@ -11,7 +11,7 @@ class Bionics extends BaseClass
 {
     // how much money the bionic had to spend on bionics
     public $startingBudget;
-    public $budget;
+    public $budgetRemaining;
 
     // why was the character considered for bionic modification?
     public $conditions;
@@ -21,11 +21,10 @@ class Bionics extends BaseClass
     public $sponsorStatus;
 
     // array of Bionic class
+    /** @var Bionic[] bionics  */
     public $bionics;
-
-
-    // array of BionicLocation telling what locations have been used so far
-    public $bionicLocations = [];
+    // map of string (BionicLocation::enum) => bool; true means the location is bionic
+    public $bionicBody;
 
     function imageName()
     {
@@ -106,7 +105,7 @@ class Bionics extends BaseClass
 
     private function determineBudget()
     {
-        $this->budget = $this->startingBudget = $this->engine->tableRoller->rollTable('Bionic Budget', [
+        $this->budgetRemaining = $this->startingBudget = $this->engine->tableRoller->rollTable('Bionic Budget', [
             new TableEntry(17, 6600000),
             new TableEntry(33, 7200000),
             new TableEntry(49, 8000000),
@@ -148,8 +147,8 @@ class Bionics extends BaseClass
                 'Telescopic Vision', 'Magnifies an image area like a gun scope. Automatic, self-focusing. Range: 1200ft (360m), 1Oft (3m) image area.', []),
             new Bionic(50000, new BionicLocation(false, [BionicLocation::BODY_PART_EYE_LEFT, BionicLocation::BODY_PART_EYE_RIGHT], false, false),
                 'Targeting Sight', 'A special system that superimposes target cross hairs.', [
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 1, 'Targeting Sight'),
-            ]),
+                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 1, 'Targeting Sight'),
+                ]),
             new Bionic(30000, new BionicLocation(false, [BionicLocation::BODY_PART_EYE_LEFT, BionicLocation::BODY_PART_EYE_RIGHT], false, false),
                 'Ultraviolet Sight', 'Enables the character to see ultraviolet light (often used in security systems). Range: 600ft (180m).', []),
             new Bionic(50000, new BionicLocation(false, [BionicLocation::BODY_PART_EYE_LEFT, BionicLocation::BODY_PART_EYE_RIGHT], false, false),
@@ -262,14 +261,14 @@ class Bionics extends BaseClass
                 'Independent Oxygen Supply', 'Built in to the chest and lung cavity, increasing the time the cyborg can hold his breath to 15 minutes.', []),
             new Bionic(100000, new BionicLocation([BionicLocation::BODY_PART_LUNGS], false, false, false),
                 'Gas Filtration System', 'A miniature air filtration system that purifies impurities from the air. When exposed to gaseous toxins the system attempts to filter them out.', [
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_GASES, 6, 'Gas Filtration System'),
-            ]),
+                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_GASES, 6, 'Gas Filtration System'),
+                ]),
 
             // MOUTH AND THROAT FEATURES
             new Bionic(150000, new BionicLocation([BionicLocation::BODY_PART_MOUTH_THROAT], false, false, false),
                 'Modulating Voice Synthesizer', 'Allows the character to change/disguise his voice by altering tone, base, pitch, etc.', [
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::IMITATE_VOICES, 10, 'Modulating Voice Synthesizer'),
-            ]),
+                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::IMITATE_VOICES, 10, 'Modulating Voice Synthesizer'),
+                ]),
             new Bionic(80000, new BionicLocation([BionicLocation::BODY_PART_MOUTH_THROAT], false, false, false),
                 'Inaudible Frequency Range', 'Emit sound frequencies inaudible to the human ear, like a dog whistle.', []),
             new Bionic(40000, new BionicLocation([BionicLocation::BODY_PART_MOUTH_THROAT], false, false, false),
@@ -280,9 +279,9 @@ class Bionics extends BaseClass
             // EXOSKELETONS
             new Bionic(1000000, new BionicLocation([BionicLocation::BODY_PART_CHEST_RIBS], false, false, false),
                 'Exoskeleton - Spine and Shoulders', '', [
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 50, 'Exoskeleton - Spine and Shoulders'),
-                new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Spine and Shoulders'),
-            ]),
+                    new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 50, 'Exoskeleton - Spine and Shoulders'),
+                    new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Spine and Shoulders'),
+                ]),
             new Bionic(1000000, new BionicLocation([BionicLocation::BODY_PART_ARM_LEFT, BionicLocation::BODY_PART_ARM_RIGHT], false, false, false), 'Exoskeleton - Arms and Shoulders', '', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Exoskeleton - Arms and Shoulders'),
                 new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ROLL, 1, 'Exoskeleton - Arms and Shoulders'),
@@ -314,12 +313,17 @@ class Bionics extends BaseClass
         // keep picking bionics until out of budget
         while (count($possibles)) {
             $possibles = array_filter($possibles, function ($bionic) {
-                return $bionic->cost <= $this->budget;
+                return $bionic->cost <= $this->budgetRemaining;
             });
             if (count($possibles)) {
                 shuffle($possibles);
                 $bionic = array_shift($possibles);
-                $this->addBionic($bionic);
+
+                if ($bionic->bionicLocation->orLocations) {
+                    $this->orLocations($bionic);
+                } else {
+                    $this->andLocations($bionic);
+                }
 
                 // can have multiple secret compartments
                 if ($bionic->title == 'Small Secret Compartment') {
@@ -330,59 +334,211 @@ class Bionics extends BaseClass
     }
 
     /**
-     * @param Bionic $bionic
+     * check if the location can be made bionic: cost
+     *
+     * @param $bionicLocation string
+     * @throws \Exception
+     * @return bool true if the location could be made bionic
      */
-    private function addBionic(Bionic $bionic)
+    private function makeLocationBionic($bionicLocation)
     {
-        // MAJOR BODY PARTS
-        requirements will use these if a chosen bionic part has a requirement
-            new Bionic(300000, 'One Hand', 'P.S. 10, P.P. 10', [], []),
-            new Bionic(700000, 'One Arm', 'P.S. 10, P.P. 10', [], []),
-            new Bionic(1000000, 'One Leg', 'P.S. 10, Spd. 10', [], []),
-            new Bionic(500000, 'Chest and/or Partial Ribs', '', [], [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 50, 'Bionic Chest/Ribs')]),
-            new Bionic(500000, 'Skull and/or Face', '', [], [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Bionic Skull/Face')]),
-            new Bionic(50000, 'Eye (basic)', 'simulates normal eye in appearance', [], []),
-            new Bionic(100000, 'Ear (basic)', 'simulates normal ear/hearing', [], []),
-            new Bionic(250000, 'Mouth/Throat', 'voice synthesizer to simulate a normal human voice', [], []),
-            new Bionic(75000, 'Lungs', 'simulate normal respiratory system. Can capture and regulate air much more precisely, enabling the character to hold his breath for five minutes.', [], []),
-            new Bionic(1000000, 'Heart', 'functions like the real thing', [], []),
-            new Bionic(1500000, 'Kidney', 'functions like the real organ.', [], []),
+        // loop through bionics and find one that matches the title
+        $added = true;
+        if (!$this->bionicBody[$bionicLocation]) {
+            $added = false;
+            // MAJOR BODY PARTS
+            $bionic = false;
 
-        remove pieces cost from budget; put it back on the budget if it couldnt be added. this way when adding bionic locations it will look at what budget would remain so that th epiece has room
-                    $this->budget -= $bionic->cost;
+            // true if the part could have artificial skin on it; full body is 22 square feet (http://www.exrx.net/Kinesiology/Segments.html)
+            $FULL_SKIN_AREA = 22;
+            $ARM_PERCENT = 4.76;
+            $EAR_PERCENT = 2.0;
+            $FOOT_PERCENT = 1.38;
+            $skinnable = false;
+            switch ($bionicLocation) {
+                case BionicLocation::BODY_PART_ARM_LEFT:
+                case BionicLocation::BODY_PART_ARM_RIGHT:
+                    $bionic = new Bionic(700000, false, $bionicLocation, '', []);
+                    $skinnable = $ARM_PERCENT;
+                break;
 
-choose from "or" of location, if it is too much to add a new locatoni check if the opposite location is already bionic and add it to that
-    if the chosen location (right/left) is filled already then check the other side: shuffle possibles, choose first, if it doesn't work, try second'
+                case BionicLocation::BODY_PART_CHEST_RIBS:
+                    $bionic = new Bionic(500000, false, $bionicLocation, '', [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 50, 'Bionic Chest/Ribs')]);
+                    $skinnable = 54.15;
+                break;
 
+                case BionicLocation::BODY_PART_EAR_LEFT:
+                case BionicLocation::BODY_PART_EAR_RIGHT:
+                    $bionic = new Bionic(100000, false, $bionicLocation, 'simulates normal ear/hearing', []);
+                    $skinnable = $EAR_PERCENT;
+                break;
 
-        when body part made bionic, test if body part gets syntehtic skin or hard plastic skin
-                Synthetic Plastic Skin that looks and feels like real human flesh
-can be used to cover the artificial limbs. Although slightly
-tougher than human skin, it does NOT provide an additional
-protection/body armor (S.D.C. or A.R.). Cost: $1,000 per
-square foot.
+                case BionicLocation::BODY_PART_EYE_LEFT:
+                case BionicLocation::BODY_PART_EYE_RIGHT:
+                    $bionic = new Bionic(50000, false, $bionicLocation, 'simulates normal eye in appearance', []);
+                break;
 
-    A Hard Plastic Skin that resembles human flesh can also be
-used. It does not feel anything like real skin. Normal weapons
-such as knives. clubs and low calibre bullets (.22, .25) do
-        half damage. No special A.R.; S.D.C. bonus of artificial
-limbs is 15 each. Cost: $500 per square foot.
+                case BionicLocation::BODY_PART_FOOT_LEFT:
+                case BionicLocation::BODY_PART_FOOT_RIGHT:
+                    // foot not in rules
+                    $bionic = new Bionic(150000, false, $bionicLocation, '', []);
+                    $skinnable = $FOOT_PERCENT;
+                break;
 
+                case BionicLocation::BODY_PART_HAND_LEFT:
+                case BionicLocation::BODY_PART_HAND_RIGHT:
+                    $bionic = new Bionic(300000, false, $bionicLocation, '', []);
+                    $skinnable = true;
+                break;
 
-        // if it has a required body location being bionic, try to install that part
+                case BionicLocation::BODY_PART_HEART:
+                    $bionic = new Bionic(1000000, false, $bionicLocation, 'functions like the real thing', []);
+                break;
 
-        // if the required bod location is already bionic then good to go
+                case BionicLocation::BODY_PART_KIDNEY:
+                    $bionic = new Bionic(1500000, false, $bionicLocation, 'functions like the real organ.', []);
+                break;
 
-        // if required location has two options then randomly choose one to make bionic
+                case BionicLocation::BODY_PART_LEG_LEFT:
+                case BionicLocation::BODY_PART_LEG_RIGHT:
+                    $bionic = new Bionic(1000000, false, $bionicLocation, '', []);
+                    $skinnable = true;
+                break;
 
-        // if required location has two options and one is already bionic randomly determine if the other location should be made bionic (low chance of this)
+                case BionicLocation::BODY_PART_LUNGS:
+                    $bionic = new Bionic(75000, false, $bionicLocation, 'simulate normal respiratory system. Can capture and regulate air much more precisely, enabling the character to hold his breath for five minutes.', []);
+                break;
 
-        // if other location should be made bionic but costs too much then just use the current bionic location
+                case BionicLocation::BODY_PART_MOUTH_THROAT:
+                    $bionic = new Bionic(250000, false, $bionicLocation, 'voice synthesizer to simulate a normal human voice', []);
+                break;
 
-        need to add increased pp / speed when gaining an artificial limb(s) (pg 61) -probably after gaining an extra arm, legs, or hand, check if it should gain extra pp / ps / speed
+                case BionicLocation::BODY_PART_SKULL_FACE:
+                    $bionic = new Bionic(500000, false, $bionicLocation, '', [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Bionic Skull/Face')]);
+                    $skinnable = true;
+                break;
 
-        if it was added then remove budget amount
+                default:
+                    throw new \Exception("Unknown bionic location: " . $bionicLocation);
+            }
 
+            // can the bionic part be afforded?
+            if ($this->budgetRemaining >= $bionic->cost) {
+                
+                // add the bionic
+                $added = true;
+                $this->budgetRemaining -= $bionic->cost;
+                $this->bionics[] = $bionic;
+                $this->bionicBody[$bionicLocation] = true;
+
+                // artificial skin on body part?
+                if ($skinnable && $this->engine->roller->rollDice(new Roll('Body Part Skinnable', 1, 100)) > 50) {
+                    $cost = ceil($FULL_SKIN_AREA * $skinnable);
+                    if ($this->engine->roller->rollDice(new Roll('Body Part Skinnable: Type', 1, 100)) > 50) {
+                        $cost *= 1000;
+                        if ($cost <= $this->budgetRemaining) {
+                            $bionic->title .= ' - Synthetic Plastic Skin';
+                            $bionic->description .= ' Synthetic Plastic Skin looks and feels like real human flesh. Although slightly tougher than human skin, it does not provide an additional protection.';
+                            $this->budgetRemaining -= $cost;
+                        }
+                    } else {
+                        $cost *= 500;
+                        if ($cost <= $this->budgetRemaining) {
+                            $bionic->title .= ' - Hard Plastic Skin';
+                            $bionic->description .= 'Hard Plastic Skin resembles human flesh. It does not feel anything like real skin. Normal weapons such as knives, clubs, and low calibre bullets (.22, .25) do half damage.';
+                            $bionic->bonuses[] = new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 15, $bionic->title);
+                            $this->budgetRemaining -= $cost;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $added;
     }
 
+    /**
+     * bionic has "or" locations so figure out the first one and if it could have multiples check if it should also add to the other possible locations
+     *
+     * @param Bionic $bionic the part to add
+     */
+    private function orLocations(Bionic $bionic)
+    {
+        // get the or locations as a copy so they don't get lost
+        $locations = $bionic->bionicLocation->orLocations;
+
+        // shuffle them
+        $this->engine->arrayTools->shuffle($locations);
+
+        // remember multiple possible flag
+        $multiplePossible = $bionic->bionicLocation->orMultiplePossible;
+
+        // start with 25% of picking multiples (50 / 2)
+        $chance = 50;
+
+        do {
+            // setup definitive bionic location
+            $bionic->bionicLocation = new BionicLocation([array_shift($locations)], false, false, $bionic->bionicLocation->fillsLocation);
+
+            // make a copy
+            $this->andLocations(json_decode(json_encode($bionic)));
+
+            // decrease chance of choosing another multiple
+            $chance /= 2;
+        } while ($multiplePossible && count($locations) && $this->engine->roller->rollDice(new Roll('Bionic Location: Multiple Ors', 1, 100)) < $chance);
+    }
+
+    /**
+     * check if the location is already filled with a bionic or not (some bionics don't allow any other bionics with them)
+     *
+     * @param $location string the location to check
+     * @param $tryingToFill bool is the new item trying to fill the location
+     * @return bool true if the location is open for placement, false if it is already filled
+     */
+    private function locationNotFilled($location, $tryingToFill)
+    {
+        $result = true;
+        foreach ($this->bionics as $bionic) {
+            // find something existing at this location
+            if (array_search($location, $bionic->bionicLocation->andLocations) !== false) {
+                // if found and tryingtofill the location then false; or if not trying to fill but there is a filler there then false
+                $result = $result && !$tryingToFill && !$bionic->bionicLocation->fillsLocation;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * the bionic fills all the locations. check that the locations are available or bionicable and add the part
+     *
+     * @param $bionic Bionic  part to add
+     */
+    private function andLocations(Bionic $bionic)
+    {
+        // has to be an "and" location by this point
+        $locations = $bionic->bionicLocation->andLocations;
+
+        // remove cost from budget (will put it back if couldn't place it); this is so further calculations can just go on budget
+        $this->budgetRemaining -= $bionic->cost;
+
+        $placed = true;
+
+        // try to make all locations bionic; yes, this makes the location bionic even when filled prevents adding the bionic part. oh well.
+        // if the location is bioinc then test for the "fills location" flag for that location .
+        // if it already has a bionic at that location then cant do "fills location" bionics at that location .
+        foreach ($locations as $location) {
+            // make location bionic and test if the location for the bionic is available
+            $placed = $placed && $this->makeLocationBionic($location)
+                && $this->locationNotFilled($location, $bionic->bionicLocation->fillsLocation);
+        }
+
+
+        // location is ready for business! add teh bionic to it
+        if ($placed) {
+            $this->bionics[] = $bionic;
+        } else {
+            // not going to work so put its cost back in the budget; yes, the location may have been made bionic but not going to undo that
+            $this->budgetRemaining += $bionic->cost;
+        }
+    }
 }
