@@ -387,6 +387,61 @@ class AliensTest extends \PHPUnit_Framework_TestCase
         return $ended;
     }
 
+    private function alienAppearance(&$rolls, $i)
+    {
+        $ended = false;
+        switch ($i) {
+            default:
+                $ended = true;
+            case 0:
+                $rolls[] = new TestRoll(100, 16, 'appearance');
+                break;
+            case 1:
+                $rolls[] = new TestRoll(100, 39, 'appearance');
+                break;
+            case 2:
+                $rolls[] = new TestRoll(100, 43, 'appearance');
+                break;
+            case 3:
+                $rolls[] = new TestRoll(100, 48, 'appearance');
+                break;
+            case 4:
+                $rolls[] = new TestRoll(100, 53, 'appearance');
+                break;
+            case 5:
+                $rolls[] = new TestRoll(100, 58, 'appearance');
+                break;
+            case 6:
+                $rolls[] = new TestRoll(100, 64, 'appearance');
+                break;
+            case 7:
+                $rolls[] = new TestRoll(100, 68, 'appearance');
+                break;
+            case 8:
+                $rolls[] = new TestRoll(100, 72, 'appearance');
+                break;
+            case 9:
+                $rolls[] = new TestRoll(100, 76, 'appearance');
+                break;
+            case 10:
+                $rolls[] = new TestRoll(100, 79, 'appearance');
+                break;
+            case 11:
+                $rolls[] = new TestRoll(100, 84, 'appearance');
+                break;
+            case 12:
+                $rolls[] = new TestRoll(100, 89, 'appearance');
+                break;
+            case 13:
+                $rolls[] = new TestRoll(100, 94, 'appearance');
+                break;
+            case 14:
+                $rolls[] = new TestRoll(100, 100, 'appearance');
+                break;
+        }
+        return $ended;
+    }
+
     /**
      * create rolls based on the iteration until all the iterations have been exercised
      */
@@ -397,12 +452,14 @@ class AliensTest extends \PHPUnit_Framework_TestCase
      */
     private function rollsIteration($i)
     {
-        $rolls = [];
+        $rolls = [
+            (new TestRoll())->dontCareUntil('power category')->andRoll(100, 100, 'power category'),
+            (new TestRoll())->dontCareUntilAndGetNext('appearance'),
+        ];
 
-        $rolls[] = (new TestRoll())->dontCareUntil('power category')->andRoll(100, 100, 'power category');
-        $rolls[] = (new TestRoll())->dontCareUntil('appearance')->andRoll(100, 1, 'appearance');
+        $ended = $this->alienAppearance($rolls, $i);
 
-        $ended = $this->alienPhysiological($rolls, $i);
+        $ended = $ended && $this->alienPhysiological($rolls, $i);
         $ended = $ended && $this->superAbilities($rolls, $i);
         $ended = $ended && $this->alienEducation($rolls, $i);
         $ended = $ended && $this->reasonForComing($rolls, $i);
@@ -413,7 +470,6 @@ class AliensTest extends \PHPUnit_Framework_TestCase
         $ended = $ended && $this->money($rolls, $i);
 
         $rolls[] = (new TestRoll())->dontCareAnyMore();
-
         return $ended ? false : $rolls;
     }
 

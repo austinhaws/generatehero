@@ -57,7 +57,7 @@ class TableEducationTest extends \PHPUnit_Framework_TestCase
 
         $this->tableEducation->rollEducationLevel($hero);
 
-        $this->engine->roller->verifyTestRolls();
+        $this->engine->roller->verifyTestRolls(true);
 
         $this->assertEquals($educationLevel, $hero->educationLevel);
         $this->assertEquals($numberPrograms, count($hero->educationProgramsPicked));

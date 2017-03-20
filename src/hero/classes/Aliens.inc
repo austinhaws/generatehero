@@ -451,7 +451,7 @@ class Aliens extends BaseClass
 
             case 'Double-Jointed':
                 $this->appearance .= 'Double-Jointed; Extremely limber bones and can twist and bend their bones in to normally impossible positions.';
-                $hero->addBonus(BonusTargets::ROLL, 2, 'Alien: Double-Jointed');
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 2, 'Alien: Double-Jointed'));
                 break;
 
             case 'Unusual Eyes':

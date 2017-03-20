@@ -21,7 +21,7 @@ class Bionics extends BaseClass
     public $sponsorStatus;
 
     // array of Bionic class
-    /** @var Bionic[] bionics  */
+    /** @var Bionic[] bionics */
     public $bionics;
     // map of string (BionicLocation::enum) => bool; true means the location is bionic
     public $bionicBody;
@@ -44,7 +44,7 @@ class Bionics extends BaseClass
         $this->determineBudget();
 
         // step 4 : building the cyborg
-        $this->chooseBionics();
+        $this->chooseBionics($hero);
 
         // step 5 : background information
         $this->backgroundInformation();
@@ -115,7 +115,7 @@ class Bionics extends BaseClass
         ]);
     }
 
-    private function chooseBionics()
+    private function chooseBionics(Hero &$hero)
     {
         // put all possible bionics in to array
         $possibles = [
@@ -316,13 +316,12 @@ class Bionics extends BaseClass
                 return $bionic->cost <= $this->budgetRemaining;
             });
             if (count($possibles)) {
-                shuffle($possibles);
+                $this->engine->arrayTools->shuffle($possibles);
                 $bionic = array_shift($possibles);
-
                 if ($bionic->bionicLocation->orLocations) {
-                    $this->orLocations($bionic);
+                    $this->orLocations($bionic, $hero);
                 } else {
-                    $this->andLocations($bionic);
+                    $this->andLocations($bionic, $hero);
                 }
 
                 // can have multiple secret compartments
@@ -334,124 +333,214 @@ class Bionics extends BaseClass
     }
 
     /**
+     * @param Hero $hero
+     * @param $bionic Bionic the bionic to add to the character if the price isn't too much
+     * @param $addOppositeLimb bool should the matching limb also be made bionic? for legs, both legs have to be bionic to get the speed bonus
+     * @param $skinnable bool can the area maybe have synthetic skin?
+     * @param $increasePP bool should the pp be increased
+     * @param $increasePS bool should the ps be increased
+     * @param $increaseSpeed bool should speed be increased
+     * @return bool true if the location was made bionic
+     */
+    private function addBionicBody(Hero &$hero, $bionic, $addOppositeLimb, $skinnable, $increasePP, $increasePS, $increaseSpeed)
+    {
+        $FULL_SKIN_AREA = 22;
+
+        $added = false;
+
+        // can the bionic part be afforded?
+        if ($this->budgetRemaining >= $bionic->cost) {
+            // add the bionic
+            $added = true;
+            $this->budgetRemaining -= $bionic->cost;
+            $this->bionics[] = $bionic;
+            $this->bionicBody[$bionic->bionicLocation->andLocations[0]] = true;
+
+            // artificial skin on body part?
+            if ($skinnable && $this->engine->roller->rollDice(new Roll('Body Part Skinnable', 1, 100)) > 50) {
+                $cost = ceil($FULL_SKIN_AREA * $skinnable);
+                if ($this->engine->roller->rollDice(new Roll('Body Part Skinnable: Type', 1, 100)) > 50) {
+                    $cost *= 1000;
+                    if ($cost <= $this->budgetRemaining) {
+                        $bionic->title .= ' - Synthetic Plastic Skin';
+                        $bionic->description .= ' Synthetic Plastic Skin looks and feels like real human flesh. Although slightly tougher than human skin, it does not provide an additional protection.';
+                        $this->budgetRemaining -= $cost;
+                    }
+                } else {
+                    $cost *= 500;
+                    if ($cost <= $this->budgetRemaining) {
+                        $bionic->title .= ' - Hard Plastic Skin';
+                        $bionic->description .= 'Hard Plastic Skin resembles human flesh. It does not feel anything like real skin. Normal weapons such as knives, clubs, and low calibre bullets (.22, .25) do half damage.';
+                        $bionic->bonuses[] = new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 15, $bionic->title);
+                        $this->budgetRemaining -= $cost;
+                    }
+                }
+            }
+
+            // also try to add the other leg when increasing speed since both legs have to match in order for speed to increase overall
+            $otherLegBionic = false;
+            if ($increaseSpeed && $addOppositeLimb) {
+                // check if the other leg can be made bionic (so speed can be on both legs)
+                $otherLegLocation = $this->bionicBody[BionicLocation::BODY_PART_LEG_LEFT] ? BionicLocation::BODY_PART_LEG_RIGHT : BionicLocation::BODY_PART_LEG_LEFT;
+                if ($this->budgetRemaining >= $bionic->cost) {
+                    // make the other leg bionic too
+                    $otherLegBionic = new Bionic($bionic->cost, new BionicLocation([$otherLegLocation], false, false, false), $otherLegLocation, '', []);
+                    if (!$this->addBionicBody($hero, $otherLegBionic, false, $skinnable, false, false, false)) {
+                        $otherLegBionic = false;
+                    }
+                }
+
+                // no use adding speed if both legs aren't bionic
+                if ($otherLegBionic) {
+                    // 10000 per point above 10 for a pair of legs
+                    // 220 max (base 10 + 210 bonus)
+                    $costPerPoint = 10000;
+                    $maxBonus = min(floor($this->budgetRemaining / $costPerPoint), 210);
+                    if ($maxBonus > 0) {
+                        $bonus = $this->engine->roller->rollDice(new Roll('Bionic Leg Speed Bonus', 1, $maxBonus));
+                        $this->budgetRemaining -= $costPerPoint * $bonus;
+                        $bonus += 10;
+                        $bonusDescription = " Speed: $bonus";
+
+                        // character's speed increased!
+                        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ATTRIBUTE_SPEED, $bonus, 'Bionic Legs'));
+
+                        // both bionics say their bonus
+                        $bionic->description .= $bonusDescription;
+                        $otherLegBionic->description .= $bonusDescription;
+                    }
+
+                }
+            }
+            if ($increasePS) {
+                $costPerPoint = 2000;
+                // 24 max (base 10 + 14 bonus)
+                $maxBonus = min(floor($this->budgetRemaining / $costPerPoint), 14);
+                if ($maxBonus > 0) {
+                    $bonus = $this->engine->roller->rollDice(new Roll('Bionic PS Bonus', 1, $maxBonus));
+                    $this->budgetRemaining -= $costPerPoint * $bonus;
+                    $bonus += 10;
+                    $bionic->description .= " PS: $bonus";
+                    // not added to character since both limbs have to match to have the character get the bonus and that calc is not worth it
+                }
+            }
+            if ($increasePP) {
+                $costPerPoint = 10000;
+                // 23 max (base 10 + 13 bonus)
+                $maxBonus = min(floor($this->budgetRemaining / $costPerPoint), 13);
+                if ($maxBonus > 0) {
+                    $bonus = $this->engine->roller->rollDice(new Roll('Bionic PP Bonus', 1, $maxBonus));
+                    $this->budgetRemaining -= $costPerPoint * $bonus;
+                    $bonus += 10;
+                    $bionic->description .= " PP: $bonus";
+                    // not added to character since both limbs have to match to have the character get the bonus and that calc is not worth it
+                }
+            }
+        }
+        return $added;
+    }
+
+    /**
      * check if the location can be made bionic: cost
      *
      * @param $bionicLocation string
+     * @param Hero $hero
+     * @return bool
      * @throws \Exception
-     * @return bool true if the location could be made bionic
      */
-    private function makeLocationBionic($bionicLocation)
+    private function makeLocationBionic($bionicLocation, Hero &$hero)
     {
         // loop through bionics and find one that matches the title
         $added = true;
         if (!$this->bionicBody[$bionicLocation]) {
-            $added = false;
             // MAJOR BODY PARTS
             $bionic = false;
 
             // true if the part could have artificial skin on it; full body is 22 square feet (http://www.exrx.net/Kinesiology/Segments.html)
-            $FULL_SKIN_AREA = 22;
             $ARM_PERCENT = 4.76;
             $EAR_PERCENT = 2.0;
             $FOOT_PERCENT = 1.38;
+
             $skinnable = false;
+            $increasePP = false;
+            $increasePS = false;
+            $increaseSpeed = false;
+
+            $location = new BionicLocation([$bionicLocation], false, false, false);
             switch ($bionicLocation) {
                 case BionicLocation::BODY_PART_ARM_LEFT:
                 case BionicLocation::BODY_PART_ARM_RIGHT:
-                    $bionic = new Bionic(700000, false, $bionicLocation, '', []);
+                    $bionic = new Bionic(700000, $location, $bionicLocation, '', []);
                     $skinnable = $ARM_PERCENT;
-                break;
+                    $increasePP = true;
+                    $increasePS = true;
+                    break;
 
                 case BionicLocation::BODY_PART_CHEST_RIBS:
-                    $bionic = new Bionic(500000, false, $bionicLocation, '', [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 50, 'Bionic Chest/Ribs')]);
+                    $bionic = new Bionic(500000, $location, $bionicLocation, '', [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 50, 'Bionic Chest/Ribs')]);
                     $skinnable = 54.15;
-                break;
+                    break;
 
                 case BionicLocation::BODY_PART_EAR_LEFT:
                 case BionicLocation::BODY_PART_EAR_RIGHT:
-                    $bionic = new Bionic(100000, false, $bionicLocation, 'simulates normal ear/hearing', []);
+                    $bionic = new Bionic(100000, $location, $bionicLocation, 'simulates normal ear/hearing', []);
                     $skinnable = $EAR_PERCENT;
-                break;
+                    break;
 
                 case BionicLocation::BODY_PART_EYE_LEFT:
                 case BionicLocation::BODY_PART_EYE_RIGHT:
-                    $bionic = new Bionic(50000, false, $bionicLocation, 'simulates normal eye in appearance', []);
-                break;
+                    $bionic = new Bionic(50000, $location, $bionicLocation, 'simulates normal eye in appearance', []);
+                    break;
 
                 case BionicLocation::BODY_PART_FOOT_LEFT:
                 case BionicLocation::BODY_PART_FOOT_RIGHT:
                     // foot not in rules
-                    $bionic = new Bionic(150000, false, $bionicLocation, '', []);
+                    $bionic = new Bionic(150000, $location, $bionicLocation, '', []);
                     $skinnable = $FOOT_PERCENT;
-                break;
+                    break;
 
                 case BionicLocation::BODY_PART_HAND_LEFT:
                 case BionicLocation::BODY_PART_HAND_RIGHT:
-                    $bionic = new Bionic(300000, false, $bionicLocation, '', []);
+                    $bionic = new Bionic(300000, $location, $bionicLocation, '', []);
                     $skinnable = true;
-                break;
+                    $increasePP = true;
+                    $increasePS = true;
+                    break;
 
                 case BionicLocation::BODY_PART_HEART:
-                    $bionic = new Bionic(1000000, false, $bionicLocation, 'functions like the real thing', []);
-                break;
+                    $bionic = new Bionic(1000000, $location, $bionicLocation, 'functions like the real thing', []);
+                    break;
 
                 case BionicLocation::BODY_PART_KIDNEY:
-                    $bionic = new Bionic(1500000, false, $bionicLocation, 'functions like the real organ.', []);
-                break;
+                    $bionic = new Bionic(1500000, $location, $bionicLocation, 'functions like the real organ.', []);
+                    break;
 
                 case BionicLocation::BODY_PART_LEG_LEFT:
                 case BionicLocation::BODY_PART_LEG_RIGHT:
-                    $bionic = new Bionic(1000000, false, $bionicLocation, '', []);
+                    $bionic = new Bionic(1000000, $location, $bionicLocation, '', []);
                     $skinnable = true;
-                break;
+                    $increasePS = true;
+                    $increaseSpeed = true;
+                    break;
 
                 case BionicLocation::BODY_PART_LUNGS:
-                    $bionic = new Bionic(75000, false, $bionicLocation, 'simulate normal respiratory system. Can capture and regulate air much more precisely, enabling the character to hold his breath for five minutes.', []);
-                break;
+                    $bionic = new Bionic(75000, $location, $bionicLocation, 'simulate normal respiratory system. Can capture and regulate air much more precisely, enabling the character to hold his breath for five minutes.', []);
+                    break;
 
                 case BionicLocation::BODY_PART_MOUTH_THROAT:
-                    $bionic = new Bionic(250000, false, $bionicLocation, 'voice synthesizer to simulate a normal human voice', []);
-                break;
+                    $bionic = new Bionic(250000, $location, $bionicLocation, 'voice synthesizer to simulate a normal human voice', []);
+                    break;
 
                 case BionicLocation::BODY_PART_SKULL_FACE:
-                    $bionic = new Bionic(500000, false, $bionicLocation, '', [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Bionic Skull/Face')]);
+                    $bionic = new Bionic(500000, $location, $bionicLocation, '', [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Bionic Skull/Face')]);
                     $skinnable = true;
-                break;
+                    break;
 
                 default:
                     throw new \Exception("Unknown bionic location: " . $bionicLocation);
             }
 
-            // can the bionic part be afforded?
-            if ($this->budgetRemaining >= $bionic->cost) {
-                
-                // add the bionic
-                $added = true;
-                $this->budgetRemaining -= $bionic->cost;
-                $this->bionics[] = $bionic;
-                $this->bionicBody[$bionicLocation] = true;
-
-                // artificial skin on body part?
-                if ($skinnable && $this->engine->roller->rollDice(new Roll('Body Part Skinnable', 1, 100)) > 50) {
-                    $cost = ceil($FULL_SKIN_AREA * $skinnable);
-                    if ($this->engine->roller->rollDice(new Roll('Body Part Skinnable: Type', 1, 100)) > 50) {
-                        $cost *= 1000;
-                        if ($cost <= $this->budgetRemaining) {
-                            $bionic->title .= ' - Synthetic Plastic Skin';
-                            $bionic->description .= ' Synthetic Plastic Skin looks and feels like real human flesh. Although slightly tougher than human skin, it does not provide an additional protection.';
-                            $this->budgetRemaining -= $cost;
-                        }
-                    } else {
-                        $cost *= 500;
-                        if ($cost <= $this->budgetRemaining) {
-                            $bionic->title .= ' - Hard Plastic Skin';
-                            $bionic->description .= 'Hard Plastic Skin resembles human flesh. It does not feel anything like real skin. Normal weapons such as knives, clubs, and low calibre bullets (.22, .25) do half damage.';
-                            $bionic->bonuses[] = new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 15, $bionic->title);
-                            $this->budgetRemaining -= $cost;
-                        }
-                    }
-                }
-            }
+            $added = $this->addBionicBody($hero, $bionic, true, $skinnable, $increasePP, $increasePS, $increaseSpeed);
         }
 
         return $added;
@@ -461,8 +550,9 @@ class Bionics extends BaseClass
      * bionic has "or" locations so figure out the first one and if it could have multiples check if it should also add to the other possible locations
      *
      * @param Bionic $bionic the part to add
+     * @param Hero $hero
      */
-    private function orLocations(Bionic $bionic)
+    private function orLocations(Bionic $bionic, Hero &$hero)
     {
         // get the or locations as a copy so they don't get lost
         $locations = $bionic->bionicLocation->orLocations;
@@ -481,7 +571,7 @@ class Bionics extends BaseClass
             $bionic->bionicLocation = new BionicLocation([array_shift($locations)], false, false, $bionic->bionicLocation->fillsLocation);
 
             // make a copy
-            $this->andLocations(json_decode(json_encode($bionic)));
+            $this->andLocations(unserialize(serialize($bionic)), $hero);
 
             // decrease chance of choosing another multiple
             $chance /= 2;
@@ -499,10 +589,18 @@ class Bionics extends BaseClass
     {
         $result = true;
         foreach ($this->bionics as $bionic) {
-            // find something existing at this location
-            if (array_search($location, $bionic->bionicLocation->andLocations) !== false) {
-                // if found and tryingtofill the location then false; or if not trying to fill but there is a filler there then false
-                $result = $result && !$tryingToFill && !$bionic->bionicLocation->fillsLocation;
+            // find something existing at this location; some bionics don't have a location
+            if ($bionic->bionicLocation->andLocations && array_search($location, $bionic->bionicLocation->andLocations) !== false) {
+                // base parts like bionic arm / bionic face don't count towards fillable stipulations
+                $ignoreFillable = strpos($bionic->title, $location) !== false;
+
+                if ($tryingToFill) {
+                    // want to fill this location but anything existing here must be ignored (if there are any other bionics here then can't place here)
+                    $result = $result && $ignoreFillable;
+                } else {
+                    // don't want to fill this location but anything already filling this location prevents from adding this
+                    $result = $result && !$bionic->bionicLocation->fillsLocation;
+                }
             }
         }
         return $result;
@@ -512,11 +610,10 @@ class Bionics extends BaseClass
      * the bionic fills all the locations. check that the locations are available or bionicable and add the part
      *
      * @param $bionic Bionic  part to add
+     * @param Hero $hero
      */
-    private function andLocations(Bionic $bionic)
+    private function andLocations(Bionic $bionic, Hero &$hero)
     {
-        // has to be an "and" location by this point
-        $locations = $bionic->bionicLocation->andLocations;
 
         // remove cost from budget (will put it back if couldn't place it); this is so further calculations can just go on budget
         $this->budgetRemaining -= $bionic->cost;
@@ -526,10 +623,14 @@ class Bionics extends BaseClass
         // try to make all locations bionic; yes, this makes the location bionic even when filled prevents adding the bionic part. oh well.
         // if the location is bioinc then test for the "fills location" flag for that location .
         // if it already has a bionic at that location then cant do "fills location" bionics at that location .
-        foreach ($locations as $location) {
-            // make location bionic and test if the location for the bionic is available
-            $placed = $placed && $this->makeLocationBionic($location)
-                && $this->locationNotFilled($location, $bionic->bionicLocation->fillsLocation);
+        // motion detector and things that don't have a body location don't require a bionic body part
+        if ($bionic->bionicLocation->andLocations) {
+            // has to be an "and" location by this point
+            foreach ($bionic->bionicLocation->andLocations as $location) {
+                // make location bionic and test if the location for the bionic is available
+                $placed = $placed && $this->makeLocationBionic($location, $hero)
+                    && $this->locationNotFilled($location, $bionic->bionicLocation->fillsLocation);
+            }
         }
 
 

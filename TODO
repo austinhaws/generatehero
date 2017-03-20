@@ -1,3 +1,7 @@
+composer dumpautoload -o
+vendor/bin/phpunit
+vendor/bin/phpunit --filter testGenerate_isCrazy_association
+
 [ ] hash code and save each generated character so that they can be retrieved later
 
 [ ] give user choice points like class of hero, high or low rolls (roller then will scale up/down on rolls), max/min rolls
@@ -32,3 +36,4 @@ TO DO
 	[ ] do adds for bonuses
 
 [ ] find TODOs
+[ ] run unit tests a bunch of times; there are things breaking like # of skills for education seems off by one

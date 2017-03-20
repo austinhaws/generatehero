@@ -15,6 +15,6 @@ class Roller
         for ($x = 0; $x < $roll->numberDice; $x++) {
             $result += mt_rand(1, $roll->numberSides);
         }
-        return $result * $roll->multiplier;
+        return $roll->result = $result * $roll->multiplier;
     }
 }

@@ -48,9 +48,14 @@ class TestRoller extends Roller
             $result = mt_rand(1, $numberSides);
         } else {
             $this->rollIndex++;
+            if ($roll->useNextRoll) {
+                $this->rollIndex++;
+                $roll = array_shift($this->testRolls);
+            }
             $roll->validate($numberSides, $name, $this->rollIndex);
             $result = $roll->roll;
         }
+        $roll->result = $result;
         return $result;
     }
 
@@ -68,13 +73,17 @@ class TestRoller extends Roller
 
     /**
      * make sure all the rolls were used
+     * @param bool $showRolls show what the rolls where; useful for seeing what was rolled
      * @return bool true if there are no rolls left
      * @throws \Exception if there are rolls not yet used then throws exception
      */
-    public function verifyTestRolls() {
+    public function verifyTestRolls($showRolls = false) {
         $count = count($this->testRolls);
         if ($count && ($count != 1 || !$this->testRolls[0]->dontCareUntil)) {
             throw new \Exception("Only used {$this->rollIndex} rolls and there are unused test rolls");
+        }
+        if ($showRolls) {
+            var_dump($this->testRolls);
         }
     }
 }

@@ -15,6 +15,9 @@ class Roll
     // how much to times the result roll by
     public $multiplier;
 
+    // what was the result of the roll?
+    public $result;
+
     function __construct($name, $numberDice, $numberSides, $multiplier = 1)
     {
         $this->name = $name;

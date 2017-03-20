@@ -18,7 +18,7 @@ class Bionic
      * @param $description string descriptive description describing
      * @param $bonuses array bonus entries the character gets for this bionic (these bonuses get added to the characters bonuses list)
      */
-    public function __construct($cost, BionicLocation $bionicLocation, $title, $description, $bonuses)
+    public function __construct($cost, $bionicLocation, $title, $description, $bonuses)
     {
         // location is filled in when the bionic is actually selected
         $this->location = false;

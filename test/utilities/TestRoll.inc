@@ -9,6 +9,9 @@ class TestRoll
     public $name;
     public $multiplier;
 
+    // if not caring and then find the not cared for roll then get the next roll to test for the found roll
+    public $useNextRoll = false;
+
     // don't care about rolls until getting a roll with this name; if this is set to true then don't care ever again so just roll away
     public $dontCareUntil;
 
@@ -42,9 +45,24 @@ class TestRoll
     }
 
     /**
+     * skip rolls until a certain roll and then use the next roll for that roll.
+     * dontCareUntil() will skip until it finds a matching roll and ignore it and then start checking rolls where as this will check the target roll
+     *
+     * @param $until string the roll name
+     * @return $this
+     */
+    public function dontCareUntilAndGetNext($until)
+    {
+        $this->dontCareUntil = $until;
+        $this->useNextRoll = true;
+        return $this;
+    }
+
+    /**
      * @param $sides int how many sides on the dice
      * @param $roll int result of the roll
      * @param $name string name of the roll
+     * @param int $multiplier how much to multiply the roll result value
      * @return $this TestRoll the TestRoll for chaining
      */
     public function andRoll($sides, $roll, $name, $multiplier = 1)

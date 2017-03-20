@@ -118,7 +118,7 @@ class HeroGenerator
         $class = $this->engine->tableRoller->rollTable('power category', [
            new TableEntry(10, 'Experiment'),
            new TableEntry(20, 'Robotics'),
-           new TableEntry(30, 'BionicsImplants'),
+           new TableEntry(30, 'Bionics'),
            new TableEntry(40, 'SpecialTraining'),
            new TableEntry(50, 'Mutants'),
            new TableEntry(60, 'Psionics'),
@@ -129,6 +129,7 @@ class HeroGenerator
         ]);
 
         $class = "Heroes\\hero\\classes\\$class";
-        $hero->class = (new $class($this->engine))->create($hero);
+        $hero->class = (new $class($this->engine));
+        $hero->class->create($hero);
     }
 }

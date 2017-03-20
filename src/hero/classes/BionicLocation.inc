@@ -3,24 +3,24 @@ namespace Heroes\hero\classes;
 
 class BionicLocation
 {
-    const BODY_PART_ARM_LEFT = 'left arm';
-    const BODY_PART_ARM_RIGHT = 'right arm';
-    const BODY_PART_CHEST_RIBS = 'chest/ribs';
-    const BODY_PART_EAR_LEFT = 'left ear';
-    const BODY_PART_EAR_RIGHT = 'right ear';
-    const BODY_PART_EYE_LEFT = 'left eye';
-    const BODY_PART_EYE_RIGHT = 'right eye';
-    const BODY_PART_FOOT_LEFT = 'left foot';
-    const BODY_PART_FOOT_RIGHT = 'right foot';
-    const BODY_PART_HAND_LEFT = 'left hand';
-    const BODY_PART_HAND_RIGHT = 'right hand';
-    const BODY_PART_HEART = 'heart';
-    const BODY_PART_KIDNEY = 'kidney';
-    const BODY_PART_LEG_LEFT = 'left leg';
-    const BODY_PART_LEG_RIGHT = 'right leg';
-    const BODY_PART_LUNGS = 'lungs';
-    const BODY_PART_MOUTH_THROAT = 'mouth/throat';
-    const BODY_PART_SKULL_FACE = 'skull/face';
+    const BODY_PART_ARM_LEFT = 'Left Arm';
+    const BODY_PART_ARM_RIGHT = 'Right Arm';
+    const BODY_PART_CHEST_RIBS = 'Chest/Ribs';
+    const BODY_PART_EAR_LEFT = 'Left Ear';
+    const BODY_PART_EAR_RIGHT = 'Right Ear';
+    const BODY_PART_EYE_LEFT = 'Left Eye';
+    const BODY_PART_EYE_RIGHT = 'Right Eye';
+    const BODY_PART_FOOT_LEFT = 'Left Foot';
+    const BODY_PART_FOOT_RIGHT = 'Right Foot';
+    const BODY_PART_HAND_LEFT = 'Left Hand';
+    const BODY_PART_HAND_RIGHT = 'Right Hand';
+    const BODY_PART_HEART = 'Heart';
+    const BODY_PART_KIDNEY = 'Kidney';
+    const BODY_PART_LEG_LEFT = 'Left Leg';
+    const BODY_PART_LEG_RIGHT = 'Right Leg';
+    const BODY_PART_LUNGS = 'Lungs';
+    const BODY_PART_MOUTH_THROAT = 'Mouth/Throat';
+    const BODY_PART_SKULL_FACE = 'Skull/Face';
 
     // andLocations are the only possible location once a bionic is installed; orlocations is just for when choosing bionics
     public $andLocations;
