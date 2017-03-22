@@ -1,23 +1,19 @@
 <?php
 namespace Heroes\tests\tables\superabilities;
 
-use Heroes\engine\Engine;
 use Heroes\hero\Hero;
 use Heroes\tables\superabilities\TableSuperAbilities;
+use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestRoll;
-use Heroes\tests\utilities\TestRoller;
 
-class TableSuperAbilitiesMinorTest extends \PHPUnit_Framework_TestCase
+class TableSuperAbilitiesMinorTest extends BaseTestRunner
 {
-    private $engine;
     private $tableSuperAbilities;
 
     function __construct($name = NULL, array $data = array(), $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
 
-        $this->engine = new Engine();
-        $this->engine->roller = new TestRoller();
         $this->tableSuperAbilities = new TableSuperAbilities($this->engine);
     }
 

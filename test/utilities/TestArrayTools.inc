@@ -9,7 +9,7 @@ class TestArrayTools extends ArrayTools
 
     // how much to rotate the array; move front to back this many times
     // this pretends to shuffle but does so in an organized way so as to allow unit testing repeatable scenarios
-    // set to falsey value to have it do a shuffle
+    // set to falsey value to have it do a natural shuffle (tests should probably never do that)
     public $rotation = TestArrayTools::DEFAULT_ROTATION;
 
     /**
@@ -22,7 +22,7 @@ class TestArrayTools extends ArrayTools
                 array_push($array, array_shift($array));
             }
         } else {
-            shuffle($array);
+            parent::shuffle($array);
         }
     }
 }

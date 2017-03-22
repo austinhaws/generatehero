@@ -1,23 +1,18 @@
 <?php
 namespace Heroes\tests\tables;
 
-use Heroes\engine\Engine;
 use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
-use Heroes\tests\utilities\TestRoller;
+use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestRoll;
 
-class CharacterBasicsTest extends \PHPUnit_Framework_TestCase
+class CharacterBasicsTest extends BaseTestRunner
 {
-    private $engine;
     private $characterBasics;
 
     function __construct($name = NULL, array $data = array(), $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-
-        $this->engine = new Engine();
-        $this->engine->roller = new TestRoller();
         $this->characterBasics = new CharacterBasics($this->engine);
     }
 

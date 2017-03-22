@@ -16,9 +16,13 @@ class HeroGenerator
 {
     public $engine;
 
-    public function __construct()
+    /**
+     * HeroGenerator constructor.
+     * @param Engine $engine allows testing to override engine
+     */
+    public function __construct(Engine $engine = null)
     {
-        $this->engine = new Engine();
+        $this->engine = $engine ? $engine : new Engine();
     }
 
     /**

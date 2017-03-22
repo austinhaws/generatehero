@@ -9,6 +9,9 @@ class TestRoller extends Roller
     private $testRolls;
     private $rollIndex;
 
+    // what was really rolled
+    private $realRolls = [];
+
     /**
      * override original roller to do preentered rolls
      *
@@ -56,6 +59,7 @@ class TestRoller extends Roller
             $result = $roll->roll;
         }
         $roll->result = $result;
+        $this->realRolls[] = new Roll($name, 1, $numberSides, 1, $result);
         return $result;
     }
 
@@ -72,6 +76,22 @@ class TestRoller extends Roller
     }
 
     /**
+     * csv string of the rolled roll for replicating a failed test sequence exactly
+     * ie "Education Level,1,100,1,1;Education Level,1,100,1,18"
+     *
+     * @param $rollsString string semicolon line separated csv data
+     */
+    public function setTestRollsString($rollsString)
+    {
+        $testRolls = [];
+        foreach (explode(';', $rollsString) as $line) {
+            $parts = explode(',', $line);
+            $testRolls[] = new TestRoll($parts[2], $parts[3], $parts[0], $parts[3]);
+        }
+        $this->setTestRolls($testRolls);
+    }
+
+    /**
      * make sure all the rolls were used
      * @param bool $showRolls show what the rolls where; useful for seeing what was rolled
      * @return bool true if there are no rolls left
@@ -82,8 +102,12 @@ class TestRoller extends Roller
         if ($count && ($count != 1 || !$this->testRolls[0]->dontCareUntil)) {
             throw new \Exception("Only used {$this->rollIndex} rolls and there are unused test rolls");
         }
+
         if ($showRolls) {
-            var_dump($this->testRolls);
+            var_dump('Rolled rolls: ' . implode(";", array_map(function (Roll $roll) {
+                return $roll->csv();
+            }, $this->realRolls)));
+            $this->realRolls = [];
         }
     }
 }

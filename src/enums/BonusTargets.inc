@@ -278,6 +278,12 @@ abstract class BonusTargets
             BonusTargets::SKILL_PICK_POCKETS,
             BonusTargets::SKILL_WILDERNESS_SURVIVAL,
         ] : [
+            BonusTargets::SKILL_ESCAPE_ARTIST,
+            BonusTargets::SKILL_FORGERY,
+            BonusTargets::SKILL_LAND_NAVIGATION,
+            BonusTargets::SKILL_PICK_LOCKS,
+            BonusTargets::SKILL_PICK_POCKETS,
+            BonusTargets::SKILL_WILDERNESS_SURVIVAL,
             BonusTargets::SKILL_CONCEALMENT,
             BonusTargets::SKILL_DETECT_AMBUSH,
             BonusTargets::SKILL_DETECT_CONCEALMENT,

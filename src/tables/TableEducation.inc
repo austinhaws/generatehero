@@ -382,6 +382,6 @@ class TableEducation
             default:
                 throw new \Exception("Unknown education level: {$hero->educationLevel}");
         }
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, $hero->educationLevel, 'Education'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Education Level: ' . $hero->educationLevel, 'Education'));
     }
 }

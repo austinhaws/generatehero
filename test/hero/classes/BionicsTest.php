@@ -2,30 +2,12 @@
 
 namespace Heroes\test\hero\crazy;
 
-use Heroes\HeroGenerator;
+use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestArrayTools;
 use Heroes\tests\utilities\TestRoll;
-use Heroes\tests\utilities\TestRoller;
 
-class BionicsTest extends \PHPUnit_Framework_TestCase
+class BionicsTest extends BaseTestRunner
 {
-    private $heroGenerator;
-    private $testRoller;
-    private $testArrayTools;
-
-    function __construct($name = NULL, array $data = array(), $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-
-        $this->heroGenerator = new HeroGenerator();
-
-        $this->testRoller = new TestRoller();
-        $this->testArrayTools = new TestArrayTools($this->heroGenerator->engine);
-
-        $this->heroGenerator->engine->roller = $this->testRoller;
-        $this->heroGenerator->engine->arrayTools = $this->testArrayTools;
-    }
-
     public function test_bionics()
     {
         $this->testRoller->setTestRolls([

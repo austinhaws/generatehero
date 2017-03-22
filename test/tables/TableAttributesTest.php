@@ -1,23 +1,19 @@
 <?php
 namespace Heroes\tests\tables;
 
-use Heroes\engine\Engine;
 use Heroes\hero\Hero;
 use Heroes\tables\TableAttributes;
+use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestRoll;
-use Heroes\tests\utilities\TestRoller;
 
-class TableAttributesTest extends \PHPUnit_Framework_TestCase
+class TableAttributesTest extends BaseTestRunner
 {
-    private $engine;
     private $tableAttributes;
 
     function __construct($name = NULL, array $data = array(), $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
 
-        $this->engine = new Engine();
-        $this->engine->roller = new TestRoller();
         $this->tableAttributes = new TableAttributes($this->engine);
     }
 

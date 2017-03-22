@@ -112,7 +112,7 @@ class SkillPrograms
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $program . 'Program'));
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $program . 'Program'));
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $program . 'Program'));
-                $skills = [BonusTargets::SKILL_LANGUAGE];
+                $skills = [];
                 break;
 
             case SkillPrograms::MECHANICAL:

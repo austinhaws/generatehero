@@ -1,26 +1,13 @@
 <?php
 
-namespace Heroes\test;
+namespace Heroes\test\utilities;
 
 use Heroes\hero\crazy\Frenzy;
-use Heroes\HeroGenerator;
+use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestRoll;
-use Heroes\tests\utilities\TestRoller;
 
-class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
+class HeroGeneratorTest extends BaseTestRunner
 {
-    private $heroGenerator;
-    private $testRoller;
-
-    function __construct($name = NULL, array $data = array(), $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-
-        $this->heroGenerator = new HeroGenerator();
-        $this->testRoller = new TestRoller();
-        $this->heroGenerator->engine->roller = $this->testRoller;
-    }
-
     public function testGenerate()
     {
         $this->testRoller->setTestRolls([
@@ -75,7 +62,7 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
 
             new TestRoll(6, 2, 'starting hps bonus'),
         ]);
-        $hero = $this->heroGenerator->generate();
+        $this->heroGenerator->generate();
         $this->testRoller->verifyTestRolls();
     }
 
@@ -98,7 +85,8 @@ class HeroGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($hero->crazy instanceof Frenzy);
     }
 
-    public function testGenerate_isCrazy_association() {
+    public function testGenerate_isCrazy_association()
+    {
         $this->testRoller->setTestRolls([
             (new TestRoll())->dontCareUntil('is crazy?')->andRoll(100, 100, 'is crazy?'),
             new TestRoll(100, 60, 'crazy element'),

@@ -1,23 +1,12 @@
 <?php
 namespace Heroes\test\engine;
 
-use Heroes\engine\Engine;
 use Heroes\engine\TableEntry;
+use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestRoll;
-use Heroes\tests\utilities\TestRoller;
 
-class TableRollerTest extends \PHPUnit_Framework_TestCase
+class TableRollerTest extends BaseTestRunner
 {
-    private $engine;
-
-    public function __construct($name = NULL, array $data = array(), $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-
-        $this->engine = new Engine();
-        $this->engine->roller = new TestRoller();
-    }
-
     public function testRollTable_None()
     {
         try {
