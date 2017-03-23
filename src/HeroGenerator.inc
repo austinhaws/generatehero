@@ -35,7 +35,7 @@ class HeroGenerator
         $hero = new Hero();
 
         /**
-         * this process accomplishes teh following
+         * this process accomplishes the following
          *  - rolling attributes
          *  - possible crazy hero
          *  - determine super ability type and apply it

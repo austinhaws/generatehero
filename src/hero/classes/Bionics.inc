@@ -621,7 +621,7 @@ class Bionics extends BaseClass
         $placed = true;
 
         // try to make all locations bionic; yes, this makes the location bionic even when filled prevents adding the bionic part. oh well.
-        // if the location is bioinc then test for the "fills location" flag for that location .
+        // if the location is bionic then test for the "fills location" flag for that location .
         // if it already has a bionic at that location then cant do "fills location" bionics at that location .
         // motion detector and things that don't have a body location don't require a bionic body part
         if ($bionic->bionicLocation->andLocations) {
@@ -634,7 +634,7 @@ class Bionics extends BaseClass
         }
 
 
-        // location is ready for business! add teh bionic to it
+        // location is ready for business! add the bionic to it
         if ($placed) {
             $this->bionics[] = $bionic;
         } else {

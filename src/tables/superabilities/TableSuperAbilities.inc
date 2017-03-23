@@ -350,7 +350,7 @@ class TableSuperAbilities
             ])),
 
             new TableEntry(40, new Ability('Animal Abilities - Bird', 'This power gives humanoid characters the traits, abilities and instincts of a particular type of animaL It does not actually transform the person into an animal. The character can also control (to a limited degree) any animals that fall into his general type. Actual communication/dialog is impossible, but the character understands the general meanings of grunts, growls, whines, and facial and tail expressions. The animals Will look toward the super being as the leader of a pack and will follow his actions. Commands will be limited to stop, go, attack, wait, run, etc. Large, round eyes; tends to be thin, but muscular.', [
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Glide: same power as teh minor super ability.', 'Animal Abilities - Bird'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Glide: same power as the minor super ability.', 'Animal Abilities - Bird'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, '180 degree arc of vision. It is extremely difficult to sneak up on this character.', 'Animal Abilities - Bird'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Extraordinary vision is approximately six times better than normal human\'s. That means an 18 inch (.4m) object can be seen clearly, in perfect detail, up to one mile (1.6km) away.', 'Animal Abilities - Bird'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::INITIATIVE, 2, 'Animal Abilities - Bird'),
