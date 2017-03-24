@@ -26,11 +26,6 @@ class Bionics extends BaseClass
     // map of string (BionicLocation::enum) => bool; true means the location is bionic
     public $bionicBody;
 
-    function imageName()
-    {
-        return 'bionics.png';
-    }
-
     function create(Hero &$hero)
     {
         // all bionics have SDC of 30
@@ -96,11 +91,7 @@ class Bionics extends BaseClass
     {
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, new Roll('Bionic Starting Wealth', 4, 4, 100), 'Bionic Starting Wealth'));
 
-        if ($this->engine->roller->rollDice(new Roll('Bionic Has Car?', 1, 100)) <= 80) {
-            $age = $this->engine->roller->rollDice(new Roll('Bionic Car Age', 1, 6));
-            $years = 'year' . ($age > 1 ? 's' : '');
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "Owns car that is $age $years old.", 'Bionic Starting Car'));
-        }
+        $this->hasCar($hero, 80);
     }
 
     private function determineBudget()

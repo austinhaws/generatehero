@@ -16,6 +16,7 @@ abstract class BonusTargets
     // == HEALTH == //
     const HIT_POINTS = 'Hit Points';
     const SDC = 'SDC';
+    const WEIGHT = 'Weight';
 
     // == COMBAT == //
     const ATTACKS_PER_MELEE = 'Attacks per melee';
@@ -33,6 +34,8 @@ abstract class BonusTargets
 // TODO : break out psionics and toxins and the combo saves so that they target just one type
     const SAVE_MAGIC_PSIONICS_TOXINS = 'Save: Magic/Psionics/Toxins';
     const SAVE_POSITION_TOXINS_GASES = 'Save: Position/Toxins/Gases';
+    const SAVE_TOXINS = 'Save: Toxins';
+    const SAVE_CHEMICALS = 'Save: Chemicals';
     const SAVE_MAGIC = 'Save: Magic';
     const SAVE_PSIONICS = 'Save: Psionics';
     const SAVE_PSIONIC_ATTACK_INSANITY = 'Save: Psionic Attack/Insanity';

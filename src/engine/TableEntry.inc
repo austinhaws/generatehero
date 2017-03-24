@@ -7,6 +7,11 @@ class TableEntry {
     public $max;
     public $result;
 
+    /**
+     * TableEntry constructor.
+     * @param int $max usually on a roll of d100, what is the max value that this table entry's range works on. so if one entry was 1-12 and this one was 13-20 then max is 20 for this entry
+     * @param mixed $result anything that you want to return if this result is rolled
+     */
     public function __construct($max, $result)
     {
         $this->max = $max;

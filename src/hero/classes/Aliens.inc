@@ -18,11 +18,6 @@ class Aliens extends BaseClass
     public $specialWeapon;
     public $vehicle;
 
-    function imageName()
-    {
-        return 'aliens.png';
-    }
-
     function create(Hero &$hero)
     {
         // all aliens have a base 20 SDC
