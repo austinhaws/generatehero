@@ -19,16 +19,28 @@ class TableSuperAbilities
         $this->engine = $engine;
     }
 
-    public function randomSuperAbilities(Hero &$hero)
+    /**
+     * if numberMajors and numberMinors are 0 then it randomly determines how many major/minors
+     *
+     * @param Hero $hero the hero
+     * @param int $numberMajors how many major powers to add, or false for none
+     * @param int $numberMinors how many minor powers to add, or false for none
+     */
+    public function randomSuperAbilities(Hero &$hero, $numberMajors = 0, $numberMinors = 0)
     {
-        list($majors, $minors) = $this->engine->tableRoller->rollTable('Super Abilities', [
-            new TableEntry(15, [1, 3]),
-            new TableEntry(32, [0, 4]),
-            new TableEntry(50, [1, 1]),
-            new TableEntry(69, [1, 2]),
-            new TableEntry(86, [0, 5]),
-            new TableEntry(100, [2, 0]),
-        ]);
+        if ($numberMajors || $numberMinors) {
+            $majors = $numberMajors;
+            $minors = $numberMinors;
+        } else {
+            list($majors, $minors) = $this->engine->tableRoller->rollTable('Super Abilities', [
+                new TableEntry(15, [1, 3]),
+                new TableEntry(32, [0, 4]),
+                new TableEntry(50, [1, 1]),
+                new TableEntry(69, [1, 2]),
+                new TableEntry(86, [0, 5]),
+                new TableEntry(100, [2, 0]),
+            ]);
+        }
 
         while ($majors || $minors) {
             if ($majors) {

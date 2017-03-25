@@ -76,6 +76,8 @@ abstract class BonusTargets
     const SKILL_GROUP_PILOTING = 'group: all piloting';
     const SKILL_GROUP_PILOTING_RELATED = 'group: all piloting related';
     const SKILL_GROUP_COMPUTER_ELECTRICAL_MECHANICAL = 'group: computer, electrical, and mechanical';
+    // agility dexterity skills like acrobatics, pick locks, computer operation, etc
+    const SKILL_GROUP_AGILITY_DEXTERITY = 'group: agility or dexterity';
 
     const UNDERSTAND_OPERATE_ALIEN_MACHINES = 'Understand and operate unknown or alien machines';
     const RECOGNIZE_IDENTIFY_PLANTS = 'Recognize and Identify Plants';
