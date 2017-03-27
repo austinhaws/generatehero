@@ -1,6 +1,6 @@
 <?php
 
-namespace Heroes\test\hero\crazy;
+namespace Heroes\test\hero\classes;
 
 use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestArrayTools;

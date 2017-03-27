@@ -44,6 +44,8 @@ class Experiment extends BaseClass
 
         // step 2 : education - will be rolled after class created since experiment will not set educationLevel of hero
 
+        // step 4 : experiment effects
+        $this->experimentEffects($hero);
 
         // step 3 : super powers
         if ($this->engine->roller->rollDice(new Roll('Experiment Power Type', 1, 100)) > 50) {
@@ -51,10 +53,26 @@ class Experiment extends BaseClass
         } else {
             $this->pickPowers($hero);
         }
+    }
 
-        // step 4 : experiment effects
-        $this->experimentEffects($hero);
+    /**
+     * pick the hero's powers
+     *
+     * @param Hero $hero the hero
+     */
+    private function pickPowers(Hero &$hero)
+    {
+        list($numberMajor, $numberMinor) = $this->engine->tableRoller->rollTable('Experiment: Pick Powers', [
+            // percent, # major, # minor
+            new TableEntry(15, [1, 3]),
+            new TableEntry(32, [0, 4]),
+            new TableEntry(50, [1, 1]),
+            new TableEntry(69, [1, 2]),
+            new TableEntry(86, [0, 5]),
+            new TableEntry(100, [2, 0]),
+        ]);
 
+        (new TableSuperAbilities($this->engine))->randomSuperAbilities($hero, $numberMajor, $numberMinor);
     }
 
     /**

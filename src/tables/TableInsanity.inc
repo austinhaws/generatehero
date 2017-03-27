@@ -79,7 +79,7 @@ class TableInsanity
     function rollInsanity(Hero &$hero, $baseType = false)
     {
         if (!$baseType) {
-            $this->engine->tableRoller->rollTable('Insanity: Type', [
+            $baseType = $this->engine->tableRoller->rollTable('Insanity: Type', [
                 new TableEntry(10, 'Reborn'),
                 new TableEntry(20, TableInsanity::NEUROSIS),
                 new TableEntry(30, 'Compulsive Liar'),

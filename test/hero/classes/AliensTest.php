@@ -1,6 +1,6 @@
 <?php
 
-namespace Heroes\test\hero\crazy;
+namespace Heroes\test\hero\classes;
 
 use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestRoll;
@@ -10,465 +10,588 @@ class AliensTest extends BaseTestRunner
     /**
      * @param $rolls array rolls to roll for this section for this time through
      * @param $i int which loop
-     * @return bool true if past end of rolls
+     * @return bool ended flag
      */
-    private function alienPhysiological(&$rolls, $i)
+    public function alienPhysiological(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 15, 'Alien: Physiological');
-                $rolls[] = new TestRoll(4, 1, 'Alien: High Gravity - SDC');
-                $rolls[] = new TestRoll(4, 1, 'Alien: High Gravity - SDC');
-                $rolls[] = new TestRoll(4, 1, 'Alien: High Gravity - SDC');
-                break;
-
-            case 1:
-                $rolls[] = new TestRoll(100, 29, 'Alien: Physiological');
-                break;
-
-            case 2:
-                $rolls[] = new TestRoll(100, 44, 'Alien: Physiological');
-                break;
-
-            case 3:
-                $rolls[] = new TestRoll(100, 58, 'Alien: Physiological');
-                break;
-
-            case 4:
-                $rolls[] = new TestRoll(100, 73, 'Alien: Physiological');
-                break;
-
-            case 5:
-                $rolls[] = new TestRoll(100, 88, 'Alien: Physiological');
-                break;
-
-            case 6:
-                $rolls[] = new TestRoll(100, 100, 'Alien: Physiological');
-                break;
-        }
-
-        return $ended;
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                new TestRoll(100, 15, 'Alien: Physiological'),
+                new TestRoll(4, 1, 'Alien: High Gravity - SDC'),
+                new TestRoll(4, 1, 'Alien: High Gravity - SDC'),
+                new TestRoll(4, 1, 'Alien: High Gravity - SDC'),
+            ],
+            [
+                new TestRoll(100, 29, 'Alien: Physiological'),
+                new TestRoll(4, 1, 'Alien: Low Gravity - SDC'),
+            ],
+            [
+                new TestRoll(100, 44, 'Alien: Physiological'),
+                new TestRoll(4, 1, 'Alien: High Radiation - SDC'),
+            ],
+            [
+                new TestRoll(100, 58, 'Alien: Physiological'),
+            ],
+            [
+                new TestRoll(100, 73, 'Alien: Physiological'),
+            ],
+            [
+                new TestRoll(100, 88, 'Alien: Physiological'),
+            ],
+            [
+                new TestRoll(100, 100, 'Alien: Physiological'),
+                new TestRoll(6, 1, 'Alien: Abrasive - SDC'),
+                new TestRoll(6, 1, 'Alien: Abrasive - SDC'),
+                new TestRoll(6, 1, 'Alien: Abrasive - SDC'),
+            ],
+        ]);
     }
 
     /**
      * @param $rolls array rolls to roll for this section for this time through
      * @param $i int which loop
-     * @return bool true if past end of rolls
+     * @return bool ended flag
      */
-    private function alienEducation(&$rolls, $i)
+    public function alienEducation(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i & 5) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 20, 'Alien Education');
-                break;
-
-            case 1:
-                $rolls[] = (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 40, 'Alien Education');
-                break;
-
-            case 2:
-                $rolls[] = (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 60, 'Alien Education');
-                break;
-
-            case 3:
-                $rolls[] = (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 80, 'Alien Education');
-                break;
-
-            case 4:
-                $rolls[] = (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 100, 'Alien Education');
-                break;
-        }
-        return $ended;
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 20, 'Alien Education'),
+            ],
+            [
+                (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 40, 'Alien Education'),
+                new TestRoll(20, 1, 'Alien Military Specialist Skill Bonus'),
+            ],
+            [
+                (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 60, 'Alien Education'),
+                new TestRoll(20, 1, 'Alien Science Specialist Skill Bonus'),
+            ],
+            [
+                (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 80, 'Alien Education'),
+            ],
+            [
+                (new TestRoll())->dontCareUntil('Alien Education')->andRoll(100, 100, 'Alien Education'),
+            ],
+        ]);
     }
 
     /**
      * @param $rolls array rolls to roll for this section for this time through
      * @param $i int which loop
-     * @return bool true if past end of rolls
+     * @return bool ended flag
      */
-    private function reasonForComing(&$rolls, $i)
+    public function reasonForComing(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 19, 'Alien: Reason for Coming');
-                $rolls[] = new TestRoll(100, 25, 'Alien: last of race');
-                break;
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                new TestRoll(100, 19, 'Alien: Reason for Coming'),
+                new TestRoll(100, 25, 'Alien: last of race'),
+            ],
+            [
+                new TestRoll(100, 38, 'Alien: Reason for Coming'),
+                new TestRoll(100, 20, 'Alien: crash landed!'),
+            ],
 
-            case 1:
-                $rolls[] = new TestRoll(100, 38, 'Alien: Reason for Coming');
-                break;
+            [
+                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                new TestRoll(100, 20, 'Alien: outcast'),
+            ],
+            [
+                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                new TestRoll(100, 40, 'Alien: outcast'),
+            ],
+            [
+                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                new TestRoll(100, 60, 'Alien: outcast'),
+            ],
+            [
+                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                new TestRoll(100, 80, 'Alien: outcast'),
+            ],
+            [
+                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                new TestRoll(100, 100, 'Alien: outcast'),
+            ],
 
-            case 2:
-                $rolls[] = new TestRoll(100, 55, 'Alien: Reason for Coming');
-                break;
+            [
+                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                new TestRoll(100, 20, 'Alien: Champion'),
+            ],
+            [
+                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                new TestRoll(100, 40, 'Alien: Champion'),
+            ],
+            [
+                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                new TestRoll(100, 60, 'Alien: Champion'),
+            ],
+            [
+                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                new TestRoll(100, 80, 'Alien: Champion'),
+            ],
+            [
+                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                new TestRoll(100, 100, 'Alien: Champion'),
+            ],
 
-            case 3:
-                $rolls[] = new TestRoll(100, 70, 'Alien: Reason for Coming');
-                break;
-
-            case 4:
-                $rolls[] = new TestRoll(100, 85, 'Alien: Reason for Coming');
-                break;
-
-            case 5:
-                $rolls[] = new TestRoll(100, 100, 'Alien: Reason for Coming');
-                break;
-        }
-        return $ended;
+            [
+                new TestRoll(100, 85, 'Alien: Reason for Coming'),
+            ],
+            [
+                new TestRoll(100, 100, 'Alien: Reason for Coming'),
+            ],
+        ]);
     }
 
     /**
      * @param $rolls array rolls to roll for this section for this time through
      * @param $i int which loop
-     * @return bool true if past end of rolls
+     * @return bool ended flag
      */
-    private function familiarity(&$rolls, $i)
+    public function familiarity(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 20, 'Alien: Familiarity');
-                break;
-
-            case 1:
-                $rolls[] = new TestRoll(100, 60, 'Alien: Familiarity');
-                break;
-
-            case 2:
-                $rolls[] = new TestRoll(100, 100, 'Alien: Familiarity');
-                break;
-        }
-        return $ended;
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                new TestRoll(100, 20, 'Alien: Familiarity'),
+            ],
+            [
+                new TestRoll(100, 60, 'Alien: Familiarity'),
+            ],
+            [
+                new TestRoll(100, 100, 'Alien: Familiarity'),
+            ],
+        ]);
     }
 
     /**
      * @param $rolls array rolls to roll for this section for this time through
      * @param $i int which loop
-     * @return bool true if past end of rolls
+     * @return bool ended flag
      */
-    private function equipment(&$rolls, $i)
+    public function equipment(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 40, 'Alien: equipment');
-                break;
-
-            case 1:
-                $rolls[] = new TestRoll(100, 90, 'Alien: equipment');
-                break;
-
-        }
-
-        return $ended;
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                new TestRoll(100, 40, 'Alien: equipment'),
+            ],
+            [
+                new TestRoll(100, 90, 'Alien: equipment'),
+            ],
+        ]);
     }
 
     /**
      * @param $rolls array rolls to roll for this section for this time through
      * @param $i int which loop
-     * @return bool true if past end of rolls
+     * @return bool ended flag
      */
-    private function specialWeapon(&$rolls, $i)
+    public function specialWeapon(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 18, 'Alien: Special Weapon');
-                break;
-
-            case 1:
-                $rolls[] = new TestRoll(100, 29, 'Alien: Special Weapon');
-                break;
-
-            case 2:
-                $rolls[] = new TestRoll(100, 38, 'Alien: Special Weapon');
-                break;
-
-            case 3:
-                $rolls[] = new TestRoll(100, 49, 'Alien: Special Weapon');
-                break;
-
-            case 4:
-                $rolls[] = new TestRoll(100, 57, 'Alien: Special Weapon');
-                break;
-
-            case 5:
-                $rolls[] = new TestRoll(100, 67, 'Alien: Special Weapon');
-                break;
-
-            case 6:
-                $rolls[] = new TestRoll(100, 78, 'Alien: Special Weapon');
-                break;
-
-            case 7:
-                $rolls[] = new TestRoll(100, 89, 'Alien: Special Weapon');
-                break;
-
-            case 8:
-                $rolls[] = new TestRoll(100, 100, 'Alien: Special Weapon');
-                break;
-        }
-        return $ended;
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                new TestRoll(100, 18, 'Alien: Special Weapon'),
+            ],
+            [
+                new TestRoll(100, 29, 'Alien: Special Weapon'),
+            ],
+            [
+                new TestRoll(100, 38, 'Alien: Special Weapon'),
+            ],
+            [
+                new TestRoll(100, 49, 'Alien: Special Weapon'),
+            ],
+            [
+                new TestRoll(100, 57, 'Alien: Special Weapon'),
+            ],
+            [
+                new TestRoll(100, 67, 'Alien: Special Weapon'),
+            ],
+            [
+                new TestRoll(100, 78, 'Alien: Special Weapon'),
+            ],
+            [
+                new TestRoll(100, 89, 'Alien: Special Weapon'),
+            ],
+            [
+                new TestRoll(100, 100, 'Alien: Special Weapon'),
+            ],
+        ]);
     }
 
     /**
      * @param $rolls array rolls to roll for this section for this time through
      * @param $i int which loop
-     * @return bool true if past end of rolls
+     * @return bool ended flag
      */
-    private function vehicle(&$rolls, $i)
+    public function vehicle(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 13, 'Alien: Vehicle');
-                break;
-
-            case 1:
-                $rolls[] = new TestRoll(100, 25, 'Alien: Vehicle');
-                break;
-
-            case 2:
-                $rolls[] = new TestRoll(100, 37, 'Alien: Vehicle');
-                break;
-
-            case 3:
-                $rolls[] = new TestRoll(100, 50, 'Alien: Vehicle');
-                break;
-
-            case 4:
-                $rolls[] = new TestRoll(100, 62, 'Alien: Vehicle');
-                break;
-
-            case 5:
-                $rolls[] = new TestRoll(100, 74, 'Alien: Vehicle');
-                break;
-
-            case 6:
-                $rolls[] = new TestRoll(100, 86, 'Alien: Vehicle');
-                break;
-
-            case 7:
-                $rolls[] = new TestRoll(100, 100, 'Alien: Vehicle');
-                break;
-        }
-        return $ended;
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                new TestRoll(100, 13, 'Alien: Vehicle'),
+            ],
+            [
+                new TestRoll(100, 25, 'Alien: Vehicle'),
+            ],
+            [
+                new TestRoll(100, 37, 'Alien: Vehicle'),
+            ],
+            [
+                new TestRoll(100, 50, 'Alien: Vehicle'),
+            ],
+            [
+                new TestRoll(100, 62, 'Alien: Vehicle'),
+            ],
+            [
+                new TestRoll(100, 74, 'Alien: Vehicle'),
+            ],
+            [
+                new TestRoll(100, 86, 'Alien: Vehicle'),
+            ],
+            [
+                new TestRoll(100, 100, 'Alien: Vehicle'),
+            ],
+        ]);
     }
 
     /**
      * @param $rolls array rolls to roll for this section for this time through
      * @param $i int which loop
-     * @return bool true if past end of rolls
+     * @return bool ended flag
      */
-    private function money(&$rolls, $i)
+    public function money(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 14, 'Alien: Money Category');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                break;
-
-            case 1:
-                $rolls[] = new TestRoll(100, 29, 'Alien: Money Category');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                break;
-
-            case 2:
-                $rolls[] = new TestRoll(100, 44, 'Alien: Money Category');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                break;
-
-            case 3:
-                $rolls[] = new TestRoll(100, 59, 'Alien: Money Category');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                break;
-
-            case 4:
-                $rolls[] = new TestRoll(100, 74, 'Alien: Money Category');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(4, 1, 'Alien: Money');
-                break;
-
-            case 5:
-                $rolls[] = new TestRoll(100, 88, 'Alien: Money Category');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                break;
-
-            case 6:
-                $rolls[] = new TestRoll(100, 100, 'Alien: Money Category');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                $rolls[] = new TestRoll(6, 1, 'Alien: Money');
-                break;
-        }
-        return $ended;
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                new TestRoll(100, 14, 'Alien: Money Category'),
+                new TestRoll(4, 1, 'Alien: Money'),
+            ],
+            [
+                new TestRoll(100, 29, 'Alien: Money Category'),
+                new TestRoll(6, 1, 'Alien: Money'),
+            ],
+            [
+                new TestRoll(100, 44, 'Alien: Money Category'),
+                new TestRoll(4, 1, 'Alien: Money'),
+                new TestRoll(4, 1, 'Alien: Money'),
+            ],
+            [
+                new TestRoll(100, 59, 'Alien: Money Category'),
+                new TestRoll(4, 1, 'Alien: Money'),
+                new TestRoll(4, 1, 'Alien: Money'),
+                new TestRoll(4, 1, 'Alien: Money'),
+            ],
+            [
+                new TestRoll(100, 74, 'Alien: Money Category'),
+                new TestRoll(4, 1, 'Alien: Money'),
+                new TestRoll(4, 1, 'Alien: Money'),
+                new TestRoll(4, 1, 'Alien: Money'),
+                new TestRoll(4, 1, 'Alien: Money'),
+            ],
+            [
+                new TestRoll(100, 88, 'Alien: Money Category'),
+                new TestRoll(6, 1, 'Alien: Money'),
+                new TestRoll(6, 1, 'Alien: Money'),
+                new TestRoll(6, 1, 'Alien: Money'),
+            ],
+            [
+                new TestRoll(100, 100, 'Alien: Money Category'),
+                new TestRoll(6, 1, 'Alien: Money'),
+                new TestRoll(6, 1, 'Alien: Money'),
+                new TestRoll(6, 1, 'Alien: Money'),
+                new TestRoll(6, 1, 'Alien: Money'),
+                new TestRoll(6, 1, 'Alien: Money'),
+                new TestRoll(6, 1, 'Alien: Money'),
+            ],
+        ]);
     }
 
     /**
      * @param $rolls array rolls to roll for this section for this time through
      * @param $i int which loop
-     * @return bool true if past end of rolls
+     * @return bool ended flag
      */
-    private function superAbilities(&$rolls, $i)
+    public function superAbilities(&$rolls, $i)
     {
-        $ended = false;
-
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 49, 'Alien: Super Abilities');
-                break;
-
-            case 1:
-                $rolls[] = new TestRoll(100, 60, 'Alien: Super Abilities');
-                break;
-
-            case 2:
-                $rolls[] = new TestRoll(100, 69, 'Alien: Super Abilities');
-                break;
-
-            case 3:
-                $rolls[] = new TestRoll(100, 79, 'Alien: Super Abilities');
-                break;
-
-            case 4:
-                $rolls[] = new TestRoll(100, 89, 'Alien: Super Abilities');
-                break;
-
-            case 5:
-                $rolls[] = new TestRoll(100, 100, 'Alien: Super Abilities');
-                break;
-        }
-        return $ended;
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                new TestRoll(100, 49, 'Alien: Super Abilities'),
+            ],
+            [
+                new TestRoll(100, 60, 'Alien: Super Abilities'),
+            ],
+            [
+                new TestRoll(100, 69, 'Alien: Super Abilities'),
+            ],
+            [
+                new TestRoll(100, 79, 'Alien: Super Abilities'),
+            ],
+            [
+                new TestRoll(100, 89, 'Alien: Super Abilities'),
+            ],
+            [
+                new TestRoll(100, 100, 'Alien: Super Abilities'),
+            ],
+        ]);
     }
 
-    private function alienAppearance(&$rolls, $i)
+    public function alienAppearance(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 16, 'appearance');
-                break;
-            case 1:
-                $rolls[] = new TestRoll(100, 39, 'appearance');
-                break;
-            case 2:
-                $rolls[] = new TestRoll(100, 43, 'appearance');
-                break;
-            case 3:
-                $rolls[] = new TestRoll(100, 48, 'appearance');
-                break;
-            case 4:
-                $rolls[] = new TestRoll(100, 53, 'appearance');
-                break;
-            case 5:
-                $rolls[] = new TestRoll(100, 58, 'appearance');
-                break;
-            case 6:
-                $rolls[] = new TestRoll(100, 64, 'appearance');
-                break;
-            case 7:
-                $rolls[] = new TestRoll(100, 68, 'appearance');
-                break;
-            case 8:
-                $rolls[] = new TestRoll(100, 72, 'appearance');
-                break;
-            case 9:
-                $rolls[] = new TestRoll(100, 76, 'appearance');
-                break;
-            case 10:
-                $rolls[] = new TestRoll(100, 79, 'appearance');
-                break;
-            case 11:
-                $rolls[] = new TestRoll(100, 84, 'appearance');
-                break;
-            case 12:
-                $rolls[] = new TestRoll(100, 89, 'appearance');
-                break;
-            case 13:
-                $rolls[] = new TestRoll(100, 94, 'appearance');
-                break;
-            case 14:
-                $rolls[] = new TestRoll(100, 100, 'appearance');
-                break;
-        }
-        return $ended;
-    }
+        return $this->iterationSubRolls($rolls, $i, [
+            [
+                new TestRoll(100, 30, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 16, 'Alien Characteristic'),
+            ],
 
-    /**
-     * create rolls based on the iteration until all the iterations have been exercised
-     */
-    /**
-     * @param $i int the current iteration
-     * @return bool|array true if all the iterations of all the possibilities have been used or array of test rolls
-     * @throws \Exception if $i% is invalid for a section
-     */
-    private function rollsIteration($i)
-    {
-        $rolls = [
-            (new TestRoll())->dontCareUntil('power category')->andRoll(100, 100, 'power category'),
-            (new TestRoll())->dontCareUntilAndGetNext('appearance'),
-        ];
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 10, 'Characteristic: Skin Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 20, 'Characteristic: Skin Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 30, 'Characteristic: Skin Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 40, 'Characteristic: Skin Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 50, 'Characteristic: Skin Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 60, 'Characteristic: Skin Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 70, 'Characteristic: Skin Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 80, 'Characteristic: Skin Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 90, 'Characteristic: Skin Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 39, 'Alien Characteristic'),
+                new TestRoll(100, 100, 'Characteristic: Skin Color'),
+            ],
 
-        $ended = $this->alienAppearance($rolls, $i);
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 43, 'Alien Characteristic'),
+            ],
 
-        $ended = $ended && $this->alienPhysiological($rolls, $i);
-        $ended = $ended && $this->superAbilities($rolls, $i);
-        $ended = $ended && $this->alienEducation($rolls, $i);
-        $ended = $ended && $this->reasonForComing($rolls, $i);
-        $ended = $ended && $this->familiarity($rolls, $i);
-        $ended = $ended && $this->equipment($rolls, $i);
-        $ended = $ended && $this->specialWeapon($rolls, $i);
-        $ended = $ended && $this->vehicle($rolls, $i);
-        $ended = $ended && $this->money($rolls, $i);
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 10, 'Characteristic: Hair Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 20, 'Characteristic: Hair Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 30, 'Characteristic: Hair Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 40, 'Characteristic: Hair Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 50, 'Characteristic: Hair Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 60, 'Characteristic: Hair Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 70, 'Characteristic: Hair Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 80, 'Characteristic: Hair Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 90, 'Characteristic: Hair Color'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 48, 'Alien Characteristic'),
+                new TestRoll(100, 100, 'Characteristic: Hair Color'),
+            ],
 
-        $rolls[] = (new TestRoll())->dontCareAnyMore();
-        return $ended ? false : $rolls;
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 53, 'Alien Characteristic'),
+            ],
+
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 58, 'Alien Characteristic'),
+                new TestRoll(100, 17, 'Characteristic: Unusual Eyes'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 58, 'Alien Characteristic'),
+                new TestRoll(100, 34, 'Characteristic: Unusual Eyes'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 58, 'Alien Characteristic'),
+                new TestRoll(100, 55, 'Characteristic: Unusual Eyes'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 58, 'Alien Characteristic'),
+                new TestRoll(100, 75, 'Characteristic: Unusual Eyes'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 58, 'Alien Characteristic'),
+                new TestRoll(100, 89, 'Characteristic: Unusual Eyes'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 58, 'Alien Characteristic'),
+                new TestRoll(100, 100, 'Characteristic: Unusual Eyes'),
+            ],
+
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 64, 'Alien Characteristic'),
+                new TestRoll(100, 20, 'Characteristic: Body Hair'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 64, 'Alien Characteristic'),
+                new TestRoll(100, 40, 'Characteristic: Body Hair'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 64, 'Alien Characteristic'),
+                new TestRoll(100, 60, 'Characteristic: Body Hair'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 64, 'Alien Characteristic'),
+                new TestRoll(100, 80, 'Characteristic: Body Hair'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 64, 'Alien Characteristic'),
+                new TestRoll(100, 100, 'Characteristic: Body Hair'),
+            ],
+
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 68, 'Alien Characteristic'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 72, 'Alien Characteristic'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 76, 'Alien Characteristic'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 79, 'Alien Characteristic'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 84, 'Alien Characteristic'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 89, 'Alien Characteristic'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 94, 'Alien Characteristic'),
+            ],
+            [
+                new TestRoll(100, 50, 'appearance'),
+                new TestRoll(100, 100, 'Alien Characteristic'),
+            ],
+            [
+                new TestRoll(100, 55, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 60, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 65, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 70, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 75, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 80, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 85, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 90, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 95, 'appearance'),
+            ],
+            [
+                new TestRoll(100, 100, 'appearance'),
+            ],
+        ]);
     }
 
     public function test_alien()
     {
-        $i = 0;
-        while ($rolls = $this->rollsIteration($i++)) {
-            $this->testRoller->setTestRolls($rolls);
-
-            $this->heroGenerator->generate();
-
-            $this->testRoller->verifyTestRolls();
-        }
+        $this->runIterations([
+            'alienAppearance',
+            'alienPhysiological',
+            'superAbilities',
+            'alienEducation',
+            'reasonForComing',
+            'familiarity',
+            'equipment',
+            'specialWeapon',
+            'vehicle',
+            'money',
+        ], 'appearance');
     }
 }
