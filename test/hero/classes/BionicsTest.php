@@ -20,8 +20,8 @@ class BionicsTest extends BaseTestRunner
             (new testRoll())->dontCareUntil('Bionic: Conditions for Bionic Reconstruction')->andRoll(100, 1, 'Bionic: Conditions for Bionic Reconstruction'),
             new TestRoll(100, 1, 'Bionic: Sponsor'),
             new TestRoll(100, 1, 'Bionic: Sponsor Status'),
-            new TestRoll(100, 1, 'Bionic Has Car?'),
-            new TestRoll(6, 3, 'Bionic Car Age'),
+            new TestRoll(100, 1, 'Has Car?'),
+            new TestRoll(6, 3, 'Car Age'),
             (new TestRoll())->dontCareAnyMore(),
         ]);
 
