@@ -291,9 +291,10 @@ class TableEducation
 
     /**
      * @param Hero $hero roll for and add education level (pg 27)
+     * @param int $skillProgramModifier some classes remove a skill program because the class adds back in skills
      * @throws \Exception if hero's education level is invalid
      */
-    public function rollEducationLevel(Hero &$hero)
+    public function rollEducationLevel(Hero &$hero, $skillProgramModifier = 0)
     {
         $hero->educationLevel = $this->engine->tableRoller->rollTable('Education Level', [
             new TableEntry(9, TableEducation::HIGH_SCHOOL_GRADUATE),
@@ -310,47 +311,59 @@ class TableEducation
         ]);
 
         // bonus is a one time bonus to skills taken from the programs
+        $skillPrograms = 0;
+        $skillProgramBonus = 0;
+        $secondarySkills = 0;
         switch ($hero->educationLevel) {
             case TableEducation::HIGH_SCHOOL_GRADUATE:
-                $this->pickPrograms(5, 2, $hero);
-                $this->pickSecondarySkills(10, $hero);
+                $skillProgramBonus = 5;
+                $skillPrograms = 2;
+                $secondarySkills = 10;
                 break;
 
             case TableEducation::MILITARY:
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_WP_AUTOMATIC_RIFLE, 0, "{$hero->educationLevel} program"));
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_HAND_TO_HAND_BASIC, 0, "{$hero->educationLevel} program"));
 
-                $this->pickPrograms(10, 2, $hero);
-                $this->pickSecondarySkills(8, $hero);
+                $skillProgramBonus = 10;
+                $skillPrograms = 2;
+                $secondarySkills = 8;
                 break;
 
             case TableEducation::TRADE_SCHOOL:
-                $this->pickPrograms(20, 2, $hero);
-                $this->pickSecondarySkills(8, $hero);
+                $skillProgramBonus = 20;
+                $skillPrograms = 2;
+                $secondarySkills = 8;
                 break;
 
             case TableEducation::ONE_YEAR_OF_COLLEGE:
-                $this->pickPrograms(10, 2, $hero);
-                $this->pickSecondarySkills(8, $hero);
+                $skillProgramBonus = 10;
+                $skillPrograms = 2;
+                $secondarySkills = 8;
                 break;
 
             case TableEducation::TWO_YEARS_OF_COLLEGE:
-                $this->pickPrograms(15, 2, $hero);
-                $this->pickSecondarySkills(8, $hero);
+                $skillProgramBonus = 15;
+                $skillPrograms = 2;
+                $secondarySkills = 8;
                 break;
 
             case TableEducation::THREE_YEARS_OF_COLLEGE:
-                $this->pickPrograms(15, 3, $hero);
-                $this->pickSecondarySkills(8, $hero);
+                $skillProgramBonus = 15;
+                $skillPrograms = 3;
+                $secondarySkills = 8;
                 break;
 
             case TableEducation::FOUR_YEARS_OF_COLLEGE:
-                $this->pickPrograms(20, 3, $hero);
-                $this->pickSecondarySkills(10, $hero);
+                $skillProgramBonus = 20;
+                $skillPrograms = 3;
+                $secondarySkills = 10;
                 break;
 
             case TableEducation::MILITARY_SPECIALIST:
-                $this->pickPrograms(20, 1, $hero);
+                $skillProgramBonus = 20;
+                $skillPrograms = 1;
+                $secondarySkills = 8;
 
                 // 20% bonus, pick skills from those lists
                 $skills = array_merge(
@@ -360,28 +373,39 @@ class TableEducation
                 foreach ($skills as $skill) {
                     $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 20, 'Secondary Skill'));
                 }
-
-                $this->pickSecondarySkills(8, $hero);
                 break;
 
             case TableEducation::BACHELOR_DEGREE:
-                $this->pickPrograms(25, 3, $hero);
-                $this->pickSecondarySkills(10, $hero);
+                $skillProgramBonus = 25;
+                $skillPrograms = 3;
+                $secondarySkills = 10;
                 break;
 
             case TableEducation::MASTER_DEGREE:
-                $this->pickPrograms(30, 3, $hero);
-                $this->pickSecondarySkills(10, $hero);
+                $skillProgramBonus = 30;
+                $skillPrograms = 3;
+                $secondarySkills = 10;
                 break;
 
             case TableEducation::DOCTORATE_DEGREE:
-                $this->pickPrograms(35, 4, $hero);
-                $this->pickSecondarySkills(10, $hero);
+                $skillProgramBonus = 35;
+                $skillPrograms = 4;
+                $secondarySkills = 10;
                 break;
 
             default:
                 throw new \Exception("Unknown education level: {$hero->educationLevel}");
         }
+
+        $skillPrograms -= $skillProgramModifier;
+        if ($skillPrograms > 0) {
+            $this->pickPrograms($skillProgramBonus, $skillPrograms, $hero);
+        }
+
+        if ($secondarySkills > 0) {
+            $this->pickSecondarySkills($secondarySkills, $hero);
+        }
+
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Education Level: ' . $hero->educationLevel, 'Education'));
     }
 }

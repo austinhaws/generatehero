@@ -63,6 +63,12 @@ abstract class BonusTargets
     // description of some sort of bonus ability/attribute the character receives that has no numeric significance for the character
     const DESCRIPTION = 'Description';
 
+    // == SPECIAL SKILLS == //
+    // these are skills from classes and other things that are not in the normal education selection
+    const SPECIAL_SKILL_HOT_WIRING = 'How Wiring';
+    const SPECIAL_SKILL_COMPUTER_HACKING = 'Computer Hacking';
+    const ESTIMATE_ELECTRICAL_SYSTEMS = 'Estimate Electrical Systems';
+
 
     // == SKILL GROUPS == //
     // deception/sleight-of-hand: concealment, disguise, escape artist, forgery, intelligence, impersonation, interrogation, palming, pick locks, pick pockets
