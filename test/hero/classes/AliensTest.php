@@ -592,6 +592,9 @@ class AliensTest extends BaseTestRunner
             'specialWeapon',
             'vehicle',
             'money',
-        ], 'appearance');
+        ], [
+            (new TestRoll())->dontCareUntil('power category')->andRoll(100, 100, 'power category'),
+            (new TestRoll())->dontCareUntilAndGetNext('appearance'),
+        ]);
     }
 }

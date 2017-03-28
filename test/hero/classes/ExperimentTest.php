@@ -8,81 +8,99 @@ use Heroes\tests\utilities\TestRoll;
 class ExperimentTest extends BaseTestRunner
 {
 
-    private function experimentResult($rolls, $i)
+    public function experimentResult(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 20, 'Experiment: result');
-                break;
-            case 1:
-                $rolls[] = new TestRoll(100, 50, 'Experiment: result');
-                break;
-            case 2:
-                $rolls[] = new TestRoll(100, 70, 'Experiment: result');
-                break;
-            case 3:
-                $rolls[] = new TestRoll(100, 100, 'Experiment: result');
-                break;
-
-        }
-        return [$ended, $rolls];
+        return $this->iterationSubRolls($rolls, $i, [
+            [new TestRoll(100, 20, 'Experiment: result'),],
+            [new TestRoll(100, 50, 'Experiment: result'),],
+            [new TestRoll(100, 70, 'Experiment: result'),],
+            [new TestRoll(100, 100, 'Experiment: result'),],
+        ]);
     }
 
-    private function experimentNature($rolls, $i)
+    public function experimentNature(&$rolls, $i)
     {
-        $ended = false;
-        switch ($i) {
-            default:
-                $ended = true;
-            case 0:
-                $rolls[] = new TestRoll(100, 33, 'Experiment: nature');
-                break;
-            case 1:
-                $rolls[] = new TestRoll(100, 67, 'Experiment: nature');
-                break;
-            case 2:
-                $rolls[] = new TestRoll(100, 100, 'Experiment: nature');
-                break;
-        }
-        return [$ended, $rolls];
+        return $this->iterationSubRolls($rolls, $i, [
+            [new TestRoll(100, 33, 'Experiment: nature'),],
+            [new TestRoll(100, 67, 'Experiment: nature'),],
+            [new TestRoll(100, 100, 'Experiment: nature'),],
+        ]);
     }
 
-
-    /**
-     * create rolls based on the iteration until all the iterations have been exercised
-     */
-    /**
-     * @param $i int the current iteration
-     * @return bool|array true if all the iterations of all the possibilities have been used or array of test rolls
-     * @throws \Exception if $i% is invalid for a section
-     */
-    private function rollsIteration($i)
+    public function experimentSideEffects(&$rolls, $i)
     {
-        $rolls = [
+        return $this->iterationSubRolls($rolls, $i, [
+            [new testRoll(100, 8, 'Experiment: Side Effects'),],
+            [new testRoll(100, 10, 'Experiment: Side Effects'),],
+            [new testRoll(100, 11, 'Experiment: Side Effects'),],
+            [new testRoll(100, 13, 'Experiment: Side Effects'),],
+            [new testRoll(100, 14, 'Experiment: Side Effects'),],
+            [new testRoll(100, 16, 'Experiment: Side Effects'),],
+            [new testRoll(100, 24, 'Experiment: Side Effects'),],
+            [new testRoll(100, 33, 'Experiment: Side Effects'),],
+            [new testRoll(100, 40, 'Experiment: Side Effects'),],
+            [new testRoll(100, 47, 'Experiment: Side Effects'),],
+            [new testRoll(100, 54, 'Experiment: Side Effects'),],
+            [new testRoll(100, 63, 'Experiment: Side Effects'),],
+            [new testRoll(100, 70, 'Experiment: Side Effects'),],
+            [new testRoll(100, 77, 'Experiment: Side Effects'),],
+            [new testRoll(100, 84, 'Experiment: Side Effects'),],
+            [new testRoll(100, 93, 'Experiment: Side Effects'),],
+            [
+                new testRoll(100, 100, 'Experiment: Side Effects'),
+                (new TestRoll())->dontCareUntilAndGetNext('Sponsoring Organization'),
+            ],
+        ]);
+    }
+
+    public function sponsoringOrganization(&$rolls, $i)
+    {
+        return $this->iterationSubRolls($rolls, $i, [
+            [new TestRoll(100, 50, 'Sponsoring Organization'),],
+            [new TestRoll(100, 75, 'Sponsoring Organization'),],
+            [new TestRoll(100, 80, 'Sponsoring Organization'),],
+            [new TestRoll(100, 87, 'Sponsoring Organization'),],
+            [new TestRoll(100, 94, 'Sponsoring Organization'),],
+            [new TestRoll(100, 100, 'Sponsoring Organization'),],
+        ]);
+    }
+
+    public function sponsorStatus(&$rolls, $i)
+    {
+        return $this->iterationSubRolls($rolls, $i, [
+           [new TestRoll(100, 21, 'Sponsor Status'),],
+           [new TestRoll(100, 45, 'Sponsor Status'),],
+           [new TestRoll(100, 58, 'Sponsor Status'),],
+           [new TestRoll(100, 64, 'Sponsor Status'),],
+           [new TestRoll(100, 77, 'Sponsor Status'),],
+           [new TestRoll(100, 89, 'Sponsor Status'),],
+           [new TestRoll(100, 100, 'Sponsor Status'),],
+        ]);
+    }
+
+    public function powers(&$rolls, $i)
+    {
+        if ($i % 2) {
+            $rolls[] = new TestRoll(100, 1, 'Experiment Power Type');
+        } else {
+            $rolls[] = new TestRoll(100, 100, 'Experiment Power Type');
+        }
+        $this->testArrayTools->rotation = $i;
+        return true;
+    }
+
+    public function test_iteration()
+    {
+        $this->runIterations([
+            'experimentNature',
+            'experimentResult',
+            'experimentSideEffects',
+            'sponsoringOrganization',
+            'sponsorStatus',
+            'powers',
+        ], [
             (new TestRoll())->dontCareUntil('power category')->andRoll(100, 10, 'power category'),
             (new TestRoll())->dontCareUntilAndGetNext('Experiment: nature'),
-        ];
-
-        $ended = $this->experimentNature($rolls, $i);
-        $ended = $ended && $this->experimentResult($rolls, $i);
-
-//        $rolls[] = (new TestRoll())->dontCareAnyMore();
-
-        return $ended ? false : $rolls;
-    }
-
-    public function test_experiment()
-    {
-        $i = 0;
-        while ($rolls = $this->rollsIteration($i++)) {
-            $this->testRoller->setTestRolls($rolls);
-
-            $this->heroGenerator->generate();
-
-            $this->testRoller->verifyTestRolls();
-        }
+        ]);
     }
 }

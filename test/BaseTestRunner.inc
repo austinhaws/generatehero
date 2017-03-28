@@ -35,16 +35,13 @@ abstract class BaseTestRunner extends \PHPUnit_Framework_TestCase
      * iterate through roll lists until they have all been gone through at least once
      *
      * @param array $methods names of methods on "this" that setup rolls for iterating
-     * @param string $startCaringAt what is the first roll that will start being iterated on
+     * @param array $firstRolls rolls to get to the section being tested (ie pick ability class, skip general setup, start rolling class information)
      * @param int $i current iteration of rolls
      * @return array|bool false if done with all iterations, rolls array otherwise
      */
-    private function rollsIteration($methods, $startCaringAt, $i)
+    private function rollsIteration($methods, $firstRolls, $i)
     {
-        $rolls = [
-            (new TestRoll())->dontCareUntil('power category')->andRoll(100, 100, 'power category'),
-            (new TestRoll())->dontCareUntilAndGetNext($startCaringAt),
-        ];
+        $rolls = $firstRolls;
 
         $allEnded = true;
         foreach ($methods as $method) {
@@ -61,12 +58,12 @@ abstract class BaseTestRunner extends \PHPUnit_Framework_TestCase
      * test through iterations of possible rolls
      *
      * @param array $methods names of methods on "this" that setup rolls for iterating
-     * @param string $startCaringAt what is the first roll that will start being iterated on
+     * @param array $firstRolls setup rolls that don't change for each iteration that lead to the class
      */
-    protected function runIterations($methods, $startCaringAt)
+    protected function runIterations($methods, $firstRolls)
     {
         $i = 0;
-        while ($rolls = $this->rollsIteration($methods, $startCaringAt, $i++)) {
+        while ($rolls = $this->rollsIteration($methods, $firstRolls, $i++)) {
             $this->testRoller->setTestRolls($rolls);
             $this->heroGenerator->generate();
 
