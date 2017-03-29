@@ -70,6 +70,8 @@ abstract class BonusTargets
     const SPECIAL_ESTIMATE_ELECTRICAL_SYSTEMS = 'Estimate Electrical Systems';
     const SPECIAL_BUILDING_SUPER_VEHICLES = 'Building Super Vehicles';
     const SPECIAL_RECOGNIZE_VEHICLE_QUALITY = 'Recognize Vehicle Quality';
+    const SPECIAL_MAKE_AND_MODIFY_WEAPONS = 'Make and Modify Weapons';
+    const SPECIAL_RECOGNIZE_WEAPON_QUALITY = 'Recognize Weapon Quality';
 
 
     // == SKILL GROUPS == //

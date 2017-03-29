@@ -64,6 +64,24 @@ class HardwareTest extends BaseTestRunner
         $hero = $this->heroGenerator->generate();
         $this->testRoller->verifyTestRolls();
         $this->assertTrue(strpos(get_class($hero->class), 'Hardware') !== false);
+    }
 
+    public function test_experimentWeapons()
+    {
+        $this->testRoller->setTestRolls([
+            (new TestRoll())->dontCareUntil('power category')->andRoll(100, 90, 'power category'),
+            (new TestRoll())->dontCareUntil('Hardware Power Type')->andRoll(3, 3, 'Hardware Power Type'),
+
+            new TestRoll(4, 1, 'Hardware: Weapons - shop'),
+            new TestRoll(4, 2, 'Hardware: Weapons - shop'),
+            new TestRoll(100, 33, 'Hardware: Weapons - Budget'),
+
+            new TestRoll(100, 1, 'Alignment'),
+            (new TestRoll())->dontCareAnyMore(),
+        ]);
+
+        $hero = $this->heroGenerator->generate();
+        $this->testRoller->verifyTestRolls();
+        $this->assertTrue(strpos(get_class($hero->class), 'Hardware') !== false);
     }
 }

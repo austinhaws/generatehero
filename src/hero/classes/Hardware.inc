@@ -13,8 +13,10 @@ class Hardware extends BaseClass
     // electrical, mechanical, weapons
     public $hardwareType;
 
+    public $workshopBudget;
+    public $equipmentBudget;
+
     public $mechanicalSponsorStatus;
-    public $mechanicalVehicleBudget;
 
     /**
      * create a experiment character
@@ -74,10 +76,10 @@ class Hardware extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SPECIAL_SKILL_COMPUTER_HACKING, 82, 'Hardware: Electrical'));
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Recognize Quality And Complexity Of Electrical Systems: Accurately estimate the level of complexity, specific aspects of difficulty, and time required to do the job (repair, by-pass, etc.).', 'Hardware: Electrical'));
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SPECIAL_ESTIMATE_ELECTRICAL_SYSTEMS, 55, 'Hardware: Electrical'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SPECIAL_ESTIMATE_ELECTRICAL_SYSTEMS, 55, 'Hardware: Electrical'));
 
         // determine electrical equipment
-        $equipmentBudget = $this->engine->tableRoller->rollTable('Hardware: Electrical - Equipment Budget', [
+        $this->equipmentBudget = $this->engine->tableRoller->rollTable('Hardware: Electrical - Equipment Budget', [
            new TableEntry(15, 8000),
            new TableEntry(29, 10000),
            new TableEntry(45, 12000),
@@ -88,8 +90,7 @@ class Hardware extends BaseClass
         ]);
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, '$' . $equipmentBudget . ' available to spend on electrical equipment and supplies.', 'Hardware: Electrical'));
 
-        $workshopBudget = $this->engine->roller->rollDice(new Roll('Hardware: Electrical - Workshop Budget', 2, 4, 10000));
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, '$' . $workshopBudget . ' spent on outfitting workshop, equipping it with all the tools and necessary equipment of the trade.', 'Hardware: Electrical'));
+        $this->workshopBudget = $this->engine->roller->rollDice(new Roll('Hardware: Electrical - Workshop Budget', 2, 4, 10000));
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 35, 'Hardware: Electrical'));
     }
@@ -126,12 +127,11 @@ class Hardware extends BaseClass
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_PILOTING, 5, 'Hardware: Mechanical'));
 
-        $shopWorth = $this->engine->roller->rollDice(new Roll('Hardware: Mechanical - shop', 3, 4, 10000));
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Outfitted workshop worth: ' . $shopWorth, 'Hardware Mechanical'));
+        $this->workshopBudget = $this->engine->roller->rollDice(new Roll('Hardware: Mechanical - shop', 3, 4, 10000));
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 35, 'Hardware: Mechanical'));
 
-        $this->mechanicalVehicleBudget = $this->engine->tableRoller->rollTable('Hardware: Mechanical - Vehicle Budget', [
+        $this->equipmentBudget = $this->engine->tableRoller->rollTable('Hardware: Mechanical - Vehicle Budget', [
             new TableEntry(15, 70000),
             new TableEntry(26, 120000),
             new TableEntry(38, 250000),
@@ -143,7 +143,7 @@ class Hardware extends BaseClass
             new TableEntry(100, 12000000),
         ]);
 
-        if ($this->mechanicalVehicleBudget > 500000) {
+        if ($this->equipmentBudget > 500000) {
             $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sponsor provides funds for super vehicle', 'Hardware: Mechanical'));
             $this->mechanicalSponsorStatus = $this->engine->tableRoller->rollTable('Hardware: Mechanical - Sponsor Status', [
                 new TableEntry(19, 'Allowed to leave; very good, friendly relationship'),
@@ -157,6 +157,43 @@ class Hardware extends BaseClass
 
     private function weapons(Hero &$hero)
     {
-        throw new \Exception("weapons needs implemented");
+        // Select 2 Ancient WP
+        $skills = BonusTargets::wpAncientWeaponsSkills(false);
+        $this->engine->arrayTools->shuffle($skills);
+        foreach (array_slice($skills, 0, 2) as $skill) {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, 'Hardware: Weapons'));
+        }
+
+        // 4 Modern WP
+        $skills = BonusTargets::wpModernWeaponsSkills(false);
+        $this->engine->arrayTools->shuffle($skills);
+        foreach (array_slice($skills, 0, 4) as $skill) {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, 'Hardware: Weapons'));
+        }
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_DEMOLITIONS, 24, 'Hardware: Weapons'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_DEMOLITIONS_DISPOSAL, 24, 'Hardware: Weapons'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_SNIPER, 0, 'Hardware: Weapons'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_BASIC_ELECTRONICS, 10, 'Hardware: Weapons'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_BASIC_MECHANICS, 20, 'Hardware: Weapons'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SPECIAL_MAKE_AND_MODIFY_WEAPONS, 92, 'Hardware: Weapons'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SPECIAL_RECOGNIZE_WEAPON_QUALITY, 55, 'Hardware: Weapons'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::STRIKE, 1, 'Hardware: Weapons'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, '+2 to strike and parry with one very specific type of weapon (ie, such as a bastard sword, rather than swords in general, or a Model 61 Skorpion (7.65mm) rather than automatic pistols in general)', 'Hardware: Weapons'));
+
+
+        $this->workshopBudget = $this->engine->roller->rollDice(new Roll('Hardware: Weapons - shop', 2, 4, 10000));
+
+        $this->equipmentBudget = $this->engine->tableRoller->rollTable('Hardware: Weapons - Budget', [
+            new TableEntry(15, 8000),
+            new TableEntry(29, 10000),
+            new TableEntry(45, 12000),
+            new TableEntry(60, 15000),
+            new TableEntry(75, 18000),
+            new TableEntry(88, 20000),
+            new TableEntry(100, 23000),
+        ]);
     }
 }
