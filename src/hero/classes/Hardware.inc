@@ -13,6 +13,9 @@ class Hardware extends BaseClass
     // electrical, mechanical, weapons
     public $hardwareType;
 
+    public $mechanicalSponsorStatus;
+    public $mechanicalVehicleBudget;
+
     /**
      * create a experiment character
      *
@@ -71,7 +74,7 @@ class Hardware extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SPECIAL_SKILL_COMPUTER_HACKING, 82, 'Hardware: Electrical'));
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Recognize Quality And Complexity Of Electrical Systems: Accurately estimate the level of complexity, specific aspects of difficulty, and time required to do the job (repair, by-pass, etc.).', 'Hardware: Electrical'));
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ESTIMATE_ELECTRICAL_SYSTEMS, 55, 'Hardware: Electrical'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SPECIAL_ESTIMATE_ELECTRICAL_SYSTEMS, 55, 'Hardware: Electrical'));
 
         // determine electrical equipment
         $equipmentBudget = $this->engine->tableRoller->rollTable('Hardware: Electrical - Equipment Budget', [
@@ -93,7 +96,63 @@ class Hardware extends BaseClass
 
     private function mechanical(Hero &$hero)
     {
-        throw new \Exception("mechanical needs implemented");
+        $skills = BonusTargets::mechanicalSkills(false);
+        $skills[] = BonusTargets::SKILL_MECHANICAL_ENGINEERING;
+
+        $bonuses = [];
+        foreach ($skills as $skill) {
+            $bonuses[] = new Bonus(Bonus::BONUS_TYPE_ADD, $skill, 30, 'Hardware: Mechanical');
+        }
+        $bonuses[] = new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_READ_SENSORY_INSTRUMENTS, 25, 'Hardware: Mechanical');
+        $bonuses[] = new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_WEAPON_SYSTEMS, 20, 'Hardware: Mechanical');
+        $bonuses[] = new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_MATHEMATICS_ADVANCED, 24, 'Hardware: Mechanical');
+
+        $this->engine->arrayTools->shuffle($bonuses);
+
+        // pick 3 skills from options
+        for ($x = 0; $x < 3; $x++) {
+            $hero->addBonus(array_pop($bonuses));
+        }
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_BASIC_ELECTRONICS, 30, 'Hardware: Mechanical'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SPECIAL_BUILDING_SUPER_VEHICLES, 94, 'Hardware: Mechanical'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SPECIAL_RECOGNIZE_VEHICLE_QUALITY, 55, 'Hardware: Mechanical'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_LOCKSMITH, 5, 'Hardware: Mechanical'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_LAND_NAVIGATION, 5, 'Hardware: Mechanical'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_NAVIGATION, 5, 'Hardware: Mechanical'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_NAVIGATION_SPACE, 5, 'Hardware: Mechanical'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_PILOTING, 5, 'Hardware: Mechanical'));
+
+        $shopWorth = $this->engine->roller->rollDice(new Roll('Hardware: Mechanical - shop', 3, 4, 10000));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Outfitted workshop worth: ' . $shopWorth, 'Hardware Mechanical'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 35, 'Hardware: Mechanical'));
+
+        $this->mechanicalVehicleBudget = $this->engine->tableRoller->rollTable('Hardware: Mechanical - Vehicle Budget', [
+            new TableEntry(15, 70000),
+            new TableEntry(26, 120000),
+            new TableEntry(38, 250000),
+            new TableEntry(50, 500000),
+            new TableEntry(60, 1100000),
+            new TableEntry(70, 2000000),
+            new TableEntry(81, 4000000),
+            new TableEntry(90, 8000000),
+            new TableEntry(100, 12000000),
+        ]);
+
+        if ($this->mechanicalVehicleBudget > 500000) {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sponsor provides funds for super vehicle', 'Hardware: Mechanical'));
+            $this->mechanicalSponsorStatus = $this->engine->tableRoller->rollTable('Hardware: Mechanical - Sponsor Status', [
+                new TableEntry(19, 'Allowed to leave; very good, friendly relationship'),
+                new TableEntry(41, 'Allowed to leave after a great antagonism/conflict; Not friendly, but may aid the character'),
+                new TableEntry(64, 'Thrown out of the program, all ties are permanently dissolved; Very angry/hostile toward the character'),
+                new TableEntry(89, 'Ran away; Secretly hunted by the organization; Hostile, but not necessarily deadly'),
+                new TableEntry(100, 'Ran away; Considered to be a criminal and extremely dangerous; Hunted by law enforcement agencies and the organization'),
+            ]);
+        }
     }
 
     private function weapons(Hero &$hero)

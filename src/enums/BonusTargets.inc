@@ -67,7 +67,9 @@ abstract class BonusTargets
     // these are skills from classes and other things that are not in the normal education selection
     const SPECIAL_SKILL_HOT_WIRING = 'How Wiring';
     const SPECIAL_SKILL_COMPUTER_HACKING = 'Computer Hacking';
-    const ESTIMATE_ELECTRICAL_SYSTEMS = 'Estimate Electrical Systems';
+    const SPECIAL_ESTIMATE_ELECTRICAL_SYSTEMS = 'Estimate Electrical Systems';
+    const SPECIAL_BUILDING_SUPER_VEHICLES = 'Building Super Vehicles';
+    const SPECIAL_RECOGNIZE_VEHICLE_QUALITY = 'Recognize Vehicle Quality';
 
 
     // == SKILL GROUPS == //
