@@ -33,15 +33,12 @@ class Hardware extends BaseClass
         switch ($roll) {
             case 1:
                 $this->hardwareType = 'Electrical';
-                $this->electrical($hero);
                 break;
             case 2:
                 $this->hardwareType = 'Mechanical';
-                $this->mechanical($hero);
                 break;
             case 3:
                 $this->hardwareType = 'Weapons';
-                $this->weapons($hero);
                 break;
             default:
                 throw new \Exception("Unknown hardware power type: $roll");
