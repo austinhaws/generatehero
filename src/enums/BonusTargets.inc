@@ -20,6 +20,7 @@ abstract class BonusTargets
 
     // == COMBAT == //
     const ATTACKS_PER_MELEE = 'Attacks per melee';
+    const DAMAGE = 'Damage';
     const DODGE = 'Dodge';
     const INITIATIVE = 'Initiative';
     const NATURAL_ARMOR_RATING = "Natural Armor Rating";
@@ -44,6 +45,7 @@ abstract class BonusTargets
     const SAVE_CONTROL_OTHERS = 'Save: Control Others';
     const TRUST_INTIMIDATE = 'Trust/Intimidate';
     const STRIKE = 'Strike';
+    const SAVE_MAGIC_SPELLS_ENCHANTMENTS = 'Save: Magic/Spells/Enchantments';
 
     // == OTHER == //
     const MONEY = 'Money';

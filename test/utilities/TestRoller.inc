@@ -56,7 +56,11 @@ class TestRoller extends Roller
                 $roll = array_shift($this->testRolls);
             }
             $roll->validate($numberSides, $name, $this->rollIndex);
-            $result = $roll->roll;
+            if ($roll->roll === false) {
+                $this->rollDice(new Roll($name, 1, $numberSides));
+            } else {
+                $result = $roll->roll;
+            }
         }
         $roll->result = $result;
         $this->realRolls[] = new Roll($name, 1, $numberSides, 1, $result);

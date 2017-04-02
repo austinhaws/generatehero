@@ -86,7 +86,7 @@ class TestRoll
         if ($this->name != $name) {
             throw new \Exception("test roll name doesn't match! rolling: '$name'; test roll has: '{$this->name}'  =(index: $index)=");
         }
-        if ($this->sides != $numberSides) {
+        if (false !== $this->sides && $this->sides != $numberSides) {
             throw new \Exception("test roll sides don't match ($name)! expected: '$numberSides'; got: '{$this->sides}'  =(index: $index)=");
         }
         return $this;

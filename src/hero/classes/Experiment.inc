@@ -203,7 +203,7 @@ class Experiment extends BaseClass
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Increased Mass: SDC', 1, 6, 10), 'Increased Mass'),
             ]),
             new TableEntry(70, [
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Chemical Resistance: An automatic savings throw against all chemicals/drugs/toxins. Unfortunately, this applies to good lifesaving chemicals/drugs as well as deadly toxins.', 'Experiment Side Effect'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Chemical Resistance: An automatic saving throw against all chemicals/drugs/toxins. Unfortunately, this applies to good lifesaving chemicals/drugs as well as deadly toxins.', 'Experiment Side Effect'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_TOXINS, 5, 'Chemical Resistance'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_CHEMICALS, 5, 'Chemical Resistance'),
             ]),
