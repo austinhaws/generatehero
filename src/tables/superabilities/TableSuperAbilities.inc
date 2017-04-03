@@ -44,11 +44,13 @@ class TableSuperAbilities
 
         while ($majors || $minors) {
             if ($majors) {
-                if ($this->applyAbility($hero, $this->rollMajor(), 'Major')) {
+                $ability = $this->rollMajor();
+                if ($ability && $hero->addAbility($ability)) {
                     $majors--;
                 }
             } else {
-                if ($this->applyAbility($hero, $this->rollMinor(), 'Minor')) {
+                $ability = $this->rollMinor();
+                if ($ability && $hero->addAbility($ability)) {
                     $minors--;
                 }
             }
@@ -56,24 +58,11 @@ class TableSuperAbilities
     }
 
     /**
-     * try to apply an ability to a hero, return false if the hero already has the ability
-     *
-     * @param Hero $hero the hero to which to try to apply the ability
-     * @param $ability Ability the super ability description information
-     * @param $abilityType string message to hero about why the bonus is applied
-     * @return bool true = the ability was add
-     */
-    private function applyAbility(Hero &$hero, Ability $ability, $abilityType)
-    {
-        return $hero->addAbility($ability);
-    }
-
-    /**
      * randomly create a minor super power
      *
      * @return Ability
      */
-    private function rollMinor()
+    public function rollMinor()
     {
         return $this->engine->tableRoller->rollTable('Super Ability: Minor', [
             new TableEntry(3, new Ability('Super Vision: Advanced Sight', 'Super sharp, crystal clear vision. Distancing vision is not unlike an eagle\'s. Although not telescopic, the vision is so sharp that the person can read a small sign or recognize a face/costume up to two miles away. Range: Two miles, plus one for every level of experience beyond level two.')),
@@ -242,7 +231,7 @@ class TableSuperAbilities
     /**
      * @return Ability the major ability to add to the hero
      */
-    private function rollMajor()
+    public function rollMajor()
     {
         return $this->engine->tableRoller->rollTable('Super Ability: Major', [
             new TableEntry(1, new Ability('Animal Metamorphosis - Rodent', 'Completely transform into a rodent. As an animal, the person gets all the inherent abilities and defenses that animal form may offer, while retaining his own memory, IQ, SDC, hit points and ability to speak. All physical attributes change, up or down, as best fits the animal. The animal metamorphoser can change from humanoid to animal, and back again, at will. Each change counts as an action/attack per melee.', [

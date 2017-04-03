@@ -6,6 +6,25 @@ use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
+use Heroes\tables\superabilities\TableSuperAbilities;
+
+class Spell
+{
+    public $title;
+    public $range;
+    public $duration;
+    public $savingThrow;
+    public $description;
+
+    function __construct($title, $range, $duration, $savingThrow, $description)
+    {
+        $this->title = $title;
+        $this->range = $range;
+        $this->duration = $duration;
+        $this->savingThrow = $savingThrow;
+        $this->description = $description;
+    }
+}
 
 class Magic extends BaseClass
 {
@@ -13,8 +32,15 @@ class Magic extends BaseClass
     // what type of magician are you?
     public $magicType;
 
+    // == Enchanted Weapon == //
     public $enchantedWeaponDamage;
     public $enchantedWeaponType;
+
+    // == Enchanted Object == //
+    // array of spells that the enchanted object provides
+    public $objectSpells;
+    public $objectSpellLevel;
+    public $objectSpellsPerDay;
 
     /**
      * create a character's class
@@ -35,6 +61,131 @@ class Magic extends BaseClass
             new TableEntry(100, ['Bestowed', 'bestowed']),
         ]);
         $this->$function($hero);
+    }
+
+    private function object(Hero &$hero)
+    {
+        list($numIllusion, $numMagic, $numMajor, $numMinor) = $this->engine->tableRoller->rollTable('Magic: Enchanted Object', [
+           new TableEntry(14, [10, 0, 0, 0]),
+           new TableEntry(30, [0, 8, 0, 0]), // wizard only?
+           new TableEntry(50, [5, 3, 0, 0]),
+           new TableEntry(70, [6, 2, 0, 0]),
+           new TableEntry(85, [3, 5, 0, 0]),
+           new TableEntry(100, [0, 0, 1, 1]),
+        ]);
+
+        $this->objectSpellLevel = $this->engine->tableRoller->rollTable('Magic: Enchanted Object - Spell Level', [
+            new TableEntry(25, 3),
+            new TableEntry(50, 4),
+            new TableEntry(75, 5),
+            new TableEntry(100, 6),
+        ]);
+
+        $this->objectSpellsPerDay = $this->engine->tableRoller->rollTable('Magic: Enchanted Object - Spells per Day', [
+            new TableEntry(11, 7),
+            new TableEntry(21, 8),
+            new TableEntry(33, 9),
+            new TableEntry(55, 10),
+            new TableEntry(67, 11),
+            new TableEntry(89, 12),
+            new TableEntry(100, 13),
+        ]);
+
+        if ($numIllusion) {
+            $this->selectSpells($this->illusionarySpells(), $numIllusion, $spellLevel);
+        }
+
+        if ($numMagic) {
+            $this->selectSpells($this->magicSpells(), $numMagic);
+        }
+
+        $tableSuperAbilities = new TableSuperAbilities($this->engine);
+        while ($numMajor || $numMinor) {
+            if ($numMajor) {
+                $ability = $tableSuperAbilities->rollMajor();
+                if ($ability) {
+                    $ability->description = 'Magic: Enchanted Weapon - ' . $ability->description;
+                    if ($hero->addAbility($ability)) {
+                        $numMajor--;
+                    }
+                }
+            }
+            if ($numMinor) {
+                $ability = $tableSuperAbilities->rollMinor();
+                if ($ability) {
+                    $ability->description = 'Magic: Enchanted Weapon - ' . $ability->description;
+                    if ($hero->addAbility($ability)) {
+                        $numMajor--;
+                    }
+                }
+            }
+        }
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, 2, 'Magic: Enchanted Object'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 10, 'Magic: Enchanted Object'));
+
+        $bonuses = $this->engine->tableRoller->rollTable('Magic: Enchanted Object - Other Abilities', [
+            new TableEntry(20, new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to fire.', 'Magic: Enchanted Object')),
+            new TableEntry(40, new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Invisibility at will.', 'Magic: Enchanted Object')),
+            new TableEntry(50, new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Fly', 'Magic: Enchanted Object')),
+            new TableEntry(60, new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to poison', 'Magic: Enchanted Object')),
+            new TableEntry(70, new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Shoot fire bolt from hand; range: 40ft (12.2m); damage: 3d6.', 'Magic: Enchanted Object')),
+            new TableEntry(79, new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONICS, 1, 'Magic: Enchanted Object')),
+
+            // + d4 to one attribute
+            new TableEntry(89, new Bonus(Bonus::BONUS_TYPE_ADD, $this->engine->tableRoller->rollTable(
+                'Magic: Enchanted Object - attribute', [
+                    new TableEntry(1, BonusTargets::ATTRIBUTE_SPEED),
+                    new TableEntry(2, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE),
+                    new TableEntry(3, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH),
+                    new TableEntry(4, BonusTargets::ATTRIBUTE_INTELLIGENCE_QUOTIENT),
+                    new TableEntry(5, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY),
+                    new TableEntry(6, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE),
+                    new TableEntry(7, BonusTargets::ATTRIBUTE_PHYSICAL_BEAUTY),
+                    new TableEntry(8, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS),
+                ]
+            ), new Roll('Magic: Enchanted Object - attribute bonus', 1, 4), 'Magic: Enchanted Object')),
+
+            // Impervious to magic, and hps & sdc divided by half
+            new TableEntry(100,[
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Impervious to magic', 'Magic: Enchanted Object'),
+                new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTargets::HIT_POINTS, .5, 'Magic: Enchanted Object'),
+                new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTargets::SDC, .5, 'Magic: Enchanted Object'),
+            ]),
+        ]);
+        $hero->addBonus($bonuses);
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 35, 'Magic: Enchanted Weapon'));
+    }
+
+    /**
+     * @param $spells array possible spells
+     * @param $numSpells int number to select
+     */
+    private function selectSpells($spells, $numSpells)
+    {
+        $this->engine->arrayTools->shuffle($spells);
+        for ($x = 0; $x < $numSpells; $x++) {
+            $this->objectSpells[] = array_pop($spells);
+        }
+    }
+
+    private function magicSpells()
+    {
+        throw new \Exception('need more!');
+    }
+
+    private function illusionarySpells()
+    {
+        throw new \Exception('need more!');
+        return [
+            new Spell(
+                'Anti-Magic Cloud',
+                '1OOft (30.5m) radius per level of the spell caster',
+                '20 melees per level of the spell caster',
+                'Only an 18 to 20 saves against the cloud; on success, magic reduced to half strength.',
+                'Creates an ominous, dark grey-brown cloud large enough to hang over an entire town. It can not be dispelled magically or by manipulating elemental/atmospheric conditions. The cloud negates all magic!')
+        ];
     }
 
     private function weapon(Hero &$hero)
@@ -117,11 +268,6 @@ class Magic extends BaseClass
         }
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 20, 'Magic: Enchanted Weapon'));
-    }
-
-    private function object(Hero &$hero)
-    {
-        throw new \Exception('Needs implemented');
     }
 
     private function study(Hero &$hero)

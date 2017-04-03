@@ -78,11 +78,16 @@ class Hero
     /**
      * add a bonus to the character; it will be applied later after all bonuses gathered
      *
-     * @param Bonus $bonus the bonus to add
+     * @param Bonus|array $bonus the bonus to add
      */
     public function addBonus(Bonus $bonus)
     {
-        $this->bonuses[] = $bonus;
+        if (!is_array($bonus)) {
+            $bonus = [$bonus];
+        }
+        foreach ($bonus as $b) {
+            $this->bonuses[] = $b;
+        }
     }
 
 
