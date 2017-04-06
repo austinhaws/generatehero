@@ -8,24 +8,6 @@ use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\superabilities\TableSuperAbilities;
 
-class Spell
-{
-    public $title;
-    public $range;
-    public $duration;
-    public $savingThrow;
-    public $description;
-
-    function __construct($title, $range, $duration, $savingThrow, $description)
-    {
-        $this->title = $title;
-        $this->range = $range;
-        $this->duration = $duration;
-        $this->savingThrow = $savingThrow;
-        $this->description = $description;
-    }
-}
-
 class Magic extends BaseClass
 {
 
@@ -90,7 +72,7 @@ class Magic extends BaseClass
             new TableEntry(89, 12),
             new TableEntry(100, 13),
         ]);
-
+lists may have the same spell on them, both magic and illusion have see the invisible.
         if ($numIllusion) {
             $this->selectSpells($this->illusionarySpells(), $numIllusion, $spellLevel);
         }
@@ -168,24 +150,6 @@ class Magic extends BaseClass
         for ($x = 0; $x < $numSpells; $x++) {
             $this->objectSpells[] = array_pop($spells);
         }
-    }
-
-    private function magicSpells()
-    {
-        throw new \Exception('need more!');
-    }
-
-    private function illusionarySpells()
-    {
-        throw new \Exception('need more!');
-        return [
-            new Spell(
-                'Anti-Magic Cloud',
-                '1OOft (30.5m) radius per level of the spell caster',
-                '20 melees per level of the spell caster',
-                'Only an 18 to 20 saves against the cloud; on success, magic reduced to half strength.',
-                'Creates an ominous, dark grey-brown cloud large enough to hang over an entire town. It can not be dispelled magically or by manipulating elemental/atmospheric conditions. The cloud negates all magic!')
-        ];
     }
 
     private function weapon(Hero &$hero)
