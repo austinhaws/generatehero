@@ -6,6 +6,109 @@ use Heroes\hero\Spell;
 
 class TableSpells
 {
+    static public function summonCircles()
+    {
+        return [
+            new Spell(
+                'Summoning Circle',
+                '',
+                '',
+                '',
+                'Summoning circles are the most dangerous because they can mystically teleport other-dimensional creatures into our world. Most of the other-dimensional monstrosities possess magic powers and have no regard for human life. The lack of concern, and often hatred, for humanity makes them the willing pawns of evil schemes or the demonic master. Within moments (1D6 minutes) a creature of magic will appear inside the open-V area of the circle. These creatures are almost always evil, hostile beings with a hatred for humankind. It\'s only the circle\'s area of protection that keeps the mage safe from the creature\'s ire. The circle maker is able 1o talk, question and negotiate with the entity, although there is no telling how cooperative the thing may be. This foul-hearted fiend is apt to agree to assist in any plan that is of extremely evil or destructive. Good causes w1ll only gain its disgust (it will not help).'
+            ),
+        ];
+    }
+
+    static public function powerCircles()
+    {
+        return [
+            new Spell(
+                'Force: Power Circle',
+                'Circle area only',
+                '15 melees per level of the circle maker',
+                'None',
+                'Creates an impenetrable enclosure of force that encompasses the Circle\'s entire radius (or all circles in a power matrix). The force can sustain an infinite amount of damage and prevents stenches, clouds, etc. from penetrating it. Psionic attacks, charms, and mesmerism are quite effective means of countering the force field. A dispel mag1c barriers will temporarily negate the circle of force, but the circle is +3 to save against that spell and will regenerate within six melees. The circle can be reactivated at any time by the invocation of the power words. If the circle of force has been previously activated for its entire duration it can not be reactivated for a two hour interval Components: Mystic symbol of directed power, the circle can be drawn in any substance, likewise the symbols. However, a white dove must be sacrificed while the power words arc recited. Power Words: Ya-ahk-met yin Ya-ahk-met'
+            ),
+            new Spell(
+                'Invisibility: Power Circle',
+                'The objects within the circle.',
+                'Permanent; 10 minutes per level of circle maker',
+                'Standard',
+                'This circle will turn the circle maker and anyone entering the circle invisible for 10 minutes per level of the circle maker. This is an enchantment placed upon any who enter the circle and, as such, the invisibility can not be cancelled at will. The invisible person will remain so until the enchantment wears off. The circle of invisibility remains constantly active until the toad skeleton is removed. Components: Mystic symbol of directed power. The circle is drawn with powdered bones of toads, the symbols in clear wax. The complete and unbroken skeleton of a toad must also be placed within the circle\'s radius, but turns invisible once the circle is activated. Only the circle and symbols remain visible. Power Words: Acba yin Cherunbot-kyn'
+            ),
+            new Spell(
+                'Knowledge: Power Circle',
+                'Circle Radius',
+                '15 melees per level of the circle maker',
+                'None',
+                'The circle of knowledge instills a temporary aura around the circle maker and/or anyone in the circle. Burning the tongue of an owl will provide the following enchanted abilities: + 10% on all skills and understand and speak all languages. Components; The mystic symbol of directed power. The circle is painted in yellow, the symbols in blue. A small brazier sits in the middle with hot coals to burn the tongue. It is the burning of the tongues and the invocation of the power words that activate the circle. Power Words: Lictalon yin Kym-nark-mar-Agu'
+            ),
+
+            new Spell(
+                'Pain: Power Circle',
+                'Special',
+                '6 melees per level of the circle maker',
+                'Save vs circle magic each melee',
+                'Only those whose true names are inscribed in the circle are affected by a circle of pain. The circle maker first draws the circle then fashions a straw or cloth doll (human shape) symbolizing the victim. The hair, or nail clippings, or a personal article of the intended victim must be tied to the doll. Pins, needles, or nails are then driven through the effigy while the power words are chanted. The victim will receive sharp, stabbing pains corresponding to where the pins are driven in the doll. This circle is devised to inflict pain and suffering, not death. Consequently, only 1D4 hit points of damage are inflicted per melee. If a successful save is made there is only a slight twinge of pain and no damage is done. The loss of hit points can not go below 10. Components: Mystic symbol of force. The circle is drawn with the bodies of mangled spiders, the symbols are painted in black and the intended victim bound in the circle\'s center. Power Words: Netosa ym Tarn-kin-toe'
+            ),
+            new Spell(
+                'Power: Power Circle',
+                'The people within the circle, and projected power',
+                'Active until circle maker leaves or cancels it',
+                'Standard',
+                'This circle confers great primal magic power to the people within it. It taps into and focuses magic energy upon the circle area, endowing those within it with unlimited power. The circle area seems to glow and undulate with light and color as if it were a cosmic prism. The rush of energy envelops the circle\'s occupants. Occupants are then + 5 on all savings throws, + 2 spell strength, bio-regeneration (1D6 points per melee), and enables them to create cast the following (doing 1D6 points per level of circle maker): ball of flame, call lightning, wall of fire. It also creates the following effects: (duration: as long as the circle remains active), charm, charismatic aura, weightlessness (area affect 20ft beyond the circle), mesmerism (area affect 20ft beyond the circle), animate/control dead (1D6 dead per level of the circle maker), control the beasts (1D6 animals per level of the circle maker), and metamorphosis (affects only those within the circle). The circle is activated and reactivated by invoking the proper power words and by wearing a helm fashioned from the skull of a tiger. Components: Mystic symbol of directed power; a tiger helm must be inscribed with the symbol of force. The circle and symbols must be drawn using a bone from a tiger. Silver must be used to draw the circle. Power Words: Xy yin Lo-kum-yin Kym-nark-mark'
+            ),
+            new Spell(
+                'Power Leech: Power Circle',
+                '30ft radius per level of the circle maker',
+                'Active only while circle maker remains in the circle',
+                '-2 to save vs circle magic',
+                'The power leech drains all mystic energies within its radius of influence. Magic spells, including illusionary magic; other circles and nonphysical super abilities (excluding psionics), are all reduced to half their normal strength, power, and duration. Thus, a mage of sixth level experience will cast spells as if he were only third level. The power leech also absorbs all energy that is directed at it. If, for example, a lightning bolt, f1rc ball or laser were shot at the circle it will be completely absorbed, doing no damage to the circle or its occupants. Components: The mystic symbol of directed power must be inscribed in the circle while a helm fashioned from the skull of a tiger is inscribed with the symbol of force. The symbols arc painted in brown. The circle is created from the soft, mangled bodies of leeches; a light (candle, lantern, fire, etc.), is placed in the center, and two live leeches are applied to each arm of the circle maker. Should a leech drop off, the circle is canceled. The power leech circle can be reactivated, even if the leech bodies composing the circle have dried, as long as the helm is worn and the power words invoked. Power Words: Ya-ank-met yin Lictalon'
+            ),
+        ];
+    }
+
+    static public function protectionCircles()
+    {
+        return [
+            new Spell(
+                'Protection from Demonic Creatures (other-dimensional)',
+                '',
+                '',
+                '',
+                'Demonic beings can not enter the circle. Those within the circle are + 3 to save against any attack by demonic forces. Components: Drawn with holy water. Power Words: Acba yin Pein'
+            ),
+            new Spell(
+                'Protection from Elemental Forces',
+                '',
+                '',
+                '',
+                'All elemental forces do half damage to those within the circie.  Components: Emeralds, onyx, topaz, sapphire; circle can be drawn in any substance. Power Words: Acba Lo-kum yin Tao-bo'
+            ),
+            new Spell(
+                'Protection from Magic (Simple)',
+                '',
+                '',
+                '',
+                'Those within the circle arc + 2 to save against all magic attacks. Components: Can be drawn in any substance. Power Words: Kym-nark-mar yin acba'
+            ),
+            new Spell(
+                'Protection from Magic (superior)',
+                '',
+                '',
+                'g',
+                'Those within the circle are +6 to save against all magic attacks. Components: Must be sealed with the blood of the circle maker. Power Words: Acba yin kym-nark-mar yin acba'
+            ),
+            new Spell(
+                'Protection from the Undead',
+                '',
+                '',
+                '',
+                'Undead can not enter the circle.  Components: Silver cross, garlic clove; circle can be drawn in any substance.  Power Words: Pein yin Erva'
+            ),
+        ];
+    }
+
     static public function illusionarySpells()
     {
         return [
