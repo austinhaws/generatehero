@@ -163,4 +163,25 @@ class MagicTest extends BaseTestRunner
             }
         }
     }
+
+    public function test_mysticWizard()
+    {
+        $rolls = [
+            (new TestRoll())->dontCareUntil('power category')->andRoll(100, 80, 'power category'),
+            (new TestRoll())->dontCareUntil('Magic Type')->andRoll(100, 63, 'Magic Type'),
+             new TestRoll(false, false, 'Education Level'),
+            (new TestRoll())->dontCareAnyMore(),
+        ];
+        for ($x = 0; $x < 50; $x++) {
+            $this->testRoller->setTestRolls($rolls);
+            $this->testArrayTools->rotation = $x + 1;
+            $hero = $this->heroGenerator->generate();
+            $this->testRoller->verifyTestRolls();
+
+
+            $this->assertTrue(strpos(get_class($hero->class), 'Magic') !== false);
+            $this->assertEquals(14, count($hero->class->spellsKnown));
+            $this->assertEquals(8, $hero->class->spellsPerDay);
+        }
+    }
 }

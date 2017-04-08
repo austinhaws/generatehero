@@ -25,6 +25,10 @@ class Magic extends BaseClass
     public $objectSpellLevel;
     public $objectSpellsPerDay;
 
+    // == Mystic == //
+    public $spellsPerDay;
+    public $spellsKnown;
+
     /**
      * create a character's class
      *
@@ -45,6 +49,23 @@ class Magic extends BaseClass
             new TableEntry(100, ['Bestowed', 'bestowed']),
         ]);
         $this->$function($hero);
+    }
+
+    private function studyWizard(Hero &$hero)
+    {
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Magic: Mystic Study - Wizard'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Astral Projection: When a person astral projects, his physical body falls into a death-like trance. The astral body enters the vast plane of the astral world. It is a pleasant world of rolling clouds and endless yellow sky. In this dimension the astral body is free to fly great distances in mere moments, and gaze from the astral plane into the world containing its physical body. Only psionic presence sense can detect an astral bod and only psionic attacks (from both the physical and astral planes) can harm the astral body. The astral body can be killed psionically by being prevented from returning to its physical body. Psionic hypnotic suggestion,  stun, sleep, mind wipe, dispel spirits, and possession are all powerful weapons against the astral traveler.', 'Magic: Mystic Study - Wizard'));
+
+        // not doing familiar because it starts at level 3 and all these characters are level 1
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SPECIAL_RECOGNIZE_MAGIC, 68, 'Magic: Mystic Study - Wizard'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sense the presence of truly strong evil. Range: lOOft (305m)', 'Magic: Mystic Study - Wizard'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SPECIAL_SENSE_MAGIC, 28, 'Magic: Mystic Study - Wizard'));
+
+        $this->spellsPerDay = 8;
+        $this->spellsKnown = [];
+        $this->selectSpells($this->spellsKnown, TableSpells::allSpells(), 14);
     }
 
     private function object(Hero &$hero)

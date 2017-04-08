@@ -6,6 +6,17 @@ use Heroes\hero\Spell;
 
 class TableSpells
 {
+    static public function allSpells()
+    {
+        return array_merge(
+            TableSpells::summonCircles(),
+            TableSpells::powerCircles(),
+            TableSpells::protectionCircles(),
+            TableSpells::illusionarySpells(),
+            TableSpells::magicSpells()
+        );
+    }
+
     static public function summonCircles()
     {
         return [

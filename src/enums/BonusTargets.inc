@@ -74,6 +74,8 @@ abstract class BonusTargets
     const SPECIAL_RECOGNIZE_VEHICLE_QUALITY = 'Recognize Vehicle Quality';
     const SPECIAL_MAKE_AND_MODIFY_WEAPONS = 'Make and Modify Weapons';
     const SPECIAL_RECOGNIZE_WEAPON_QUALITY = 'Recognize Weapon Quality';
+    const SPECIAL_RECOGNIZE_MAGIC = 'Recognize Magic';
+    const SPECIAL_SENSE_MAGIC = 'Sense Evil';
 
 
     // == SKILL GROUPS == //
