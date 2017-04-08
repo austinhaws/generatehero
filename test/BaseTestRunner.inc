@@ -90,4 +90,25 @@ abstract class BaseTestRunner extends \PHPUnit_Framework_TestCase
         array_push($rolls, ...$subRoll);
         return $ended;
     }
+
+    /**
+     * runIterations is if there are only pre-rolls; but if you custom rolls mixed throughout sequence around the iterations
+     * then this is the function for you!
+     *
+     * @param $methods array of string names of the methods to run on "this" (must all be public)
+     * @param $rolls array rolls array to which to add the results of the iterations
+     * @param $i int current iteration #
+     * @return bool true if all the iterations report as ended
+     */
+    protected function runIterationGroup($methods, &$rolls, $i)
+    {
+        $endeds = [];
+        foreach ($methods as $method) {
+            $endeds[] = $this->$method($rolls, $i);
+        }
+        // if any are not ended then report not ended
+        return array_reduce($endeds, function ($result, $ended) {
+            return $result && $ended;
+        }, true);
+    }
 }

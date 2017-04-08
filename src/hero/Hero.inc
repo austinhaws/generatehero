@@ -80,7 +80,7 @@ class Hero
      *
      * @param Bonus|array $bonus the bonus to add
      */
-    public function addBonus(Bonus $bonus)
+    public function addBonus($bonus)
     {
         if (!is_array($bonus)) {
             $bonus = [$bonus];

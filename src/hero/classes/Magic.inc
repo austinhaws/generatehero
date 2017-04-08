@@ -7,6 +7,7 @@ use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\superabilities\TableSuperAbilities;
+use Heroes\tables\TableSpells;
 
 class Magic extends BaseClass
 {
@@ -39,7 +40,8 @@ class Magic extends BaseClass
         list($this->magicType, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
             new TableEntry(25, ['Enchanted Weapon', 'weapon']),
             new TableEntry(50, ['Enchanted Object', 'object']),
-            new TableEntry(75, ['Mystic Study', 'study']),
+            new TableEntry(63, ['Mystic Study - Wizard', 'studyWizard']),
+            new TableEntry(75, ['Mystic Study - Magician', 'studyMagician']),
             new TableEntry(100, ['Bestowed', 'bestowed']),
         ]);
         $this->$function($hero);
@@ -47,15 +49,6 @@ class Magic extends BaseClass
 
     private function object(Hero &$hero)
     {
-        list($numIllusion, $numMagic, $numMajor, $numMinor) = $this->engine->tableRoller->rollTable('Magic: Enchanted Object', [
-           new TableEntry(14, [10, 0, 0, 0]),
-           new TableEntry(30, [0, 8, 0, 0]), // wizard only?
-           new TableEntry(50, [5, 3, 0, 0]),
-           new TableEntry(70, [6, 2, 0, 0]),
-           new TableEntry(85, [3, 5, 0, 0]),
-           new TableEntry(100, [0, 0, 1, 1]),
-        ]);
-
         $this->objectSpellLevel = $this->engine->tableRoller->rollTable('Magic: Enchanted Object - Spell Level', [
             new TableEntry(25, 3),
             new TableEntry(50, 4),
@@ -72,13 +65,24 @@ class Magic extends BaseClass
             new TableEntry(89, 12),
             new TableEntry(100, 13),
         ]);
-lists may have the same spell on them, both magic and illusion have see the invisible.
+
+        list($numIllusion, $numMagic, $numMajor, $numMinor) = $this->engine->tableRoller->rollTable('Magic: Enchanted Object - Powers', [
+            new TableEntry(14, [10, 0, 0, 0]),
+            new TableEntry(30, [0, 8, 0, 0]), // wizard only?
+            new TableEntry(50, [5, 3, 0, 0]),
+            new TableEntry(70, [6, 2, 0, 0]),
+            new TableEntry(85, [3, 5, 0, 0]),
+            new TableEntry(100, [0, 0, 1, 1]),
+        ]);
+        if ($numIllusion || $numMagic) {
+            $this->objectSpells = [];
+        }
         if ($numIllusion) {
-            $this->selectSpells($this->illusionarySpells(), $numIllusion, $spellLevel);
+            $this->selectSpells($this->objectSpells, TableSpells::illusionarySpells(), $numIllusion);
         }
 
         if ($numMagic) {
-            $this->selectSpells($this->magicSpells(), $numMagic);
+            $this->selectSpells($this->objectSpells, TableSpells::magicSpells(), $numMagic);
         }
 
         $tableSuperAbilities = new TableSuperAbilities($this->engine);
@@ -97,7 +101,7 @@ lists may have the same spell on them, both magic and illusion have see the invi
                 if ($ability) {
                     $ability->description = 'Magic: Enchanted Weapon - ' . $ability->description;
                     if ($hero->addAbility($ability)) {
-                        $numMajor--;
+                        $numMinor--;
                     }
                 }
             }
@@ -141,14 +145,31 @@ lists may have the same spell on them, both magic and illusion have see the invi
     }
 
     /**
+     * @param $spellList array already taken spells, add spells to this list
      * @param $spells array possible spells
      * @param $numSpells int number to select
      */
-    private function selectSpells($spells, $numSpells)
+    private function selectSpells(&$spellList, $spells, $numSpells)
     {
         $this->engine->arrayTools->shuffle($spells);
         for ($x = 0; $x < $numSpells; $x++) {
-            $this->objectSpells[] = array_pop($spells);
+            // lists may have the same spell on them, both magic and illusion have see the invisible.
+            $spell = array_pop($spells);
+
+            // see if spell already taken
+            $found = false;
+            foreach ($spellList as $objectSpell) {
+                if ($found = 0 === strcmp($objectSpell->title, $spell->title)) {
+                    break;
+                }
+            }
+            if ($found) {
+                // already taken so get another
+                $numSpells++;
+            } else {
+                // not already taken so add it
+                $spellList[] = $spell;
+            }
         }
     }
 
