@@ -43,6 +43,9 @@ abstract class BonusTargets
     const SAVE_PSIONIC_MIND_CONTROL = 'Save: Psionic Mind Control';
     const SAVE_POSSESSION = 'Save: Possession';
     const SAVE_CONTROL_OTHERS = 'Save: Control Others';
+    const SAVE_MIND_ALTERING_EFFECTS = 'Save: Mind Altering Effects';
+    const SAVE_ILLUSIONS = 'Save: Illusions';
+
     const TRUST_INTIMIDATE = 'Trust/Intimidate';
     const STRIKE = 'Strike';
     const SAVE_MAGIC_SPELLS_ENCHANTMENTS = 'Save: Magic/Spells/Enchantments';

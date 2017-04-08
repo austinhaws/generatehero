@@ -51,6 +51,19 @@ class Magic extends BaseClass
         $this->$function($hero);
     }
 
+    private function studyMagician(Hero &$hero)
+    {
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Magic: Mystic Study - Magician'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sense Evil: Sense the presence of truly strong evil. Range: lOOft (305m)', 'Magic: Mystic Study - Magician'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SPECIAL_SENSE_MAGIC, 28, 'Magic: Mystic Study - Magician'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_ILLUSIONS, 2, 'Magic: Mystic Study - Magician'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MIND_ALTERING_EFFECTS, 2, 'Magic: Mystic Study - Magician'));
+
+        $this->spellsPerDay = 7;
+        $this->spellsKnown = [];
+        $this->selectSpells($this->spellsKnown, TableSpells::illusionarySpells(), 10);
+    }
+
     private function studyWizard(Hero &$hero)
     {
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Magic: Mystic Study - Wizard'));
@@ -60,7 +73,7 @@ class Magic extends BaseClass
         // not doing familiar because it starts at level 3 and all these characters are level 1
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SPECIAL_RECOGNIZE_MAGIC, 68, 'Magic: Mystic Study - Wizard'));
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sense the presence of truly strong evil. Range: lOOft (305m)', 'Magic: Mystic Study - Wizard'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sense Evil: Sense the presence of truly strong evil. Range: lOOft (305m)', 'Magic: Mystic Study - Wizard'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SPECIAL_SENSE_MAGIC, 28, 'Magic: Mystic Study - Wizard'));
 
         $this->spellsPerDay = 8;
