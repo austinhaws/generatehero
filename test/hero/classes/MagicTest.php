@@ -169,7 +169,7 @@ class MagicTest extends BaseTestRunner
         $rolls = [
             (new TestRoll())->dontCareUntil('power category')->andRoll(100, 80, 'power category'),
             (new TestRoll())->dontCareUntil('Magic Type')->andRoll(100, 63, 'Magic Type'),
-             new TestRoll(false, false, 'Education Level'),
+            new TestRoll(false, false, 'Education Level'),
             (new TestRoll())->dontCareAnyMore(),
         ];
         for ($x = 0; $x < 50; $x++) {
@@ -206,4 +206,94 @@ class MagicTest extends BaseTestRunner
         }
     }
 
+    public function bestowed_limitation(&$rolls, $i)
+    {
+        return $this->iterationSubRolls($rolls, $i, [
+            [new TestRoll(2, 1, 'Magic: Bestowed - physical limitation'),],
+            [
+                new TestRoll(2, 2, 'Magic: Bestowed - physical limitation'),
+                new TestRoll(100, 20, 'Magic: Bestowed - Physical Limitation Type'),
+            ],
+            [
+                new TestRoll(2, 2, 'Magic: Bestowed - physical limitation'),
+                new TestRoll(100, 40, 'Magic: Bestowed - Physical Limitation Type'),
+                new TestRoll(6, 1, 'Magic: Bestowed - Old Age - Age'),
+                new TestRoll(6, 1, 'Magic: Bestowed - Old Age - Age'),
+                new TestRoll(6, 1, 'Magic: Bestowed - Old Age - Age'),
+                new TestRoll(6, 1, 'Magic: Bestowed - Old Age - Age'),
+            ],
+            [
+                new TestRoll(2, 2, 'Magic: Bestowed - physical limitation'),
+                new TestRoll(100, 60, 'Magic: Bestowed - Physical Limitation Type'),
+                new TestRoll(6, 1, 'Magic: Bestowed - Kid - Age'),
+            ],
+            [
+                new TestRoll(2, 2, 'Magic: Bestowed - physical limitation'),
+                new TestRoll(100, 80, 'Magic: Bestowed - Physical Limitation Type'),
+            ],
+            [
+                new TestRoll(2, 2, 'Magic: Bestowed - physical limitation'),
+                new TestRoll(100, 100, 'Magic: Bestowed - Physical Limitation Type'),
+            ],
+        ]);
+    }
+
+    public function bestowed_abilities(&$rolls, $i)
+    {
+        return $this->iterationSubRolls($rolls, $i, [
+           [new TestRoll(100, 18, 'Magic: Bestowed - abilities'),],
+           [new TestRoll(100, 31, 'Magic: Bestowed - abilities'),],
+           [
+               new TestRoll(100, 47, 'Magic: Bestowed - abilities'),
+               new TestRoll(false, false, 'Super Ability: Major'),
+               new TestRoll(false, false, 'Super Ability: Minor'),
+           ],
+           [
+               new TestRoll(100, 62, 'Magic: Bestowed - abilities'),
+               new TestRoll(false, false, 'Super Ability: Minor'),
+               new TestRoll(false, false, 'Super Ability: Minor'),
+               new TestRoll(false, false, 'Super Ability: Minor'),
+               new TestRoll(false, false, 'Super Ability: Minor'),
+           ],
+           [
+               new TestRoll(100, 77, 'Magic: Bestowed - abilities'),
+               new TestRoll(false, false, 'Super Ability: Minor'),
+               new TestRoll(false, false, 'Super Ability: Minor'),
+           ],
+           [new TestRoll(100, 89, 'Magic: Bestowed - abilities'),],
+           [
+               new TestRoll(100, 100, 'Magic: Bestowed - abilities'),
+               new TestRoll(false, false, 'Super Ability: Major'),
+               new TestRoll(false, false, 'Super Ability: Minor'),
+               new TestRoll(false, false, 'Super Ability: Minor'),
+           ],
+        ]);
+    }
+
+    public function test_bestowed()
+    {
+        $ended = false;
+        for ($i = 0; !$ended; $i++) {
+            $this->testArrayTools->rotation = $i + 1;
+            $rolls = [
+                (new TestRoll())->dontCareUntil('power category')->andRoll(100, 80, 'power category'),
+                (new TestRoll())->dontCareUntil('Magic Type')->andRoll(100, 100, 'Magic Type'),
+            ];
+
+            $ended = $this->runIterationGroup([
+                'bestowed_limitation',
+                'bestowed_abilities',
+            ], $rolls, $i);
+
+            $rolls[] = new TestRoll(false, false, 'Education Level');
+            $rolls[] = (new TestRoll())->dontCareAnyMore();
+
+            $this->testRoller->setTestRolls($rolls);
+
+            $hero = $this->heroGenerator->generate();
+            $this->testRoller->verifyTestRolls();
+
+            $this->assertTrue(strpos(get_class($hero->class), 'Magic') !== false);
+        }
+    }
 }

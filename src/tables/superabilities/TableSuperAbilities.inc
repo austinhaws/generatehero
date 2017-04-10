@@ -659,4 +659,36 @@ class TableSuperAbilities
             ])),
         ]);
     }
+
+    /**
+     * @param Hero $hero receiver of powers
+     * @param string $reason base why reason they are getting these powers
+     * @param int $numMajor how many majors to add
+     * @param int $numMinor how many minors to add
+     */
+    public function rollAbilities(Hero &$hero, $reason, $numMajor, $numMinor)
+    {
+        while ($numMajor || $numMinor) {
+            if ($numMajor) {
+                $ability = $this->rollMajor();
+                if ($ability) {
+                    $ability->description = "$reason  - {$ability->description}";
+                    if ($hero->addAbility($ability)) {
+                        $numMajor--;
+                    }
+                }
+            }
+            if ($numMinor) {
+                $ability = $this->rollMinor();
+                if ($ability) {
+                    $ability->description = "$reason  - {$ability->description}";
+                    if ($hero->addAbility($ability)) {
+                        $numMinor--;
+                    }
+                }
+            }
+        }
+
+    }
+
 }

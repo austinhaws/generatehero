@@ -17,6 +17,9 @@ class Bonus {
     // Skills use "Set" to show that the skill is added to the character. the bonus will be 0, but just having the "set" means the character gets the skill
     const BONUS_TYPE_SET = 'set';
 
+    // after all is said and done, the value must be at least this value
+    const BONUS_TYPE_MINIMUM = 'minimum';
+
     // add the value to the target
     const BONUS_TYPE_ADD = 'add';
 

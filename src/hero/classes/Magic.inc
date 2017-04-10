@@ -7,6 +7,7 @@ use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\superabilities\TableSuperAbilities;
+use Heroes\tables\TableEducation;
 use Heroes\tables\TableSpells;
 
 class Magic extends BaseClass
@@ -29,6 +30,9 @@ class Magic extends BaseClass
     public $spellsPerDay;
     public $spellsKnown;
 
+    // == Bestowed == //
+    public $physicalLimitation;
+
     /**
      * create a character's class
      *
@@ -49,6 +53,107 @@ class Magic extends BaseClass
             new TableEntry(100, ['Bestowed', 'bestowed']),
         ]);
         $this->$function($hero);
+    }
+
+    private function bestowed(Hero &$hero)
+    {
+        if ($this->engine->roller->rollDice(new Roll('Magic: Bestowed - physical limitation', 1, 2)) === 2) {
+            $physicalLimitationFunc = $this->engine->tableRoller->rollTable('Magic: Bestowed - Physical Limitation Type', [
+                new TableEntry(20, 'physicalLimitation_incapacitated'),
+                new TableEntry(40, 'physicalLimitation_oldAge'),
+                new TableEntry(60, 'physicalLimitation_kid'),
+                new TableEntry(80, 'physicalLimitation_wimp'),
+                new TableEntry(100, 'physicalLimitation_invalid'),
+            ]);
+            $this->$physicalLimitationFunc($hero);
+        } else {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'The person is normal in every way until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power.', 'Magic: Bestowed'));
+        }
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_MINIMUM, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY, 18,'Magic: Bestowed'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Magic: Bestowed - MA', 2, 6),'Magic: Bestowed'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_MINIMUM, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, 20,'Magic: Bestowed'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Magic: Bestowed - PS', 2, 6),'Magic: Bestowed'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_MINIMUM, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, 18,'Magic: Bestowed'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Magic: Bestowed - PP', 1, 6),'Magic: Bestowed'));
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_MINIMUM, BonusTargets::ATTRIBUTE_SPEED, 24,'Magic: Bestowed'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_SPEED, new Roll('Magic: Bestowed - Speed', 2, 4),'Magic: Bestowed'));
+
+        // first description says 2d4X10, but class detail says 3d4X10; always give the player the better option
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Magic: Bestowed - transformation SDC', 3, 4, 10), 'Magic: Bestowed'));
+
+        list ($numIllusionSpells, $numMagicSpells, $numMajor, $numMinor, $saveMagic) = $this->engine->tableRoller->rollTable('Magic: Bestowed - abilities', [
+           new TableEntry(18, [6, 2, 0, 0, 0]),
+           new TableEntry(31, [0, 8, 0, 0, 0]),
+           new TableEntry(47, [0, 0, 1, 1, 0]),
+           new TableEntry(62, [0, 0, 0, 4, 0]),
+           new TableEntry(77, [0, 4, 0, 2, 0]),
+           new TableEntry(89, [0, 10, 0, 0, 1]),
+           new TableEntry(100, [0, 0, 1, 2, 0]),
+        ]);
+
+        if ($numIllusionSpells || $numMagicSpells) {
+            $this->spellsKnown = [];
+        }
+
+        if ($numIllusionSpells) {
+            $this->selectSpells($this->spellsKnown, TableSpells::illusionarySpells(), $numIllusionSpells);
+        }
+        if ($numMagicSpells) {
+            $this->selectSpells($this->spellsKnown, TableSpells::magicSpells(), $numIllusionSpells);
+        }
+        if ($numMajor || $numMinor) {
+            (new TableSuperAbilities($this->engine))->rollAbilities($hero, 'Magic: Bestowed', $numMajor, $numMinor);
+        }
+        if ($saveMagic) {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, 1, 'Magic: Bestowed'));
+        }
+
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 20, 'Magic: Bestowed - class SDC'));
+    }
+
+    private function physicalLimitation_incapacitated(Hero &$hero) {
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Incapacitated by a debilitating disease or accident leaving the person crippled, paralyzed, or otherwise physically impaired until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power. All physical attributes must be 11 or lower while incapacitated.', 'Magic: Bestowed - Physical Limitation'));
+
+
+        // select one physical skill (excluding boxing, wrestling and gymnastics)
+        $skills = TableEducation::skills_physical();
+        TableEducation::excludeSkills($skills, [BonusTargets::SKILL_BOXING, BonusTargets::SKILL_WRESTLING, BonusTargets::SKILL_GYMNASTICS]);
+
+        $this->engine->arrayTools->shuffle($skills);
+        $hero->addSkill(array_pop($skills), 'Magic: Bestowed - Incapacitated');
+    }
+
+    private function physicalLimitation_oldAge(Hero &$hero) {
+        $hero->age = 50 + $this->engine->roller->rollDice(new Roll('Magic: Bestowed - Old Age - Age', 4, 6));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Old age has robbed the strength of youth until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power. PS, PP, and PE must be 12 or lower while elderly.', 'Magic: Bestowed - Old Age'));
+        $skills = TableEducation::skills_physical();
+        $this->engine->arrayTools->shuffle($skills);
+        for ($x = 0; $x < 2; $x++) {
+            $hero->addSkill(array_pop($skills), 'Magic: Bestowed - Old Age');
+        }
+    }
+
+    private function physicalLimitation_kid(Hero &$hero) {
+        $hero->age = 10 + $this->engine->roller->rollDice(new Roll('Magic: Bestowed - Kid - Age', 1, 6));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Kid: Still young and physically immature, even if a teenager until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power. No physical attribute can be over 14 while a Kid.', 'Magic: Bestowed - Kid'));
+
+        $skills = TableEducation::skills_physical();
+        TableEducation::excludeSkills($skills, [BonusTargets::SKILL_BOXING, BonusTargets::SKILL_WRESTLING]);
+        for ($x = 0; $x < 2; $x++) {
+            $hero->addSkill(array_pop($skills), 'Magic: Bestowed - Kid');
+        }
+    }
+
+    private function physicalLimitation_wimp(Hero &$hero) {
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Wimp of any age until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power. Physical attributes must all be 10 or less while a wimp.', 'Magic: Bestowed - Wimp'));
+    }
+
+    private function physicalLimitation_invalid(Hero &$hero) {
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Invalid: This person can not walk and is confined to a wheelchair until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power. PE, PS, and PP are limited to a maximum of 18 and speed is 0 while an invalid.', 'Magic: Bestowed - Invalid'));
     }
 
     private function studyMagician(Hero &$hero)
@@ -119,27 +224,7 @@ class Magic extends BaseClass
             $this->selectSpells($this->objectSpells, TableSpells::magicSpells(), $numMagic);
         }
 
-        $tableSuperAbilities = new TableSuperAbilities($this->engine);
-        while ($numMajor || $numMinor) {
-            if ($numMajor) {
-                $ability = $tableSuperAbilities->rollMajor();
-                if ($ability) {
-                    $ability->description = 'Magic: Enchanted Weapon - ' . $ability->description;
-                    if ($hero->addAbility($ability)) {
-                        $numMajor--;
-                    }
-                }
-            }
-            if ($numMinor) {
-                $ability = $tableSuperAbilities->rollMinor();
-                if ($ability) {
-                    $ability->description = 'Magic: Enchanted Weapon - ' . $ability->description;
-                    if ($hero->addAbility($ability)) {
-                        $numMinor--;
-                    }
-                }
-            }
-        }
+        (new TableSuperAbilities($this->engine))->rollAbilities($hero, 'Magic: Enchanted Weapon', $numMajor, $numMinor);
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, 2, 'Magic: Enchanted Object'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 10, 'Magic: Enchanted Object'));
@@ -288,15 +373,4 @@ class Magic extends BaseClass
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 20, 'Magic: Enchanted Weapon'));
     }
-
-    private function study(Hero &$hero)
-    {
-        throw new \Exception('Needs implemented');
-    }
-
-    private function bestowed(Hero &$hero)
-    {
-        throw new \Exception('Needs implemented');
-    }
-
 }

@@ -74,6 +74,9 @@ class Hero
     // don't allow picking the same program more than once
     public $educationProgramsPicked = [];
 
+    // how old are you? is there a randomizer for this? some classes set it (mystic bestowed: old age physical limitation)
+    public $age;
+
 
     /**
      * add a bonus to the character; it will be applied later after all bonuses gathered
@@ -88,6 +91,17 @@ class Hero
         foreach ($bonus as $b) {
             $this->bonuses[] = $b;
         }
+    }
+
+    /**
+     * add a skill to the hero. same as adding a bonus but now it's clear what it's doing
+     *
+     * @param string $skill the string name of the skill to add BonusTargets::SKILL_... constants
+     * @param string $reason why the skill is being added
+     */
+    public function addSkill($skill, $reason)
+    {
+        $this->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, $reason));
     }
 
 
@@ -108,7 +122,7 @@ class Hero
     public function addAbility(Ability $ability)
     {
         $found = count(array_filter($this->abilities, function (Ability $testAbility) use ($ability) {
-            return $testAbility->title == $ability->title;
+            return $testAbility->title === $ability->title;
         }));
         if (!$found) {
             $this->abilities[] = $ability;

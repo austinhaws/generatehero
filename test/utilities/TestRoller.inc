@@ -57,7 +57,7 @@ class TestRoller extends Roller
             }
             $roll->validate($numberSides, $name, $this->rollIndex);
             if ($roll->roll === false) {
-                parent::rollDice(new Roll($name, 1, $numberSides));
+                $result = parent::rollDice(new Roll($name, 1, $numberSides));
             } else {
                 $result = $roll->roll;
             }

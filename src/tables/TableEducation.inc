@@ -285,7 +285,7 @@ class TableEducation
 
         $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, 0, $skills, false);
         foreach ($skills as $skill) {
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, 'Secondary Skill'));
+            $hero->addSkill($skill, 'Secondary Skill');
         }
     }
 
@@ -407,5 +407,37 @@ class TableEducation
         }
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Education Level: ' . $hero->educationLevel, 'Education'));
+    }
+
+    static public function skills_physical()
+    {
+        return [
+            BonusTargets::SKILL_HAND_TO_HAND_BASIC,
+            BonusTargets::SKILL_HAND_TO_HAND_EXPERT,
+            BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS,
+            BonusTargets::SKILL_ACROBATICS,
+            BonusTargets::SKILL_ARCHERY,
+            BonusTargets::SKILL_ATHLETICS,
+            BonusTargets::SKILL_BODY_BUILDING,
+            BonusTargets::SKILL_BOXING,
+            BonusTargets::SKILL_CLIMBING,
+            BonusTargets::SKILL_RUNNING,
+            BonusTargets::SKILL_FENCING,
+            BonusTargets::SKILL_SWIMMING,
+            BonusTargets::SKILL_GYMNASTICS,
+            BonusTargets::SKILL_SWIMMING_ADVANCED,
+            BonusTargets::SKILL_PROWL,
+            BonusTargets::SKILL_WRESTLING,
+        ];
+    }
+
+    /**
+     * @param array $skills the BonusTargets::SKILL_... constants of possible skills
+     * @param array $exclusions the BonusTargets::SKIL_... constants to remove from the list
+     */
+    static public function excludeSkills(&$skills, $exclusions) {
+        foreach ($exclusions as $exclusion) {
+            array_splice($skills, array_search($exclusion, $skills), 1);
+        }
     }
 }
