@@ -108,6 +108,10 @@ class HeroGenerator
         // step 2 - hit points / sdc : can't get HPs until scores are settled through super abilities/education... :(
         // rounding out character
 
+
+        // all done, give class one last crack at computing
+        $hero->class->postCreate($hero);
+
         return $hero;
     }
 

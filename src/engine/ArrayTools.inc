@@ -18,4 +18,16 @@ class ArrayTools
     {
         shuffle($array);
     }
+
+    /**
+     * shuffle and pick from a list, list is shrunk by the item picked
+     *
+     * @param array $list items from which to choose
+     * @return mixed the result from the list
+     */
+    public function pickFromList(&$list)
+    {
+        $this->shuffle($list);
+        return array_pop($list);
+    }
 }

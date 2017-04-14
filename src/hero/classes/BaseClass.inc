@@ -37,4 +37,14 @@ abstract class BaseClass
             $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "Owns car that is $age $years old.", 'Starting Car'));
         }
     }
+
+    /**
+     * after character is created, this function gets called; psionics needs the final ME for ISP Points
+     *
+     * @param Hero $hero
+     */
+    public function postCreate(Hero &$hero)
+    {
+        // default to do nothing
+    }
 }

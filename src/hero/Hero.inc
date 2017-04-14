@@ -3,6 +3,7 @@ namespace Heroes\hero;
 
 use Heroes\engine\Engine;
 use Heroes\enums\BonusTargets;
+use Heroes\hero\classes\BaseClass;
 
 class Hero
 {
@@ -45,6 +46,7 @@ class Hero
     public $charmImpress;
 
     // alien/mutant/etc
+    /** @var BaseClass */
     public $class;
 
     // combat
@@ -67,6 +69,7 @@ class Hero
 
     // abilities and super abilities of the hero; array of Ability classes
     public $abilities = [];
+    public $psionics = [];
 
     // high school? college? alien? - if this is set then don't do education again
     public $educationLevel = false;
@@ -131,6 +134,22 @@ class Hero
             foreach ($ability->bonuses as $bonus) {
                 $this->addBonus($bonus);
             }
+        }
+        return !$found;
+    }
+
+    /**
+     * add a psionic to a hero, checking if it's already added
+     *
+     * @param Psionic $psionic the psionic
+     * @return bool true if it was added, false if not added
+     */
+    public function addPsionic(Psionic $psionic) {
+        $found = count(array_filter($this->psionics, function (Ability $testAbility) use ($psionic) {
+            return $testAbility->title === $psionic->title;
+        }));
+        if (!$found) {
+            $this->psionics[] = $psionic;
         }
         return !$found;
     }

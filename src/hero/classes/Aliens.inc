@@ -7,6 +7,7 @@ use Heroes\enums\BonusTargets;
 use Heroes\hero\Ability;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
+use Heroes\tables\superabilities\TablePsionics;
 
 class Aliens extends BaseClass
 {
@@ -17,6 +18,10 @@ class Aliens extends BaseClass
     public $earthClothesDisguise;
     public $specialWeapon;
     public $vehicle;
+
+    // psionics
+    public $psionics;
+    public $isp;
 
     function create(Hero &$hero)
     {
@@ -42,6 +47,15 @@ class Aliens extends BaseClass
         $this->rollMoney($hero);
 
     }
+
+    public function postCreate(Hero &$hero)
+    {
+        parent::postCreate($hero);
+        if ($this->psionics) {
+            $this->isp = (new TablePsionics($this->engine))->mutantAlienISP($hero, $this->engine);
+        }
+    }
+
 
     private function rollMoney(Hero &$hero)
     {
@@ -292,6 +306,7 @@ class Aliens extends BaseClass
 
     private function rollSuperabilities(Hero &$hero)
     {
+        throw new \Exception('alien superabilities needs completed');
         $abilities = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
             new TableEntry(49, 'Super Abilities'),
             new TableEntry(60, 'Psionics'),
