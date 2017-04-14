@@ -69,6 +69,7 @@ class Hero
 
     // abilities and super abilities of the hero; array of Ability classes
     public $abilities = [];
+    // Psionics of the hero; array of Psionic classes
     public $psionics = [];
 
     // high school? college? alien? - if this is set then don't do education again
@@ -145,7 +146,7 @@ class Hero
      * @return bool true if it was added, false if not added
      */
     public function addPsionic(Psionic $psionic) {
-        $found = count(array_filter($this->psionics, function (Ability $testAbility) use ($psionic) {
+        $found = count(array_filter($this->psionics, function (Psionic $testAbility) use ($psionic) {
             return $testAbility->title === $psionic->title;
         }));
         if (!$found) {

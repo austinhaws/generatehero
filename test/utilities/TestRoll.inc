@@ -16,9 +16,9 @@ class TestRoll
     public $dontCareUntil;
 
     // defaults are only for if using dontcareuntil
-    function __construct($sides = false, $roll = false, $name = false, $multiplier = 1)
+    function __construct($sides = false, $roll = false, $name = false, $multiplier = 1, $dontCareAnymore = false)
     {
-        $this->dontCareUntil = false;
+        $this->dontCareUntil = $dontCareAnymore;
         $this->andRoll($sides, $roll, $name, $multiplier);
     }
 
