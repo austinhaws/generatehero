@@ -15,7 +15,6 @@ class TestRoll
     // don't care about rolls until getting a roll with this name; if this is set to true then don't care ever again so just roll away
     public $dontCareUntil;
 
-    // defaults are only for if using dontcareuntil
     function __construct($sides = false, $roll = false, $name = false, $multiplier = 1, $dontCareAnymore = false)
     {
         $this->dontCareUntil = $dontCareAnymore;

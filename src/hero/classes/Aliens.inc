@@ -306,7 +306,6 @@ class Aliens extends BaseClass
 
     private function rollSuperabilities(Hero &$hero)
     {
-        throw new \Exception('alien superabilities needs completed');
         $abilities = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
             new TableEntry(49, 'Super Abilities'),
             new TableEntry(60, 'Psionics'),
@@ -315,6 +314,7 @@ class Aliens extends BaseClass
             new TableEntry(89, 'Mystic - wizard/spells only'),
             new TableEntry(100, 'Bionics'),
         ]);
+        throw new \Exception("alien superabilities needs completed - Alien: $abilities");
         switch ($abilities) {
             case 'Super Abilities':
 // TODO: echo "Alien superabilities: $abilities (pg 56)\n";

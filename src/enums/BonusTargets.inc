@@ -26,6 +26,7 @@ abstract class BonusTargets
     const NATURAL_ARMOR_RATING = "Natural Armor Rating";
     const PARRY = 'Parry';
     const PHYSICAL_DAMAGE = 'Physical Damage';
+    // roll with fall/impact
     const ROLL = 'Roll';
     const SAVE_COMMA_DEATH = 'Save: comma/Death';
 
@@ -79,6 +80,7 @@ abstract class BonusTargets
     const SPECIAL_RECOGNIZE_WEAPON_QUALITY = 'Recognize Weapon Quality';
     const SPECIAL_RECOGNIZE_MAGIC = 'Recognize Magic';
     const SPECIAL_SENSE_MAGIC = 'Sense Evil';
+    const SPECIAL_MECHANICAL_AND_ELECTRICAL_REPAIR = 'Mechanical and Electrical Repair';
 
 
     // == SKILL GROUPS == //

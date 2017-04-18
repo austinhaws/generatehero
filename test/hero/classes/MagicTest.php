@@ -285,8 +285,7 @@ class MagicTest extends BaseTestRunner
                 'bestowed_abilities',
             ], $rolls, $i);
 
-            $rolls[] = new TestRoll(false, false, 'Education Level');
-            $rolls[] = (new TestRoll())->dontCareAnyMore();
+            $rolls[] = new TestRoll(false, false, 'Education Level', 1, true);
 
             $this->testRoller->setTestRolls($rolls);
 

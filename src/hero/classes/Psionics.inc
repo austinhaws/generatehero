@@ -38,4 +38,10 @@ class Psionics extends BaseClass
 
         (new TablePsionics($this->engine))->selectPowers($hero, 3, 6);
     }
+
+    public function createMutantAlien(Hero &$hero) {
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Mutant/Alien Psionic - ME', 2, 4), 'Psionic'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Mutant/Alien Psionic - MA', 1, 4), 'Psionic'));
+        (new TablePsionics($this->engine))->selectPowers($hero, 2, 4);
+    }
 }
