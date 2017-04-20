@@ -38,7 +38,6 @@ class Mutants extends BaseClass
      */
     public function create(Hero &$hero)
     {
-
         if ($this->engine->roller->rollDice(new Roll('Mutant Type', 1, 2)) === 1) {
             $this->createMutant($hero);
         } else {
@@ -87,8 +86,8 @@ class Mutants extends BaseClass
     private function unusualCharacteristics()
     {
         list($this->characteristics, $bonuses) = $this->engine->tableRoller->rollTable('Mutant: unusual', [
-            new TableEntry(34, ['No unusual physical traits.', false]),
-            new TableEntry(30, ['Pointy or larger than normal ears.', false]),
+            new TableEntry(30, ['No unusual physical traits.', false]),
+            new TableEntry(34, ['Pointy or larger than normal ears.', false]),
             new TableEntry(39, ['Odd skin color: yellow', false]),
             new TableEntry(40, ['Odd skin color: green', false]),
             new TableEntry(41, ['Odd skin color: red', false]),
@@ -127,7 +126,7 @@ class Mutants extends BaseClass
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 1, 'Mutant - Prehensile feet/toes'),
             ]),
 
-            new TableEntry(72, ['Scaly Skin: A tough, smooth, reptilian skin with small scales', [new Bonus(Bonus::ADD, BonusTargets::SDC, 30, 'Mutant: Scaly Skin')]]),
+            new TableEntry(72, ['Scaly Skin: A tough, smooth, reptilian skin with small scales', [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Mutant: Scaly Skin')]]),
             new TableEntry(76, ['No body hair', false]),
             new TableEntry(79, ['Small horns 1D4 inches long protruding from forehead', false]),
             new TableEntry(84, ['Tough lumpy skin', [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Mutant: tough lumpy skin')]]),
