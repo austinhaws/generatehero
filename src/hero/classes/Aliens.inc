@@ -314,6 +314,7 @@ class Aliens extends BaseClass
             new TableEntry(89, 'Mystic - wizard/spells only'),
             new TableEntry(100, 'Bionics'),
         ]);
+        // once robotics are done then all the classes exist and can just plug in to them
         throw new \Exception("alien superabilities needs completed - Alien: $abilities");
         switch ($abilities) {
             case 'Super Abilities':
