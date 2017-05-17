@@ -30,6 +30,7 @@ class SkillPrograms
     const PILOT = 'Pilot';
     const PILOT_RELATED_SKILLS = 'Pilot Related Skills';
     const WP_ENERGY_WEAPONS = 'WP Energy Weapons';
+    const WEAPON_PROFICIENCIES = 'Weapon Proficiencies';
 
     private $engine;
 
@@ -48,7 +49,7 @@ class SkillPrograms
      * @param $impossibles array|bool skills that can't be selected (probably already selected or rules disallow); this is in addition to the skills already BONUS_SET in the hero's bonus list
      * @return array skills selected
      */
-    public function selectSkills($numberSkills, &$hero, $percentBonus, $possibles, $impossibles)
+    public function selectSkills($numberSkills, $hero, $percentBonus, $possibles, $impossibles)
     {
         $this->engine->arrayTools->shuffle($possibles);
 
@@ -64,16 +65,15 @@ class SkillPrograms
     }
 
     /**
-     * add skills for a program to a character
+     * get a list of skills for a program
      *
-     * @param String $program which program
-     * @param int $percentBonus how much of a bonus to give to the program skills
-     * @param Hero $hero the hero for which to pick a program (some programs select skills so select ones that aren't yet selected)
-     * @return array list of skills for the program
-     * @throws \Exception if program not found
+     * @param $program string the program, use SkillPrograms::... constants
+     * @param $hero Hero the hero
+     * @param int $percentBonus what bonus the skills will be at. when checking if a character has a skill, if the skill is a lower starting value then this would trump it
+     * @return array skills available from the program
+     * @throws \Exception
      */
-    public function addSkillsForProgram($program, $percentBonus, Hero &$hero)
-    {
+    public function skillsForProgram($program, $hero, $percentBonus = 0) {
         $skills = false;
         switch ($program) {
             case SkillPrograms::COMMUNICATIONS:
@@ -87,21 +87,20 @@ class SkillPrograms
                 break;
 
             case SkillPrograms::DOMESTIC:
-                $skills = $this->selectSkills(3, $hero, $percentBonus, [BonusTargets::SKILL_COOK, BonusTargets::SKILL_DANCE, BonusTargets::SKILL_FISH, BonusTargets::SKILL_SEW, BonusTargets::SKILL_SING,], false);
+                $skills = [BonusTargets::SKILL_COOK, BonusTargets::SKILL_DANCE, BonusTargets::SKILL_FISH, BonusTargets::SKILL_SEW, BonusTargets::SKILL_SING,];
                 break;
 
             case SkillPrograms::ELECTRICAL:
                 $skills = [BonusTargets::SKILL_ELECTRICAL_ENGINEER, BonusTargets::SKILL_SURVEILLANCE, BonusTargets::SKILL_COMPUTER_REPAIR, BonusTargets::SKILL_ROBOT_ELECTRONICS];
-                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_ROBOT_ELECTRONICS, -40, SkillPrograms::ELECTRICAL . ' Program'));
                 break;
 
             case SkillPrograms::ESPIONAGE:
-                $skills = $this->selectSkills(6, $hero, $percentBonus, [
+                $skills = [
                     BonusTargets::SKILL_CONCEALMENT, BonusTargets::SKILL_DETECT_AMBUSH, BonusTargets::SKILL_DETECT_CONCEALMENT, BonusTargets::SKILL_DISGUISE,
                     BonusTargets::SKILL_ESCAPE_ARTIST, BonusTargets::SKILL_FORGERY, BonusTargets::SKILL_INTELLIGENCE, BonusTargets::SKILL_IMPERSONATION,
                     BonusTargets::SKILL_INTERROGATION, BonusTargets::SKILL_LAND_NAVIGATION, BonusTargets::SKILL_PALMING, BonusTargets::SKILL_PICK_LOCKS,
                     BonusTargets::SKILL_PICK_POCKETS, BonusTargets::SKILL_SNIPER, BonusTargets::SKILL_TRACKING, BonusTargets::SKILL_WILDERNESS_SURVIVAL,
-                ], false);
+                ];
                 break;
 
             case SkillPrograms::JOURNALIST_INVESTIGATION:
@@ -109,9 +108,6 @@ class SkillPrograms
                 break;
 
             case SkillPrograms::LANGUAGE:
-                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $program . 'Program'));
-                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $program . 'Program'));
-                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $program . 'Program'));
                 $skills = [];
                 break;
 
@@ -123,7 +119,6 @@ class SkillPrograms
                         new TableEntry(3, BonusTargets::SKILL_COMPUTER_REPAIR),
                     ])
                 ];
-                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_ROBOT_ELECTRONICS, -40, SkillPrograms::MECHANICAL . ' Program'));
                 break;
 
             case SkillPrograms::MEDICAL:
@@ -182,15 +177,87 @@ class SkillPrograms
                 ], false);
                 break;
 
+            case SkillPrograms::WP_ENERGY_WEAPONS:
+                $skills = [
+                    BonusTargets::SKILL_WP_ENERGY_PISTOL,
+                    BonusTargets::SKILL_WP_ENERGY_RIFLE,
+                ];
+                break;
+
+            case SkillPrograms::WEAPON_PROFICIENCIES:
+                $skills = array_merge(
+                    $this->skillsForProgram(SkillPrograms::WP_ANCIENT_WEAPONS, $hero),
+                    $this->skillsForProgram(SkillPrograms::WP_ENERGY_WEAPONS, $hero),
+                    $this->skillsForProgram(SkillPrograms::WP_MODERN_WEAPONS, $hero)
+                );
+                break;
+
+            default:
+                throw new \Exception("Unknown skill program: $program");
+        }
+        return $skills;
+    }
+
+    /**
+     * add a set of skills to a hero
+     *
+     * @param Hero $hero the hero
+     * @param array $skills the skills to add
+     * @param int $percentBonus bonus for the skill
+     * @param string $reason why they get this skill?
+     */
+    public function addSkills($hero, $skills, $percentBonus, $reason) {
+        foreach ($skills as $skill) {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, $percentBonus, $reason));
+        }
+    }
+
+    /**
+     * add skills for a program to a character
+     *
+     * @param String $program which program
+     * @param int $percentBonus how much of a bonus to give to the program skills
+     * @param Hero $hero the hero for which to pick a program (some programs select skills so select ones that aren't yet selected)
+     * @throws \Exception if program not found
+     */
+    public function addSkillsForProgram($program, $percentBonus, Hero &$hero)
+    {
+        switch ($program) {
+            case SkillPrograms::COMMUNICATIONS:
+            case SkillPrograms::COMPUTER:
+            case SkillPrograms::DOMESTIC:
+            case SkillPrograms::ESPIONAGE:
+            case SkillPrograms::JOURNALIST_INVESTIGATION:
+            case SkillPrograms::MEDICAL:
+            case SkillPrograms::MILITARY:
+            case SkillPrograms::PILOT_ADVANCED:
+            case SkillPrograms::PHYSICAL:
+            case SkillPrograms::SCIENCE:
+            case SkillPrograms::TECHNICAL:
+            case SkillPrograms::WP_ANCIENT_WEAPONS:
+            case SkillPrograms::WP_MODERN_WEAPONS:
+                break;
+
+            case SkillPrograms::ELECTRICAL:
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_ROBOT_ELECTRONICS, -40, SkillPrograms::ELECTRICAL . ' Program'));
+                break;
+
+            case SkillPrograms::LANGUAGE:
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $program . 'Program'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $program . 'Program'));
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $program . 'Program'));
+                break;
+
+            case SkillPrograms::MECHANICAL:
+                $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_ROBOT_ELECTRONICS, -40, SkillPrograms::MECHANICAL . ' Program'));
+                break;
+
             default:
                 throw new \Exception("Unknown skill program: $program");
         }
 
         // now that all skills are gathered, apply them
-        foreach ($skills as $skill) {
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, $percentBonus, $program . ' Program'));
-        }
-
-        return $skills;
+        $skills = $this->skillsForProgram($program, $hero, $percentBonus);
+        $this->addSkills($hero, $skills, $percentBonus, $program . ' Program');
     }
 }

@@ -26,6 +26,8 @@ class Hero
     // health
     public $hitPoints = 0;
     public $sdc = 0;
+    // some classes (mutant animals) calculate SDC differently so they won't have the end calculation
+    public $SDCCalculated = false;
 
     // optionals
     public $birthOrder;

@@ -106,6 +106,7 @@ class HeroGenerator
         (new TableAttributes($this->engine))->applyAttributeBonuses($hero);
 
         // step 2 - hit points / sdc : can't get HPs until scores are settled through super abilities/education... :(
+        // sdc - SDCCalculated flag - if true then don't calculate base SDC normally, instead, it's already been calculated so just add the bonuses
         // rounding out character
 
 

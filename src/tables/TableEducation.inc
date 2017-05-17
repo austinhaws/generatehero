@@ -21,6 +21,7 @@ class TableEducation
     const BACHELOR_DEGREE = 'Bachelor\'s Degree (College)';
     const MASTER_DEGREE = 'Master\'s Degree (College)';
     const DOCTORATE_DEGREE = 'Doctorate or PhD (College)';
+    const MUTANT_WILD_ANIMAL = 'Mutant Wild Animal';
 
 
     private $engine;
@@ -37,7 +38,7 @@ class TableEducation
      * @param $numberPrograms int how many to choose
      * @param $hero Hero here he is to save the day
      */
-    private function pickPrograms($percentBonus, $numberPrograms, Hero &$hero)
+    public function pickPrograms($percentBonus, $numberPrograms, Hero &$hero)
     {
         if ($hero->educationLevel == TableEducation::HIGH_SCHOOL_GRADUATE) {
             $programs = [
@@ -115,9 +116,10 @@ class TableEducation
      * @param int $numberSkills many secondary skills to add
      * @param Hero $hero
      * @param string|bool $category limit to a specific category or falsey to allow any category
+     * @param int $skillBonus bonus to give to picked skills
      * @throws \Exception unknown category
      */
-    private function pickSecondarySkills($numberSkills, Hero &$hero, $category = false)
+    public function pickSecondarySkills($numberSkills, Hero &$hero, $category = false, $skillBonus = 0)
     {
         if ($category) {
             switch ($category) {
@@ -283,7 +285,7 @@ class TableEducation
             ];
         }
 
-        $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, 0, $skills, false);
+        $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, $skillBonus, $skills, false);
         foreach ($skills as $skill) {
             $hero->addSkill($skill, 'Secondary Skill');
         }
