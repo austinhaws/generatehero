@@ -77,12 +77,12 @@ class Mutants extends BaseClass
         $this->organization = $this->organizationAnimalMutant();
 
         // do the BIO-E hard work
-        $this->generateAnimalMutant();
+//        $this->generateAnimalMutant();
     }
 
     private function applyMutantAnimalDetails(Hero &$hero, $details)
     {
-        // set the education flag on the hero so they do not get double education
+// todo: set the education flag on the hero so they do not get double education
         $educationTable = new TableEducation($this->engine);
 
         // All skill bonuses apply only to skill programs, not Secondary skills.
@@ -139,12 +139,12 @@ class Mutants extends BaseClass
                     $skills = $skillPrograms->skillsForProgram(SkillPrograms::WEAPON_PROFICIENCIES, $hero);
                     break;
 
-                case 'allHighSchoolSkills':
+                case 'highSchoolSkills':
                     $skills = $skillPrograms->skillsForProgram(SkillPrograms::HIGH_SCHOOL, $hero);
                     break;
 
                 case 'collegeSkills':
-                    $skills = $skillPrograms->skillsForProgram(SkillPrograms::COLLEGE, $hero);
+                    $skills = $skillPrograms->skillsForProgram(SkillPrograms::ALL_SKILLS, $hero);
                     break;
 
                 case 'bonusHighSchoolCollegeSkills':
@@ -180,7 +180,6 @@ class Mutants extends BaseClass
     {
         list($this->cause, $education) = $this->engine->tableRoller->rollTable('Mutant Animal: Cause', [
             new TableEntry(14, ['Random Mutation: The animal just happened to come out like that.', 'wild']),
-            new TableEntry(60, ['Accidental Encounter: Some \'strange stuff\' (radiation, energy, chemicals, biological, or other strangeness) causes the animals to mutate.', 'wild']),
             new TableEntry(60, ['Accidental Encounter: Some \'strange stuff\' (radiation, energy, chemicals, biological, or other strangeness) causes the animals to mutate.', 'wild']),
             new TableEntry(100, ['Deliberate Experimentation: Some kind of laboratory experiment is performed on the animal that causes the changes. The animal\'s structure or genetics were purposely altered for some purpose.', 'experiment']),
         ]);
@@ -246,7 +245,7 @@ class Mutants extends BaseClass
                     ]
                 ]]),
 
-                new TableEntry(80, ['Highly trained as a specialist using the character\'s natural abilities. Character distrusts most humans. Hunted by law enforcement agencies and the organization. The character was treated as a slave and eventually escaped.', [
+                new TableEntry(90, ['Highly trained as a specialist using the character\'s natural abilities. Character distrusts most humans. Hunted by law enforcement agencies and the organization. The character was treated as a slave and eventually escaped.', [
                     'skillPrograms' => 3,
                     'secondarySkills' => 14,
                     'skillBonus' => 15,
@@ -296,7 +295,7 @@ class Mutants extends BaseClass
                 new TableEntry(40, [
                     'By skulking around the fringes of society the character picks up a rudimentary education. The character probably has a small number of human friends, but distrusts people in general.',
                     [
-                        'allHighSchoolSkills' => true,
+                        'highSchoolSkills' => true,
                         'secondarySkills' => 12,
                         'bonuses' => [
                             new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_PROWL, 12, 'Mutant Animal: Wild Education - rudimentary'),

@@ -121,8 +121,14 @@ class TableEducation
      */
     public function pickSecondarySkills($numberSkills, Hero &$hero, $category = false, $skillBonus = 0)
     {
+        $skills = false;
         if ($category) {
             switch ($category) {
+                case SkillPrograms::COLLEGE:
+                case SkillPrograms::HIGH_SCHOOL:
+                    // not sure what "college" and "high school" skills are, so just grab all.
+                    $this->pickSecondarySkills($numberSkills, $hero, false, $skillBonus);
+                    break;
                 case SkillPrograms::COMPUTER:
                     $skills = [BonusTargets::SKILL_COMPUTER_OPERATION,];
                     break;
@@ -285,9 +291,11 @@ class TableEducation
             ];
         }
 
-        $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, $skillBonus, $skills, false);
-        foreach ($skills as $skill) {
-            $hero->addSkill($skill, 'Secondary Skill');
+        if ($skills) {
+            $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, $skillBonus, $skills, false);
+            foreach ($skills as $skill) {
+                $hero->addSkill($skill, 'Secondary Skill');
+            }
         }
     }
 

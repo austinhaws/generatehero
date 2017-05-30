@@ -31,6 +31,9 @@ class SkillPrograms
     const PILOT_RELATED_SKILLS = 'Pilot Related Skills';
     const WP_ENERGY_WEAPONS = 'WP Energy Weapons';
     const WEAPON_PROFICIENCIES = 'Weapon Proficiencies';
+    const COLLEGE = "College";
+    const HIGH_SCHOOL = "High School";
+    const ALL_SKILLS = "All Skills";
 
     private $engine;
 
@@ -190,6 +193,23 @@ class SkillPrograms
                     $this->skillsForProgram(SkillPrograms::WP_ENERGY_WEAPONS, $hero),
                     $this->skillsForProgram(SkillPrograms::WP_MODERN_WEAPONS, $hero)
                 );
+                break;
+
+            case SkillPrograms::HIGH_SCHOOL:
+                $skills = array_merge(
+                    $this->skillsForProgram(SkillPrograms::COMPUTER, $hero),
+                    $this->skillsForProgram(SkillPrograms::DOMESTIC, $hero),
+                    $this->skillsForProgram(SkillPrograms::PHYSICAL, $hero),
+                    $this->skillsForProgram(SkillPrograms::LANGUAGE, $hero),
+                    $this->skillsForProgram(SkillPrograms::TECHNICAL, $hero),
+                    $this->skillsForProgram(SkillPrograms::WP_ANCIENT_WEAPONS, $hero)
+                );
+                break;
+
+            case SkillPrograms::COLLEGE:
+                // what are "college" skills? just get all
+            case SkillPrograms::ALL_SKILLS:
+                $skills = BonusTargets::allSkills(false);
                 break;
 
             default:
