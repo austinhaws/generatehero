@@ -1,4 +1,5 @@
 <?php
+
 namespace Heroes\hero\classes;
 
 use Heroes\engine\Roll;
@@ -10,6 +11,8 @@ use Heroes\hero\Hero;
 use Heroes\tables\superabilities\TablePsionics;
 use Heroes\tables\superabilities\TableSuperAbilities;
 use Heroes\tables\TableEducation;
+use Heroes\tables\TableMutantAnimals;
+use Heroes\tables\TableMutantBioE;
 
 class Mutants extends BaseClass
 {
@@ -26,6 +29,14 @@ class Mutants extends BaseClass
     public $organizationRelationship;
     // what makes me weird
     public $characteristics;
+
+    // animal mutants have speech/biped/hands/weapons/powers/etc categories defining the type of hero
+    // category ratings - cost: 0 pt = mostly animal, 5 pt = between both, 10 pt = mostly human (things like hands/biped/etc)
+    public $animalFeatures = false;
+    // animal mutants can also have psionics which don't use ISP points
+    public $animalPsionics = false;
+    // animal mutants have a size defining how big they are
+    public $animalSize = false;
 
     public function postCreate(Hero &$hero)
     {
@@ -66,6 +77,119 @@ class Mutants extends BaseClass
         ]);
     }
 
+    private function animalMutantKeepFeatures($features)
+    {
+        $keptFeatures = [];
+        foreach ($features as $kind => $buyables) {
+            switch ($kind) {
+                case TableMutantAnimals::POWER_CATEGORY_POWERS:
+                    $keptFeatures[$kind] = [];
+                    // if category is POWER then for each option, randomly determine if it is bought
+                    foreach ($buyables as $buyable) {
+                        // 50% chance of selecting
+                        if ($this->engine->roller->rollDice(new Roll('Mutant Animal - Pick Power', 1, 2)) === 1) {
+                            $keptFeatures[$kind][] = $buyable;
+                        }
+                    }
+                    break;
+
+                case TableMutantAnimals::POWER_CATEGORY_NATURAL_WEAPONS:
+                    // if category is natural weapons then have an option to choose 'none'
+                    $idx = $this->engine->roller->rollDice(new Roll('Mutant Animal - Natural Weapons', 1, count($buyables) + 1, 1, false, -2));
+                    if ($idx >= 0) {
+                        $keptFeatures[$kind] = [$buyables[$idx]];
+                    }
+                    break;
+
+                default:
+                    // randomly choose one of the options
+                    if (!count($buyables)) {
+                        throw new \Exception('Buyables have no options!');
+                    }
+                    $roll = new Roll('Mutant Animal Feature', 1, count($buyables), 1, false, -1);
+                    $optionIdx = $this->engine->roller->rollDice($roll);
+                    if ($optionIdx >= count($buyables)) {
+                        $count = count($buyables);
+                        throw new \Exception("$optionIdx is larger than $count - {$roll->toString()}");
+                    }
+                    $feature = $buyables[$optionIdx];
+                    $keptFeatures[$kind] = [$feature];
+                    break;
+            }
+        }
+        return $keptFeatures;
+    }
+
+    private function animalMutantPickPsionics()
+    {
+        $tableMutantBioE = new TableMutantBioE($this->engine);
+        // randomly maybe get psionics
+        $numberPsionics = $this->engine->tableRoller->rollTable('Mutant Animal Number Psionics', [
+            new TableEntry(50, 0),
+            new TableEntry(75, 1),
+            new TableEntry(80, 2),
+            new TableEntry(81, 3),
+        ]);
+        $psionicsResults = [];
+        if ($numberPsionics) {
+            $psionicsResults = $tableMutantBioE->psionicsList();
+            $this->engine->arrayTools->shuffle($psionicsResults);
+            array_splice($psionicsResults, 0, $numberPsionics);
+        }
+        return $psionicsResults;
+    }
+
+    private function isBioESpendingOk(MutantAnimal $animal, $keptFeatures, $psionics)
+    {
+        $spentBioE = 0;
+        foreach ($keptFeatures as $type => $features) {
+            foreach ($features as $feature) {
+                $spentBioE += $feature->cost;
+            }
+        }
+
+        foreach ($psionics as $psionic) {
+            $spentBioE += $psionic->cost;
+        }
+
+        // can reduce down to size 1 (5 BioE each step)
+        // animals have a starting BIO-E stipend
+        // add up spent bioe and as long as can reduce in size to spend that much then allow it
+        return ($animal->initialSize - 1) * 5 + $animal->startingBioE - $spentBioE >= 0;
+    }
+
+    private function applyAnimalMutant(Hero &$hero, MutantAnimal $animal, $keptFeatures, $psionics)
+    {
+        // apply animal bonuses
+        $hero->addBonus($animal->bonuses);
+
+        // apply features
+        $bioE = $animal->startingBioE;
+        $this->animalFeatures = $keptFeatures;
+        foreach ($keptFeatures as $features) {
+            foreach ($features as $feature) {
+                $hero->addBonus($feature->bonuses);
+                $bioE -= $feature->cost;
+            }
+        }
+
+        $this->animalPsionics = count($psionics) ? $psionics : false;
+        foreach ($psionics as $psionic) {
+            $bioE -= $psionic->cost;
+        }
+
+        // increase size if there are points remaining
+        // decrease size if there are not enough points remaining
+        // each step costs 5 points
+        if ($bioE > 0) {
+            // for every 5 points left over, can increase in size
+            $this->animalSize = $animal->initialSize + floor($bioE / 5);
+        } else if ($bioE < 0) {
+            // if even -1 bioE then need to drop a size
+            $this->animalSize = $animal->initialSize + ceil($bioE / 5);
+        }
+    }
+
     private function createAnimalMutant(Hero &$hero)
     {
         $hero->SDCCalculated = true;
@@ -76,13 +200,22 @@ class Mutants extends BaseClass
         // includes education
         $this->organization = $this->organizationAnimalMutant();
 
-        // do the BIO-E hard work
-//        $this->generateAnimalMutant();
+        $tableMutantAnimals = new TableMutantAnimals($this->engine);
+        do {
+            // do the BIO-E hard work
+            // - what type of animal
+            $animal = $tableMutantAnimals->pickAnimal();
+
+            $keptFeatures = $this->animalMutantKeepFeatures($animal->buyableFeatures);
+
+            $psionics = $this->animalMutantPickPsionics();
+        } while (!$this->isBioESpendingOk($animal, $keptFeatures, $psionics));
+
+        $this->applyAnimalMutant($hero, $animal, $keptFeatures, $psionics);
     }
 
     private function applyMutantAnimalDetails(Hero &$hero, $details)
     {
-// todo: set the education flag on the hero so they do not get double education
         $educationTable = new TableEducation($this->engine);
 
         // All skill bonuses apply only to skill programs, not Secondary skills.
@@ -104,6 +237,7 @@ class Mutants extends BaseClass
 
         $numHighSchoolSkills = isset($details['highSchoolSkills']) ? $details['highSchoolSkills'] : false;
         if ($numHighSchoolSkills) {
+            $hero->educationLevel = TableEducation::MUTANT_WILD_ANIMAL;
             $educationTable->pickSecondarySkills($numHighSchoolSkills, $hero, SkillPrograms::HIGH_SCHOOL, $bonusHighSchoolCollegeSkills);
         }
 
@@ -172,6 +306,7 @@ class Mutants extends BaseClass
                 }
 
                 $skillPrograms->addSkills($hero, $skills, 0, 'Mutant Animal Education');
+                $hero->educationLevel = TableEducation::MUTANT_WILD_ANIMAL;
             }
         }
     }

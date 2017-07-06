@@ -88,7 +88,7 @@ class Hardware extends BaseClass
            new TableEntry(89, 21000),
            new TableEntry(100, 24000),
         ]);
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, '$' . $equipmentBudget . ' available to spend on electrical equipment and supplies.', 'Hardware: Electrical'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, '$' . $this->equipmentBudget . ' available to spend on electrical equipment and supplies.', 'Hardware: Electrical'));
 
         $this->workshopBudget = $this->engine->roller->rollDice(new Roll('Hardware: Electrical - Workshop Budget', 2, 4, 10000));
 

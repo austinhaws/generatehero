@@ -1,4 +1,5 @@
 <?php
+
 namespace Heroes\engine;
 
 class ArrayTools
@@ -12,11 +13,14 @@ class ArrayTools
 
     /**
      * unit tests will want to control shuffling so putting this as an object so that it can be overridden
+     *
      * @param $array array the array to shuffle
+     * @return array for chaining
      */
     public function shuffle(&$array)
     {
         shuffle($array);
+        return $array;
     }
 
     /**

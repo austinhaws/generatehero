@@ -8,16 +8,10 @@ use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\hero\Psionic;
+use Heroes\tables\TableBase;
 
-class TablePsionics
+class TablePsionics extends TableBase
 {
-    private $engine;
-
-    function __construct(Engine $engine)
-    {
-        $this->engine = $engine;
-    }
-
     /**
      * add some psionics to a hero
      *

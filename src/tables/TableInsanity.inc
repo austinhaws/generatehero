@@ -7,7 +7,7 @@ use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 use Heroes\hero\insanity\Insanity;
 
-class TableInsanity
+class TableInsanity extends TableBase
 {
     // for rollInsanity
     const NEUROSIS = 'Neurosis';
@@ -19,13 +19,6 @@ class TableInsanity
     // for addInsanity
     const ALCOHOLISM = 'Alcoholism';
     const DRUGS = 'Drugs';
-
-    private $engine;
-
-    function __construct(Engine $engine)
-    {
-        $this->engine = $engine;
-    }
 
     /**
      * add a specific insanity type to a character

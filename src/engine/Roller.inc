@@ -11,10 +11,13 @@ class Roller
      */
     public function rollDice(Roll $roll)
     {
-        $result = 0;
+        // !!!! if you change this then you may need to change TestRoller->rollDice() too !!!! //
+        $roll->result = 0;
         for ($x = 0; $x < $roll->numberDice; $x++) {
-            $result += mt_rand(1, $roll->numberSides);
+            $roll->result += mt_rand(1, $roll->numberSides);
         }
-        return $roll->result = $result * $roll->multiplier;
+        $roll->result *= $roll->multiplier;
+        $roll->result += $roll->adder;
+        return $roll->result;
     }
 }

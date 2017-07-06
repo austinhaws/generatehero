@@ -28,6 +28,9 @@ class Bionics extends BaseClass
 
     function create(Hero &$hero)
     {
+        // setup default bionic body tracker
+        $this->bionicBody = array_fill_keys(BionicLocation::ALL_LOCATIONS(), false);
+
         // all bionics have SDC of 30
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Bionic Base SDC'));
 
@@ -46,7 +49,6 @@ class Bionics extends BaseClass
 
         // step 6 : money - starting wealth (not applied to bionics buying)
         $this->rollMoney($hero);
-
     }
 
     private function backgroundInformation()

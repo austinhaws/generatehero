@@ -15,16 +15,20 @@ class Roll
     // how much to times the result roll by
     public $multiplier;
 
+    // how much to add to the result of this roll
+    public $adder;
+
     // what was the result of the roll?
     public $result;
 
-    function __construct($name, $numberDice, $numberSides, $multiplier = 1, $result = false)
+    function __construct($name, $numberDice, $numberSides, $multiplier = 1, $result = false, $adder = 0)
     {
         $this->name = $name;
         $this->numberSides = $numberSides;
         $this->numberDice = $numberDice;
         $this->multiplier = $multiplier;
         $this->result = $result;
+        $this->adder = $adder;
     }
 
     /**
@@ -32,7 +36,7 @@ class Roll
      */
     function toString()
     {
-        return $this->name . ': ' . $this->numberDice . 'D' . $this->numberSides . ' X ' . $this->multiplier . ' = ' . $this->result;
+        return $this->name . ': ' . $this->numberDice . 'D' . $this->numberSides . ' X ' . $this->multiplier . ' + ' . $this->adder . ' = ' . $this->result;
     }
 
     /**
@@ -45,6 +49,7 @@ class Roll
             $this->numberDice,
             $this->numberSides,
             $this->multiplier,
+            $this->adder,
             $this->result,
         ]);
     }

@@ -2,23 +2,16 @@
 
 namespace Heroes\tables\superabilities;
 
-use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\Ability;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
+use Heroes\tables\TableBase;
 
-class TableSuperAbilities
+class TableSuperAbilities extends TableBase
 {
-    private $engine;
-
-    function __construct(Engine $engine)
-    {
-        $this->engine = $engine;
-    }
-
     /**
      * if numberMajors and numberMinors are 0 then it randomly determines how many major/minors
      *

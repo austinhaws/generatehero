@@ -8,7 +8,7 @@ use Heroes\enums\SkillPrograms;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 
-class TableEducation
+class TableEducation extends TableBase
 {
     const HIGH_SCHOOL_GRADUATE = 'High School Graduate';
     const MILITARY = 'Military';
@@ -22,14 +22,6 @@ class TableEducation
     const MASTER_DEGREE = 'Master\'s Degree (College)';
     const DOCTORATE_DEGREE = 'Doctorate or PhD (College)';
     const MUTANT_WILD_ANIMAL = 'Mutant Wild Animal';
-
-
-    private $engine;
-
-    function __construct(Engine $engine)
-    {
-        $this->engine = $engine;
-    }
 
     /**
      * add skill program(s) to hero;

@@ -4,7 +4,7 @@ namespace Heroes\tables;
 
 use Heroes\hero\Spell;
 
-class TableSpells
+class TableSpells extends TableBase
 {
     static public function allSpells()
     {

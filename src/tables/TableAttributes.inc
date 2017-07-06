@@ -12,18 +12,10 @@ use Heroes\hero\Hero;
  * apply attribute bonuses
  * "Attribute Bonus Chart" pg 4
  */
-class TableAttributes
+class TableAttributes extends TableBase
 {
-    // the generator engine
-    private $engine;
-
     // at what point do you start getting extra bonuses
     private $bonusesBegin = 17;
-
-    function __construct(Engine $engine)
-    {
-        $this->engine = $engine;
-    }
 
     /**
      * skills must have run before this

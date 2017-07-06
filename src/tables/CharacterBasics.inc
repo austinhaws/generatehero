@@ -3,17 +3,9 @@ namespace Heroes\tables;
 
 use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
-use Heroes\engine\Engine;
 
-class CharacterBasics
+class CharacterBasics extends TableBase
 {
-    private $engine;
-
-    function __construct(Engine $engine)
-    {
-        $this->engine = $engine;
-    }
-
     /**
      * basics from page 18
      *
@@ -47,23 +39,27 @@ class CharacterBasics
 
     private function weight(Hero &$hero)
     {
-        $hero->weight = $this->engine->tableRoller->rollTable('weight', [
-            new TableEntry(10, 'Skinny'),
-            new TableEntry(30, 'Thin'),
-            new TableEntry(55, 'Average'),
-            new TableEntry(74, 'Husky'),
-            new TableEntry(89, 'Pot-Belly'),
-            new TableEntry(100, 'Obese'),
-        ]);
+        if ($hero->weight === false) {
+            $hero->weight = $this->engine->tableRoller->rollTable('weight', [
+                new TableEntry(10, 'Skinny'),
+                new TableEntry(30, 'Thin'),
+                new TableEntry(55, 'Average'),
+                new TableEntry(74, 'Husky'),
+                new TableEntry(89, 'Pot-Belly'),
+                new TableEntry(100, 'Obese'),
+            ]);
+        }
     }
 
     private function height(Hero &$hero)
     {
-        $hero->height = $this->engine->tableRoller->rollTable('height', [
-            new TableEntry(30, 'Short'),
-            new TableEntry(70, 'Average'),
-            new TableEntry(100, 'Tall'),
-        ]);
+        if ($hero->height === false) {
+            $hero->height = $this->engine->tableRoller->rollTable('height', [
+                new TableEntry(30, 'Short'),
+                new TableEntry(70, 'Average'),
+                new TableEntry(100, 'Tall'),
+            ]);
+        }
     }
 
     private function disposition(Hero &$hero)

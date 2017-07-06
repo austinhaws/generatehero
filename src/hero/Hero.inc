@@ -84,6 +84,14 @@ class Hero
     public $age;
 
 
+    public function __construct()
+    {
+        // if not false, then it's already set, so don't recalculate it (mutants set height/weight outside of normal setting rules)
+        $this->weight = false;
+        $this->height = false;
+    }
+
+
     /**
      * add a bonus to the character; it will be applied later after all bonuses gathered
      *
@@ -91,11 +99,13 @@ class Hero
      */
     public function addBonus($bonus)
     {
-        if (!is_array($bonus)) {
-            $bonus = [$bonus];
-        }
-        foreach ($bonus as $b) {
-            $this->bonuses[] = $b;
+        if ($bonus) {
+            if (!is_array($bonus)) {
+                $bonus = [$bonus];
+            }
+            foreach ($bonus as $b) {
+                $this->bonuses[] = $b;
+            }
         }
     }
 
