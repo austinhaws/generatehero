@@ -134,7 +134,7 @@ class Mutants extends BaseClass
         if ($numberPsionics) {
             $psionicsResults = $tableMutantBioE->psionicsList();
             $this->engine->arrayTools->shuffle($psionicsResults);
-            array_splice($psionicsResults, 0, $numberPsionics);
+            array_splice($psionicsResults, $numberPsionics);
         }
         return $psionicsResults;
     }
@@ -142,7 +142,7 @@ class Mutants extends BaseClass
     private function isBioESpendingOk(MutantAnimal $animal, $keptFeatures, $psionics)
     {
         $spentBioE = 0;
-        foreach ($keptFeatures as $type => $features) {
+        foreach ($keptFeatures as $features) {
             foreach ($features as $feature) {
                 $spentBioE += $feature->cost;
             }
@@ -151,7 +151,6 @@ class Mutants extends BaseClass
         foreach ($psionics as $psionic) {
             $spentBioE += $psionic->cost;
         }
-
         // can reduce down to size 1 (5 BioE each step)
         // animals have a starting BIO-E stipend
         // add up spent bioe and as long as can reduce in size to spend that much then allow it
@@ -208,10 +207,10 @@ class Mutants extends BaseClass
 
             $keptFeatures = $this->animalMutantKeepFeatures($animal->buyableFeatures);
 
-            $psionics = $this->animalMutantPickPsionics();
-        } while (!$this->isBioESpendingOk($animal, $keptFeatures, $psionics));
+            $possiblePsionics = $this->animalMutantPickPsionics();
+        } while (!$this->isBioESpendingOk($animal, $keptFeatures, $possiblePsionics));
 
-        $this->applyAnimalMutant($hero, $animal, $keptFeatures, $psionics);
+        $this->applyAnimalMutant($hero, $animal, $keptFeatures, $possiblePsionics);
     }
 
     private function applyMutantAnimalDetails(Hero &$hero, $details)

@@ -76,7 +76,7 @@ abstract class BaseTestRunner extends \PHPUnit_Framework_TestCase
      *
      * @param array $rolls array of rolls to use for this iteration of testing
      * @param int $i which iteration to use
-     * @param array $subRolls array of array of test rolls; each sub array is a group of rolls for an interation
+     * @param array $subRolls array of array of test rolls; each sub array is a group of rolls for an iteration
      * @return bool ended flag
      */
     protected function iterationSubRolls(&$rolls, $i, $subRolls)

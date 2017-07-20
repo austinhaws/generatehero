@@ -41,7 +41,7 @@ class TestRoller extends Roller
      */
     private function getRoll($name, $numberSides) {
         if (!count($this->testRolls)) {
-            throw new \Exception("out of rolls for ($name): ${numberSides}");
+            throw new \Exception("out of rolls: ($name); sides: ${numberSides}");
         }
 
         $roll = array_shift($this->testRolls);
@@ -108,7 +108,7 @@ class TestRoller extends Roller
     public function verifyTestRolls($showRolls = false) {
         $count = count($this->testRolls);
         if ($count && ($count != 1 || !$this->testRolls[0]->dontCareUntil)) {
-            throw new \Exception("Only used {$this->rollIndex} rolls and there are unused test rolls");
+            throw new \Exception("Only used {$this->rollIndex} rolls and there are $count unused test rolls");
         }
 
         if ($showRolls) {
