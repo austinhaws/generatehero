@@ -7,6 +7,7 @@ use Heroes\enums\BonusTargets;
 use Heroes\enums\SkillPrograms;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
+use Heroes\tables\superabilities\EducationOptions;
 
 class TableEducation extends TableBase
 {
@@ -29,8 +30,10 @@ class TableEducation extends TableBase
      * @param $percentBonus int how much of a bonus to give all skills selected for this program
      * @param $numberPrograms int how many to choose
      * @param $hero Hero here he is to save the day
+     * @param null $disallowedPrograms which programs to now allow
+     * @param null $disallowSkills which skills to not allow
      */
-    public function pickPrograms($percentBonus, $numberPrograms, Hero &$hero)
+    public function pickPrograms($percentBonus, $numberPrograms, Hero &$hero, $disallowedPrograms = null, $disallowSkills = null)
     {
         if ($hero->educationLevel == TableEducation::HIGH_SCHOOL_GRADUATE) {
             $programs = [
@@ -95,7 +98,8 @@ class TableEducation extends TableBase
         $numberPicked = 0;
         while (count($programs) && $numberPicked < $numberPrograms) {
             $program = array_pop($programs);
-            if (!in_array($program, $hero->educationProgramsPicked)) {
+            if (!in_array($program, $hero->educationProgramsPicked)
+                && (!$disallowedPrograms || false === array_search($program, $disallowedPrograms))) {
                 $this->engine->skillPrograms->addSkillsForProgram($program, $percentBonus, $hero);
                 $numberPicked++;
                 $hero->educationProgramsPicked[] = $program;
@@ -109,9 +113,10 @@ class TableEducation extends TableBase
      * @param Hero $hero
      * @param string|bool $category limit to a specific category or falsey to allow any category
      * @param int $skillBonus bonus to give to picked skills
+     * @param null $disallowSkills what skills that can't be picked
      * @throws \Exception unknown category
      */
-    public function pickSecondarySkills($numberSkills, Hero &$hero, $category = false, $skillBonus = 0)
+    public function pickSecondarySkills($numberSkills, Hero &$hero, $category = false, $skillBonus = 0, $disallowSkills = null)
     {
         $skills = false;
         if ($category) {
@@ -284,7 +289,7 @@ class TableEducation extends TableBase
         }
 
         if ($skills) {
-            $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, $skillBonus, $skills, false);
+            $skills = $this->engine->skillPrograms->selectSkills($numberSkills, $hero, $skillBonus, $skills, $disallowSkills);
             foreach ($skills as $skill) {
                 $hero->addSkill($skill, 'Secondary Skill');
             }
@@ -294,9 +299,10 @@ class TableEducation extends TableBase
     /**
      * @param Hero $hero roll for and add education level (pg 27)
      * @param int $skillProgramModifier some classes remove a skill program because the class adds back in skills
+     * @param EducationOptions|null $educationOptions modifiers for the education generation
      * @throws \Exception if hero's education level is invalid
      */
-    public function rollEducationLevel(Hero &$hero, $skillProgramModifier = 0)
+    public function rollEducationLevel(Hero &$hero, $skillProgramModifier = 0, EducationOptions $educationOptions = null)
     {
         $hero->educationLevel = $this->engine->tableRoller->rollTable('Education Level', [
             new TableEntry(9, TableEducation::HIGH_SCHOOL_GRADUATE),
@@ -399,13 +405,18 @@ class TableEducation extends TableBase
                 throw new \Exception("Unknown education level: {$hero->educationLevel}");
         }
 
+        // modify # of skill programs
+        if ($educationOptions) {
+            $skillPrograms = max(0, $skillPrograms + $educationOptions->numberProgramsModifer);
+        }
+
         $skillPrograms -= $skillProgramModifier;
         if ($skillPrograms > 0) {
-            $this->pickPrograms($skillProgramBonus, $skillPrograms, $hero);
+            $this->pickPrograms($skillProgramBonus, $skillPrograms, $hero, $educationOptions ? $educationOptions->disallowedPrograms : null);
         }
 
         if ($secondarySkills > 0) {
-            $this->pickSecondarySkills($secondarySkills, $hero);
+            $this->pickSecondarySkills($secondarySkills, $hero, false, 0, $educationOptions ? $educationOptions->disallowedSkills : null);
         }
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Education Level: ' . $hero->educationLevel, 'Education'));

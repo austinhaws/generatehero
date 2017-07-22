@@ -114,10 +114,11 @@ class Hero
      *
      * @param string $skill the string name of the skill to add BonusTargets::SKILL_... constants
      * @param string $reason why the skill is being added
+     * @param int $skillBonus what bonus to give the skill
      */
-    public function addSkill($skill, $reason)
+    public function addSkill($skill, $reason, $skillBonus = 0)
     {
-        $this->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, $reason));
+        $this->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, $skillBonus, $reason));
     }
 
 

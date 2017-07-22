@@ -120,7 +120,7 @@ class Magic extends BaseClass
 
 
         // select one physical skill (excluding boxing, wrestling and gymnastics)
-        $skills = TableEducation::skills_physical();
+        $skills = BonusTargets::physicalSkills(false);
         TableEducation::excludeSkills($skills, [BonusTargets::SKILL_BOXING, BonusTargets::SKILL_WRESTLING, BonusTargets::SKILL_GYMNASTICS]);
 
         $this->engine->arrayTools->shuffle($skills);
@@ -130,7 +130,7 @@ class Magic extends BaseClass
     private function physicalLimitation_oldAge(Hero &$hero) {
         $hero->age = 50 + $this->engine->roller->rollDice(new Roll('Magic: Bestowed - Old Age - Age', 4, 6));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Old age has robbed the strength of youth until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power. PS, PP, and PE must be 12 or lower while elderly.', 'Magic: Bestowed - Old Age'));
-        $skills = TableEducation::skills_physical();
+        $skills = BonusTargets::physicalSkills(false);
         $this->engine->arrayTools->shuffle($skills);
         for ($x = 0; $x < 2; $x++) {
             $hero->addSkill(array_pop($skills), 'Magic: Bestowed - Old Age');
@@ -141,7 +141,7 @@ class Magic extends BaseClass
         $hero->age = 10 + $this->engine->roller->rollDice(new Roll('Magic: Bestowed - Kid - Age', 1, 6));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Kid: Still young and physically immature, even if a teenager until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power. No physical attribute can be over 14 while a Kid.', 'Magic: Bestowed - Kid'));
 
-        $skills = TableEducation::skills_physical();
+        $skills = BonusTargets::physicalSkills(false);
         TableEducation::excludeSkills($skills, [BonusTargets::SKILL_BOXING, BonusTargets::SKILL_WRESTLING]);
         for ($x = 0; $x < 2; $x++) {
             $hero->addSkill(array_pop($skills), 'Magic: Bestowed - Kid');
