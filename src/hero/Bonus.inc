@@ -27,16 +27,16 @@ class Bonus {
     const BONUS_TYPE_MULTIPLY = 'multiply';
 
 
-    // use BONUS_TYPE constants
+    /** @var string use BONUS_TYPE constants */
     public $bonusType;
 
-    // what attribute/skill/etc is being targeted for the bonus? use BonusTargets enum
+    /** @var string what attribute/skill/etc is being targeted for the bonus? use BonusTargets enum */
     public $bonusTarget;
 
-    // the value of the bonus; can be a number or a Roll; use getValue() to get the value no matter if roll or not
+    /** @var array|Roll|int the value of the bonus; can be a number or a Roll; use getValue() to get the value no matter if roll or not */
     public $value;
 
-    // why are they getting this bonus?
+    /** @var string why are they getting this bonus? */
     public $explanation;
 
     /**

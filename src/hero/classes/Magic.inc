@@ -6,31 +6,39 @@ use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
+use Heroes\hero\Spell;
 use Heroes\tables\superabilities\TableSuperAbilities;
 use Heroes\tables\TableEducation;
 use Heroes\tables\TableSpells;
 
 class Magic extends BaseClass
 {
-
-    // what type of magician are you?
+    /** @var string what type of magician are you? */
     public $magicType;
 
     // == Enchanted Weapon == //
+    /** @var string roll for damage (2d6, 3d6, ...) */
     public $enchantedWeaponDamage;
+    /** @var string type of damage */
     public $enchantedWeaponType;
 
     // == Enchanted Object == //
     // array of spells that the enchanted object provides
+    /** @var Spell[] what spells the object has available */
     public $objectSpells;
+    /** @var int level of the spells in the object */
     public $objectSpellLevel;
+    /** @var int spells available per day */
     public $objectSpellsPerDay;
 
     // == Mystic == //
+    /** @var int spells available per day */
     public $spellsPerDay;
+    /** @var int spells known */
     public $spellsKnown;
 
     // == Bestowed == //
+    /** @var string what limitation does the character have before abilities kick in? */
     public $physicalLimitation;
 
     /**
@@ -125,6 +133,7 @@ class Magic extends BaseClass
 
         $this->engine->arrayTools->shuffle($skills);
         $hero->addSkill(array_pop($skills), 'Magic: Bestowed - Incapacitated');
+        $this->physicalLimitation = 'Incapacitated';
     }
 
     private function physicalLimitation_oldAge(Hero &$hero) {
@@ -135,6 +144,7 @@ class Magic extends BaseClass
         for ($x = 0; $x < 2; $x++) {
             $hero->addSkill(array_pop($skills), 'Magic: Bestowed - Old Age');
         }
+        $this->physicalLimitation = 'Old Age';
     }
 
     private function physicalLimitation_kid(Hero &$hero) {
@@ -146,14 +156,17 @@ class Magic extends BaseClass
         for ($x = 0; $x < 2; $x++) {
             $hero->addSkill(array_pop($skills), 'Magic: Bestowed - Kid');
         }
+        $this->physicalLimitation = 'Kid';
     }
 
     private function physicalLimitation_wimp(Hero &$hero) {
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Wimp of any age until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power. Physical attributes must all be 10 or less while a wimp.', 'Magic: Bestowed - Wimp'));
+        $this->physicalLimitation = 'Wimp';
     }
 
     private function physicalLimitation_invalid(Hero &$hero) {
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Invalid: This person can not walk and is confined to a wheelchair until he/she calls upon the power within instantly transforming the person into a mighty, costumed visage of power. PE, PS, and PP are limited to a maximum of 18 and speed is 0 while an invalid.', 'Magic: Bestowed - Invalid'));
+        $this->physicalLimitation = 'Invalid';
     }
 
     private function studyMagician(Hero &$hero)

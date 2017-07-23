@@ -3,22 +3,22 @@ namespace Heroes\engine;
 
 class Roll
 {
-    // for testing and debugging, what is the name of this roll?
+    /** @var string for testing and debugging, what is the name of this roll? */
     public $name;
 
-    // how many sides on each dice
+    /** @var int how many sides on each dice */
     public $numberSides;
 
-    // how many dice
+    /** @var  int how many dice */
     public $numberDice;
 
-    // how much to times the result roll by
+    /** @var int how much to times the result roll by */
     public $multiplier;
 
-    // how much to add to the result of this roll
+    /** @var int how much to add to the result of this roll */
     public $adder;
 
-    // what was the result of the roll?
+    /** @var bool|int what was the result of the roll? (false for the roll not yet being rolled) */
     public $result;
 
     function __construct($name, $numberDice, $numberSides, $multiplier = 1, $result = false, $adder = 0)

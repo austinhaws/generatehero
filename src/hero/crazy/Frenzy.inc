@@ -6,6 +6,7 @@ use Heroes\hero\Hero;
 
 class Frenzy extends BaseCrazy
 {
+    /** @var string what triggers the frenzy */
     public $condition;
 
     function create(Hero &$hero)

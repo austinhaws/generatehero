@@ -14,6 +14,7 @@ use Heroes\tables\TableEducation;
 
 class HeroGenerator
 {
+    /** @var Engine drive me */
     public $engine;
 
     /**

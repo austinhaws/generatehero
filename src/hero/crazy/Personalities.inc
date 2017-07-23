@@ -7,7 +7,9 @@ use Heroes\hero\Hero;
 
 class Personality
 {
+    /** @var string alignment of the personality */
     public $alignment;
+    /** @var string what is quirky about this personality */
     public $quirk;
 }
 

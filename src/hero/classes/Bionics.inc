@@ -9,21 +9,19 @@ use Heroes\hero\Hero;
 
 class Bionics extends BaseClass
 {
-    // how much money the bionic had to spend on bionics
+    /** @var int how much money the bionic had to spend on bionics */
     public $startingBudget;
+    /** @var int how much is left to spend */
     public $budgetRemaining;
-
-    // why was the character considered for bionic modification?
+    /** @var string why was the character considered for bionic modification? */
     public $conditions;
-
+    /** @var string who is paying for this? */
     public $sponsor;
-
+    /** @var string how does the sponsor feel about the bionic? */
     public $sponsorStatus;
-
-    // array of Bionic class
     /** @var Bionic[] bionics */
     public $bionics;
-    // map of string (BionicLocation::enum) => bool; true means the location is bionic
+    /** @var array map of string (BionicLocation::enum) => bool; true means the location is bionic */
     public $bionicBody;
 
     function create(Hero &$hero)

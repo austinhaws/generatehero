@@ -14,7 +14,7 @@ use Heroes\hero\Hero;
  */
 class TableAttributes extends TableBase
 {
-    // at what point do you start getting extra bonuses
+    /** @var int at what point do you start getting extra bonuses */
     private $bonusesBegin = 17;
 
     /**

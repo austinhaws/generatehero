@@ -16,24 +16,30 @@ use Heroes\tables\TableMutantBioE;
 
 class Mutants extends BaseClass
 {
+    /** @var bool|MutantAnimalPsionic[] false if doesn't have psionics otherwise list of powers*/
     // has psionics?
     public $psionics;
-    // how many isp points does I have?
+    /** @var int how many isp points does I have? */
     public $isp;
 
-    // cause of mutation
+    /** @var string cause of mutation */
     public $cause;
+    /** @var string education description */
     public $wildEducationDescription;
-    // organization sponsoring the mutation
+    /** @var string organization sponsoring the mutation */
     public $organization;
+    /** @var string how the organization feels about the mutant */
     public $organizationRelationship;
     // what makes me weird
+    /** @var   */
     public $characteristics;
 
     // animal mutants have speech/biped/hands/weapons/powers/etc categories defining the type of hero
     // category ratings - cost: 0 pt = mostly animal, 5 pt = between both, 10 pt = mostly human (things like hands/biped/etc)
+    /** @var bool what features the mutant kept - body parts */
     public $animalFeatures = false;
     // animal mutants can also have psionics which don't use ISP points
+    /** @var bool|array false if no psionics, an array of psionics if have them */
     public $animalPsionics = false;
     // animal mutants have a size defining how big they are
     public $animalSize = false;
@@ -478,7 +484,7 @@ class Mutants extends BaseClass
         $this->causeHumanMutant();
 
         // step 3: UNUSUAL PHYSICAL CHARACTERISTICS
-        $this->unusualCharacteristics();
+        $this->unusualCharacteristics($hero);
 
 
         // mutants starting SDC & Cash
@@ -506,7 +512,7 @@ class Mutants extends BaseClass
         ]);
     }
 
-    private function unusualCharacteristics()
+    private function unusualCharacteristics(Hero &$hero)
     {
         list($this->characteristics, $bonuses) = $this->engine->tableRoller->rollTable('Mutant: unusual', [
             new TableEntry(30, ['No unusual physical traits.', false]),
@@ -544,10 +550,10 @@ class Mutants extends BaseClass
             new TableEntry(62, ['Extreme amount of body hair: fur; short, half inch length, covers most of body except face, feet, and hands', false]),
             new TableEntry(64, ['Extreme amount of body hair: fur covers most of the boyd except face, bottom of feet, and palms of hands', false]),
 
-            new TableEntry(68, 'Prehensile Feet/Toes: The feet greatly resemble a monkey\'s feet, with long, finger-like toes, and thumb-like appendage for grabbing and holding.', [
+            new TableEntry(68, ['Prehensile Feet/Toes: The feet greatly resemble a monkey\'s feet, with long, finger-like toes, and thumb-like appendage for grabbing and holding.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_CLIMBING, 30, 'Mutant - Prehensile feet/toes'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DODGE, 1, 'Mutant - Prehensile feet/toes'),
-            ]),
+            ]]),
 
             new TableEntry(72, ['Scaly Skin: A tough, smooth, reptilian skin with small scales', [new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Mutant: Scaly Skin')]]),
             new TableEntry(76, ['No body hair', false]),
@@ -584,5 +590,8 @@ class Mutants extends BaseClass
             new TableEntry(111, ['Odd hair color: purple', false]),
             new TableEntry(112, ['Odd hair color: orange', false]),
         ]);
+        if ($bonuses) {
+            $hero->addBonus($bonuses);
+        }
     }
 }

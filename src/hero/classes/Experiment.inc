@@ -11,7 +11,9 @@ use Heroes\tables\TableInsanity;
 
 class SuperSoldierChoice
 {
+    /** @var string what they were attempting to do */
     public $attempt;
+    /** @var Bonus[] bonuses to apply if this attempt was selected */
     public $bonuses;
 
     function __construct($attempt, $bonuses)
@@ -23,9 +25,13 @@ class SuperSoldierChoice
 
 class Experiment extends BaseClass
 {
+    /** @var string nature of the experiment */
     public $experimentNature;
+    /** @var string results of the experiment */
     public $experimentResults;
+    /** @var string who sponsored the experiment */
     public $sponsor;
+    /** @var string how the sponsor feels about the Experiement */
     public $sponsorStatus;
 
 

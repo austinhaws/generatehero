@@ -5,7 +5,7 @@ use Heroes\engine\Engine;
 
 class TableBase
 {
-    // the generator engine
+    /** @var Engine here I am baby */
     protected $engine;
 
     public function __construct(Engine $engine)

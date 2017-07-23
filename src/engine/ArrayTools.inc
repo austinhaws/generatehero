@@ -4,6 +4,7 @@ namespace Heroes\engine;
 
 class ArrayTools
 {
+    /** @var  Engine engineering engineers energetically */
     private $engine;
 
     public function __construct(Engine $engine)

@@ -2,6 +2,7 @@
 namespace Heroes\engine;
 
 class TableRoller {
+    /** @var Engine the engine! */
     private $engine;
 
     public function __construct(Engine $engine)

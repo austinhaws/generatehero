@@ -100,7 +100,7 @@ class TableEducation extends TableBase
             $program = array_pop($programs);
             if (!in_array($program, $hero->educationProgramsPicked)
                 && (!$disallowedPrograms || false === array_search($program, $disallowedPrograms))) {
-                $this->engine->skillPrograms->addSkillsForProgram($program, $percentBonus, $hero);
+                $this->engine->skillPrograms->addSkillsForProgram($program, $percentBonus, $hero, $disallowSkills);
                 $numberPicked++;
                 $hero->educationProgramsPicked[] = $program;
             }

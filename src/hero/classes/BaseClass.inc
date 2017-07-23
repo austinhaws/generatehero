@@ -9,6 +9,7 @@ use Heroes\hero\Hero;
 
 abstract class BaseClass
 {
+    /** @var Engine only your engine can save you */
     protected $engine;
 
     function __construct(Engine $engine)

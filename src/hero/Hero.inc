@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero;
 
+use Exception;
 use Heroes\engine\Engine;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\classes\BaseClass;
@@ -101,6 +102,10 @@ class Hero
     {
         if ($bonus) {
             if (!is_array($bonus)) {
+if (!is_object($bonus)) {
+    var_dump($bonus);
+    throw new Exception('Bonus must be an object');
+}
                 $bonus = [$bonus];
             }
             foreach ($bonus as $b) {
@@ -191,6 +196,13 @@ class Hero
         $found = false;
         $isHandToHand = $this->skillIsHandToHand($skill);
         foreach ($this->bonuses as $bonus) {
+            if (!is_object($bonus)) {
+                var_dump($bonus);
+                var_dump($this);
+                throw new Exception('what the heck');
+            }
+            $bonus->bonusTarget;
+            $bonus->getValue($engine);
             if ($bonus->bonusType == Bonus::BONUS_TYPE_SET
                 && ($bonus->bonusTarget == $skill || ($isHandToHand && $this->skillIsHandToHand($bonus->bonusTarget)))
                 && $bonus->getValue($engine) >= $basePercent) {

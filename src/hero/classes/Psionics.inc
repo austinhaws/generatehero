@@ -13,6 +13,7 @@ use Heroes\tables\TableSpells;
 
 class Psionics extends BaseClass
 {
+    /** @var int points for using psionics */
     public $ispPoints;
 
     public function postCreate(Hero &$hero)

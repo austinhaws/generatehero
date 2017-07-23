@@ -10,12 +10,13 @@ use Heroes\tables\TableEducation;
 
 class Hardware extends BaseClass
 {
-    // electrical, mechanical, weapons
+    /** @var string electrical, mechanical, weapons */
     public $hardwareType;
-
+    /** @var int how much can spend on workshop */
     public $workshopBudget;
+    /** @var int how much can spend on equipment */
     public $equipmentBudget;
-
+    /** @var string how sponsor feels about character */
     public $mechanicalSponsorStatus;
 
     /**

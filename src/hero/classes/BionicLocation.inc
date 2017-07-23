@@ -22,13 +22,13 @@ class BionicLocation
     const BODY_PART_MOUTH_THROAT = 'Mouth/Throat';
     const BODY_PART_SKULL_FACE = 'Skull/Face';
 
-    // andLocations are the only possible location once a bionic is installed; orlocations is just for when choosing bionics
+    /** @var array|bool the only possible location once a bionic is installed; orlocations is just for when choosing bionics */
     public $andLocations;
-    // orlocations are not valid once bionic installed; used when choosing bionics to list the possible locations to place the bionic
+    /** @var array|bool not valid once bionic installed; used when choosing bionics to list the possible locations to place the bionic */
     public $orLocations;
-    // if there are multiple or locations could the bionic be added to the other ones separately too? random chance
+    /** @var bool if there are multiple orLocations, could the bionic be added to the other ones separately too? random chance */
     public $orMultiplePossible;
-    // the bionic fills the location and doesn't allow any other bionic there; or if there is already a filler at a location then can't add a new bionic there
+    /** @var bool fills the location and doesn't allow any other bionic there; or if there is already a filler at a location then can't add a new bionic there */
     public $fillsLocation;
 
     /**

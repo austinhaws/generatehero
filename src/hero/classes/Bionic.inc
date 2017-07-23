@@ -4,10 +4,15 @@ namespace Heroes\hero\classes;
 
 class Bionic
 {
+    /** @var int cost of this bionic part */
     public $cost;
+    /** @var bool|BionicLocation String where on body is bionic placed */
     public $bionicLocation;
+    /** @var string what is the title? */
     public $title;
+    /** @var string what is this really? */
     public $description;
+    /** @var array bonuses to add to character if this bionic is purchased */
     public $bonuses;
 
     /**

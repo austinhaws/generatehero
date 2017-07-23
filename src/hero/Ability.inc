@@ -5,8 +5,11 @@ namespace Heroes\hero;
 
 class Ability
 {
+    /** @var string title */
     public $title;
+    /** @var string description */
     public $description;
+    /** @var array bonuses for having this ability */
     public $bonuses;
 
     /**

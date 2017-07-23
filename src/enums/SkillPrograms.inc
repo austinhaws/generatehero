@@ -35,6 +35,7 @@ class SkillPrograms
     const HIGH_SCHOOL = "High School";
     const ALL_SKILLS = "All Skills";
 
+    /** @var Engine one engine to rule them all */
     private $engine;
 
     function __construct(Engine $engine)
@@ -238,9 +239,10 @@ class SkillPrograms
      * @param String $program which program
      * @param int $percentBonus how much of a bonus to give to the program skills
      * @param Hero $hero the hero for which to pick a program (some programs select skills so select ones that aren't yet selected)
+     * @param bool|String[] $disallowSkills which skills are not pickable
      * @throws \Exception if program not found
      */
-    public function addSkillsForProgram($program, $percentBonus, Hero &$hero)
+    public function addSkillsForProgram($program, $percentBonus, Hero &$hero, $disallowSkills = false)
     {
         switch ($program) {
             case SkillPrograms::COMMUNICATIONS:
@@ -278,6 +280,10 @@ class SkillPrograms
 
         // now that all skills are gathered, apply them
         $skills = $this->skillsForProgram($program, $hero, $percentBonus);
-        $this->addSkills($hero, $skills, $percentBonus, $program . ' Program');
+        foreach ($skills as $skill) {
+            if (!$disallowSkills || false === array_search($skill, $disallowSkills)) {
+                $this->addSkills($hero, $skills, $percentBonus, $program . ' Program');
+            }
+        }
     }
 }

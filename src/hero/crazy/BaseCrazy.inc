@@ -6,6 +6,7 @@ use Heroes\hero\Hero;
 
 abstract class BaseCrazy
 {
+    /** @var Engine engage. */
     protected $engine;
 
     function __construct(Engine $engine)

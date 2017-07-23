@@ -11,16 +11,25 @@ use Heroes\tables\superabilities\TablePsionics;
 
 class Aliens extends BaseClass
 {
+    /** @var string appearance of the alien*/
     public $appearance;
+    /** @var string how is the alien different */
     public $physiologicalModification;
+    /** @var string why are YOU here? */
     public $reasonForComing;
+    /** @var string familiarity with earth */
     public $familiarity;
+    /** @var string how disguised */
     public $earthClothesDisguise;
+    /** @var string what type of weapon do you have? */
     public $specialWeapon;
+    /** @var string type of vehicle from space */
     public $vehicle;
 
     // psionics
+    // TODO: how does psionics get set?
     public $psionics;
+    /** @var int number of psionic points */
     public $isp;
 
     function create(Hero &$hero)

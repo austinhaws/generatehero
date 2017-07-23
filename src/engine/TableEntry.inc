@@ -3,8 +3,11 @@ namespace Heroes\engine;
 
 class TableEntry {
     // max = 14, result = 'oh ya'
-    // if a die roll for the table is greater than the previous and entry and less than 14 then the result is 'oh ya'
+    // if a die roll for the table is greater than the previous entry and less than 14 then the result is 'oh ya'
+
+    /** @var int what is the max possible value for this entry; sequencing maxes of each entry creates ranges of values for an entry */
     public $max;
+    /** @var mixed what to return if this table entry is selected */
     public $result;
 
     /**

@@ -6,7 +6,9 @@ use Heroes\hero\Hero;
 
 class Association extends BaseCrazy
 {
+    /** @var string what is the power associated with */
     public $association;
+    /** @var string what food triggers power */
     public $popeye;
 
     function create(Hero &$hero)
