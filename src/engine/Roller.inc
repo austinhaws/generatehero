@@ -20,4 +20,14 @@ class Roller
         $roll->result += $roll->adder;
         return $roll->result;
     }
+
+    /**
+     * roll percentile dice and return result. shortcut roller.
+     *
+     * @param String $name the name of the roll
+     * @return int the roll result (1 -> 100);
+     */
+    public function rollPercent($name) {
+        return $this->rollDice(new Roll($name, 1, 100));
+    }
 }

@@ -102,10 +102,6 @@ class Hero
     {
         if ($bonus) {
             if (!is_array($bonus)) {
-if (!is_object($bonus)) {
-    var_dump($bonus);
-    throw new Exception('Bonus must be an object');
-}
                 $bonus = [$bonus];
             }
             foreach ($bonus as $b) {
@@ -190,17 +186,13 @@ if (!is_object($bonus)) {
      * @param $basePercent int the percent that this skill could be added at
      * @param Engine $engine so that rolls can be made if needed
      * @return true if a skill bonus set is found for the skill that has a percent >= the passed in percent
+     * @throws Exception
      */
     public function hasSkill($skill, $basePercent, Engine $engine)
     {
         $found = false;
         $isHandToHand = $this->skillIsHandToHand($skill);
         foreach ($this->bonuses as $bonus) {
-            if (!is_object($bonus)) {
-                var_dump($bonus);
-                var_dump($this);
-                throw new Exception('what the heck');
-            }
             $bonus->bonusTarget;
             $bonus->getValue($engine);
             if ($bonus->bonusType == Bonus::BONUS_TYPE_SET
@@ -221,5 +213,17 @@ if (!is_object($bonus)) {
      */
     private function skillIsHandToHand($skill) {
         return $skill == BonusTargets::SKILL_HAND_TO_HAND_BASIC || $skill == BonusTargets::SKILL_HAND_TO_HAND_EXPERT || $skill == BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS;
+    }
+
+    /**
+     * @param $skills string[] the skills to add
+     * @param $reason string why is this skill being added?
+     * @param $bonus int base starting percent (0 to just add the skill)
+     */
+    public function addSkills($skills, $reason, $bonus)
+    {
+        foreach ($skills as $skill) {
+            $this->addSkill($skill, $reason, $bonus);
+        }
     }
 }

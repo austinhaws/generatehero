@@ -71,7 +71,7 @@ class TableEducation extends TableBase
                 case TableEducation::TRADE_SCHOOL:
                 case TableEducation::DOCTORATE_DEGREE:
                     $programs[] = SkillPrograms::PILOT_ADVANCED;
-                break;
+                    break;
 
                 default:
                     // nope, don't get it
@@ -84,7 +84,7 @@ class TableEducation extends TableBase
                 case TableEducation::MILITARY_SPECIALIST:
                 case TableEducation::TRADE_SCHOOL:
                     $programs[] = SkillPrograms::MILITARY;
-                break;
+                    break;
 
                 default:
                     // nope, don't get it
@@ -99,7 +99,8 @@ class TableEducation extends TableBase
         while (count($programs) && $numberPicked < $numberPrograms) {
             $program = array_pop($programs);
             if (!in_array($program, $hero->educationProgramsPicked)
-                && (!$disallowedPrograms || false === array_search($program, $disallowedPrograms))) {
+                && (!$disallowedPrograms || false === array_search($program, $disallowedPrograms))
+            ) {
                 $this->engine->skillPrograms->addSkillsForProgram($program, $percentBonus, $hero, $disallowSkills);
                 $numberPicked++;
                 $hero->educationProgramsPicked[] = $program;
@@ -422,35 +423,27 @@ class TableEducation extends TableBase
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Education Level: ' . $hero->educationLevel, 'Education'));
     }
 
-    static public function skills_physical()
-    {
-        return [
-            BonusTargets::SKILL_HAND_TO_HAND_BASIC,
-            BonusTargets::SKILL_HAND_TO_HAND_EXPERT,
-            BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS,
-            BonusTargets::SKILL_ACROBATICS,
-            BonusTargets::SKILL_ARCHERY,
-            BonusTargets::SKILL_ATHLETICS,
-            BonusTargets::SKILL_BODY_BUILDING,
-            BonusTargets::SKILL_BOXING,
-            BonusTargets::SKILL_CLIMBING,
-            BonusTargets::SKILL_RUNNING,
-            BonusTargets::SKILL_FENCING,
-            BonusTargets::SKILL_SWIMMING,
-            BonusTargets::SKILL_GYMNASTICS,
-            BonusTargets::SKILL_SWIMMING_ADVANCED,
-            BonusTargets::SKILL_PROWL,
-            BonusTargets::SKILL_WRESTLING,
-        ];
-    }
-
     /**
      * @param array $skills the BonusTargets::SKILL_... constants of possible skills
      * @param array $exclusions the BonusTargets::SKIL_... constants to remove from the list
      */
-    static public function excludeSkills(&$skills, $exclusions) {
+    static public function excludeSkills(&$skills, $exclusions)
+    {
         foreach ($exclusions as $exclusion) {
             array_splice($skills, array_search($exclusion, $skills), 1);
         }
+    }
+
+    /**
+     * @param $numberSkills int how many skills to pull from the full list
+     * @param $skills string[] the full list of skills to choose from
+     * @param $hero Hero the hero to which to add the skills
+     * @param $reason string description for why recieving this skill
+     * @param $basePercent int skill percent
+     */
+    public function addSkillsToHero($numberSkills, $skills, $hero, $reason, $basePercent)
+    {
+        $this->engine->arrayTools->shuffle($skills);
+        $hero->addSkills(array_slice($skills, 0, $numberSkills), $reason, $basePercent);
     }
 }

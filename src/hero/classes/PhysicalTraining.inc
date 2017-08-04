@@ -69,7 +69,7 @@ class PhysicalTraining extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Force of Will - Stay on one\'s feet even after all SDC and hit points have been reduced to zero or below.', 'Physical Training: Special Power'));
 
         // 4d6 X 100 dollars starting cash
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, new Roll('Pysical Training: Bonus Money', 4, 6, 100), 'Physical Training: Bonus Money'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, new Roll('Physical Training: Bonus Money', 4, 6, 100), 'Physical Training: Bonus Money'));
 
         // 89% owns car : 1d6 years old
         $this->hasCar($hero, 89);

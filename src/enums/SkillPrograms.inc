@@ -53,7 +53,7 @@ class SkillPrograms
      * @param $impossibles array|bool skills that can't be selected (probably already selected or rules disallow); this is in addition to the skills already BONUS_SET in the hero's bonus list
      * @return array skills selected
      */
-    public function selectSkills($numberSkills, $hero, $percentBonus, $possibles, $impossibles)
+    public function selectSkills($numberSkills, $hero, $percentBonus, $possibles, $impossibles = false)
     {
         $this->engine->arrayTools->shuffle($possibles);
 
@@ -78,7 +78,6 @@ class SkillPrograms
      * @throws \Exception
      */
     public function skillsForProgram($program, $hero, $percentBonus = 0) {
-        $skills = false;
         switch ($program) {
             case SkillPrograms::COMMUNICATIONS:
                 $skills = [
