@@ -64,7 +64,6 @@ class TableEducationTest extends BaseTestRunner
 
         $this->assertEquals($educationLevel, $hero->educationLevel);
         $this->assertEquals($numberPrograms, count($hero->educationProgramsPicked));
-//var_dump($hero);
         $this->checkHeroHasSkills($hero, $minimumNumberSkills);
 
         return $hero;
@@ -74,27 +73,22 @@ class TableEducationTest extends BaseTestRunner
     {
         // let it shuffle naturally for random testing
         $this->engine->arrayTools->rotation = false;
-//        for ($x = 3; $x < 75; $x++) {
-//            echo "x:$x\n";
-//            $this->engine->arrayTools->rotation = $x;
-            foreach ([
-                         [TableEducation::HIGH_SCHOOL_GRADUATE, 1, 2, 12],
-                         [TableEducation::MILITARY, 18, 2, 12],
-                         [TableEducation::TRADE_SCHOOL, 19, 2, 10],
-                         [TableEducation::ONE_YEAR_OF_COLLEGE, 30, 2, 10],
-                         [TableEducation::TWO_YEARS_OF_COLLEGE, 45, 2, 10],
-                         [TableEducation::THREE_YEARS_OF_COLLEGE, 54, 3, 11],
-                         [TableEducation::FOUR_YEARS_OF_COLLEGE, 63, 3, 13],
-                         [TableEducation::MILITARY_SPECIALIST, 72, 1, 19],
-                         [TableEducation::BACHELOR_DEGREE, 81, 3, 13],
-                         [TableEducation::MASTER_DEGREE, 90, 3, 13],
-                         [TableEducation::DOCTORATE_DEGREE, 100, 4, 14],
-                     ] as $test) {
-//echo "next test: {$test[0]}\n";
-                $this->checkEducationLevel(...$test);
+        foreach ([
+                     [TableEducation::HIGH_SCHOOL_GRADUATE, 1, 2, 12],
+                     [TableEducation::MILITARY, 18, 2, 12],
+                     [TableEducation::TRADE_SCHOOL, 19, 2, 10],
+                     [TableEducation::ONE_YEAR_OF_COLLEGE, 30, 2, 10],
+                     [TableEducation::TWO_YEARS_OF_COLLEGE, 45, 2, 10],
+                     [TableEducation::THREE_YEARS_OF_COLLEGE, 54, 3, 11],
+                     [TableEducation::FOUR_YEARS_OF_COLLEGE, 63, 3, 13],
+                     [TableEducation::MILITARY_SPECIALIST, 72, 1, 19],
+                     [TableEducation::BACHELOR_DEGREE, 81, 3, 13],
+                     [TableEducation::MASTER_DEGREE, 90, 3, 13],
+                     [TableEducation::DOCTORATE_DEGREE, 100, 4, 14],
+                 ] as $test) {
+            $this->checkEducationLevel(...$test);
 
-            }
-//        }
+        }
         $this->engine->arrayTools->rotation = TestArrayTools::DEFAULT_ROTATION;
     }
 

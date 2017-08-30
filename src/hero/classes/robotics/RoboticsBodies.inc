@@ -31,11 +31,11 @@ class RoboticsBodies
      */
     public function addRobotBody(Hero $robot, &$budget, $robotType, $hasPilot)
     {
-        $bodies = array_filter($this->possibleBodies($robotType, $hasPilot), function($body) use ($budget) {
+        $possibleBodies = $this->possibleBodies($robotType, $hasPilot);
+        $bodies = array_filter($possibleBodies, function($body) use ($budget) {
             // filter out bodies that cost too much
             return $body->cost <= $budget;
         });
-
         // pick a body
         $this->engine->arrayTools->shuffle($bodies);
 
@@ -67,7 +67,7 @@ class RoboticsBodies
     }
 
     /**
-     * @param $robotType string Robotics::ROBOT_TYPE_... constant for type of robot to filter what bodies are avilable
+     * @param $robotType string Robotics::ROBOT_TYPE_... constant for type of robot to filter what bodies are available
      * @return RoboticsBody[] bodies to choose from
      * @param $hasPilot boolean true if the robot requires a pilot
      */
@@ -272,7 +272,6 @@ class RoboticsBodies
                 ],
             ], true, true, RoboticsBody::TYPE_ANIMAL);
         }
-
         return $possibleBodies;
     }
 }

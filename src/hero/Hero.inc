@@ -5,47 +5,75 @@ use Exception;
 use Heroes\engine\Engine;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\classes\BaseClass;
+use Heroes\hero\crazy\BaseCrazy;
+use Heroes\hero\insanity\Insanity;
 
 class Hero
 {
     // abilities
+    /** @var int iq */
     public $intelligenceQuotient;
+    /** @var int me */
     public $mentalEndurance;
+    /** @var int ma */
     public $mentalAffinity;
+    /** @var int ps */
     public $physicalStrength;
+    /** @var int pp */
     public $physicalProwess;
+    /** @var int pe */
     public $physicalEndurance;
+    /** @var int pb */
     public $physicalBeauty;
+    /** @var int speed */
     public $speed;
 
     // calculateds
+    /** @var int */
     public $carryThrowWeight;
+    /** @var int */
     public $liftWeight;
+    /** @var int */
     public $iq;
+    /** @var int */
     public $runsMilesPerHour;
 
     // health
+    /** @var int */
     public $hitPoints = 0;
+    /** @var int */
     public $sdc = 0;
-    // some classes (mutant animals) calculate SDC differently so they won't have the end calculation
+    /** @var boolean some classes (mutant animals) calculate SDC differently so they won't have the end calculation */
     public $SDCCalculated = false;
 
     // optionals
+    /** @var int */
     public $birthOrder;
+    /** @var int */
     public $weight;
+    /** @var int */
     public $height;
+    /** @var string */
     public $disposition;
+    /** @var int */
     public $lifeSavings;
+    /** @var string */
     public $landOfOrigin;
+    /** @var string */
     public $environment;
+    /** @var string */
     public $socialEconomic;
+    /** @var string */
     public $whenManifested;
 
+    /** @var int */
     public $money = 0;
 
+    /** @var string */
     public $alignment;
 
     // bonus to charm/impress rolls
+    /** @var int */
     public $charmImpress;
 
     // alien/mutant/etc
@@ -53,35 +81,40 @@ class Hero
     public $class;
 
     // combat
+    /** @var int */
     public $attacksPerMelee = 2;
+    /** @var int */
     public $parry;
+    /** @var int */
     public $roll;
+    /** @var int */
     public $dodge;
-    // private because setting should keep the max and not be cumulative
+    /** @var int private because setting should keep the max and not be cumulative */
     private $naturalArmor;
 
-    // false or a class of BaseCrazy type
+    /** @var boolean|BaseCrazy */
     public $crazy = null;
 
     // logs tell how bonuses got applied to character for what reason
-    // array of BonusesTypes
+    /** @var Bonus[] bonuses that the character has amassed to be tallied at end of generation */
     public $bonuses = [];
 
-    // if the character picks up an insanity it is loaded here (pg 24)
+    /** @var Insanity[] if the character picks up an insanity it is loaded here (pg 24) */
     public $insanities = [];
 
-    // abilities and super abilities of the hero; array of Ability classes
+    /** @var Ability[] abilities and super abilities of the hero */
     public $abilities = [];
-    // Psionics of the hero; array of Psionic classes
+    /** @var Psionic[] Psionics of the hero */
     public $psionics = [];
 
-    // high school? college? alien? - if this is set then don't do education again
+    /** @var bool|string high school? college? alien? - if this is set then don't do education again */
     public $educationLevel = false;
 
-    // don't allow picking the same program more than once
+    /** @var string[] don't allow picking the same program more than once */
     public $educationProgramsPicked = [];
 
     // how old are you? is there a randomizer for this? some classes set it (mystic bestowed: old age physical limitation)
+    /** @var int */
     public $age;
 
 

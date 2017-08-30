@@ -14,10 +14,13 @@ class TestRoll
 
     // don't care about rolls until getting a roll with this name; if this is set to true then don't care ever again so just roll away
     public $dontCareUntil;
+    // if not caring, make sure it does get to that roll
+    public $dontCareUntilReached;
 
     function __construct($sides = false, $roll = false, $name = false, $multiplier = 1, $dontCareAnymore = false)
     {
         $this->dontCareUntil = $dontCareAnymore;
+        $this->dontCareUntilReached = false;
         $this->andRoll($sides, $roll, $name, $multiplier);
     }
 
@@ -32,6 +35,15 @@ class TestRoll
     }
 
     /**
+     * static version for cleaner usage
+     *
+     * @return TestRoll
+     */
+    public static function doNotCareAnyMore() {
+        return (new TestRoll())->dontCareAnyMore();
+    }
+
+    /**
      * this roll is a place holder until the test cares again
      *
      * @param $until boolean|string true = forever, string = until that roll comes up
@@ -42,6 +54,20 @@ class TestRoll
         $this->dontCareUntil = $until;
         return $this;
     }
+
+
+    /**
+     * ease of use static function for not caring until a roll comes
+     *
+     * @param $sides int dice's sides
+     * @param $roll int roll for the dice
+     * @param $name string name of the roll
+     * @return TestRoll
+     */
+    public static function doNotCareUntilAndRoll($sides, $roll, $name) {
+        return (new TestRoll())->dontCareUntil($name)->andRoll($sides, $roll, $name);
+    }
+
 
     /**
      * skip rolls until a certain roll and then use the next roll for that roll.
@@ -89,5 +115,15 @@ class TestRoll
             throw new \Exception("test roll sides don't match ($name)! expected: '$numberSides'; got: '{$this->sides}'  =(index: $index)=");
         }
         return $this;
+    }
+
+    /**
+     * if a roll is left over and not rolled then it has to be a "dont care until" type of roll AND it's dontcareuntil roll has to have been found
+     * if it's not a dontcareuntil then it's bad that it wasn't rolled
+     *
+     * @return bool
+     */
+    public function verifyLeftoverRoll() {
+       return $this->dontCareUntil && $this->dontCareUntilReached;
     }
 }

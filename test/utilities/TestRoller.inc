@@ -6,14 +6,16 @@ use Heroes\engine\Roller;
 
 class TestRoller extends Roller
 {
+    /** @var TestRoll[] the expected rolls and what to roll for them to complete the test */
     private $testRolls;
+    /** @var int which test roll is being rolled */
     private $rollIndex;
 
-    // what was really rolled
+    /** @var Roll[] what was really rolled */
     private $realRolls = [];
 
     /**
-     * override original roller to do preentered rolls
+     * override original roller to do pre-entered rolls
      *
      * @param $roll Roll the roll to roll
      * @return int total of all the rolls
@@ -49,11 +51,16 @@ class TestRoller extends Roller
         if (!$roll) {
             throw new \Exception("Test Roll does not exist for: $name ($numberSides)");
         }
+        // the roll was expected & found
+        if ($roll->dontCareUntil === $name || $roll->dontCareUntil === true) {
+            $roll->dontCareUntilReached = true;
+        }
         if ($roll->dontCareUntil && $roll->dontCareUntil !== $name) {
             // not going to use it, so put it back on the front
             array_unshift($this->testRolls, $roll);
             $result = mt_rand(1, $numberSides);
         } else {
+            // remember that the roll was found as expected
             $this->rollIndex++;
             if ($roll->useNextRoll) {
                 $this->rollIndex++;
@@ -107,8 +114,14 @@ class TestRoller extends Roller
      */
     public function verifyTestRolls($showRolls = false) {
         $count = count($this->testRolls);
-        if ($count && ($count != 1 || !$this->testRolls[0]->dontCareUntil)) {
-            throw new \Exception("Only used {$this->rollIndex} rolls and there are $count unused test rolls");
+        if ($count && ($count != 1 || !$this->testRolls[0]->verifyLeftoverRoll())) {
+            $testRoll = $this->testRolls[0];
+            if ($count === 1 && $testRoll->dontCareUntil && !$testRoll->dontCareUntilReached) {
+                var_dump($testRoll);
+                throw new \Exception("'Don't care until' did not find the roll to not care about causing it to spoof all rolls unconditionally: '{$testRoll->name}'");
+            } else {
+                throw new \Exception("Only used {$this->rollIndex} rolls and there are $count unused test rolls");
+            }
         }
 
         if ($showRolls) {

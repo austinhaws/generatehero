@@ -62,15 +62,13 @@ class Robotics extends BaseClass
 
         // Step one: budget
         $budget = $this->determineBudget();
-
         // Step two: intelligence
         if ($this->requiresAI) {
-            $budget -= $this->pickIntelligence($useRobot);
+            $this->pickIntelligence($useRobot, $budget);
         }
 
         // Step three: select body
         $robotBody = (new RoboticsBodies($this->engine))->addRobotBody($useRobot, $budget, $this->robotType, $this->requiresPilot);
-
         // Step four: construct robot
         // Selection A - body types
             // done with body building
@@ -80,9 +78,9 @@ class Robotics extends BaseClass
 
         // Selection C - legs/locomotion
         if ($robotBody->usesLegs) {
-            $budget = $this->pickLegs($useRobot, $budget, $robotBody);
+            $this->pickLegs($useRobot, $budget, $robotBody);
         } else {
-            $budget = $this->pickVehicleLocomotion($useRobot, $budget);
+            $this->pickVehicleLocomotion($useRobot, $budget);
         }
 
         // Selection D - arms/hands
@@ -163,17 +161,24 @@ class Robotics extends BaseClass
 
     /**
      * @param Hero $robot the hero/robot to which to add an AI
-     * @return int cost of the AI
+     * @param int $budget how much money available; how much money left when function is done
      */
-    private function pickIntelligence(Hero &$robot)
+    private function pickIntelligence(Hero &$robot, &$budget)
     {
-        // AI type
-        list($cost, $title, $description) = $this->engine->tableRoller->rollTable('Robots - AI', [
+        // get available AI types
+        $aiTypes = array_filter([
             new TableEntry(1, [185000, 'Standard AI', 'Computer brain with a limited scope of intelligence. Act very natural, human, and intelligent.']),
             new TableEntry(2, [2250000, 'Advanced AI', 'Almost human. Formulate ideas, conjecture, and theory.']),
             new TableEntry(3, [1200000, 'Transferred AI', 'Human intellect/consciousness transferred out of the human body and in to a robot.']),
-        ]);
+        ], function(TableEntry $tableEntry) use ($budget) {
+            return $tableEntry->result[0] <= $budget;
+        });
+        $this->engine->arrayTools->shuffle($aiTypes);
 
+        // select an AI type
+        list($cost, $title, $description) = array_pop($aiTypes)->result;
+
+        // record the selection
         $robot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "$title - $description", 'Robotics - AI'));
 
         // education
@@ -196,7 +201,7 @@ class Robotics extends BaseClass
         ]);
         $robot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'AI Personality - ' . $personality, 'Robot AI: Personality'));
 
-        return $cost;
+        $budget -= $cost;
     }
 
     /**
@@ -251,15 +256,15 @@ class Robotics extends BaseClass
         switch ($robotBody->type) {
             case RoboticsBody::TYPE_HUMANOID:
                 $numberLegs = 2;
-                $anotherLegOdds = 0;
+                $anotherLegOdds = 10;
                 break;
             case RoboticsBody::TYPE_ANIMAL:
                 $numberLegs = 4;
-                $anotherLegOdds = 10;
+                $anotherLegOdds = 15;
                 break;
             case RoboticsBody::TYPE_VEHICLE:
-                $anotherLegOdds = 25;
-                $numberLegs = 2;
+                $numberLegs = 0;
+                $anotherLegOdds = 5;
                 break;
             default:
                 var_dump($robotBody);
@@ -268,16 +273,15 @@ class Robotics extends BaseClass
 
         // just doing average 250000 per leg otherwise it gets really weird
         $legCost = 250000;
-        while ($budget >= (($numberLegs + 1) * $legCost) &&
-            $this->engine->roller->rollDice(new Roll('Robotics - Legs: extras', 1, 100)) <= $anotherLegOdds) {
+        while (($budget >= (($numberLegs + 1) * $legCost)) &&
+            ($this->engine->roller->rollDice(new Roll('Robotics - Legs: extras', 1, 100)) <= $anotherLegOdds)) {
             $numberLegs++;
             $anotherLegOdds -= 5;
         }
-
         $numberLegs = min($numberLegs, floor($budget / $legCost));
         if ($numberLegs) {
             // add legs as bonus to robot
-            $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "Number has $numberLegs leg" . ($numberLegs > 1 ? 's' : ''), 'Robotics legs'));
+            $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "Robot has $numberLegs leg" . ($numberLegs > 1 ? 's' : ''), 'Robotics legs'));
             $budget -= $numberLegs * $legCost;
         }
     }
@@ -347,7 +351,7 @@ class Robotics extends BaseClass
                 $numberArms++;
             }
             $budget -= $armCost * $numberArms;
-            while ($numberArms--) {
+            while ($numberArms-- > 0) {
                 $this->addArm($useRobot, $budget);
             }
         }
@@ -414,14 +418,17 @@ class Robotics extends BaseClass
             }
 
         // utility arms
-        } else if (50 >= $this->engine->roller->rollPercent('Robot Utility Arm')) {
+        } else if ($budget >= 100000 && 50 >= $this->engine->roller->rollPercent('Robot Utility Arm')) {
+            $budget -= 100000;
             if ($budget >= 25000 && 50 >= $this->engine->roller->rollPercent('Robot Utility Arm - concealed')) {
                 $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Robot Arm - Concealed Utility (small, retractable, concealed)', 'Robotics: Concealed Utility Arm'));
                 $budget -= 25000;
             } else {
                 $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Robot Arm - Utility (small, retractable)', 'Robotics: Utility Arm'));
+                $budget -= 25000;
             }
         } else if (10 >= $this->engine->roller->rollPercent('Robot Tentacle Arm')) {
+            $budget -= 100000;
             $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Robot Arm - tentacle', 'Robotics: Tentacle Arm'));
         } else {
             $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Robot Arm', 'Robotics: Arm'));
