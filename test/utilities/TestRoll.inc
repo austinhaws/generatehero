@@ -37,10 +37,13 @@ class TestRoll
     /**
      * static version for cleaner usage
      *
+     * @param bool $ignoreReached this roll doesn't have to be reached, if no other rolls are rolled, that's ok; false should be the norm, true should be for one offs
      * @return TestRoll
      */
-    public static function doNotCareAnyMore() {
-        return (new TestRoll())->dontCareAnyMore();
+    public static function doNotCareAnyMore($ignoreReached = false) {
+        $testRoll = (new TestRoll())->dontCareAnyMore();
+        $testRoll->dontCareUntilReached = $ignoreReached;
+        return $testRoll;
     }
 
     /**

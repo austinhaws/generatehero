@@ -56,7 +56,7 @@ class TableEducationTest extends BaseTestRunner
 
         $this->engine->roller->setTestRolls([
             new TestRoll(100, $educationLevelRoll, 'Education Level', 0),
-            (new TestRoll())->dontCareAnyMore(),
+            TestRoll::doNotCareAnyMore(true),
         ]);
         $this->tableEducation->rollEducationLevel($hero);
 
