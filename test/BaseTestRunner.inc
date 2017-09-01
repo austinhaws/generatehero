@@ -111,4 +111,17 @@ abstract class BaseTestRunner extends \PHPUnit_Framework_TestCase
             return $result && $ended;
         }, true);
     }
+
+    /**
+     * quick testing method
+     *
+     * @param $rolls TestRoll[] the rolls to run
+     * @return \Heroes\hero\Hero the hero generated
+     */
+    protected function runGeneration($rolls) {
+        $this->testRoller->setTestRolls($rolls);
+        $hero = $this->heroGenerator->generate();
+        $this->testRoller->verifyTestRolls();
+        return $hero;
+    }
 }

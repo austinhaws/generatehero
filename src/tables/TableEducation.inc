@@ -1,7 +1,6 @@
 <?php
 namespace Heroes\tables;
 
-use Heroes\engine\Engine;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
 use Heroes\enums\SkillPrograms;
@@ -23,6 +22,9 @@ class TableEducation extends TableBase
     const MASTER_DEGREE = 'Master\'s Degree (College)';
     const DOCTORATE_DEGREE = 'Doctorate or PhD (College)';
     const MUTANT_WILD_ANIMAL = 'Mutant Wild Animal';
+
+    // Special Training
+    const ANCIENT_MASTER = 'Ancient Master';
 
     /**
      * add skill program(s) to hero;
@@ -320,9 +322,6 @@ class TableEducation extends TableBase
         ]);
 
         // bonus is a one time bonus to skills taken from the programs
-        $skillPrograms = 0;
-        $skillProgramBonus = 0;
-        $secondarySkills = 0;
         switch ($hero->educationLevel) {
             case TableEducation::HIGH_SCHOOL_GRADUATE:
                 $skillProgramBonus = 5;

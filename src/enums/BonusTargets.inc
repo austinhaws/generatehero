@@ -26,6 +26,7 @@ abstract class BonusTargets
     const NATURAL_ARMOR_RATING = "Natural Armor Rating";
     const PARRY = 'Parry';
     const PHYSICAL_DAMAGE = 'Physical Damage';
+    const PULL_PUNCH = "Pull Punch";
     // roll with fall/impact
     const ROLL = 'Roll';
     const SAVE_COMMA_DEATH = 'Save: comma/Death';

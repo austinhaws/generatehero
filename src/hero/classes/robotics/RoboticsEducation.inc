@@ -193,7 +193,7 @@ class RoboticsEducation extends BaseClass
 
         // Select 5 Languages
         for ($i = 0; $i < 5; $i++) {
-            $robot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_LANGUAGE, $skillLevel, $educationTitle));
+            $robot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Pick a language', $educationTitle));
         }
 
         // Select 1 Technical Skill.
