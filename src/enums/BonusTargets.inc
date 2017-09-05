@@ -399,6 +399,18 @@ abstract class BonusTargets
         ]);
     }
 
+    public static function pilotAdvancedSkills($justSecondary) {
+        return $justSecondary ? [
+            // there are now secondary skills for advanced piloting
+        ] : [
+            BonusTargets::SKILL_PILOT_HELICOPTER_BASIC,
+            BonusTargets::SKILL_PILOT_HELICOPTER_COMBAT,
+            BonusTargets::SKILL_PILOT_JET_COMMERCIAL,
+            BonusTargets::SKILL_PILOT_JET_FIGHTER,
+            BonusTargets::SKILL_PILOT_SPACE_SHUTTLE,
+        ];
+    }
+
     public static function pilotBasicSkills($justSecondary)
     {
         return $justSecondary ? [

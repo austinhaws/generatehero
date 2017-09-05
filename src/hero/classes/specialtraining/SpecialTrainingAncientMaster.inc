@@ -75,7 +75,8 @@ class SpecialTrainingAncientMaster extends BaseClass
         $hero->addSkill(BonusTargets::SKILL_BOXING, 'Ancient Master - combat');
 
         // Select 4 Physical Skills: Each is equal to lOth level proficiency.
-        $this->engine->skillPrograms->selectSkills(4, $hero, 0, BonusTargets::physicalSkills(false));
+        $skills = $this->engine->skillPrograms->selectSkills(4, $hero, 0, BonusTargets::physicalSkills(false));
+        $hero->addSkills($skills, 'Ancient Master - education', 0);
     }
 
     private function specialAbilities(Hero &$hero)

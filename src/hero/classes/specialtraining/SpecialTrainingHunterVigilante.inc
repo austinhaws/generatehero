@@ -32,7 +32,7 @@ class SpecialTrainingHunterVigilante extends BaseClass
 
     private function education(Hero &$hero)
     {
-        $hero->educationLevel = TableEducation::ANCIENT_HUNTER_VIGILANTE;
+        $hero->educationLevel = TableEducation::HUNTER_VIGILANTE;
 
         $hero->addSkill(BonusTargets::SKILL_MATHEMATICS_BASIC, 'Hunter Vigilante - Education', 98);
 
@@ -40,8 +40,11 @@ class SpecialTrainingHunterVigilante extends BaseClass
         $tableEducation->pickPrograms(15, 2, $hero, [SkillPrograms::ESPIONAGE, SkillPrograms::MILITARY]);
 
         $skillPrograms = new SkillPrograms($this->engine);
-        $skillPrograms->selectSkills(2, $hero, 0, BonusTargets::wpAncientWeaponsSkills(false));
-        $skillPrograms->selectSkills(3, $hero, 0, BonusTargets::wpModernWeaponsSkills(false));
+        $skills = $skillPrograms->selectSkills(2, $hero, 0, BonusTargets::wpAncientWeaponsSkills(false));
+        $hero->addSkills($skills, 'Hunter Vigilante - education', 0);
+
+        $skills = $skillPrograms->selectSkills(3, $hero, 0, BonusTargets::wpModernWeaponsSkills(false));
+        $hero->addSkills($skills, 'Hunter Vigilante - education', 0);
 
         $hero->addSkill(BonusTargets::SKILL_WILDERNESS_SURVIVAL, 'Hunter Vigilante - Education', 30);
         $hero->addSkill(BonusTargets::SKILL_LAND_NAVIGATION, 'Hunter Vigilante - Education', 30);
@@ -57,9 +60,11 @@ class SpecialTrainingHunterVigilante extends BaseClass
         $tableEducation->pickPrograms(10, 1, $hero, [SkillPrograms::ESPIONAGE, SkillPrograms::MILITARY]);
 
         // Select 8 Secondary Skills.
-        $skillPrograms->selectSkills(8, $hero, 0, BonusTargets::allSkills(true));
+        $skills = $skillPrograms->selectSkills(8, $hero, 0, BonusTargets::allSkills(true));
+        $hero->addSkills($skills, 'Hunter Vigilante - education', 0);
 
-        $skillPrograms->selectSkills(7, $hero, 20, [
+
+        $skills = $skillPrograms->selectSkills(7, $hero, 20, [
             BonusTargets::SKILL_ARCHERY,
             BonusTargets::SKILL_BIOLOGY,
             BonusTargets::SKILL_CLIMBING,
@@ -77,6 +82,7 @@ class SpecialTrainingHunterVigilante extends BaseClass
             BonusTargets::SKILL_PILOT_BOATS_MOTOR,
             BonusTargets::SKILL_PILOT_TRUCK,
         ]);
+        $hero->addSkills($skills, 'Hunter Vigilante - education', 20);
     }
 
     private function specialSkills(Hero &$hero)

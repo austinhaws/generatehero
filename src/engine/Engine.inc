@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\engine;
 use Heroes\enums\SkillPrograms;
+use Heroes\tests\utilities\TestArrayTools;
 use Heroes\tests\utilities\TestRoller;
 
 /**
@@ -16,7 +17,7 @@ class Engine
     public $tableRoller;
     /** @var SkillPrograms groups skills */
     public $skillPrograms;
-    /** @var ArrayTools shuffling and list picking */
+    /** @var ArrayTools|TestArrayTools shuffling and list picking */
     public $arrayTools;
 
     public function __construct()

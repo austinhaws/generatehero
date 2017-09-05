@@ -24,8 +24,9 @@ class TableEducation extends TableBase
     const MUTANT_WILD_ANIMAL = 'Mutant Wild Animal';
 
     // Special Training
+    const HUNTER_VIGILANTE = 'Hunter Vigilante';
     const ANCIENT_MASTER = 'Ancient Master';
-    const ANCIENT_HUNTER_VIGILANTE = 'Hunter Vigilante';
+    const SECRET_OPERATIVE = 'Secret Operative';
 
     /**
      * add skill program(s) to hero;
