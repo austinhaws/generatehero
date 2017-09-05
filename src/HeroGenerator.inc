@@ -131,7 +131,7 @@ class HeroGenerator
             new TableEntry(30, 'Bionics'),
 
             new TableEntry(40, 'SpecialTrainingAncientMaster'),
-            new TableEntry(42, 'SpecialTrainingHunter'),
+            new TableEntry(42, 'SpecialTrainingHunterVigilante'),
             new TableEntry(44, 'SpecialTrainingSecretOperative'),
             new TableEntry(46, 'SpecialTrainingStageMagician'),
             new TableEntry(48, 'SpecialTrainingSuperSleuth'),
