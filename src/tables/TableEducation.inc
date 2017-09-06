@@ -28,6 +28,7 @@ class TableEducation extends TableBase
     const ANCIENT_MASTER = 'Ancient Master';
     const SECRET_OPERATIVE = 'Secret Operative';
     const STAGE_MAGICIAN = 'Stage Magician';
+    const SUPER_SLEUTH = 'Super Sleuth';
 
     /**
      * add skill program(s) to hero;
