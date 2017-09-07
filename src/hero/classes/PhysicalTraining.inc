@@ -17,7 +17,7 @@ class PhysicalTraining extends BaseClass
      * @param Hero $hero the hero
      * @throws \Exception ya ya, whatever
      */
-    public function create(Hero &$hero)
+    public function create(Hero &$hero, $options = false)
     {
         $tableEducation = new TableEducation($this->engine);
 

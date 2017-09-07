@@ -21,8 +21,9 @@ abstract class BaseClass
      * create this class for this character
      *
      * @param Hero $hero the hero to which this class is attached (done automatically)
+     * @param array|bool $options key/value pairs of options to pass around as needed (probably sparingly)
      */
-    abstract function create(Hero &$hero);
+    abstract function create(Hero &$hero, $options = false);
 
     /**
      * some classes duplicate this check for owning a car
@@ -47,5 +48,14 @@ abstract class BaseClass
     public function postCreate(Hero &$hero)
     {
         // default to do nothing
+    }
+
+    /**
+     * @param bool|array $options options passed to create function
+     * @param string $field the field to pull out of the options
+     * @return null|object|bool|string|int whatever the value is in the option
+     */
+    protected function optionValue($options, $field) {
+        return ($options && isset($options[$field])) ? $options[$field] : null;
     }
 }

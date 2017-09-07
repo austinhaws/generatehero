@@ -84,61 +84,61 @@ class AliensTest extends BaseTestRunner
     {
         return $this->iterationSubRolls($rolls, $i, [
             [
-                new TestRoll(100, 19, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 19, 'Alien: Reason for Coming'),
                 new TestRoll(100, 25, 'Alien: last of race'),
             ],
             [
-                new TestRoll(100, 38, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 38, 'Alien: Reason for Coming'),
                 new TestRoll(100, 20, 'Alien: crash landed!'),
             ],
 
             [
-                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 55, 'Alien: Reason for Coming'),
                 new TestRoll(100, 20, 'Alien: outcast'),
             ],
             [
-                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 55, 'Alien: Reason for Coming'),
                 new TestRoll(100, 40, 'Alien: outcast'),
             ],
             [
-                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 55, 'Alien: Reason for Coming'),
                 new TestRoll(100, 60, 'Alien: outcast'),
             ],
             [
-                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 55, 'Alien: Reason for Coming'),
                 new TestRoll(100, 80, 'Alien: outcast'),
             ],
             [
-                new TestRoll(100, 55, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 55, 'Alien: Reason for Coming'),
                 new TestRoll(100, 100, 'Alien: outcast'),
             ],
 
             [
-                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 70, 'Alien: Reason for Coming'),
                 new TestRoll(100, 20, 'Alien: Champion'),
             ],
             [
-                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 70, 'Alien: Reason for Coming'),
                 new TestRoll(100, 40, 'Alien: Champion'),
             ],
             [
-                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 70, 'Alien: Reason for Coming'),
                 new TestRoll(100, 60, 'Alien: Champion'),
             ],
             [
-                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 70, 'Alien: Reason for Coming'),
                 new TestRoll(100, 80, 'Alien: Champion'),
             ],
             [
-                new TestRoll(100, 70, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 70, 'Alien: Reason for Coming'),
                 new TestRoll(100, 100, 'Alien: Champion'),
             ],
 
             [
-                new TestRoll(100, 85, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 85, 'Alien: Reason for Coming'),
             ],
             [
-                new TestRoll(100, 100, 'Alien: Reason for Coming'),
+                TestRoll::doNotCareUntilAndRoll(100, 100, 'Alien: Reason for Coming'),
             ],
         ]);
     }
@@ -593,8 +593,70 @@ class AliensTest extends BaseTestRunner
             'vehicle',
             'money',
         ], [
-            (new TestRoll())->dontCareUntil('power category')->andRoll(100, 100, 'power category'),
+            TestRoll::doNotCareUntilAndRoll(100, 100, 'power category'),
             (new TestRoll())->dontCareUntilAndGetNext('appearance'),
         ]);
+    }
+
+    public function test_superAbilitiesSuperAbilities() {
+        foreach ([49, 69] as $superAbility) {
+            $rolls = [
+                TestRoll::doNotCareUntilAndRoll(100, 100, 'power category'),
+                TestRoll::doNotCareUntilAndRoll(100, $superAbility, 'Alien: Super Abilities'),
+                new TestRoll(false, false, 'Super Abilities'),
+                TestRoll::doNotCareUntilAndRoll(100, 1, 'Alien Education'),
+                TestRoll::doNotCareAnyMore(),
+            ];
+
+            $this->runGeneration($rolls);
+        }
+    }
+
+    public function test_superAbilitiesPsionics() {
+        $rolls = [
+            TestRoll::doNotCareUntilAndRoll(100, 100, 'power category'),
+            TestRoll::doNotCareUntilAndRoll(100, 60, 'Alien: Super Abilities'),
+            TestRoll::doNotCareUntilAndRoll(100, 1, 'Alien Education'),
+            TestRoll::doNotCareAnyMore(),
+        ];
+
+        $hero = $this->runGeneration($rolls);
+        $this->assertNotEmpty($hero->psionics);
+    }
+
+    public function test_superAbilitiesRobotics() {
+        $rolls = [
+            TestRoll::doNotCareUntilAndRoll(100, 100, 'power category'),
+            TestRoll::doNotCareUntilAndRoll(100, 79, 'Alien: Super Abilities'),
+            TestRoll::doNotCareUntilAndRoll(100, 1, 'Alien Education'),
+            TestRoll::doNotCareAnyMore(),
+        ];
+
+        $hero = $this->runGeneration($rolls);
+        $this->assertNotEmpty($hero->class->robotics);
+    }
+
+    public function test_superAbilitiesBionics() {
+        $rolls = [
+            TestRoll::doNotCareUntilAndRoll(100, 100, 'power category'),
+            TestRoll::doNotCareUntilAndRoll(100, 100, 'Alien: Super Abilities'),
+            TestRoll::doNotCareUntilAndRoll(100, 1, 'Alien Education'),
+            TestRoll::doNotCareAnyMore(),
+        ];
+
+        $hero = $this->runGeneration($rolls);
+        $this->assertNotEmpty($hero->class->bionics);
+    }
+
+    public function test_superAbilitiesMagic() {
+        $rolls = [
+            TestRoll::doNotCareUntilAndRoll(100, 100, 'power category'),
+            TestRoll::doNotCareUntilAndRoll(100, 89, 'Alien: Super Abilities'),
+            TestRoll::doNotCareUntilAndRoll(100, 1, 'Alien Education'),
+            TestRoll::doNotCareAnyMore(),
+        ];
+
+        $hero = $this->runGeneration($rolls);
+        $this->assertNotEmpty($hero->class->magic);
     }
 }

@@ -26,9 +26,9 @@ class RoboticsEducation extends BaseClass
      * create this class for this character
      *
      * @param Hero $robot the robot AI to which to add education
-     * @throws \Exception neener neener you lose
+     * @param bool|array $options
      */
-    public function create(Hero &$robot)
+    public function create(Hero &$robot, $options = false)
     {
         $educationFunction = $this->engine->tableRoller->rollTable('Robot AI: Education', [
             new TableEntry(1, 'combatProgram'),

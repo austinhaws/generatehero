@@ -59,7 +59,7 @@ class Mutants extends BaseClass
      * @param Hero $hero the hero
      * @throws \Exception ya ya, whatever
      */
-    public function create(Hero &$hero)
+    public function create(Hero &$hero, $options = false)
     {
         if ($this->engine->roller->rollDice(new Roll('Mutant Type', 1, 2)) === 1) {
             $this->createMutant($hero);

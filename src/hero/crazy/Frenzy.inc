@@ -2,14 +2,15 @@
 namespace Heroes\hero\crazy;
 
 use Heroes\engine\TableEntry;
+use Heroes\hero\classes\BaseClass;
 use Heroes\hero\Hero;
 
-class Frenzy extends BaseCrazy
+class Frenzy extends BaseClass
 {
     /** @var string what triggers the frenzy */
     public $condition;
 
-    function create(Hero &$hero)
+    function create(Hero &$hero, $options = false)
     {
         $this->condition = $this->engine->tableRoller->rollTable('Frenzy: condition', [
            new TableEntry(20, 'Intense Frustration'),

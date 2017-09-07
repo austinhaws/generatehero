@@ -13,7 +13,7 @@ use Heroes\tables\TableEducation;
 class SpecialTrainingHunterVigilante extends BaseClass
 {
 
-    public function create(Hero &$hero)
+    public function create(Hero &$hero, $options = false)
     {
         $this->modifyAttributes($hero);
 

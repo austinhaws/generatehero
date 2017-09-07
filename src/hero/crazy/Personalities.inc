@@ -3,6 +3,7 @@ namespace Heroes\hero\crazy;
 
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
+use Heroes\hero\classes\BaseClass;
 use Heroes\hero\Hero;
 
 class Personality
@@ -27,14 +28,14 @@ class PersonalityQuirk
     }
 }
 
-class Personalities extends BaseCrazy
+class Personalities extends BaseClass
 {
     // additional personalities besides the character's main personality
     public $personalities = [];
 
     // note: personalities take over: severe shock or trauma, coma or near death, hypnosis, telepathic probe, hypnotic suggestion, mind wipe
 
-    function create(Hero &$hero)
+    function create(Hero &$hero, $options = false)
     {
         // this is in addition to the main personality. a result of 1 here means 2 total personalities.
         $numberPersonalities = $this->engine->tableRoller->rollTable('Personalities: total', [

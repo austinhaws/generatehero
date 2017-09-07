@@ -24,13 +24,14 @@ class Bionics extends BaseClass
     /** @var array map of string (BionicLocation::enum) => bool; true means the location is bionic */
     public $bionicBody;
 
-    function create(Hero &$hero)
+    /**
+     * @param Hero $hero the hero to which to add bonuses
+     * @param bool|array $options creation options: isAlien if coming from alien so don't do character stuff, just buy bionics
+     */
+    function create(Hero &$hero, $options = false)
     {
         // setup default bionic body tracker
         $this->bionicBody = array_fill_keys(BionicLocation::ALL_LOCATIONS(), false);
-
-        // all bionics have SDC of 30
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Bionic Base SDC'));
 
         // step 1 : attributes - already done by generator
 
@@ -42,11 +43,16 @@ class Bionics extends BaseClass
         // step 4 : building the cyborg
         $this->chooseBionics($hero);
 
-        // step 5 : background information
-        $this->backgroundInformation();
+        if ($this->optionValue($options, 'isAlien')) {
+            // all bionics have SDC of 30
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 30, 'Bionic Base SDC'));
 
-        // step 6 : money - starting wealth (not applied to bionics buying)
-        $this->rollMoney($hero);
+            // step 5 : background information
+            $this->backgroundInformation();
+
+            // step 6 : money - starting wealth (not applied to bionics buying)
+            $this->rollMoney($hero);
+        }
     }
 
     private function backgroundInformation()

@@ -7,7 +7,9 @@ use Heroes\enums\BonusTargets;
 use Heroes\hero\Ability;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
+use Heroes\hero\Psionic;
 use Heroes\tables\superabilities\TablePsionics;
+use Heroes\tables\superabilities\TableSuperAbilities;
 
 class Aliens extends BaseClass
 {
@@ -26,13 +28,18 @@ class Aliens extends BaseClass
     /** @var string type of vehicle from space */
     public $vehicle;
 
-    // psionics
-    // TODO: how does psionics get set?
-    public $psionics;
+    /** @var bool|Psionic[] false or an array of the psionics this character has */
+    public $psionics = false;
     /** @var int number of psionic points */
-    public $isp;
+    public $isp = 0;
+    /** @var false|Bionics false or a bionics object */
+    public $bionics = false;
+    /** @var bool|Robotics false or a robotics object */
+    public $robotics = false;
+    /** @var bool|Magic false or a magic object */
+    public $magic = false;
 
-    function create(Hero &$hero)
+    function create(Hero &$hero, $options = false)
     {
         // all aliens have a base 20 SDC
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 20, 'Alien base SDC'));
@@ -41,20 +48,19 @@ class Aliens extends BaseClass
 
         $this->rollPhysiologicalModification($hero);
 
-        $this->rollSuperabilities($hero);
+        $this->rollSuperAbilities($hero);
 
         $this->rollEducation($hero);
 
-        $this->rollReason($hero);
+        $this->rollReason();
 
         $this->rollFamiliarity($hero);
 
-        $this->rollEquipment($hero);
+        $this->rollEquipment();
 
-        $this->rollVehicle($hero);
+        $this->rollVehicle();
 
         $this->rollMoney($hero);
-
     }
 
     public function postCreate(Hero &$hero)
@@ -81,7 +87,7 @@ class Aliens extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, $money * 1000, 'Alien: Money'));
     }
 
-    private function rollVehicle(Hero &$hero)
+    private function rollVehicle()
     {
         $this->vehicle = $this->engine->tableRoller->rollTable('Alien: Vehicle', [
             new TableEntry(13, 'One-Man Hover Car - Maximum Speed: 160mph, SDC: 180; Hovers 3 to 12 feet above the ground'),
@@ -95,7 +101,7 @@ class Aliens extends BaseClass
         ]);
     }
 
-    private function rollEquipment(Hero &$hero)
+    private function rollEquipment()
     {
         // clothes
         $this->earthClothesDisguise = $this->engine->roller->rollDice(new Roll('Alien: equipment', 1, 100)) <= 40 ? 'None' : 'Several suits of clothing';
@@ -143,7 +149,7 @@ class Aliens extends BaseClass
         }
     }
 
-    private function rollReason(Hero &$hero)
+    private function rollReason()
     {
         $result = $this->engine->tableRoller->rollTable('Alien: Reason for Coming', [
             new TableEntry(19, 'last of race'),
@@ -218,11 +224,6 @@ class Aliens extends BaseClass
     const ENGINEER = 'Engineer';
     private function rollEducation(Hero &$hero)
     {
-        $skills = [];
-        $secondarySkills = [];
-        $skillBonus = 0;
-        $secondarySkillBonus = 0;
-
         $educationLevel = $this->engine->tableRoller->rollTable('Alien Education', [
             new TableEntry(20, Aliens::GENERAL_STUDIES),
             new TableEntry(40, Aliens::MILITARY_SPECIALIST),
@@ -304,16 +305,11 @@ class Aliens extends BaseClass
 
         $reason = "Alien Education: $educationLevel";
         $hero->educationLevel = $reason;
-        foreach ($skills as $skill) {
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $skill, 0, $reason));
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, $skill, $skillBonus, $reason));
-
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, $secondarySkills, 0, $reason));
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, $skill, $secondarySkillBonus, $reason));
-        }
+        $hero->addSkills($skills, $reason, $skillBonus);
+        $hero->addSkills($secondarySkills, $reason, $secondarySkillBonus);
     }
 
-    private function rollSuperabilities(Hero &$hero)
+    private function rollSuperAbilities(Hero &$hero)
     {
         $abilities = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
             new TableEntry(49, 'Super Abilities'),
@@ -324,13 +320,28 @@ class Aliens extends BaseClass
             new TableEntry(100, 'Bionics'),
         ]);
         // once robotics are done then all the classes exist and can just plug in to them
-        throw new \Exception("alien superabilities needs completed - Alien: $abilities");
         switch ($abilities) {
+            case 'Experiment':
             case 'Super Abilities':
-// TODO: echo "Alien superabilities: $abilities (pg 56)\n";
+                (new TableSuperAbilities($this->engine))->randomSuperAbilities($hero);
+                break;
+            case 'Psionics':
+                (new TablePsionics($this->engine))->selectPowersMutantAlien($hero, 'Alien: Psionics');
+                break;
+            case 'Robotics':
+                $this->robotics = new Robotics($this->engine);
+                $this->robotics->create($hero, ['isAlien' => true]);
+                break;
+            case 'Mystic - wizard/spells only':
+                $this->magic = new Magic($this->engine);
+                $this->magic->create($hero, ['isAlien' => true]);
+                break;
+            case 'Bionics':
+                $this->bionics = new Bionics($this->engine);
+                $this->bionics->create($hero, ['isAlien' => true]);
                 break;
             default:
-// TODO: echo "do alien abilities: $abilities";
+                throw new \Exception("unknown alien superabilities: $abilities");
         }
     }
 

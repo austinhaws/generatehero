@@ -2,16 +2,17 @@
 namespace Heroes\hero\crazy;
 
 use Heroes\engine\TableEntry;
+use Heroes\hero\classes\BaseClass;
 use Heroes\hero\Hero;
 
-class Association extends BaseCrazy
+class Association extends BaseClass
 {
     /** @var string what is the power associated with */
     public $association;
     /** @var string what food triggers power */
     public $popeye;
 
-    function create(Hero &$hero)
+    function create(Hero &$hero, $options = false)
     {
         $this->association = $this->engine->tableRoller->rollTable('Association: association', [
             new TableEntry(16, 'Daytime Complex'),
@@ -24,7 +25,7 @@ class Association extends BaseCrazy
 
         // daytime: character believes powers are only active during daytime.
         // nighttime: character believes powers are only active during nighttime.
-        // popeye: one handful = 3 hours;
+        // popeye: one handful equals 3 hours
         // magic object: magic object bestows powers
         // power words: must speak words to gain super powers
         // solar syndrome: charges powers with solar energy; in full sunlight +10SDC, +5% skills

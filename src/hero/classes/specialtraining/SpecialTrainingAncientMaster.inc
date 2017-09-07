@@ -12,7 +12,7 @@ use Heroes\tables\TableEducation;
 class SpecialTrainingAncientMaster extends BaseClass
 {
 
-    public function create(Hero &$hero)
+    public function create(Hero &$hero, $options = false)
     {
         $this->modifyAttributes($hero);
 

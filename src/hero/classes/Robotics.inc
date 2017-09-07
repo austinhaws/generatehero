@@ -37,9 +37,10 @@ class Robotics extends BaseClass
      * create a character's class
      *
      * @param Hero $hero the hero
+     * @param bool|array $options 'isAlien' means to not do class bonuses, just build a robot
      * @throws \Exception ya ya, whatever
      */
-    public function create(Hero &$hero)
+    public function create(Hero &$hero, $options = false)
     {
         list($this->robotType, $this->requiresPilot, $this->requiresAI) = $this->engine->tableRoller->rollTable('Robot Type', [
             new TableEntry(1, [Robotics::ROBOT_TYPE_MECHANICAL, true, false]),
@@ -98,6 +99,7 @@ class Robotics extends BaseClass
                 var_dump($robotBody);
                 throw new \Exception('Unknown robotBody type: ' . $robotBody->type);
         }
+
         $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, $baseSDC, 'Robotics: Base SDC'));
         $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::NATURAL_ARMOR_RATING, 6, 'Robotics: Base Armor Rating'));
 
@@ -107,12 +109,14 @@ class Robotics extends BaseClass
         // Step five: artificial intelligence
             // done in step 2
 
-        // Step six: background data
-        $this->backgroundData();
+        if ($this->optionValue($options, 'isAlien')) {
+            // Step six: background data
+            $this->backgroundData();
 
-        // Step seven: human pilot stuff
-        if ($this->requiresPilot) {
-            $this->humanPilotStuff($hero);
+            // Step seven: human pilot stuff
+            if ($this->requiresPilot) {
+                $this->humanPilotStuff($hero);
+            }
         }
     }
 

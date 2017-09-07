@@ -45,25 +45,32 @@ class Magic extends BaseClass
      * create a character's class
      *
      * @param Hero $hero the hero
-     * @throws \Exception ya ya, whatever
+     * @param bool|array $options
      */
-    public function create(Hero &$hero)
+    public function create(Hero &$hero, $options = false)
     {
         // step 1 : attributes - already done by generator
         // step 2 : education - normal education
 
         // step 3 : determine type of magic
-        list($this->magicType, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
-            new TableEntry(25, ['Enchanted Weapon', 'weapon']),
-            new TableEntry(50, ['Enchanted Object', 'object']),
-            new TableEntry(63, ['Mystic Study - Wizard', 'studyWizard']),
-            new TableEntry(75, ['Mystic Study - Magician', 'studyMagician']),
-            new TableEntry(100, ['Bestowed', 'bestowed']),
-        ]);
-        $this->$function($hero);
+        if ($options && $options['isAlien']) {
+            list($this->magicType, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
+                new TableEntry(50, ['Mystic Study - Wizard', 'studyWizard']),
+                new TableEntry(100, ['Mystic Study - Magician', 'studyMagician']),
+            ]);
+        } else {
+            list($this->magicType, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
+                new TableEntry(25, ['Enchanted Weapon', 'weapon']),
+                new TableEntry(50, ['Enchanted Object', 'object']),
+                new TableEntry(63, ['Mystic Study - Wizard', 'studyWizard']),
+                new TableEntry(75, ['Mystic Study - Magician', 'studyMagician']),
+                new TableEntry(100, ['Bestowed', 'bestowed']),
+            ]);
+        }
+        $this->$function($hero, $options);
     }
 
-    private function bestowed(Hero &$hero)
+    private function bestowed(Hero &$hero, $options = false)
     {
         if ($this->engine->roller->rollDice(new Roll('Magic: Bestowed - physical limitation', 1, 2)) === 2) {
             $physicalLimitationFunc = $this->engine->tableRoller->rollTable('Magic: Bestowed - Physical Limitation Type', [
@@ -169,9 +176,11 @@ class Magic extends BaseClass
         $this->physicalLimitation = 'Invalid';
     }
 
-    private function studyMagician(Hero &$hero)
+    private function studyMagician(Hero &$hero, $options = false)
     {
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Magic: Mystic Study - Magician'));
+        if ($this->optionValue($options, 'isAlien')) {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 30, 'Magic: Mystic Study - Magician'));
+        }
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sense Evil: Sense the presence of truly strong evil. Range: lOOft (305m)', 'Magic: Mystic Study - Magician'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SPECIAL_SENSE_MAGIC, 28, 'Magic: Mystic Study - Magician'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_ILLUSIONS, 2, 'Magic: Mystic Study - Magician'));
@@ -182,9 +191,11 @@ class Magic extends BaseClass
         $this->selectSpells($this->spellsKnown, TableSpells::illusionarySpells(), 10);
     }
 
-    private function studyWizard(Hero &$hero)
+    private function studyWizard(Hero &$hero, $options = false)
     {
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Magic: Mystic Study - Wizard'));
+        if ($this->optionValue($options, 'isAlien')) {
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 30, 'Magic: Mystic Study - Wizard'));
+        }
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Astral Projection: When a person astral projects, his physical body falls into a death-like trance. The astral body enters the vast plane of the astral world. It is a pleasant world of rolling clouds and endless yellow sky. In this dimension the astral body is free to fly great distances in mere moments, and gaze from the astral plane into the world containing its physical body. Only psionic presence sense can detect an astral bod and only psionic attacks (from both the physical and astral planes) can harm the astral body. The astral body can be killed psionically by being prevented from returning to its physical body. Psionic hypnotic suggestion,  stun, sleep, mind wipe, dispel spirits, and possession are all powerful weapons against the astral traveler.', 'Magic: Mystic Study - Wizard'));
 
@@ -199,7 +210,7 @@ class Magic extends BaseClass
         $this->selectSpells($this->spellsKnown, TableSpells::allSpells(), 14);
     }
 
-    private function object(Hero &$hero)
+    private function object(Hero &$hero, $options = false)
     {
         $this->objectSpellLevel = $this->engine->tableRoller->rollTable('Magic: Enchanted Object - Spell Level', [
             new TableEntry(25, 3),
@@ -305,7 +316,7 @@ class Magic extends BaseClass
         }
     }
 
-    private function weapon(Hero &$hero)
+    private function weapon(Hero &$hero, $options = false)
     {
         $this->enchantedWeaponType = $this->engine->tableRoller->rollTable('Enchanted Weapon Type', [
            new TableEntry(10, 'Battle Axe'),

@@ -48,3 +48,7 @@ quick roll villain : make a side generator for this
 [ ] google material for React components
 
 [ ] all heroes get an automatic 2 attacks, some like hunter/vigilante already have that added in?
+
+[ ] selectPowersMutantAlien : mutants need to call this... do they? why aren't they?
+
+[ ] bonuses tallying and end of generation processing

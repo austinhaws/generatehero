@@ -40,7 +40,7 @@ class Experiment extends BaseClass
      *
      * @param Hero $hero the hero
      */
-    function create(Hero &$hero)
+    function create(Hero &$hero, $options = false)
     {
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 30, 'Experiment Base SDC'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, new Roll('Experiment starting money', 4, 4), 'Experiment Base SDC'));

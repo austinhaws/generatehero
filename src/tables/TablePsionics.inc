@@ -315,9 +315,9 @@ class TablePsionics extends TableBase
         ];
     }
 
-    public function selectPowersMutantAlien(Hero &$hero, $reason, &$psionicList)
+    public function selectPowersMutantAlien(Hero &$hero, $reason)
     {
-        TablePsionics::selectPowers($psionicList, $reason, 2, 4);
+        TablePsionics::selectPowers($hero, $reason, 2, 4);
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Psionic - ME', 2, 4), $reason));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Psionic - MA', 1, 4), $reason));

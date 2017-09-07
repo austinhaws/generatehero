@@ -5,7 +5,6 @@ use Exception;
 use Heroes\engine\Engine;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\classes\BaseClass;
-use Heroes\hero\crazy\BaseCrazy;
 use Heroes\hero\insanity\Insanity;
 
 class Hero
@@ -92,7 +91,7 @@ class Hero
     /** @var int private because setting should keep the max and not be cumulative */
     private $naturalArmor;
 
-    /** @var boolean|BaseCrazy */
+    /** @var boolean|BaseClass */
     public $crazy = null;
 
     // logs tell how bonuses got applied to character for what reason

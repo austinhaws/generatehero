@@ -2,14 +2,10 @@
 namespace Heroes\hero\classes;
 
 use Heroes\engine\Roll;
-use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\superabilities\TablePsionics;
-use Heroes\tables\superabilities\TableSuperAbilities;
-use Heroes\tables\TableEducation;
-use Heroes\tables\TableSpells;
 
 class Psionics extends BaseClass
 {
@@ -29,7 +25,7 @@ class Psionics extends BaseClass
      * @param Hero $hero the hero
      * @throws \Exception ya ya, whatever
      */
-    public function create(Hero &$hero)
+    public function create(Hero &$hero, $options = false)
     {
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Psionic - ME', 2, 4), 'Psionic'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Psionic - MA', 1, 4), 'Psionic'));

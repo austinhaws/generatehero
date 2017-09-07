@@ -18,7 +18,7 @@ class SpecialTrainingSecretOperative extends BaseClass
     /** @var string relation ship with sponsoring organization */
     public $sponsoringOrganizationStatus;
 
-    public function create(Hero &$hero)
+    public function create(Hero &$hero, $options = false)
     {
         $this->modifyAttributes($hero);
 
