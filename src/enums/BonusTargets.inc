@@ -34,23 +34,21 @@ abstract class BonusTargets
     // save against gases of all types
     const SAVE_GASES = 'Save: gases';
     // note that save magic/psionics/toxins is in addition to PE bonus
-// TODO : break out psionics and toxins and the combo saves so that they target just one type
-    const SAVE_MAGIC_PSIONICS_TOXINS = 'Save: Magic/Psionics/Toxins';
-    const SAVE_POSITION_TOXINS_GASES = 'Save: Position/Toxins/Gases';
-    const SAVE_TOXINS = 'Save: Toxins';
     const SAVE_CHEMICALS = 'Save: Chemicals';
+    const SAVE_CONTROL_OTHERS = 'Save: Control Others';
+    const SAVE_ILLUSIONS = 'Save: Illusions';
     const SAVE_MAGIC = 'Save: Magic';
+    const SAVE_MAGIC_SPELLS_ENCHANTMENTS = 'Save: Magic/Spells/Enchantments';
+    const SAVE_MIND_ALTERING_EFFECTS = 'Save: Mind Altering Effects';
+    const SAVE_POISON = 'Save: Poison';
+    const SAVE_POSSESSION = 'Save: Possession';
     const SAVE_PSIONICS = 'Save: Psionics';
     const SAVE_PSIONIC_ATTACK_INSANITY = 'Save: Psionic Attack/Insanity';
     const SAVE_PSIONIC_MIND_CONTROL = 'Save: Psionic Mind Control';
-    const SAVE_POSSESSION = 'Save: Possession';
-    const SAVE_CONTROL_OTHERS = 'Save: Control Others';
-    const SAVE_MIND_ALTERING_EFFECTS = 'Save: Mind Altering Effects';
-    const SAVE_ILLUSIONS = 'Save: Illusions';
+    const SAVE_TOXINS = 'Save: Toxins';
 
     const TRUST_INTIMIDATE = 'Trust/Intimidate';
     const STRIKE = 'Strike';
-    const SAVE_MAGIC_SPELLS_ENCHANTMENTS = 'Save: Magic/Spells/Enchantments';
 
     // == OTHER == //
     const MONEY = 'Money';

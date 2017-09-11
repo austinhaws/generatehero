@@ -1,7 +1,6 @@
 <?php
 namespace Heroes\tables;
 
-use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
@@ -141,7 +140,9 @@ class TableAttributes extends TableBase
             $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, $bonus, 'Physical Endurance Bonus'));
 
             $bonus = 1 + floor(($hero->physicalEndurance - 16) / 2);
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC_PSIONICS_TOXINS, $bonus, 'Physical Endurance Bonus'));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, $bonus, 'Physical Endurance Bonus'));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONICS, $bonus, 'Physical Endurance Bonus'));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_TOXINS, $bonus, 'Physical Endurance Bonus'));
         }
     }
 
