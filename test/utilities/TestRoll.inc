@@ -62,8 +62,8 @@ class TestRoll
     /**
      * ease of use static function for not caring until a roll comes
      *
-     * @param $sides int dice's sides
-     * @param $roll int roll for the dice
+     * @param $sides int|bool dice's sides
+     * @param $roll int|bool roll for the dice
      * @param $name string name of the roll
      * @return TestRoll
      */

@@ -43,7 +43,7 @@ class Bionics extends BaseClass
         // step 4 : building the cyborg
         $this->chooseBionics($hero);
 
-        if ($this->optionValue($options, 'isAlien')) {
+        if (!$this->optionValue($options, 'isAlien')) {
             // all bionics have SDC of 30
             $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 30, 'Bionic Base SDC'));
 

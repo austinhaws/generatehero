@@ -178,7 +178,7 @@ class Magic extends BaseClass
 
     private function studyMagician(Hero &$hero, $options = false)
     {
-        if ($this->optionValue($options, 'isAlien')) {
+        if (!$this->optionValue($options, 'isAlien')) {
             $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 30, 'Magic: Mystic Study - Magician'));
         }
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Sense Evil: Sense the presence of truly strong evil. Range: lOOft (305m)', 'Magic: Mystic Study - Magician'));
@@ -193,7 +193,7 @@ class Magic extends BaseClass
 
     private function studyWizard(Hero &$hero, $options = false)
     {
-        if ($this->optionValue($options, 'isAlien')) {
+        if (!$this->optionValue($options, 'isAlien')) {
             $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 30, 'Magic: Mystic Study - Wizard'));
         }
 

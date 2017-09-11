@@ -109,7 +109,7 @@ class Robotics extends BaseClass
         // Step five: artificial intelligence
             // done in step 2
 
-        if ($this->optionValue($options, 'isAlien')) {
+        if (!$this->optionValue($options, 'isAlien')) {
             // Step six: background data
             $this->backgroundData();
 
