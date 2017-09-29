@@ -41,7 +41,6 @@ class TableAttributes extends TableBase
         $hpBonus = $this->engine->roller->rollDice(new Roll('starting hps bonus', 1, 6));
         $hero->hitPoints = $hero->physicalEndurance + $hpBonus;
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::HIT_POINTS, $hpBonus, 'Starting character bonus hit points'));
-
     }
 
     private function applyAttributeBonus_IQ(Hero &$hero)
@@ -137,7 +136,8 @@ class TableAttributes extends TableBase
             } else {
                 $bonus = 6 + ($hero->physicalEndurance - 18) * 2;
             }
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, $bonus, 'Physical Endurance Bonus'));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA, $bonus, 'Physical Endurance Bonus'));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_DEATH, $bonus, 'Physical Endurance Bonus'));
 
             $bonus = 1 + floor(($hero->physicalEndurance - 16) / 2);
             $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, $bonus, 'Physical Endurance Bonus'));

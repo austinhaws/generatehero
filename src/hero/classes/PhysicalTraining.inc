@@ -52,7 +52,8 @@ class PhysicalTraining extends BaseClass
         }
 
         // add +10% save vs comma/death
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, 10, 'Physical Training: Save'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA, 10, 'Physical Training: Save'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA, 10, 'Physical Training: Save'));
 
         // 2d6 HPs
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::HIT_POINTS, new Roll('Physical Training: Hit points Bonus', 2, 6), 'Physical Training: Hit Points Bonus'));

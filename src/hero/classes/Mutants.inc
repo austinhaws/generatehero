@@ -197,8 +197,6 @@ class Mutants extends BaseClass
 
     private function createAnimalMutant(Hero &$hero)
     {
-        $hero->SDCCalculated = true;
-
         // determine animal type - randomly choose from all types
         $this->causeAnimalMutant($hero);
 

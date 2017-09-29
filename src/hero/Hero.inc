@@ -11,21 +11,21 @@ class Hero
 {
     // abilities
     /** @var int iq */
-    public $intelligenceQuotient;
+    public $intelligenceQuotient = 0;
     /** @var int me */
-    public $mentalEndurance;
+    public $mentalEndurance = 0;
     /** @var int ma */
-    public $mentalAffinity;
+    public $mentalAffinity = 0;
     /** @var int ps */
-    public $physicalStrength;
+    public $physicalStrength = 0;
     /** @var int pp */
-    public $physicalProwess;
+    public $physicalProwess = 0;
     /** @var int pe */
-    public $physicalEndurance;
+    public $physicalEndurance = 0;
     /** @var int pb */
-    public $physicalBeauty;
+    public $physicalBeauty = 0;
     /** @var int speed */
-    public $speed;
+    public $speed = 0;
 
     // calculateds
     /** @var int */
@@ -42,8 +42,6 @@ class Hero
     public $hitPoints = 0;
     /** @var int */
     public $sdc = 0;
-    /** @var boolean some classes (mutant animals) calculate SDC differently so they won't have the end calculation */
-    public $SDCCalculated = false;
 
     // optionals
     /** @var int */
@@ -71,10 +69,6 @@ class Hero
     /** @var string */
     public $alignment;
 
-    // bonus to charm/impress rolls
-    /** @var int */
-    public $charmImpress;
-
     // alien/mutant/etc
     /** @var BaseClass */
     public $class;
@@ -83,13 +77,71 @@ class Hero
     /** @var int */
     public $attacksPerMelee = 2;
     /** @var int */
-    public $parry;
+    public $parry = 0;
     /** @var int */
-    public $roll;
+    public $roll = 0;
     /** @var int */
-    public $dodge;
-    /** @var int private because setting should keep the max and not be cumulative */
-    private $naturalArmor;
+    public $dodge = 0;
+    /** @var int bonus to hit something */
+    public $strike = 0;
+    /** @var int bonus to pulling a punch */
+    public $pullPunch = 0;
+    /** @var int bonus to rolling with a punch */
+    public $rollWithPunch = 0;
+    /** @var int armor from just being you */
+    public $naturalArmor = 0;
+    /** @var int bonus to damage rolls */
+    public $damageBonus = 0;
+    /** @var int bonus to initiative rolls */
+    public $initiativeBonus = 0;
+
+    /** @var int save versus comma */
+    public $saveComma = 0;
+    /** @var int save versus death */
+    public $saveDeath = 0;
+    /** @var int save versus death */
+    public $saveGases = 0;
+    /** @var int save versus chemicals */
+    public $saveChemicals = 0;
+    /** @var int save versus control others */
+    public $saveControlOthers = 0;
+    /** @var int save versus illusions */
+    public $saveIllusions = 0;
+    /** @var int save versus magic */
+    public $saveMagic = 0;
+    /** @var int save versus spells */
+    public $saveSpells = 0;
+    /** @var int save versus enchantments */
+    public $saveEnchantments = 0;
+    /** @var int save versus mind altering effects */
+    public $saveMindAlteringEffects = 0;
+    /** @var int save versus poison */
+    public $savePoison = 0;
+    /** @var int save versus possession */
+    public $savePossession = 0;
+    /** @var int save versus psionics */
+    public $savePsionics = 0;
+    /** @var int save versus psionic attack insanity */
+    public $savePsionicAttackInsanity = 0;
+    /** @var int save versus Psionic mind control */
+    public $savePsionicMindControl = 0;
+    /** @var int save versus toxins */
+    public $saveToxins = 0;
+
+    /** @var int bonus to trust/intimidate checks */
+    public $trustIntimidate = 0;
+    /** @var int bonus to walk tightrope */
+    public $balanceWalkTightrope = 0;
+    /** @var int bonus to charm/impress rolls */
+    public $charmImpress = 0;
+    /** @var int bonus to maintain grip hold footing rolls */
+    public $maintainGripHoldFooting = 0;
+    /** @var int bonus to understanding operating alien machines */
+    public $understandOperateAlienMachines = 0;
+    /** @var int bonus to recognize/identify plants */
+    public $recognizeIdentifyPlants = 0;
+    /** @var int bonus to imitate voices */
+    public $imitateVoices = 0;
 
     /** @var boolean|BaseClass */
     public $crazy = null;
@@ -116,12 +168,18 @@ class Hero
     /** @var int */
     public $age;
 
+    /** @var array the total skill level for skills taken by the character; calculated at END of generating character; uses BonusTarget::SKIL_... constants */
+    public $skillTotals;
+
+    /** @var string notes about the character that don't fit in a single variable */
+    public $descriptions = [];
 
     public function __construct()
     {
         // if not false, then it's already set, so don't recalculate it (mutants set height/weight outside of normal setting rules)
         $this->weight = false;
         $this->height = false;
+        $this->skillTotals = [];
     }
 
 
@@ -199,16 +257,6 @@ class Hero
             $this->psionics[] = $psionic;
         }
         return !$found;
-    }
-
-    /**
-     * keep the max natural armor
-     *
-     * @param $naturalArmor int possible new natural armor value
-     */
-    public function setNaturalArmor($naturalArmor)
-    {
-        $this->naturalArmor = max($naturalArmor ? $naturalArmor : 0, $this->naturalArmor);
     }
 
     /**

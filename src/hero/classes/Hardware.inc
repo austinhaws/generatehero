@@ -28,7 +28,7 @@ class Hardware extends BaseClass
     public function create(Hero &$hero, $options = false)
     {
         // step 1 : attributes - already done by generator; IQ must be at least 9
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, 9, BonusTargets::ATTRIBUTE_INTELLIGENCE_QUOTIENT, 'Hardware Base IQ'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ATTRIBUTE_INTELLIGENCE_QUOTIENT, 9, 'Hardware Base IQ'));
 
 
         // step 2 : education - normal education but with one less skill program

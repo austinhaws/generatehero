@@ -1,6 +1,10 @@
 composer dumpautoload -o
 vendor/bin/phpunit --filter testGenerate_isCrazy_association
 
+code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html coverage
+
+
+
 [ ] hash code and save each generated character so that they can be retrieved later; tie to an account
 
 [ ] give user choice points like class of hero, high or low rolls (roller then will scale up/down on rolls), max/min rolls
@@ -10,21 +14,9 @@ vendor/bin/phpunit --filter testGenerate_isCrazy_association
 [ ] ben: let them "stick" decisions of the results. like keep the bionics stuck, but change out the abilities. or keep strenght the same but redo the rest. this could be really tricky? or just make the classes sticky? how to make bonuses come and go based on sticky?
 
 
-code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html coverage
-
-composer:
-	- update autolaod: composer dumpautoload -o
-
-
-if a test is not running, make sure file ends with .php
 
 
 skills all ahve a base %; do the "Bonus::SET" base percentages BEFORE adding bonuses to character
-review skills to see if they add anything to character
-WP Skills are either on or off, don't add percentages for them
-
-
-ben, "I like the idea of the hero generator.  One thing that would be helpful for these character generators is the ability to lock different sections so they stay the same while re-rolling other stuff."
 
 TO DO
 [ ] total bonuses at end of character creation

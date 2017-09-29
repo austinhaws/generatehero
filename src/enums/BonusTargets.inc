@@ -29,16 +29,18 @@ abstract class BonusTargets
     const PULL_PUNCH = "Pull Punch";
     // roll with fall/impact
     const ROLL = 'Roll';
-    const SAVE_COMMA_DEATH = 'Save: comma/Death';
 
     // save against gases of all types
     const SAVE_GASES = 'Save: gases';
     // note that save magic/psionics/toxins is in addition to PE bonus
+    const SAVE_COMMA = 'Save: Comma';
+    const SAVE_DEATH = 'Save: Death';
     const SAVE_CHEMICALS = 'Save: Chemicals';
     const SAVE_CONTROL_OTHERS = 'Save: Control Others';
     const SAVE_ILLUSIONS = 'Save: Illusions';
     const SAVE_MAGIC = 'Save: Magic';
-    const SAVE_MAGIC_SPELLS_ENCHANTMENTS = 'Save: Magic/Spells/Enchantments';
+    const SAVE_SPELLS = 'Save: Spells';
+    const SAVE_ENCHANTMENTS = 'Save: Enchantments';
     const SAVE_MIND_ALTERING_EFFECTS = 'Save: Mind Altering Effects';
     const SAVE_POISON = 'Save: Poison';
     const SAVE_POSSESSION = 'Save: Possession';
@@ -61,7 +63,7 @@ abstract class BonusTargets
 
     // == FLAGS == //
     // can carry and lift double the normal amount
-    const FLAG_DOUBLE_CARRY = 'double carry';
+    const CARRY_WEIGHT = 'Carry Weight';
 
 
     // == NON-NUMERIC BONUSES == //
@@ -196,7 +198,6 @@ abstract class BonusTargets
     const SKILL_PILOT_AIRPLANE_OLD_STYLE = 'Airplane - old style';
     const SKILL_PILOT_BOATS_SAIL = 'Boats: Sail';
     const SKILL_PILOT_BOATS_MOTOR = 'Boats: Motor';
-    const SKILL_PILOT_PILOT_ADVANCED = 'Pilot: Advanced';
     const SKILL_PILOT_HELICOPTER_BASIC = 'Helicopter: Basic';
     const SKILL_PILOT_HELICOPTER_COMBAT = 'Helicopter: Combat';
     const SKILL_PILOT_JET_COMMERCIAL = 'Jet Commercial';
@@ -428,7 +429,6 @@ abstract class BonusTargets
             BonusTargets::SKILL_PILOT_AIRPLANE_OLD_STYLE,
             BonusTargets::SKILL_PILOT_BOATS_SAIL,
             BonusTargets::SKILL_PILOT_BOATS_MOTOR,
-            BonusTargets::SKILL_PILOT_PILOT_ADVANCED,
             BonusTargets::SKILL_PILOT_HELICOPTER_BASIC,
             BonusTargets::SKILL_PILOT_HELICOPTER_COMBAT,
             BonusTargets::SKILL_PILOT_JET_COMMERCIAL,

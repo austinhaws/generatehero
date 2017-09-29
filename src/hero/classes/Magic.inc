@@ -338,7 +338,9 @@ class Magic extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Magical ' . $this->enchantedWeaponType . ' that is totally indestructible. Made of black, grey, blue-grey, dark red or bright gold or silver colored metal and lined with rune symbols from tip to handle. Deals ' . $this->enchantedWeaponDamage . ' damage. Affects/damages all creatures of magic, including animated dead, zombies, vampires, werewolves, demon, etc. Provides resistance against fire and cold (does half damage). Creates a costume or battle dress out of thin air for combat. Activated when the wielder speaks its name.', 'Magic: Enchanted Weapon'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::STRIKE, 1, 'Magic: Enchanted Weapon'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PARRY, 1, 'Magic: Enchanted Weapon'));
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC_SPELLS_ENCHANTMENTS, 3, 'Magic: Enchanted Weapon'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, 3, 'Magic: Enchanted Weapon'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_SPELLS, 3, 'Magic: Enchanted Weapon'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_ENCHANTMENTS, 3, 'Magic: Enchanted Weapon'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Magic Weapon: SDC', 1, 6, 10), 'Magic: Enchanted Weapon'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'See Invisible', 'Magic: Enchanted Weapon'));
 

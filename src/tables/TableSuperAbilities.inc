@@ -86,7 +86,7 @@ class TableSuperAbilities extends TableBase
                 [
                     new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, 20, 'Extraordinary Physical Strength'),
                     new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Extraordinary Physical Strength', 1, 6), 'Extraordinary Physical Strength'),
-                    new Bonus(Bonus::BONUS_TYPE_SET_FLAG, BonusTargets::FLAG_DOUBLE_CARRY, true, 'Extraordinary Physical Strength'),
+                    new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTargets::CARRY_WEIGHT, 2, 'Extraordinary Physical Strength'),
                 ])),
 
             new TableEntry(27, new Ability('Radar', 'Range: 400ft+ lOOft per level of experience. The radar super ability sends out high-frequency radio waves which bounce off objects, returning and indicating the direction and distance of the reflecting objects. This power provides the super being with a crude type of see in the dark ability, enabling him to know/sense the location of objects and movements. Abilities Include: Interpreting Shapes: 50%+ 8% per level of experience. Estimating Distance: 60% + 8% per level of experience. Estimating Direction: 60% + 8% per level of experience. Estimating Speed: 40% + 8% per level of experience Estimating exact location: 40% + 8% per level of experience. No minuses apply when blinded or in darkness. Note: Radar does not go through cloth, wood or people. Consequently, the character can not see or sense through walls or doors. Likewise, while he may sense a car, estimate its speed, direction and distance, he can not tell how many people are in the vehicle. This ability is especially useful in the dark, long distances, and combat (providing relatively full view of the combat area). Disadvantages: Radar is totally fouled in the rain, snow, dust or sandstorms, and by similar multiple, obscuring, images. NO BONUSES apply under these conditions, including no additional attacks per melee. If these conditions exist at night/dark or while blinded the radar is ineffective and the character is blind and suffers with all the minuses that usually apply. Smoke also fouls radar, but not as severely as the aforementioned conditions. All the abilities to estimate speed, direction, distance, shape and location are -30%. All bonuses are reduced by half.', [
@@ -154,7 +154,8 @@ class TableSuperAbilities extends TableBase
             new TableEntry(54, new Ability('Healing Factor', 'This power provides incredible recuperative abilities and immunity to disease and toxins.', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Healing Factor: PE', 2, 4), 'Healing Factor'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 25, 'Healing Factor'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, 20, 'Healing Factor'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA, 20, 'Healing Factor'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_DEATH, 20, 'Healing Factor'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONICS, 3, 'Healing Factor'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, 3, 'Healing Factor'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_TOXINS, 3, 'Healing Factor'),
@@ -413,7 +414,8 @@ class TableSuperAbilities extends TableBase
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Invulnerability: SDC', 4, 6, 10), 'Invulnerability'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Invulnerability: PE', 1, 6), 'Invulnerability'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_STRENGTH, new Roll('Invulnerability: PS', 1, 4), 'Invulnerability'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, 20, 'Invulnerability'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_DEATH, 20, 'Invulnerability'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA, 20, 'Invulnerability'),
             ])),
 
             new TableEntry(56, new Ability('Alter Physical Structure: Electricity', 'An incredible transformation into a living electrical conduit, as well as the ability to manipulate and control aspects of electricity. Abilities: Fire Electrical Ray, Mini-Lightning Bolt, Lightning Bolt, Electric Flight, and Generate Electricity.', [
@@ -458,7 +460,8 @@ class TableSuperAbilities extends TableBase
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Death Touch - Causes 606 damage and shocks the nervous system, plunging the victim into a coma unless a successful saving throw of 15 or higher is made. The use of the Death Touch also takes its toll on the person inflicting the coma. The super being himself is drained each time he uses the Death Touch. Side effects from using the Death Touch: Reduce speed by half, -2 to strike, parry, dodge, and -2 for ALL savings throws for 2D6 melees. Side effects from multiple or continuous use of the Death Touch are cumulative.', 'Disruptive Touch'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_ENDURANCE, new Roll('Disruptive Touch: PE', 1, 6), 'Disruptive Touch'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, new Roll('Disruptive Touch: SDC', 1, 6, 10), 'Disruptive Touch'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, 10, 'Disruptive Touch'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA, 10, 'Disruptive Touch'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_DEATH, 10, 'Disruptive Touch'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Poisons, toxins, and drugs have only half their usual effects, damage, and duration.', 'Disruptive Touch'),
             ])),
 
@@ -500,7 +503,8 @@ class TableSuperAbilities extends TableBase
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_GASES, 6, 'Karmic Power'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONICS, 6, 'Karmic Power'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, 6, 'Karmic Power'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA_DEATH, 20, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_DEATH, 20, 'Karmic Power'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_COMMA, 20, 'Karmic Power'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Death blows on this character do not kill; instead only stun the character.', 'Karmic Power'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Critical damage on this character does only normal damage.', 'Karmic Power'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'On natural 20 to strike, knocks opponent unconscious for 3D4 rounds.', 'Karmic Power'),

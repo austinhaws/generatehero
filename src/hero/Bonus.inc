@@ -10,14 +10,12 @@ use Heroes\engine\Roll;
  */
 class Bonus {
     // - ordered in order of operation - //
-    // set a flag on the hero; like double carry weight
-    const BONUS_TYPE_SET_FLAG = 'flag';
-
     // set the target to the value
     // Skills use "Set" to show that the skill is added to the character. the bonus will be 0, but just having the "set" means the character gets the skill
     const BONUS_TYPE_SET = 'set';
 
     // after all is said and done, the value must be at least this value
+    // this works just like "SET" but is at the end of the sequence instead of the beginning
     const BONUS_TYPE_MINIMUM = 'minimum';
 
     // add the value to the target
@@ -39,6 +37,9 @@ class Bonus {
     /** @var string why are they getting this bonus? */
     public $explanation;
 
+    /** @var bool has this bonus already been applied; since applying is in phases, don't double apply */
+    public $isApplied;
+
     /**
      * Bonus constructor.
      * @param $bonusType string - add or set?
@@ -52,6 +53,7 @@ class Bonus {
         $this->bonusTarget = $bonusTarget;
         $this->value = $value;
         $this->explanation = $explanation;
+        $this->isApplied = false;
     }
 
     /**
