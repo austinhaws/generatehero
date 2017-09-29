@@ -47,7 +47,7 @@ class SpecialTrainingAncientMaster extends BaseClass
         // HAND TO HAND: MARTIAL ARTS
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS, 0, 'Ancient Master - combat'));
         // Attacks Per Melee: 8 (includes the two melee attacks automatic to all heroes and one additional attack from boxing).
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ATTACKS_PER_MELEE, 6, 'Ancient Master - combat'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::ATTACKS_PER_MELEE, 5, 'Ancient Master - combat'));
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::PULL_PUNCH, 3, 'Ancient Master - combat'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ROLL, 3, 'Ancient Master - combat'));
