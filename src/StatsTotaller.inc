@@ -43,7 +43,7 @@ class StatsTotaller
             BonusTargets::SKILL_GROUP_AGILITY_DEXTERITY,
         ]);
 
-        // then do skill group ALL - the ALL group needs to go last
+        // then do skill group ALL - the ALL group needs to go last because it adds to taken skills but doesn't actually take skills
         $this->calculateBonusGroup($hero, [BonusTargets::SKILL_GROUP_ALL]);
 
         // apply any bonuses not yet applied

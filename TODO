@@ -16,8 +16,6 @@ code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html c
 
 
 
-skills all ahve a base %; do the "Bonus::SET" base percentages BEFORE adding bonuses to character
-
 TO DO
 [ ] total bonuses at end of character creation
 	[ ] do skill "set" first to get highets possible starting value for a skill
