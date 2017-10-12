@@ -11,6 +11,7 @@ class HeroGeneratorSkillsTest extends BaseTestRunner
     public function testApplySet()
     {
         $this->testRoller->setTestRolls([
+            new TestRoll(2, 1, 'gender'),
             new TestRoll(6, 1, 'intelligenceQuotient'),
             new TestRoll(6, 1, 'intelligenceQuotient'),
             new TestRoll(6, 1, 'intelligenceQuotient'),
@@ -30,6 +31,7 @@ class HeroGeneratorSkillsTest extends BaseTestRunner
     public function testApplySetBigger()
     {
         $this->testRoller->setTestRolls([
+            new TestRoll(2, 2, 'gender'),
             new TestRoll(6, 6, 'intelligenceQuotient'),
             new TestRoll(6, 3, 'intelligenceQuotient'),
             new TestRoll(6, 3, 'intelligenceQuotient'),

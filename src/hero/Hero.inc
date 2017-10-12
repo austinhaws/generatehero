@@ -9,6 +9,10 @@ use Heroes\hero\insanity\Insanity;
 
 class Hero
 {
+
+    /** @var string */
+    public $gender = '';
+
     // abilities
     /** @var int iq */
     public $intelligenceQuotient = 0;

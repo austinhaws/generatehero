@@ -15,8 +15,6 @@ code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html c
 
 
 TO DO
-[ ] find TODOs
-
 quick roll villain : make a side generator for this
 [ ] all heros get 2 attacks
 [ ] set age if not already set for hero in final generation
@@ -24,3 +22,19 @@ quick roll villain : make a side generator for this
 
 [ ] open id for login and saving heros
 [ ] google material for React components
+
+
+
+to make rolls sticky
+[ ] in UI, add "sticky" toggle boxes next to areas/data that can be "stuck"
+[ ] if checked then send those roll values to engine to roll
+[ ] store all rolls and names on the Hero, or maybe in the roller and returned from generator or stored in generator
+[ ] when rolling, can pass in "stuck" rolls and any time the name matches then it uses that roll value
+
+not everything can be sticky, just major decision points like:
+- class
+- gender
+- alignment
+-
+
+this is a generator! not a character sheet, so auto calculating data based on changes is too much work and outside of scope.

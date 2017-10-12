@@ -11,6 +11,7 @@ class HeroGeneratorTest extends BaseTestRunner
     public function testGenerate()
     {
         $this->testRoller->setTestRolls([
+            new TestRoll(2, 2, 'gender'),
             new TestRoll(6, 3, 'intelligenceQuotient'),
             new TestRoll(6, 1, 'intelligenceQuotient'),
             new TestRoll(6, 2, 'intelligenceQuotient'),
@@ -60,7 +61,8 @@ class HeroGeneratorTest extends BaseTestRunner
             new TestRoll(100, 30, 'social/economic background'),
             new TestRoll(100, 30, 'when manifested'),
 
-            new TestRoll(6, 2, 'starting hps bonus'),
+            TestRoll::doNotCareUntilAndRoll(6, 2, 'starting hps bonus'),
+            TestRoll::doNotCareAnyMore(true),
         ]);
         $this->heroGenerator->generate();
         $this->testRoller->verifyTestRolls();

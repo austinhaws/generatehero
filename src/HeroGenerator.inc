@@ -48,6 +48,11 @@ class HeroGenerator
          *  - and tallying all bonuses and calculations
          */
 
+        $hero->gender = $this->engine->tableRoller->rollTable('gender', [
+           new TableEntry(1, 'Male'),
+           new TableEntry(2, 'Female'),
+        ]);
+
         // step 1 - attributes (3d6; +1d6 if >= 16)
         $attributes = ['intelligenceQuotient', 'mentalEndurance', 'mentalAffinity', 'physicalStrength', 'physicalProwess', 'physicalEndurance', 'physicalBeauty', 'speed'];
         foreach ($attributes as $attribute) {
