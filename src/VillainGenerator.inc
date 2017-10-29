@@ -50,7 +50,7 @@ class VillainGenerator
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Level: ' . $level, 'Villain level'));
 
         // alignment
-        $hero->alignment = $this->engine->tableRoller->rollTable('level', [
+        $hero->alignment = $this->engine->tableRoller->rollTable('alignment', [
             new TableEntry(20, 'Aberrant'),
             new TableEntry(50, 'Miscreant'),
             new TableEntry(82, 'Anarchist'),
@@ -58,7 +58,7 @@ class VillainGenerator
         ]);
 
         // criminal record
-        $record = $this->engine->tableRoller->rollTable('level', [
+        $record = $this->engine->tableRoller->rollTable('criminalRecord', [
             new TableEntry(30, 'None'),
             new TableEntry(40, 'A few misdemeanors'),
             new TableEntry(49, 'A few misdemeanors. ' . $this->engine->roller->rollDice(new Roll('Villain felonies - misdemeanors', 2, 8)) . ' felonies. Time Served'),
@@ -82,6 +82,8 @@ class VillainGenerator
 
         $this->criminalOrganization($hero);
 
+echo "\n--- Needs to calculate all scores like hero generator does like skills and stuff --\n";
+
         return $hero;
     }
 
@@ -90,7 +92,8 @@ class VillainGenerator
      *
      * @param Hero $hero the criminal elite
      */
-    private function criminalElite(Hero &$hero) {
+    private function criminalElite(Hero &$hero)
+    {
 
         $hero->intelligenceQuotient = $this->engine->roller->rollDice(new Roll('Criminal Elite - IQ', 5, 4));
         $hero->physicalStrength = $this->engine->roller->rollDice(new Roll('Criminal Elite - PS', 4, 4));
@@ -113,7 +116,8 @@ class VillainGenerator
         $this->$criminalEliteType($hero);
     }
 
-    private function boss(Hero &$hero) {
+    private function boss(Hero &$hero)
+    {
         if ($this->engine->roller->rollPercent('Criminal Elite - Boss: Hand to Hand') > 50) {
             $hero->addSkill(BonusTargets::SKILL_HAND_TO_HAND_EXPERT, 'Criminal Elite - Boss', 0);
         } else {
@@ -135,7 +139,8 @@ class VillainGenerator
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 30, 'Criminal Elite - Boss'));
     }
 
-    private function militaryMercenary(Hero &$hero) {
+    private function militaryMercenary(Hero &$hero)
+    {
         if ($this->engine->roller->rollPercent('Criminal Elite - Military Mercenary: Hand to Hand') > 50) {
             $hero->addSkill(BonusTargets::SKILL_HAND_TO_HAND_EXPERT, 'Criminal Elite - Military Mercenary', 0);
         } else {
@@ -159,7 +164,8 @@ class VillainGenerator
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 40, 'Criminal Elite - Military Mercenary'));
     }
 
-    private function hitMan(Hero &$hero) {
+    private function hitMan(Hero &$hero)
+    {
         $hero->addSkill(BonusTargets::SKILL_HAND_TO_HAND_ASSASSIN, 'Criminal Elite - Hit Man', 0);
 
         $hero->addSkill(BonusTargets::SKILL_DETECT_AMBUSH, 'Criminal Elite - Hit Man', 10);
@@ -182,7 +188,8 @@ class VillainGenerator
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 30, 'Criminal Elite - Hit Man'));
     }
 
-    private function surveillanceSpecialist(Hero &$hero) {
+    private function surveillanceSpecialist(Hero &$hero)
+    {
         $hero->addSkill(BonusTargets::SKILL_SURVEILLANCE, 'Criminal Elite - Surveillance Specialist', 20);
         $hero->addSkill(BonusTargets::SKILL_CRYPTOGRAPHY, 'Criminal Elite - Surveillance Specialist', 5);
         $hero->addSkill(BonusTargets::SKILL_OPTIC_SYSTEMS, 'Criminal Elite - Surveillance Specialist', 10);
@@ -210,7 +217,8 @@ class VillainGenerator
      *
      * @param Hero $hero the thug
      */
-    private function thug(Hero &$hero) {
+    private function thug(Hero &$hero)
+    {
         $hero->intelligenceQuotient = $this->engine->roller->rollDice(new Roll('thug - IQ', 3, 4));
         $hero->physicalStrength = $this->engine->roller->rollDice(new Roll('thug - PS', 4, 4));
         $hero->physicalProwess = $this->engine->roller->rollDice(new Roll('Thug - PP', 4, 4));
@@ -232,7 +240,8 @@ class VillainGenerator
         $this->$thugType($hero);
     }
 
-    private function thief(Hero &$hero) {
+    private function thief(Hero &$hero)
+    {
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 25, 'Thug - Thief'));
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SKILL_PICK_POCKETS, 20, 'Thug - Thief'));
@@ -253,7 +262,8 @@ class VillainGenerator
         $hero->addSkills(BonusTargets::allSkills(true), 'Thug - Thief', 25);
     }
 
-    private function muscleBodyguard(Hero &$hero) {
+    private function muscleBodyguard(Hero &$hero)
+    {
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, 40, 'Thug - Muscle / Body Guard'));
 
         if ($this->engine->roller->rollPercent('Thug - Muscle: Hand to Hand') > 50) {
@@ -277,7 +287,8 @@ class VillainGenerator
         $hero->addSkills($skills, 'Thug - Muscle / Body Guard', 0);
     }
 
-    private function punk2BitHood(Hero &$hero) {
+    private function punk2BitHood(Hero &$hero)
+    {
         $hero->addSkills([
             BonusTargets::SKILL_HAND_TO_HAND_BASIC,
             BonusTargets::SKILL_RUNNING,
@@ -292,7 +303,8 @@ class VillainGenerator
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 10, 'Thug: Punk/2-Bit Hood'));
     }
 
-    private function conMan(Hero &$hero) {
+    private function conMan(Hero &$hero)
+    {
         $hero->addSkill(BonusTargets::SKILL_PICK_POCKETS, 'Thug: Con Man', 10);
         $hero->addSkill(BonusTargets::SKILL_FORGERY, 'Thug: Con Man', 15);
         $hero->addSkill(BonusTargets::SKILL_DISGUISE, 'Thug: Con Man', 5);
@@ -311,11 +323,12 @@ class VillainGenerator
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 10, 'Thug: Con Man'));
     }
 
-    private function criminalOrganizationSize() {
+    private function criminalOrganizationSize()
+    {
         return $this->engine->tableRoller->rollTable('Villain Criminal Organization - Size', [
-            40, 'Local: ' . $this->engine->roller->rollDice(new Roll('Villain Criminal Organization - size: local', 2, 4, 10)) . ' million dollars',
-            80, 'National: ' . $this->engine->roller->rollDice(new Roll('Villain Criminal Organization - size: national', 1, 4)) . ' billion dollars',
-            100, 'International: ' . $this->engine->roller->rollDice(new Roll('Villain Criminal Organization - size: international', 2, 4, 10)) . ' billion dollars',
+            new TableEntry(40, 'Local: ' . $this->engine->roller->rollDice(new Roll('Villain Criminal Organization - size: local', 2, 4, 10)) . ' million dollars'),
+            new TableEntry(80, 'National: ' . $this->engine->roller->rollDice(new Roll('Villain Criminal Organization - size: national', 1, 4)) . ' billion dollars'),
+            new TableEntry(100, 'International: ' . $this->engine->roller->rollDice(new Roll('Villain Criminal Organization - size: international', 2, 4, 10)) . ' billion dollars'),
         ]);
     }
 
