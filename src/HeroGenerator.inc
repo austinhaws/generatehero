@@ -130,7 +130,7 @@ class HeroGenerator
      *
      * @param Hero $hero the hero
      */
-    private function generatePowerCategory(Hero &$hero)
+    public function generatePowerCategory(Hero &$hero)
     {
         $class = $this->engine->tableRoller->rollTable('power category', [
             new TableEntry(10, 'Experiment'),

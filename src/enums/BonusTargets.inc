@@ -176,6 +176,7 @@ abstract class BonusTargets
     const SKILL_HAND_TO_HAND_BASIC = 'Hand to Hand - Basic';
     const SKILL_HAND_TO_HAND_EXPERT = 'Hand to Hand - Expert';
     const SKILL_HAND_TO_HAND_MARTIAL_ARTS = 'Hand to Hand - Martial Arts';
+    const SKILL_HAND_TO_HAND_ASSASSIN = 'Hand to Hand - Assassin';
     const SKILL_ACROBATICS = 'Acrobatics';
     const SKILL_ARCHERY = 'Archery';
     const SKILL_ATHLETICS = 'Athletics (general)';

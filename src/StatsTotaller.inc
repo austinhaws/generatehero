@@ -321,6 +321,7 @@ class StatsTotaller
             case BonusTargets::SKILL_HAND_TO_HAND_BASIC:
             case BonusTargets::SKILL_HAND_TO_HAND_EXPERT:
             case BonusTargets::SKILL_HAND_TO_HAND_MARTIAL_ARTS:
+            case BonusTargets::SKILL_HAND_TO_HAND_ASSASSIN:
             case BonusTargets::SKILL_ACROBATICS:
             case BonusTargets::SKILL_ARCHERY:
             case BonusTargets::SKILL_ATHLETICS:
