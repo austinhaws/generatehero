@@ -52,6 +52,8 @@ class Hero
     public $birthOrder;
     /** @var int */
     public $weight;
+    /** @var string */
+    public $weightDescription = '';
     /** @var int */
     public $height;
     /** @var string */

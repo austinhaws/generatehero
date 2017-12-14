@@ -29,13 +29,14 @@ class VillainGenerator
      * create a villain!
      *
      * @return Hero the villain
+     * @throws \Exception
      */
     public function generate()
     {
-        $hero = new Hero();
+        $villain = new Hero();
 
         // gender
-        $hero->gender = $this->engine->tableRoller->rollTable('gender', [
+        $villain->gender = $this->engine->tableRoller->rollTable('gender', [
             new TableEntry(1, 'Male'),
             new TableEntry(2, 'Female'),
         ]);
@@ -47,10 +48,10 @@ class VillainGenerator
             new TableEntry(75, '3'),
             new TableEntry(100, '4'),
         ]);
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Level: ' . $level, 'Villain level'));
+        $villain->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Level: ' . $level, 'Villain level'));
 
         // alignment
-        $hero->alignment = $this->engine->tableRoller->rollTable('alignment', [
+        $villain->alignment = $this->engine->tableRoller->rollTable('alignment', [
             new TableEntry(20, 'Aberrant'),
             new TableEntry(50, 'Miscreant'),
             new TableEntry(82, 'Anarchist'),
@@ -66,31 +67,32 @@ class VillainGenerator
             new TableEntry(84, 'Long criminal record, wanted on ' . $this->engine->roller->rollDice(new Roll('Villain felonies - long record', 1, 6)) . ' felony charges'),
             new TableEntry(100, 'Suspected on several felony charges, but no evidence to make the charges stick'),
         ]);
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Criminal Record: ' . $record, 'Villain criminal record'));
+        $villain->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Criminal Record: ' . $record, 'Villain criminal record'));
 
 
         if ($this->engine->roller->rollPercent('Villain Type') <= 50) {
-            $this->thug($hero);
+            $this->thug($villain);
         } else {
-            $this->criminalElite($hero);
+            $this->criminalElite($villain);
         }
 
         // if super villain, then roll on super abilities chart and give super abilities
         if ($this->engine->roller->rollPercent('Villain Super Powers') <= 10) {
-            $this->heroGenerator->generatePowerCategory($hero);
+            $this->heroGenerator->generatePowerCategory($villain);
         }
 
-        $this->criminalOrganization($hero);
+        $this->criminalOrganization($villain);
 
-echo "\n--- Needs to calculate all scores like hero generator does like skills and stuff --\n";
+        $this->heroGenerator->totalHero($villain);
 
-        return $hero;
+        return $villain;
     }
 
     /**
      * the hero to turn in to a villain
      *
      * @param Hero $hero the criminal elite
+     * @throws \Exception
      */
     private function criminalElite(Hero &$hero)
     {

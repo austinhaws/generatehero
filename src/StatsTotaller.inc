@@ -81,6 +81,10 @@ class StatsTotaller
                 break;
 
             case Bonus::BONUS_TYPE_ADD:
+                // some fields are set to false to show that they were not set
+                if ($field === false) {
+                    $field = 0;
+                }
                 $field += $bonusValue;
                 break;
 

@@ -40,7 +40,7 @@ class CharacterBasics extends TableBase
     private function weight(Hero &$hero)
     {
         if ($hero->weight === false) {
-            $hero->weight = $this->engine->tableRoller->rollTable('weight', [
+            $hero->weightDescription = $this->engine->tableRoller->rollTable('weight', [
                 new TableEntry(10, 'Skinny'),
                 new TableEntry(30, 'Thin'),
                 new TableEntry(55, 'Average'),
