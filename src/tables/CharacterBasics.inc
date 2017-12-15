@@ -1,7 +1,10 @@
 <?php
 namespace Heroes\tables;
 
+use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
+use Heroes\enums\BonusTargets;
+use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 
 class CharacterBasics extends TableBase
@@ -10,6 +13,7 @@ class CharacterBasics extends TableBase
      * basics from page 18
      *
      * @param Hero $hero the hero
+     * @throws \Exception
      */
     public function generateCharacterBasics(Hero &$hero)
     {
@@ -22,8 +26,32 @@ class CharacterBasics extends TableBase
         $this->typeOfEnvironment($hero);
         $this->socialEconomicBackground($hero);
         $this->whenManifested($hero);
+        if ($hero->age === false) {
+            $hero->age = $this->engine->tableRoller->rollTable('Age', [
+                new TableEntry(5, new Roll('Child', 1, 10, 1, false, 0)),
+                new TableEntry(15, new Roll('Early Teen', 1, 5, 1, false, 9)),
+                new TableEntry(45, new Roll('Late Teen', 1, 5, 1, false, 14)),
+                new TableEntry(70, new Roll('20s', 1, 10, 1, false, 19)),
+                new TableEntry(75, new Roll('30s', 1, 10, 1, false, 29)),
+                new TableEntry(80, new Roll('40s', 1, 10, 1, false, 39)),
+                new TableEntry(85, new Roll('50s', 1, 10, 1, false, 49)),
+                new TableEntry(90, new Roll('60s', 1, 10, 1, false, 59)),
+                new TableEntry(93, new Roll('70s', 1, 10, 1, false, 69)),
+                new TableEntry(96, new Roll('80s', 1, 10, 1, false, 79)),
+                new TableEntry(99, new Roll('90s', 1, 10, 1, false, 89)),
+                new TableEntry(105, new Roll('100', 1, 10, 1, false, 99)),
+                new TableEntry(106, new Roll('hundreds', 1, 1000, 1, false, 99)),
+                new TableEntry(107, new Roll('1000', 1, 1000, 1, false, 999)),
+                new TableEntry(108, new Roll('thousands', 1, 10000, 1, false, 999)),
+
+            ]);
+        }
     }
 
+    /**
+     * @param Hero $hero the hero
+     * @throws \Exception
+     */
     private function birthOrder(Hero &$hero)
     {
         $hero->birthOrder = $this->engine->tableRoller->rollTable('birth order', [
@@ -37,6 +65,10 @@ class CharacterBasics extends TableBase
         ]);
     }
 
+    /**
+     * @param Hero $hero the hero
+     * @throws \Exception
+     */
     private function weight(Hero &$hero)
     {
         if ($hero->weight === false) {
@@ -51,6 +83,10 @@ class CharacterBasics extends TableBase
         }
     }
 
+    /**
+     * @param Hero $hero the hero
+     * @throws \Exception
+     */
     private function height(Hero &$hero)
     {
         if ($hero->height === false) {
@@ -62,6 +98,10 @@ class CharacterBasics extends TableBase
         }
     }
 
+    /**
+     * @param Hero $hero the hero
+     * @throws \Exception
+     */
     private function disposition(Hero &$hero)
     {
         $hero->disposition = $this->engine->tableRoller->rollTable('disposition', [
@@ -82,9 +122,13 @@ class CharacterBasics extends TableBase
         ]);
     }
 
+    /**
+     * @param Hero $hero the hero
+     * @throws \Exception
+     */
     private function lifeSavings(Hero &$hero)
     {
-        $hero->lifeSavings = $this->engine->tableRoller->rollTable('life savings', [
+        $lifeSavings = $this->engine->tableRoller->rollTable('life savings', [
             new TableEntry(10, 1000),
             new TableEntry(20, 2000),
             new TableEntry(37, 3000),
@@ -93,8 +137,13 @@ class CharacterBasics extends TableBase
             new TableEntry(90, 6000),
             new TableEntry(100, 10000),
         ]);
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, $lifeSavings, 'Life Savings'));
     }
 
+    /**
+     * @param Hero $hero the hero
+     * @throws \Exception
+     */
     private function landOfOrigin(Hero &$hero)
     {
         $hero->landOfOrigin = $this->engine->tableRoller->rollTable('land of origin', [
@@ -108,6 +157,10 @@ class CharacterBasics extends TableBase
         ]);
     }
 
+    /**
+     * @param Hero $hero the hero
+     * @throws \Exception
+     */
     private function typeOfEnvironment(Hero &$hero)
     {
         $hero->environment = $this->engine->tableRoller->rollTable('environment', [
@@ -119,6 +172,10 @@ class CharacterBasics extends TableBase
         ]);
     }
 
+    /**
+     * @param Hero $hero the hero
+     * @throws \Exception
+     */
     private function socialEconomicBackground(Hero &$hero)
     {
         $hero->socialEconomic = $this->engine->tableRoller->rollTable('social/economic background', [
@@ -133,6 +190,10 @@ class CharacterBasics extends TableBase
         ]);
     }
 
+    /**
+     * @param Hero $hero the hero
+     * @throws \Exception
+     */
     private function whenManifested(Hero &$hero)
     {
         $hero->whenManifested = $this->engine->tableRoller->rollTable('when manifested', [

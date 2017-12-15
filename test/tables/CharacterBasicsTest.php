@@ -16,6 +16,9 @@ class CharacterBasicsTest extends BaseTestRunner
         $this->characterBasics = new CharacterBasics($this->engine);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGenerateCharacterBasics()
     {
         $hero = new Hero();
@@ -38,7 +41,6 @@ class CharacterBasicsTest extends BaseTestRunner
         $this->assertNotNull($hero->weight, 'weight');
         $this->assertNotNull($hero->height, 'height');
         $this->assertNotNull($hero->disposition, 'disposition');
-        $this->assertNotNull($hero->lifeSavings, 'life savings');
         $this->assertNotNull($hero->landOfOrigin, 'land of origin');
         $this->assertNotNull($hero->environment, 'environment');
         $this->assertNotNull($hero->socialEconomic, 'social economioc');

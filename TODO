@@ -3,6 +3,10 @@ vendor/bin/phpunit --filter testGenerate_isCrazy_association
 
 code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html coverage
 
+
+[ ] show base attribute score and add bonuses to get total. can then "stick" the base score
+
+
 [ ] hash code and save each generated character so that they can be retrieved later; tie to an account
 
 [ ] give user choice points like class of hero, high or low rolls (roller then will scale up/down on rolls), max/min rolls
@@ -16,7 +20,6 @@ code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html c
 
 TO DO
 quick roll villain : make a side generator for this
-[ ] all heros get 2 attacks
 [ ] set age if not already set for hero in final generation
 
 

@@ -58,8 +58,6 @@ class Hero
     public $height;
     /** @var string */
     public $disposition;
-    /** @var int */
-    public $lifeSavings;
     /** @var string */
     public $landOfOrigin;
     /** @var string */
