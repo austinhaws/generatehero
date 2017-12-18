@@ -4,6 +4,9 @@ vendor/bin/phpunit --filter testGenerate_isCrazy_association
 code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html coverage
 
 
+just get it up and working and add saving/locking and other stuff later.
+
+
 [ ] show base attribute score and add bonuses to get total. can then "stick" the base score
 
 
@@ -16,7 +19,8 @@ code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html c
 [ ] ben: let them "stick" decisions of the results. like keep the bionics stuck, but change out the abilities. or keep strenght the same but redo the rest. this could be really tricky? or just make the classes sticky? how to make bonuses come and go based on sticky?
 
 
-
+[ ] generate ccharacters need birthdate and hashcode
+[ ] stick abilities and things. just readd them at their values once new character generated
 
 TO DO
 quick roll villain : make a side generator for this

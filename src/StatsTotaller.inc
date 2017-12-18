@@ -223,9 +223,6 @@ class StatsTotaller
             case BonusTargets::SAVE_PSIONIC_ATTACK_INSANITY:
                 $this->applyBonusToField($bonus, $hero->savePsionicAttackInsanity);
                 break;
-            case BonusTargets::SAVE_PSIONIC_MIND_CONTROL:
-                $this->applyBonusToField($bonus, $hero->savePsionicMindControl);
-                break;
             case BonusTargets::SAVE_TOXINS:
                 $this->applyBonusToField($bonus, $hero->saveToxins);
                 break;

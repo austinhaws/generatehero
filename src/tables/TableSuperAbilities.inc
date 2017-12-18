@@ -18,6 +18,7 @@ class TableSuperAbilities extends TableBase
      * @param Hero $hero the hero
      * @param int $numberMajors how many major powers to add, or false for none
      * @param int $numberMinors how many minor powers to add, or false for none
+     * @throws \Exception
      */
     public function randomSuperAbilities(Hero &$hero, $numberMajors = 0, $numberMinors = 0)
     {
@@ -54,6 +55,7 @@ class TableSuperAbilities extends TableBase
      * randomly create a minor super power
      *
      * @return Ability
+     * @throws \Exception
      */
     public function rollMinor()
     {
@@ -226,6 +228,7 @@ class TableSuperAbilities extends TableBase
 
     /**
      * @return Ability the major ability to add to the hero
+     * @throws \Exception
      */
     public function rollMajor()
     {
@@ -278,7 +281,7 @@ class TableSuperAbilities extends TableBase
             ])),
 
             new TableEntry(16, new Ability('Control Others', 'This power affects any intelligent creature, or animals. It can temporarily bend the will of its victim so that they are under the complete control of the super being. The affected person will do absolutely anything the controller requests. All questions will be answered truthfully and in as much detail as requested. However, the controlled person will answer and obey only the person controlling him/her. Victims will remember their actions after being controlled.', [
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONIC_MIND_CONTROL, 6, 'Control Others'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_CONTROL_OTHERS, 6, 'Control Others'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_CONTROL_OTHERS, 6, 'Control Others'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_AFFINITY, new Roll('Control Others: MA', 2, 4), 'Control Others'),
             ])),
@@ -553,7 +556,7 @@ class TableSuperAbilities extends TableBase
 
             new TableEntry(98, new Ability('Transferal/Possession', 'Transfer his consciousness into another person\'s body. Once inside another\'s body he completely takes over, suppressing the consciousness and personality of his host body. The memories and thoughts of the person being possessed are still his own and can not be read by the possessing character. Likewise, the possessed person can not read the thoughts of the entity who has temporarily seized control of his body. In fact, the person will have no recollection of events which occurred while his body was controlled by another. It will be as if he fell asleep the whole time. Any reports of heroics or uncharacteristic actions will come as a complete surprise. When inside another body, the character retains only his own memories, personality and skills. Any other super ability or special physical attributes are left in his own body and are totally unusable. Only the abilities of the host body can be used.  The character\'s own body drops into a dreamless, sleep-like trance. Without a mind to control it, the body is just an empty shell. Saving Throw: Non-psionics must roll 15 or higher, psionic individuals must roll 10 or higher', [
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_POSSESSION, 6, 'Transferal/Possession'),
-                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONIC_MIND_CONTROL, 2, 'Transferal/Possession'),
+                new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_CONTROL_OTHERS, 2, 'Transferal/Possession'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Transferal/Possession: ME', 1, 4), 'Transferal/Possession'),
                 new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_MENTAL_ENDURANCE, new Roll('Transferal/Possession: SDC', 1, 4, 10), 'Transferal/Possession'),
             ])),
@@ -666,6 +669,7 @@ class TableSuperAbilities extends TableBase
      * @param string $reason base why reason they are getting these powers
      * @param int $numMajor how many majors to add
      * @param int $numMinor how many minors to add
+     * @throws \Exception
      */
     public function rollAbilities(Hero &$hero, $reason, $numMajor, $numMinor)
     {
