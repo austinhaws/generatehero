@@ -3,3 +3,5 @@
 *.iws
 .DS_Store
 vendor
+node_modules/
+bundles/

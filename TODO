@@ -1,6 +1,8 @@
 composer dumpautoload -o
 vendor/bin/phpunit --filter testGenerate_isCrazy_association
 
+[ ] use strategery theme for site, use strategery logo
+
 code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html coverage
 
 
