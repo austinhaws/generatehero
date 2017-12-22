@@ -1,29 +1,29 @@
 import React from "react";
+import clone from "clone";
 
-let reducers = {
+export default {
 	ACTION_TYPES: {
 		// set ajaxing start/stop
 		SET_AJAXING: 'SET_AJAXING',
-	}
+
+		// set the currently viewed character
+		SET_CHARACTER: 'SET_CHARACTER',
+	},
+	ACTIONS: {
+		// reducer: update ajaxing count
+		// payload: boolean true for an ajax began, false an ajax ended
+		SET_AJAXING: (state, action) => {
+			const result = clone(state);
+			result.ajaxingCount += action.payload ? 1 : -1;
+			return result;
+		},
+
+		// reducer: set currently viewed character
+		// payload: the character to view
+		SET_CHARACTER: (state, action) => {
+			const result = clone(state);
+			result.character = clone(action.payload);
+			return result;
+		},
+	},
 };
-
-/*
- !! make sure to always create a copy of state instead of manipulating state directly
- action = {
- type: constant action name (required),
- error: error information (optional),
- payload: data for action (optional),
- meta: what else could you possibly want? (optional)
- }
- */
-
-
-// reducer: update ajaxing count
-// payload: boolean true for an ajax began, false an ajax ended
-reducers[reducers.ACTION_TYPES.SET_AJAXING] = (state, action) => {
-	const result = Object.assign({}, state);
-	result.ajaxingCount += action.payload ? 1 : -1;
-	return result;
-};
-
-export default reducers;

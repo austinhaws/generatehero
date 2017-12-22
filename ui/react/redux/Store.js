@@ -2,13 +2,13 @@ import React from "react";
 import {createStore} from "redux";
 import reducers from "./Reducers";
 
-const store = createStore((state, action) => {
+export default createStore((state, action) => {
 		// === reducers ===
 		let reducer = false;
 
 		// is reducer valid?
-		if (action.type in reducers) {
-			reducer = reducers[action.type];
+		if (action.type in reducers.ACTIONS) {
+			reducer = reducers.ACTIONS[action.type];
 		}
 
 		// ignore redux/react "system" reducers
@@ -20,11 +20,14 @@ const store = createStore((state, action) => {
 		return reducer ? reducer(state, action) : state;
 	}, {
 		// === default data ===
-		// how many ajax requests are currently in progress
+		// != 0 when ajax is in progress and spinner should be shown
+		// > 0 when there are ajax requests pending
 		ajaxingCount: 0,
 
-		// current hero being viewed
-		hero: undefined,
+		// the currently viewed character
+		character: undefined,
 	}
+
+	// for chrome redux plugin
+	, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
-export default store;

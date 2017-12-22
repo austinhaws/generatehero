@@ -2,6 +2,10 @@ composer dumpautoload -o
 vendor/bin/phpunit --filter testGenerate_isCrazy_association
 
 
+Jest test components
+import immutable and hookup to app store redux
+import axios in to app and create generic ajaxer
+
 [ ] Jest test the components
 
 [ ] use strategery theme for site, use strategery logo
@@ -51,3 +55,5 @@ not everything can be sticky, just major decision points like:
 -
 
 this is a generator! not a character sheet, so auto calculating data based on changes is too much work and outside of scope.
+
+.htaccess in src and other folders to prevent browsing them
