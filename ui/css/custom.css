@@ -60,3 +60,24 @@
 #characterInfoContainers {
 	width: 66%;
 }
+
+.spinner {
+	position: fixed;
+	top: 45%;
+	left: 39%;
+	background-image: url('../img/spinner.svg');
+	height: 300px;
+	width: 300px;
+	z-index: 100;
+	opacity: .5;
+}
+
+.spinnerBackground {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.25;
+	z-index: 99;
+}

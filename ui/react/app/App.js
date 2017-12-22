@@ -2,12 +2,14 @@ import React from "react";
 import {Redirect, Route, Switch} from 'react-router';
 import {BrowserRouter} from 'react-router-dom'
 import Character from '../character/Character';
-import {Provider} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {render} from "react-dom";
 import store from "../redux/Store";
+import PropTypes from "prop-types";
+import Spinner from "../widgets/Spinner";
 
 // ==== setup react container for the report ==== //
-export default class App extends React.Component {
+class AppClass extends React.Component {
 
 	render() {
 		return (
@@ -24,11 +26,22 @@ export default class App extends React.Component {
 							<Route exact path="/" render={() => <Redirect to="character"/>}/>
 						</Switch>
 						{this.props.children}
+						{this.props.ajaxingCount ? <Spinner/> : undefined}
 					</div>
 				</div>
 			</BrowserRouter>
 		);
 	}
 }
+
+AppClass.PropTypes = {
+	ajaxingCount: PropTypes.number.isRequired,
+};
+
+const App = connect(
+	state => state,
+	dispatch => {return {};},
+)(AppClass);
+
 
 render(<Provider store={store}><App/></Provider>, document.getElementById('react'));
