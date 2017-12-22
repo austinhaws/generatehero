@@ -1,8 +1,5 @@
 import React from "react";
-import {render} from "react-dom";
-import {connect, Provider} from "react-redux";
-import store from "../redux/Store";
-import App from "../app/App";
+import {connect} from "react-redux";
 import Attribute from "./Attribute";
 import shared from "../app/Shared";
 import reducers from "../redux/Reducers";
@@ -12,7 +9,9 @@ import PropTypes from "prop-types";
 class CharacterClass extends React.Component {
 
 	componentDidMount() {
-		shared.functions.ajaxGet('src/generate.php', response => this.props.setCharacter(response.data));
+		if (!this.props.ajaxingCount && !this.props.character) {
+			shared.functions.ajaxGet('/heroes/src/generate.php', response => this.props.setCharacter(response.data));
+		}
 	}
 
 	render() {
@@ -55,7 +54,8 @@ class CharacterClass extends React.Component {
 
 CharacterClass.propTypes = {
 	// == data == //
-	character: PropTypes.object.isRequired,
+	ajaxingCount: PropTypes.number.isRequired,
+	character: PropTypes.object,
 
 	// == callbacks == //
 	setCharacter: PropTypes.func.isRequired,
@@ -68,4 +68,4 @@ const Character = connect(
 	}},
 )(CharacterClass);
 
-render(<Provider store={store}><App><Character/></App></Provider>, document.getElementById('react'));
+export default Character;

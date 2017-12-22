@@ -10,7 +10,7 @@ const BUILD_DIR = path.resolve(__dirname, 'bundles/');
 // tell it what file to starting compiling on and what to call it when done
 const config = {
 	entry: {
-		character: APP_DIR + '/character/Character.js',
+		app: APP_DIR + '/app/App.js',
 	},
 	output: {
 		path: BUILD_DIR,
