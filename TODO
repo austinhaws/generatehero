@@ -1,7 +1,11 @@
 composer dumpautoload -o
 vendor/bin/phpunit --filter testGenerate_isCrazy_association
 
+
+[ ] Jest test the components
+
 [ ] use strategery theme for site, use strategery logo
+	[ ] Make react base for Strategery so that can eventually move the site over to React
 
 code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html coverage
 

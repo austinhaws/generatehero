@@ -96,36 +96,7 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
-
-* {
-	font-family: "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
-.monospace {
-	font-family: 'Roboto Mono', monospace;
-}
-
-#app {
-	width: 1024px;
-	margin: 0 auto;
-	border: 1px solid #eeeeee;
-	background-color: #fefefefe;
-}
-
-#app-title {
-	text-align: center;
-	font-size: 48px;
-}
-
-#app-menu {
-	display: flex;
-	justify-content: space-around;
-	border-bottom: 1px solid black;
-	padding-bottom: 8px;
-	margin-bottom: 8px;
-}
-
-
+/* see custom.css */
 
 
 

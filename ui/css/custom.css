@@ -1,0 +1,62 @@
+* {
+	font-family: "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+.monospace {
+	font-family: 'Roboto Mono', monospace;
+}
+
+#app {
+	width: 940px;
+	margin: 0 auto;
+	border: 1px solid #eeeeee;
+	background-color: #fefefefe;
+	padding: 13px;
+}
+
+#app-title {
+	text-align: center;
+	font-size: 48px;
+}
+#sub-title {
+	text-align: center;
+	font-size: 25px;
+	margin-bottom: 23px;
+}
+
+#app-menu {
+	display: flex;
+	justify-content: space-around;
+	border-bottom: 1px solid black;
+	padding-bottom: 8px;
+	margin-bottom: 8px;
+}
+
+#topContainer {
+	height: 32px;
+}
+#topContainerLeft {
+	float: left;
+}
+#topContainerRight {
+	float: right;
+}
+#topContainer .gearsImage {
+	width: 23px;
+}
+
+#topTitleContainer {
+	position:relative;
+	top: -32px;
+	text-align: center;
+}
+
+#middleSectionContainer > div {
+	float: left;
+	height: 1000px;
+}
+#characterAttributes {
+	width: 33%;
+}
+#characterInfoContainers {
+	width: 66%;
+}
