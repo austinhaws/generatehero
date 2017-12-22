@@ -12,8 +12,6 @@ use Heroes\tables\CharacterBasics;
 use Heroes\tables\TableAttributes;
 use Heroes\tables\TableEducation;
 
-// these "use" statements ARE needed because they are dynamically named class creations
-
 class HeroGenerator
 {
     /** @var Engine drive me */
