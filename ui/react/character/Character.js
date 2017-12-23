@@ -15,6 +15,16 @@ class CharacterClass extends React.Component {
 	}
 
 	render() {
+		const attributes = [
+			{name: 'Intel Quotient', id: 'intelQuotient',},
+			{name: 'Mental Endurance', id: 'mentalEndurance',},
+			{name: 'Mental Affinity', id: 'mentalAffinity',},
+			{name: 'Physical Strength', id: 'physicalStrength',},
+			{name: 'Physical Prowess', id: 'physicalProwess',},
+			{name: 'Physical Endurance', id: 'physicalEndurance',},
+			{name: 'Physical Beauty', id: 'physicalBeauty',},
+			{name: 'Speed ', id: 'speed',},
+		];
 		return (
 			<div id="characterContainer">
 				<div id="topContainer">
@@ -30,7 +40,7 @@ class CharacterClass extends React.Component {
 
 				<div id="middleSectionContainer">
 					<div id="characterAttributes">
-						<Attribute name="Intel Quotient" value={17} locked={false} baseValue={13} toggleLocked={attributeName => console.log('toggling lock for' + attributeName)} />
+						{attributes.map(a => <Attribute key={a.id} name={a.name} value={17} locked={!!this.props.locks[a.id]} baseValue={13} toggleLocked={() => this.props.toggleLock(a.id)} />)}
 					</div>
 					<div id="characterInfoContainers">
 						<div id="characterBasics">gender and other basics</div>
@@ -56,6 +66,7 @@ CharacterClass.propTypes = {
 	// == data == //
 	ajaxingCount: PropTypes.number.isRequired,
 	character: PropTypes.object,
+	locks: PropTypes.object.isRequired,
 
 	// == callbacks == //
 	setCharacter: PropTypes.func.isRequired,
@@ -65,6 +76,7 @@ const Character = connect(
 	state => state,
 	dispatch => { return {
 		setCharacter: character => dispatch({type: reducers.ACTION_TYPES.SET_CHARACTER, payload: character}),
+		toggleLock: lockName => dispatch({type: reducers.ACTION_TYPES.TOGGLE_LOCK, payload: lockName}),
 	}},
 )(CharacterClass);
 

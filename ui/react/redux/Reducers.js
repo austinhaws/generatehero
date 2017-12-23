@@ -8,6 +8,9 @@ export default {
 
 		// set the currently viewed character
 		SET_CHARACTER: 'SET_CHARACTER',
+
+		// toggle a lock open/closed
+		TOGGLE_LOCK: 'TOGGLE_LOCK',
 	},
 	ACTIONS: {
 		// reducer: update ajaxing count
@@ -25,5 +28,13 @@ export default {
 			result.character = clone(action.payload);
 			return result;
 		},
+
+		// reducer: toggle lock open/closed
+		// payload: id of the lock to toggle
+		TOGGLE_LOCK: (state, action) => {
+			const result = clone(state);
+			result.locks[action.payload] = !result.locks[action.payload];
+			return result;
+		}
 	},
 };

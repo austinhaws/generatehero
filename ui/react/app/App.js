@@ -22,7 +22,7 @@ class AppClass extends React.Component {
 					</div>
 					<div id="app-content">
 						<Switch>
-							<Route path="/character" component={Character}/>
+							<Route exact path="/character" component={Character}/>
 							<Route exact path="/" render={() => <Redirect to="character"/>}/>
 						</Switch>
 						{this.props.children}

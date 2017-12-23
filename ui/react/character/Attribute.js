@@ -7,9 +7,21 @@ export default class Attribute extends React.Component {
 	render() {
 		return (
 			<div className="attributeContainer">
-				<div className="attributeName">{this.props.name}</div>
-				<div className="attributeValue">{this.props.value}</div>
-				<Lock locked={false} onToggle={() => this.props.toggleLocked(this.props.name)}/>
+				{this.props.name.split(' ').map(word => {
+					return (
+						<div key={`word${word}`} className="verticalWord">{
+							word.split('')
+							.reduce((all, letter) => {
+								return all === null ? [letter] : [...all, <br key={all.length}/>, letter];
+							}, null)
+						}</div>
+					);
+				})}
+				<div className="attributeValueContainer">
+					<div className="attributeValue monospace">{this.props.value}</div>
+					<svg className="attributeEllipse" viewBox="0 0 120 120"><ellipse cx="60" cy="60" rx="40" ry="59" fill="none" stroke="#eee" strokeWidth="2"/></svg>
+				</div>
+				<Lock locked={this.props.locked} onToggle={this.props.toggleLocked}/>
 				<div className="attributeBase">{`${this.props.baseValue} + ${this.props.value - this.props.baseValue}`}</div>
 			</div>
 		);

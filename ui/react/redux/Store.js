@@ -26,6 +26,9 @@ export default createStore((state, action) => {
 
 		// the currently viewed character
 		character: undefined,
+
+		// id => bool telling which locks are locked; true = locked
+		locks: {},
 	}
 
 	// for chrome redux plugin

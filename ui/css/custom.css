@@ -81,3 +81,59 @@
 	opacity: 0.25;
 	z-index: 99;
 }
+
+.attributeContainer {
+	display: flex;
+}
+
+.attributeValueContainer {
+	position: relative;
+	width: 100px;
+	margin: 0 -11px;
+}
+.attributeValue {
+	width: 100%;
+	text-align: center;
+	line-height: 100px;
+	font-size: 30px;
+}
+.attributeBase {
+	line-height: 100px;
+	font-size: 12px;
+}
+.attributeEllipse {
+	position: absolute;
+	top: 0;
+	height: 100px;
+}
+.verticalWord {
+	font-size: 11px;
+	line-height: 10px;
+	text-align: center;
+	width: 8px;
+	padding-top: 8px;
+}
+.verticalWord:first-child {
+	margin-right: 2px;
+}
+
+.lock {
+	cursor: pointer;
+	z-index: 100;
+	display: flex;
+	align-items: center;
+}
+
+.lock.locked svg {
+	width: 18px;
+	height: 18px;
+}
+
+.lock.unlocked svg {
+	width: 18px;
+	height: 18px;
+}
+
+.attributeContainer .lock {
+	padding-bottom: 25px;
+}
