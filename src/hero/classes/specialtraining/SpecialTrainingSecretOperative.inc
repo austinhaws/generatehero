@@ -2,6 +2,7 @@
 
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -17,6 +18,12 @@ class SpecialTrainingSecretOperative extends BaseClass
 
     /** @var string relation ship with sponsoring organization */
     public $sponsoringOrganizationStatus;
+
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Special Training');
+        $this->classSubtype = 'Secret Operative';
+    }
 
     public function create(Hero &$hero, $options = false)
     {
@@ -112,6 +119,10 @@ class SpecialTrainingSecretOperative extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, new Roll('Secrete Operative - money', 2, 4, 1000), 'Secret Operative - Equipment'));
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function determineSponsor(Hero &$hero)
     {
         $this->sponsoringOrganization = $this->engine->tableRoller->rollTable('Secret Operative - Organization', [

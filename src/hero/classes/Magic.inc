@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -13,9 +14,6 @@ use Heroes\tables\TableSpells;
 
 class Magic extends BaseClass
 {
-    /** @var string what type of magician are you? */
-    public $magicType;
-
     // == Enchanted Weapon == //
     /** @var string roll for damage (2d6, 3d6, ...) */
     public $enchantedWeaponDamage;
@@ -41,11 +39,17 @@ class Magic extends BaseClass
     /** @var string what limitation does the character have before abilities kick in? */
     public $physicalLimitation;
 
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Magic');
+    }
+
     /**
      * create a character's class
      *
      * @param Hero $hero the hero
      * @param bool|array $options
+     * @throws \Exception
      */
     public function create(Hero &$hero, $options = false)
     {
@@ -54,12 +58,12 @@ class Magic extends BaseClass
 
         // step 3 : determine type of magic
         if ($options && $options['isAlien']) {
-            list($this->magicType, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
+            list($this->classSubtype, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
                 new TableEntry(50, ['Mystic Study - Wizard', 'studyWizard']),
                 new TableEntry(100, ['Mystic Study - Magician', 'studyMagician']),
             ]);
         } else {
-            list($this->magicType, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
+            list($this->classSubtype, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
                 new TableEntry(25, ['Enchanted Weapon', 'weapon']),
                 new TableEntry(50, ['Enchanted Object', 'object']),
                 new TableEntry(63, ['Mystic Study - Wizard', 'studyWizard']),
@@ -70,6 +74,11 @@ class Magic extends BaseClass
         $this->$function($hero, $options);
     }
 
+    /**
+     * @param Hero $hero
+     * @param bool $options
+     * @throws \Exception
+     */
     private function bestowed(Hero &$hero, $options = false)
     {
         if ($this->engine->roller->rollDice(new Roll('Magic: Bestowed - physical limitation', 1, 2)) === 2) {
@@ -210,6 +219,11 @@ class Magic extends BaseClass
         $this->selectSpells($this->spellsKnown, TableSpells::allSpells(), 14);
     }
 
+    /**
+     * @param Hero $hero
+     * @param bool $options
+     * @throws \Exception
+     */
     private function object(Hero &$hero, $options = false)
     {
         $this->objectSpellLevel = $this->engine->tableRoller->rollTable('Magic: Enchanted Object - Spell Level', [
@@ -316,6 +330,11 @@ class Magic extends BaseClass
         }
     }
 
+    /**
+     * @param Hero $hero
+     * @param bool $options
+     * @throws \Exception
+     */
     private function weapon(Hero &$hero, $options = false)
     {
         $this->enchantedWeaponType = $this->engine->tableRoller->rollTable('Enchanted Weapon Type', [

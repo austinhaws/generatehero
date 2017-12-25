@@ -2,6 +2,7 @@
 
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -20,8 +21,6 @@ class Robotics extends BaseClass
 
     /** @var Hero the robot being constructed, null if the hero IS the robot */
     private $robot;
-    /** @var string the type of robot being made; use ROBOT_TYPE... constants */
-    private $robotType;
     /** @var bool true if someone has to fly/drive/pilot the robot; false if an artifical intelligence is required */
     private $requiresPilot;
     /** @var bool true if this robot needs an artifical intelligence */
@@ -33,6 +32,11 @@ class Robotics extends BaseClass
     /** @var string Status With the Sponsoring Organization */
     private $sponsorStatus;
 
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Robotic');
+    }
+
     /**
      * create a character's class
      *
@@ -42,7 +46,7 @@ class Robotics extends BaseClass
      */
     public function create(Hero &$hero, $options = false)
     {
-        list($this->robotType, $this->requiresPilot, $this->requiresAI) = $this->engine->tableRoller->rollTable('Robot Type', [
+        list($this->classSubtype, $this->requiresPilot, $this->requiresAI) = $this->engine->tableRoller->rollTable('Robot Type', [
             new TableEntry(1, [Robotics::ROBOT_TYPE_MECHANICAL, true, false]),
             new TableEntry(2, [Robotics::ROBOT_TYPE_ROBOT, false, true]),
             new TableEntry(3, [Robotics::ROBOT_TYPE_ROBOT, true, true]),
@@ -69,7 +73,7 @@ class Robotics extends BaseClass
         }
 
         // Step three: select body
-        $robotBody = (new RoboticsBodies($this->engine))->addRobotBody($useRobot, $budget, $this->robotType, $this->requiresPilot);
+        $robotBody = (new RoboticsBodies($this->engine))->addRobotBody($useRobot, $budget, $this->classSubtype, $this->requiresPilot);
         // Step four: construct robot
         // Selection A - body types
             // done with body building
@@ -120,6 +124,9 @@ class Robotics extends BaseClass
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     private function backgroundData()
     {
         $this->sponsoringOrganization = $this->engine->tableRoller->rollTable('Robotics: Sponsoring organization', [
@@ -150,6 +157,7 @@ class Robotics extends BaseClass
 
     /**
      * @return int budget for building the robot
+     * @throws \Exception
      */
     private function determineBudget() {
         return $this->engine->tableRoller->rollTable('Robotics - budget', [
@@ -166,6 +174,7 @@ class Robotics extends BaseClass
     /**
      * @param Hero $robot the hero/robot to which to add an AI
      * @param int $budget how much money available; how much money left when function is done
+     * @throws \Exception
      */
     private function pickIntelligence(Hero &$robot, &$budget)
     {

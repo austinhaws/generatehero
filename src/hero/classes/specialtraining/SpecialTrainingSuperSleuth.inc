@@ -2,6 +2,7 @@
 
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -12,6 +13,17 @@ use Heroes\tables\TableEducation;
 
 class SpecialTrainingSuperSleuth extends BaseClass
 {
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Special Training');
+        $this->classSubtype = 'Super Sleuth';
+    }
+
+    /**
+     * @param Hero $hero
+     * @param bool $options
+     * @throws \Exception
+     */
     public function create(Hero &$hero, $options = false)
     {
         $this->modifyAttributes($hero);
@@ -83,6 +95,10 @@ class SpecialTrainingSuperSleuth extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'See through Disguise and Forgery (50%)', 'Super Sleuth - Super Skill'));
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function earnMoney(Hero &$hero)
     {
         $money = $this->engine->tableRoller->rollTable('Super Sleuth - money', [

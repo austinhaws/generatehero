@@ -11,10 +11,20 @@ abstract class BaseClass
 {
     /** @var Engine only your engine can save you */
     protected $engine;
+    /** @var string the title for the class */
+    public $classType;
+    /** @var string subtype of the class */
+    public $classSubtype = false;
 
-    function __construct(Engine $engine)
+    /**
+     * BaseClass constructor.
+     * @param Engine $engine engine for running the randomness
+     * @param string $classType the title of the class
+     */
+    function __construct(Engine &$engine, $classType)
     {
         $this->engine = $engine;
+        $this->classType = $classType;
     }
 
     /**

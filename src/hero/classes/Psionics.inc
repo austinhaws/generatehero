@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
@@ -11,6 +12,11 @@ class Psionics extends BaseClass
 {
     /** @var int points for using psionics */
     public $ispPoints;
+
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Psionic');
+    }
 
     public function postCreate(Hero &$hero)
     {

@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -10,14 +11,17 @@ use Heroes\tables\TableEducation;
 
 class Hardware extends BaseClass
 {
-    /** @var string electrical, mechanical, weapons */
-    public $hardwareType;
     /** @var int how much can spend on workshop */
     public $workshopBudget;
     /** @var int how much can spend on equipment */
     public $equipmentBudget;
     /** @var string how sponsor feels about character */
     public $mechanicalSponsorStatus;
+
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Hardware');
+    }
 
     /**
      * create a experiment character
@@ -39,27 +43,27 @@ class Hardware extends BaseClass
         $roll = $this->engine->roller->rollDice(new Roll('Hardware Power Type', 1, 3));
         switch ($roll) {
             case 1:
-                $this->hardwareType = 'Electrical';
+                $this->classSubtype = 'Electrical';
                 break;
             case 2:
-                $this->hardwareType = 'Mechanical';
+                $this->classSubtype = 'Mechanical';
                 break;
             case 3:
-                $this->hardwareType = 'Weapons';
+                $this->classSubtype = 'Weapons';
                 break;
             default:
                 throw new \Exception("Unknown hardware power type: $roll");
         }
 
         // step 4 : experiment effects
-        $method = $this->hardwareType;
-        $this->$method($hero);
+        $this->{$this->classSubtype}($hero);
     }
 
     /**
      * make an electrical hardware character
      *
      * @param Hero $hero the hero
+     * @throws \Exception
      */
     private function electrical(Hero &$hero)
     {
@@ -97,6 +101,10 @@ class Hardware extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 35, 'Hardware: Electrical'));
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function mechanical(Hero &$hero)
     {
         $skills = BonusTargets::mechanicalSkills(false);
@@ -157,6 +165,10 @@ class Hardware extends BaseClass
         }
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function weapons(Hero &$hero)
     {
         // Select 2 Ancient WP

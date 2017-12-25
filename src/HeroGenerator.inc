@@ -55,7 +55,7 @@ class HeroGenerator
         // step 1 - attributes (3d6; +1d6 if >= 16)
         $attributes = ['intelligenceQuotient', 'mentalEndurance', 'mentalAffinity', 'physicalStrength', 'physicalProwess', 'physicalEndurance', 'physicalBeauty', 'speed'];
         foreach ($attributes as $attribute) {
-            $hero->$attribute = $this->engine->roller->rollDice(new Roll($attribute, 3, 6));
+            $hero->$attribute = $hero->{$attribute . 'Base'} = $this->engine->roller->rollDice(new Roll($attribute, 3, 6));
             if ($hero->$attribute >= 16) {
                 $hero->$attribute += $this->engine->roller->rollDice(new Roll('=16 attribute bonus', 1, 6));
             }
@@ -98,7 +98,6 @@ class HeroGenerator
         ]);
 
         // step 6 - character start
-
         $characterBasics = new CharacterBasics($this->engine);
         $characterBasics->generateCharacterBasics($hero);
 

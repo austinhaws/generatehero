@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\crazy;
 
+use Heroes\engine\Engine;
 use Heroes\engine\TableEntry;
 use Heroes\hero\classes\BaseClass;
 use Heroes\hero\Hero;
@@ -12,6 +13,17 @@ class Association extends BaseClass
     /** @var string what food triggers power */
     public $popeye;
 
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Crazy');
+        $this->classSubtype = 'by Association';
+    }
+
+    /**
+     * @param Hero $hero
+     * @param bool $options
+     * @throws \Exception
+     */
     function create(Hero &$hero, $options = false)
     {
         $this->association = $this->engine->tableRoller->rollTable('Association: association', [

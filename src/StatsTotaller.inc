@@ -24,8 +24,9 @@ class StatsTotaller
 
     /**
      * attributes are already totaled, so skip those
-     * 
+     *
      * @param Hero $hero the hero on which to total non-attribute stats
+     * @throws \Exception
      */
     public function calculateNonAttributeTotals(Hero &$hero)
     {
@@ -89,7 +90,7 @@ class StatsTotaller
                 break;
 
             case Bonus::BONUS_TYPE_MULTIPLY:
-                $field *= $bonusValue;
+                $field = floor($field * $bonusValue);
                 break;
 
             default:
@@ -494,6 +495,7 @@ class StatsTotaller
      *
      * @param Hero $hero the hero
      * @param string[] $bonusTargets which BonusTarget::... constants to search for and apply to the hero
+     * @throws \Exception
      */
     public function calculateBonusGroup(Hero &$hero, $bonusTargets)
     {
@@ -512,6 +514,7 @@ class StatsTotaller
      * find all
      *
      * @param Hero $hero the hero on which to total attributes
+     * @throws \Exception
      */
     public function calculateAttributeTotals(Hero &$hero)
     {
@@ -533,6 +536,7 @@ class StatsTotaller
      * @param Bonus $bonus the bonus to apply
      * @param Hero $hero the hero who should get the skill bonus
      * @param bool $includeUnset if true then adds missing skills, if false then only gives bonus if the skill exists
+     * @throws \Exception
      */
     private function applyBonusToSkill(Bonus $bonus, Hero &$hero, $includeUnset)
     {
@@ -557,6 +561,7 @@ class StatsTotaller
      * @param Hero $hero the hero to which to give the skill
      * @param String[] $skills the skills to which to apply the bonus
      * @param bool $includeUnset if true then adds missing skills, if false then only gives bonus if the skill exists
+     * @throws \Exception
      */
     private function applyBonusToSkills(Bonus $bonus, Hero &$hero, $skills, $includeUnset) {
         // save actual target

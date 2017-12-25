@@ -2,6 +2,7 @@
 
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -17,6 +18,12 @@ class SpecialTrainingStageMagician extends BaseClass
 
     /** @var string relation ship with sponsoring organization */
     public $sponsoringOrganizationStatus;
+
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Special Training');
+        $this->classSubtype = 'Stage Magician';
+    }
 
     public function create(Hero &$hero, $options = false)
     {
@@ -87,6 +94,10 @@ class SpecialTrainingStageMagician extends BaseClass
     
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function pickGimmicks(Hero &$hero)
     {
         // roll for loot

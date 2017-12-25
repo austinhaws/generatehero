@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -24,9 +25,15 @@ class Bionics extends BaseClass
     /** @var array map of string (BionicLocation::enum) => bool; true means the location is bionic */
     public $bionicBody;
 
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Bionic');
+    }
+
     /**
      * @param Hero $hero the hero to which to add bonuses
      * @param bool|array $options creation options: isAlien if coming from alien so don't do character stuff, just buy bionics
+     * @throws \Exception
      */
     function create(Hero &$hero, $options = false)
     {
@@ -55,6 +62,9 @@ class Bionics extends BaseClass
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     private function backgroundInformation()
     {
         $this->conditions = $this->engine->tableRoller->rollTable('Bionic: Conditions for Bionic Reconstruction', [
@@ -100,6 +110,9 @@ class Bionics extends BaseClass
         $this->hasCar($hero, 80);
     }
 
+    /**
+     * @throws \Exception
+     */
     private function determineBudget()
     {
         $this->budgetRemaining = $this->startingBudget = $this->engine->tableRoller->rollTable('Bionic Budget', [
@@ -548,6 +561,7 @@ class Bionics extends BaseClass
      *
      * @param Bionic $bionic the part to add
      * @param Hero $hero
+     * @throws \Exception
      */
     private function orLocations(Bionic $bionic, Hero &$hero)
     {
@@ -608,6 +622,7 @@ class Bionics extends BaseClass
      *
      * @param $bionic Bionic  part to add
      * @param Hero $hero
+     * @throws \Exception
      */
     private function andLocations(Bionic $bionic, Hero &$hero)
     {

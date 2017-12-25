@@ -16,20 +16,28 @@ class Hero
     // abilities
     /** @var int iq */
     public $intelligenceQuotient = 0;
+    public $intelligenceQuotientBase = 0;
     /** @var int me */
     public $mentalEndurance = 0;
+    public $mentalEnduranceBase = 0;
     /** @var int ma */
     public $mentalAffinity = 0;
+    public $mentalAffinityBase = 0;
     /** @var int ps */
     public $physicalStrength = 0;
+    public $physicalStrengthBase = 0;
     /** @var int pp */
     public $physicalProwess = 0;
+    public $physicalProwessBase = 0;
     /** @var int pe */
     public $physicalEndurance = 0;
+    public $physicalEnduranceBase = 0;
     /** @var int pb */
     public $physicalBeauty = 0;
+    public $physicalBeautyBase = 0;
     /** @var int speed */
     public $speed = 0;
+    public $speedBase = 0;
 
     // calculateds
     /** @var int */

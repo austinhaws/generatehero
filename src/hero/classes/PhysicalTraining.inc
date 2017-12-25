@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\enums\BonusTargets;
 use Heroes\enums\SkillPrograms;
@@ -11,10 +12,16 @@ use Heroes\tables\TableEducation;
 
 class PhysicalTraining extends BaseClass
 {
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Physical Training');
+    }
+
     /**
      * create a character's class
      *
      * @param Hero $hero the hero
+     * @param bool $options
      * @throws \Exception ya ya, whatever
      */
     public function create(Hero &$hero, $options = false)

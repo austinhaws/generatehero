@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -39,6 +40,16 @@ class Aliens extends BaseClass
     /** @var bool|Magic false or a magic object */
     public $magic = false;
 
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Alien');
+    }
+
+    /**
+     * @param Hero $hero
+     * @param bool $options
+     * @throws \Exception
+     */
     function create(Hero &$hero, $options = false)
     {
         // all aliens have a base 20 SDC
@@ -72,6 +83,10 @@ class Aliens extends BaseClass
     }
 
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function rollMoney(Hero &$hero)
     {
         list($dice, $sides) = $this->engine->tableRoller->rollTable('Alien: Money Category', [
@@ -87,6 +102,9 @@ class Aliens extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, $money * 1000, 'Alien: Money'));
     }
 
+    /**
+     * @throws \Exception
+     */
     private function rollVehicle()
     {
         $this->vehicle = $this->engine->tableRoller->rollTable('Alien: Vehicle', [
@@ -101,6 +119,9 @@ class Aliens extends BaseClass
         ]);
     }
 
+    /**
+     * @throws \Exception
+     */
     private function rollEquipment()
     {
         // clothes
@@ -120,6 +141,10 @@ class Aliens extends BaseClass
         ]);
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function rollFamiliarity(Hero &$hero)
     {
         $result = $this->engine->tableRoller->rollTable('Alien: Familiarity', [
@@ -149,6 +174,9 @@ class Aliens extends BaseClass
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     private function rollReason()
     {
         $result = $this->engine->tableRoller->rollTable('Alien: Reason for Coming', [
@@ -222,6 +250,11 @@ class Aliens extends BaseClass
     const SCIENCE_SPECIALIST = 'Science Specialist';
     const COMBAT_SPECIALIST = 'Combat Specialist';
     const ENGINEER = 'Engineer';
+
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function rollEducation(Hero &$hero)
     {
         $educationLevel = $this->engine->tableRoller->rollTable('Alien Education', [
@@ -309,6 +342,10 @@ class Aliens extends BaseClass
         $hero->addSkills($secondarySkills, $reason, $secondarySkillBonus);
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function rollSuperAbilities(Hero &$hero)
     {
         $abilities = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
@@ -345,6 +382,10 @@ class Aliens extends BaseClass
         }
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function rollPhysiologicalModification(Hero &$hero)
     {
         // physiological modification
@@ -409,6 +450,10 @@ class Aliens extends BaseClass
 
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function appearanceHumanoid(Hero &$hero)
     {
         $this->appearance = 'Humanoid: ';
@@ -550,6 +595,10 @@ class Aliens extends BaseClass
         }
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function rollAppearance(Hero &$hero)
     {
         // appearance

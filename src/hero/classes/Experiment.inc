@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -35,10 +36,17 @@ class Experiment extends BaseClass
     public $sponsorStatus;
 
 
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Experiment');
+    }
+
+
     /**
      * create a experiment character
      *
      * @param Hero $hero the hero
+     * @throws \Exception
      */
     function create(Hero &$hero, $options = false)
     {
@@ -65,6 +73,7 @@ class Experiment extends BaseClass
      * pick the hero's powers
      *
      * @param Hero $hero the hero
+     * @throws \Exception
      */
     private function pickPowers(Hero &$hero)
     {
@@ -83,6 +92,7 @@ class Experiment extends BaseClass
 
     /**
      * @param Hero $hero the hero
+     * @throws \Exception
      */
     private function createSuperSoldier(Hero &$hero)
     {
@@ -163,6 +173,7 @@ class Experiment extends BaseClass
 
     /**
      * @param Hero $hero the hero duh
+     * @throws \Exception
      */
     private function experimentEffects(Hero &$hero)
     {

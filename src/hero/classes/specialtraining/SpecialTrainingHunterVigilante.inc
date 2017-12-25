@@ -2,6 +2,7 @@
 
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -12,6 +13,12 @@ use Heroes\tables\TableEducation;
 
 class SpecialTrainingHunterVigilante extends BaseClass
 {
+
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Special Training');
+        $this->classSubtype = 'Hunter Vigilante';
+    }
 
     public function create(Hero &$hero, $options = false)
     {
@@ -93,6 +100,10 @@ class SpecialTrainingHunterVigilante extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Modify Weapon Cartridges - Create dumdums, hollow points, full metal jacketed, and other special cartridges', 'Hunter Vigilante - Special Skill'));
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function otherStuff(Hero &$hero)
     {
         $years = $this->engine->tableRoller->rollTable('Hunter Vigilante - experience', [

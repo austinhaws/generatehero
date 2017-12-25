@@ -2,6 +2,7 @@
 
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -11,6 +12,12 @@ use Heroes\tables\TableEducation;
 
 class SpecialTrainingAncientMaster extends BaseClass
 {
+
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Special Training');
+        $this->classSubtype = 'Ancient Master';
+    }
 
     public function create(Hero &$hero, $options = false)
     {
@@ -86,6 +93,10 @@ class SpecialTrainingAncientMaster extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Positive Energy - instills the character with a super human, physical toughness: energy attacks halved; gases, poisons, drugs, and chemicals 1/2 damage; +5 vs magic, +3 vs psionics.', 'Ancient Master - abilities'));
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function basics(Hero &$hero)
     {
         $hero->age = $this->engine->tableRoller->rollTable('Ancient Master - Age', [

@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\crazy;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\hero\classes\BaseClass;
@@ -35,6 +36,17 @@ class Personalities extends BaseClass
 
     // note: personalities take over: severe shock or trauma, coma or near death, hypnosis, telepathic probe, hypnotic suggestion, mind wipe
 
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Crazy');
+        $this->classSubtype = 'Multiple Personalities';
+    }
+
+    /**
+     * @param Hero $hero
+     * @param bool $options
+     * @throws \Exception
+     */
     function create(Hero &$hero, $options = false)
     {
         // this is in addition to the main personality. a result of 1 here means 2 total personalities.
@@ -86,6 +98,10 @@ class Personalities extends BaseClass
         }
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     private function quirkGood() {
         return $this->engine->tableRoller->rollTable('Quirk Good', [
            new TableEntry(10, new PersonalityQuirk('Despondent', 'Withdrawn; curls up in to a fetal position and gurgles. Can not fight or take any action. Can not use powers or even communicate.', '')),
@@ -101,6 +117,10 @@ class Personalities extends BaseClass
         ]);
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     private function quirkEvil() {
         return $this->engine->tableRoller->rollTable('Quirk Evil', [
            new TableEntry(10, new PersonalityQuirk('Jack the Ripper', 'A twisted personality that preys on the weak, mostly women. Some demented obsession drives this personality to hurt and torment women. If any opponents are female, she will be his first target. The more she fights, the better he likes it. This is a sick individual who loves to torture and watch torment.', '-10% on all skills because hs is physically oriented. +1 to strike. Knows about his other personalities but will not willingly let any of them take control. Prefers blade weapons above all others.')),

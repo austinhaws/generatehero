@@ -15,8 +15,11 @@ class CharacterClass extends React.Component {
 	}
 
 	render() {
+		if (!this.props.character) {
+			return false;
+		}
 		const attributes = [
-			{name: 'Intel Quotient', id: 'intelQuotient',},
+			{name: 'Intel Quotient', id: 'intelligenceQuotient',},
 			{name: 'Mental Endurance', id: 'mentalEndurance',},
 			{name: 'Mental Affinity', id: 'mentalAffinity',},
 			{name: 'Physical Strength', id: 'physicalStrength',},
@@ -36,11 +39,11 @@ class CharacterClass extends React.Component {
 						<img src="ui/img/gears.svg" title="Settings" className="gearsImage"/>
 					</div>
 				</div>
-				<div id="topTitleContainer">Physical Training</div>
+				<div id="topTitleContainer">{this.props.character.class.classType} {this.props.character.class.classSubtype ? [<br key="br"/>, this.props.character.class.classSubtype] : false}</div>
 
 				<div id="middleSectionContainer">
 					<div id="characterAttributes">
-						{attributes.map(a => <Attribute key={a.id} name={a.name} value={17} locked={!!this.props.locks[a.id]} baseValue={13} toggleLocked={() => this.props.toggleLock(a.id)} />)}
+						{attributes.map(a => <Attribute key={a.id} name={a.name} value={this.props.character[a.id]} locked={!!this.props.locks[a.id]} baseValue={this.props.character[a.id + 'Base']} toggleLocked={() => this.props.toggleLock(a.id)} />)}
 					</div>
 					<div id="characterInfoContainers">
 						<div id="characterBasics">gender and other basics</div>

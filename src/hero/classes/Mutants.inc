@@ -2,6 +2,7 @@
 
 namespace Heroes\hero\classes;
 
+use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
@@ -44,6 +45,11 @@ class Mutants extends BaseClass
     // animal mutants have a size defining how big they are
     public $animalSize = false;
 
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Mutant');
+    }
+
     public function postCreate(Hero &$hero)
     {
         parent::postCreate($hero);
@@ -63,11 +69,16 @@ class Mutants extends BaseClass
     {
         if ($this->engine->roller->rollDice(new Roll('Mutant Type', 1, 2)) === 1) {
             $this->createMutant($hero);
+            $this->classSubtype = 'Mutant Human';
         } else {
             $this->createAnimalMutant($hero);
+            $this->classSubtype = 'Animal Mutant';
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     private function organizationAnimalMutant()
     {
         $this->organization = $this->engine->tableRoller->rollTable('Mutant Animal: Organization', [
@@ -83,6 +94,11 @@ class Mutants extends BaseClass
         ]);
     }
 
+    /**
+     * @param $features
+     * @return array
+     * @throws \Exception
+     */
     private function animalMutantKeepFeatures($features)
     {
         $keptFeatures = [];
@@ -126,6 +142,10 @@ class Mutants extends BaseClass
         return $keptFeatures;
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     */
     private function animalMutantPickPsionics()
     {
         $tableMutantBioE = new TableMutantBioE($this->engine);
@@ -217,6 +237,11 @@ class Mutants extends BaseClass
         $this->applyAnimalMutant($hero, $animal, $keptFeatures, $possiblePsionics);
     }
 
+    /**
+     * @param Hero $hero
+     * @param $details
+     * @throws \Exception
+     */
     private function applyMutantAnimalDetails(Hero &$hero, $details)
     {
         $educationTable = new TableEducation($this->engine);
@@ -314,6 +339,10 @@ class Mutants extends BaseClass
         }
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function causeAnimalMutant(Hero &$hero)
     {
         list($this->cause, $education) = $this->engine->tableRoller->rollTable('Mutant Animal: Cause', [
@@ -499,6 +528,9 @@ class Mutants extends BaseClass
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     private function causeHumanMutant()
     {
         $this->cause = $this->engine->tableRoller->rollTable('Mutant: cause', [
@@ -510,6 +542,10 @@ class Mutants extends BaseClass
         ]);
     }
 
+    /**
+     * @param Hero $hero
+     * @throws \Exception
+     */
     private function unusualCharacteristics(Hero &$hero)
     {
         list($this->characteristics, $bonuses) = $this->engine->tableRoller->rollTable('Mutant: unusual', [

@@ -1,6 +1,7 @@
 <?php
 namespace Heroes\hero\crazy;
 
+use Heroes\engine\Engine;
 use Heroes\engine\TableEntry;
 use Heroes\hero\classes\BaseClass;
 use Heroes\hero\Hero;
@@ -10,6 +11,17 @@ class Frenzy extends BaseClass
     /** @var string what triggers the frenzy */
     public $condition;
 
+    public function __construct(Engine &$engine)
+    {
+        parent::__construct($engine, 'Crazy');
+        $this->classSubtype = 'Frenzy';
+    }
+
+    /**
+     * @param Hero $hero
+     * @param bool $options
+     * @throws \Exception
+     */
     function create(Hero &$hero, $options = false)
     {
         $this->condition = $this->engine->tableRoller->rollTable('Frenzy: condition', [
