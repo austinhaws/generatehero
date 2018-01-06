@@ -184,7 +184,7 @@ class CharacterBasics extends TableBase
             new TableEntry(29, 'Laborer/Lower Class'),
             new TableEntry(59, 'Laborer/Middle Class'),
             new TableEntry(74, 'Skilled/Middle Class'),
-            new TableEntry(84, 'Highly Skilled/Upper Middle to Upper Class'),
+            new TableEntry(84, 'Highly Skilled/Upper Middle Class'),
             new TableEntry(89, 'Political/Upper Middle Class'),
             new TableEntry(100, 'Wealthy'),
         ]);

@@ -26,6 +26,7 @@ export default {
 		SET_CHARACTER: (state, action) => {
 			const result = clone(state);
 			result.character = clone(action.payload);
+			result.character.weightString = [result.character.weight, result.character.weightDescription ? `(${result.character.weightDescription})` : false].filter(s => s).join(' ');
 			return result;
 		},
 

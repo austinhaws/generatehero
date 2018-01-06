@@ -11,6 +11,8 @@ import axios in to app and create generic ajaxer
 [ ] use strategery theme for site, use strategery logo
 	[ ] Make react base for Strategery so that can eventually move the site over to React
 
+[ ] review each class for extra fields to show
+
 code coverage (requires xdebug... ugg....): vendor/bin/phpunit --coverage-html coverage
 
 

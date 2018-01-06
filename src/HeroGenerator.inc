@@ -86,15 +86,15 @@ class HeroGenerator
 
         // step 5 - alignment
         $hero->alignment = $this->engine->tableRoller->rollTable('Alignment', [
-            new TableEntry(35, 'Principled: Strong, moral character with the highest regard for other\'s lives and well-being, truth, and honor. Will always attempt to work within the law.'),
-            new TableEntry(70, 'Scrupulous: Value life and freedom above all else, and despise those who would deprive others of them. Forced to work beyond hte law, yet for the law, and the greater good of the people.'),
-            new TableEntry(85, 'Unprincipled: Selfish, greedy, and holds his personal freedom and welfare above almost everything else. Dislikes confining laws, self-discipline, and distrusts authority.'),
+            new TableEntry(35, 'Principled'),
+            new TableEntry(70, 'Scrupulous'),
+            new TableEntry(85, 'Unprincipled'),
 
-            new TableEntry(92, 'Anarchist: Indulges in everything. Insurgent, con-man, gambler, and high roller. Uncommitted freebooter who is more likely to be a crimefighter because he enjoys the thrill of danger and excitement than any cause.'),
+            new TableEntry(92, 'Anarchist'),
 
-            new TableEntry(95, 'Miscreant: Self-serving, unscrupulous, out only for himself. Power, glory, wealth, position, and anything that will make his life more comfortable or pleasurable is his goal. Will lie, cheat, and hurt anyone to attain his personal goals.'),
-            new TableEntry(98, 'Aberrant: Driven to attain his goals through force, power, and intimidation. Has own personal code of ethics. He expects loyalty from his minions, punishing disloyalty and treachery with a swift, merciful death. Always keeps his word of honor and uphold any bargains.'),
-            new TableEntry(100, 'Diabolic: Megalomaniacs, violent, and most despicable. Cruel, brutal killer who trusts no one and has no value for any life other than his own. Will lie, cheat, use and abuse anyone not more powerful than themselves.'),
+            new TableEntry(95, 'Miscreant'),
+            new TableEntry(98, 'Aberrant'),
+            new TableEntry(100, 'Diabolic'),
         ]);
 
         // step 6 - character start
