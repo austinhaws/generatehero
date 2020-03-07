@@ -8,7 +8,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 try {
     // generate a character and output the json
-    echo json_encode((new \Heroes\HeroGenerator())->generate());
+    echo json_encode((new \Heroes\HeroGenerator())->generate($_GET));
 } catch (Exception $e) {
     echo $e->getMessage();
 }

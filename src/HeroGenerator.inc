@@ -6,6 +6,7 @@ use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
+use Heroes\enums\UrlParameters;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
@@ -26,13 +27,14 @@ class HeroGenerator
         $this->engine = $engine ? $engine : new Engine();
     }
 
-    /**
-     * create a hero!
-     *
-     * @return Hero the hero
-     * @throws \Exception
-     */
-    public function generate()
+	/**
+	 * create a hero!
+	 *
+	 * @param $urlParams
+	 * @return Hero the hero
+	 * @throws \Exception
+	 */
+    public function generate($urlParams)
     {
         $hero = new Hero();
 
@@ -77,7 +79,7 @@ class HeroGenerator
 
 
         // step 3 - determine super abilities
-        $this->generatePowerCategory($hero);
+        $this->generatePowerCategory($hero, $urlParams);
 
         // step 4 - education / skills
         if (!$hero->educationLevel) {
@@ -132,33 +134,38 @@ class HeroGenerator
         $statsTotaller->calculateNonAttributeTotals($hero);
     }
 
-    /**
-     * determine a power category for the hero
-     * apply that category using its class
-     *
-     * @param Hero $hero the hero
-     * @throws \Exception
-     */
-    public function generatePowerCategory(Hero &$hero)
+	/**
+	 * determine a power category for the hero
+	 * apply that category using its class
+	 *
+	 * @param Hero $hero the hero
+	 * @param array $urlParams
+	 * @throws \Exception
+	 */
+    public function generatePowerCategory(Hero &$hero, array $urlParams)
     {
-        $class = $this->engine->tableRoller->rollTable('power category', [
-            new TableEntry(10, 'Experiment'),
-            new TableEntry(20, 'Robotics'),
-            new TableEntry(30, 'Bionics'),
+    	if (isset($urlParams[UrlParameters::POWER_CATEGORY])) {
+    		$class = $urlParams[UrlParameters::POWER_CATEGORY];
+		} else {
+			$class = $this->engine->tableRoller->rollTable('power category', [
+				new TableEntry(10, 'Experiment'),
+				new TableEntry(20, 'Robotics'),
+				new TableEntry(30, 'Bionics'),
 
-            new TableEntry(40, 'SpecialTrainingAncientMaster'),
-            new TableEntry(42, 'SpecialTrainingHunterVigilante'),
-            new TableEntry(44, 'SpecialTrainingSecretOperative'),
-            new TableEntry(46, 'SpecialTrainingStageMagician'),
-            new TableEntry(48, 'SpecialTrainingSuperSleuth'),
+				new TableEntry(40, 'SpecialTrainingAncientMaster'),
+				new TableEntry(42, 'SpecialTrainingHunterVigilante'),
+				new TableEntry(44, 'SpecialTrainingSecretOperative'),
+				new TableEntry(46, 'SpecialTrainingStageMagician'),
+				new TableEntry(48, 'SpecialTrainingSuperSleuth'),
 
-            new TableEntry(50, 'Mutants'),
-            new TableEntry(60, 'Psionics'),
-            new TableEntry(70, 'PhysicalTraining'),
-            new TableEntry(80, 'Magic'),
-            new TableEntry(90, 'Hardware'),
-            new TableEntry(100, 'Aliens'),
-        ]);
+				new TableEntry(50, 'Mutants'),
+				new TableEntry(60, 'Psionics'),
+				new TableEntry(70, 'PhysicalTraining'),
+				new TableEntry(80, 'Magic'),
+				new TableEntry(90, 'Hardware'),
+				new TableEntry(100, 'Aliens'),
+			]);
+		}
 
         $class = "Heroes\\hero\\classes\\$class";
         $hero->class = (new $class($this->engine));
