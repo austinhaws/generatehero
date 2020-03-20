@@ -270,7 +270,7 @@ class TablePsionics extends TableBase
                 'Instant',
                 '4',
                 'Standard',
-                'By holding the object and concentrating on the owner or history of the object, the psionic will inslanlly receive impressions and images revealing bits of information, such as whether the previous owner is dead or alive, or in danger, ciC. In addition to impressions, the psionic will actually see images of isolated events which have happened in the past.'
+                'By holding the object and concentrating on the owner or history of the object, the psionic will instantly receive impressions and images revealing bits of information, such as whether the previous owner is dead or alive, or in danger, ciC. In addition to impressions, the psionic will actually see images of isolated events which have happened in the past.'
             ),
             new Psionic(
                 'Presence Sense',
