@@ -281,7 +281,7 @@ class TablePsionics extends TableBase
                 'Detect the presence of any corporeal or non-corporeal entity. It will only indicate the general location of the invisible person.'
             ),
             new Psionic(
-                'Pyrokliesis',
+                'Pyrokinesis',
                 '30 to 90ft',
                 'Varies',
                 'Special',
