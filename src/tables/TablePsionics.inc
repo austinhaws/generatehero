@@ -206,7 +206,7 @@ class TablePsionics extends TableBase
                 '2d6 minutes',
                 '6',
                 'Standard',
-                'Project false emotions into one individual. By increasing the ISP to 12 he can influence as many as six characters. The duration can also be extended 2D6 minutes by expending another 6 ISP. Despair or Sorrow: Invokes great emotional upheaval, deep sorrow and a sense of loss; Confusion: Disorients the person so badly that he has no sense of direction, time, or of what is exactly going on.; Fear: Invokes unreasoning terror in all those affected; Hate or Anger: Will prompt those affected to act rashly, charge, attack, argue violently, etc; Love or Peacefulness: Will induce a deep feeling of serenity, dispelling anger, hatred, sorrow, and so on; Trust: Will make its victims believe everything the psionic tells them, but only while under the empathic influence.'
+                'Project false emotions into one individual. By increasing the ISP to 12 he can influence as many as six characters. The duration can also be extended 2D6 minutes by expending another 6 ISP. Despair or Sorrow: Invokes great emotional upheaval, deep sorrow and a sense of loss; Confusion: Disorients the person so badly that he has no sense of direction, time, or of what is exactly going on. Fear: Invokes unreasoning terror in all those affected; Hate or Anger: Will prompt those affected to act rashly, charge, attack, argue violently, etc; Love or Peacefulness: Will induce a deep feeling of serenity, dispelling anger, hatred, sorrow, and so on; Trust: Will make its victims believe everything the psionic tells them, but only while under the empathic influence.'
             ),
             new Psionic(
                 'Hydrokinesis',
