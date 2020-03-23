@@ -34,7 +34,7 @@ class HeroGenerator
 	 * @return Hero the hero
 	 * @throws \Exception
 	 */
-    public function generate($urlParams)
+    public function generate($urlParams = [])
     {
         $hero = new Hero();
 
@@ -142,7 +142,7 @@ class HeroGenerator
 	 * @param array $urlParams
 	 * @throws \Exception
 	 */
-    public function generatePowerCategory(Hero &$hero, array $urlParams)
+    public function generatePowerCategory(Hero &$hero, array $urlParams = [])
     {
     	if (isset($urlParams[UrlParameters::POWER_CATEGORY])) {
     		$class = $urlParams[UrlParameters::POWER_CATEGORY];

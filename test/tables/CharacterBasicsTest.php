@@ -33,6 +33,8 @@ class CharacterBasicsTest extends BaseTestRunner
             new TestRoll(100, 30, 'environment'),
             new TestRoll(100, 30, 'social/economic background'),
             new TestRoll(100, 30, 'when manifested'),
+            new TestRoll(108, 30, 'Age'),
+            new TestRoll(5, 4, 'Late Teen'),
         ]);
 
         $this->characterBasics->generateCharacterBasics($hero);
@@ -45,6 +47,7 @@ class CharacterBasicsTest extends BaseTestRunner
         $this->assertNotNull($hero->environment, 'environment');
         $this->assertNotNull($hero->socialEconomic, 'social economioc');
         $this->assertNotNull($hero->whenManifested, 'when manifested');
+        $this->assertNotNull($hero->age, 'age');
 
         $this->engine->roller->verifyTestRolls();
     }

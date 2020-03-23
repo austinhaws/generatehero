@@ -26,8 +26,8 @@ class CharacterBasics extends TableBase
         $this->typeOfEnvironment($hero);
         $this->socialEconomicBackground($hero);
         $this->whenManifested($hero);
-        if ($hero->age === false) {
-            $hero->age = $this->engine->tableRoller->rollTable('Age', [
+        if (!$hero->age) {
+            $hero->age = $this->engine->roller->rollDice($this->engine->tableRoller->rollTable('Age', [
                 new TableEntry(5, new Roll('Child', 1, 10, 1, false, 0)),
                 new TableEntry(15, new Roll('Early Teen', 1, 5, 1, false, 9)),
                 new TableEntry(45, new Roll('Late Teen', 1, 5, 1, false, 14)),
@@ -44,7 +44,7 @@ class CharacterBasics extends TableBase
                 new TableEntry(107, new Roll('1000', 1, 1000, 1, false, 999)),
                 new TableEntry(108, new Roll('thousands', 1, 10000, 1, false, 999)),
 
-            ]);
+            ]));
         }
     }
 
