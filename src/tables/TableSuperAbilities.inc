@@ -69,7 +69,7 @@ class TableSuperAbilities extends TableBase
                     new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_GROUP_DECEPTION_SLEIGHT_OF_HAND, 10, 'Extraordinary Mental Affinity'),
                 ])),
 
-            new TableEntry(9, new Ability('Bend Light', 'Manipulate light radiation like a prism. THis can produce a number of effects. 1 - Separate the colors bands of light to produce a colored light beam or radiate about 70 watts of colored light; Range: 100ft. 2 - Parries lasers and other light beams by bending the light around him, or a 10ft area, to deflect the beam. Roll just like a normal parry. 3 - Can see in to the infrared and ultraviolet light range; 100ft maximum distance.')),
+            new TableEntry(9, new Ability('Bend Light', 'Manipulate light radiation like a prism. This can produce a number of effects. 1 - Separate the colors bands of light to produce a colored light beam or radiate about 70 watts of colored light; Range: 100ft. 2 - Parries lasers and other light beams by bending the light around him, or a 10ft area, to deflect the beam. Roll just like a normal parry. 3 - Can see in to the infrared and ultraviolet light range; 100ft maximum distance.')),
 
             new TableEntry(12, new Ability('Flight: Glide', 'This power allows the super being to ride air currents and hover. Maximum gliding speed outdoors, with a strong wind or from a great height (jumping out of an airplane or skyscraper\'s rooftop), is 120mph (192kmph). However, a typical speed is more likely 10 be 40 to 50mph (64 10 80kmph). Gliding indoors is more difficult, with a maximum speed of 40mph (64kmph) and an average speed of 15mph (24km).',
                 [
