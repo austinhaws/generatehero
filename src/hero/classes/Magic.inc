@@ -262,7 +262,7 @@ class Magic extends BaseClass
             $this->selectSpells($this->objectSpells, TableSpells::magicSpells(), $numMagic);
         }
 
-        (new TableSuperAbilities($this->engine))->rollAbilities($hero, 'Magic: Enchanted Weapon', $numMajor, $numMinor);
+        (new TableSuperAbilities($this->engine))->rollAbilities($hero, 'Magic: Enchanted Object', $numMajor, $numMinor);
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, 2, 'Magic: Enchanted Object'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 10, 'Magic: Enchanted Object'));
@@ -298,7 +298,7 @@ class Magic extends BaseClass
         ]);
         $hero->addBonus($bonuses);
 
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 35, 'Magic: Enchanted Weapon'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, 35, 'Magic: Enchanted Object'));
     }
 
     /**
