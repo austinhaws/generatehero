@@ -46,7 +46,7 @@ abstract class BaseClass
         if ($this->engine->roller->rollDice(new Roll('Has Car?', 1, 100)) <= $percentChance) {
             $age = $this->engine->roller->rollDice(new Roll('Car Age', 1, 6));
             $years = 'year' . ($age > 1 ? 's' : '');
-            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "Owns car that is $age $years old.", 'Starting Car'));
+            $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "Owns car that is $age $years old", 'Starting Car'));
         }
     }
 
