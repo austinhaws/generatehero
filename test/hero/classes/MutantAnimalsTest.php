@@ -31,7 +31,7 @@ class MutantAnimalsTest extends BaseTestRunner
             $this->testRoller->verifyTestRolls();
 
             $this->assertTrue(strpos(get_class($hero->class), 'Mutants') !== false);
-
+			$this->assertNotEquals($hero->class->animal, false);
             // should have gotten some mutant animal bonuses
         }
 
@@ -141,7 +141,11 @@ class MutantAnimalsTest extends BaseTestRunner
         $this->testRoller->verifyTestRolls();
 
         $this->assertTrue(strpos(get_class($hero->class), 'Mutants') !== false);
-    }
+		$this->assertNotEquals($hero->class->animal, false);
+
+		// test: gained powers are added to abilities list
+		$this->assertEquals(count($hero->abilities), 1);
+	}
 
     public function test_mutantAnimalSmall() {
         $rolls = [

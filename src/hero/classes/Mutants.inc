@@ -44,6 +44,7 @@ class Mutants extends BaseClass
     public $animalPsionics = false;
     // animal mutants have a size defining how big they are
     public $animalSize = false;
+    public $animal = false;
 
     public function __construct(Engine &$engine)
     {
@@ -198,6 +199,13 @@ class Mutants extends BaseClass
             }
         }
 
+        // add gained super abilities to abilities so they show in the powers list
+        if (isset($keptFeatures[TableMutantAnimals::POWER_CATEGORY_POWERS]) && count($keptFeatures[TableMutantAnimals::POWER_CATEGORY_POWERS])) {
+        	foreach ($keptFeatures[TableMutantAnimals::POWER_CATEGORY_POWERS] as $ability) {
+        		$hero->abilities[] = $ability;
+			}
+		}
+
         $this->animalPsionics = count($psionics) ? $psionics : false;
         foreach ($psionics as $psionic) {
             $bioE -= $psionic->cost;
@@ -213,6 +221,7 @@ class Mutants extends BaseClass
             // if even -1 bioE then need to drop a size
             $this->animalSize = $animal->initialSize + ceil($bioE / 5);
         }
+        $this->animal = $animal;
     }
 
     private function createAnimalMutant(Hero &$hero)
