@@ -32,22 +32,22 @@ class SpecialTrainingSecretOperativeTest extends BaseTestRunner
             $rolls[] = new TestRoll(6, 3, 'Secret Operative - MA');
 
             $ended = $this->iterationSubRolls($rolls, $i, [
-                    [new TestRoll(100, 16, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 36, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 44, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 52, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 60, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 63, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 67, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 71, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 75, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 77, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 80, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 83, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 86, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 90, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 95, 'Secret Operative - Organization'),],
-                    [new TestRoll(100, 100, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 16, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 36, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 44, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 52, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 60, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 63, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 67, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 71, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 75, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 77, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 80, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 83, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 86, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 90, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 95, 'Secret Operative - Organization'),],
+                    [TestRoll::doNotCareUntilAndRoll(100, 100, 'Secret Operative - Organization'),],
                 ]) && $ended;
 
             $ended = $this->iterationSubRolls($rolls, $i, [
@@ -67,4 +67,17 @@ class SpecialTrainingSecretOperativeTest extends BaseTestRunner
             $this->runGeneration($rolls);
         }
     }
+    
+    public function test_bionics() {
+		$rolls = [
+			(new TestRoll())->dontCareUntil('power category')->andRoll(100, 44, 'power category'),
+			(new TestRoll())->dontCareAnyMore(),
+		];
+		$hero = $this->runGeneration($rolls);
+
+		$bionicBonuses = array_filter($hero->bonuses, function ($bonus) {
+			return strpos($bonus->explanation, 'Bionic Equipment') !== false;
+		});
+		$this->assertEquals(count($bionicBonuses), 2);
+	}
 }

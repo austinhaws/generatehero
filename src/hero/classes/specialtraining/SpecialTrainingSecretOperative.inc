@@ -94,7 +94,7 @@ class SpecialTrainingSecretOperative extends BaseClass
             'Souped-up turbo engine: 280mph maximum speed',
             'Mini-Radar: 5 mile (Skm) range',
             'Oxygen mask and air supply: 1 hour',
-            'Retractable, rear scat dividing wall: AR 16, SDC 150',
+            'Retractable, rear seat dividing wall: AR 16, SDC 150',
             'Pilot controlled locks',
             'Knock-out gas: fills the car',
             'Concealed, front mounted 5.56mm machinegun',
@@ -114,7 +114,27 @@ class SpecialTrainingSecretOperative extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, '4 modern weapons', 'Secret Operative - Equipment'));
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Jet Pack: Speed 150mph, altitude 2000ft', 'Secret Operative - Equipment'));
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, '2 bionic implants', 'Secret Operative - Equipment'));
+
+        // add the first two bionics to the special trianing character
+        // - give budget something ghastly large so anything is possible
+        $bionicHero = new Hero();
+        $bionics = new Bionics($this->engine);
+        $bionics->budgetRemaining = 10000000;
+
+        // - choose bionics for this fake hero
+        $bionics->chooseBionics($bionicHero);
+        shuffle($bionics->bionics);
+        $bionicPieces = array_slice($bionics->bionics, 0, 2);
+
+        // - add the bionics to the hero
+        foreach ($bionicPieces as $bionicPiece) {
+			$hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "Bionic Implant: {$bionicPiece->title}: {$bionicPiece->description}", 'Secret Operative - Bionic Equipment'));
+			foreach ($bionicPiece->bonuses as $bionicPieceBonus) {
+				$bionicPieceBonus->explanation = 'Secret Operative - Bionic Bonus';
+				$hero->addBonus($bionicPieceBonus);
+			}
+		}
+
 
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, new Roll('Secrete Operative - money', 2, 4, 1000), 'Secret Operative - Equipment'));
     }

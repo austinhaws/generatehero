@@ -28,6 +28,9 @@ class Bionics extends BaseClass
     public function __construct(Engine &$engine)
     {
         parent::__construct($engine, 'Bionic');
+
+		// setup default bionic body tracker
+		$this->bionicBody = array_fill_keys(BionicLocation::ALL_LOCATIONS(), false);
     }
 
     /**
@@ -37,9 +40,6 @@ class Bionics extends BaseClass
      */
     function create(Hero &$hero, $options = false)
     {
-        // setup default bionic body tracker
-        $this->bionicBody = array_fill_keys(BionicLocation::ALL_LOCATIONS(), false);
-
         // step 1 : attributes - already done by generator
 
         // step 2 : education - will be rolled after bionic created since bionic will not set educationLevel of hero
@@ -125,7 +125,7 @@ class Bionics extends BaseClass
         ]);
     }
 
-    private function chooseBionics(Hero &$hero)
+    public function chooseBionics(Hero &$hero)
     {
         // put all possible bionics in to array
         $possibles = [
