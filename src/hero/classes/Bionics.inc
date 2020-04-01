@@ -62,7 +62,21 @@ class Bionics extends BaseClass
         }
     }
 
-    /**
+	public function postCreate(Hero &$hero)
+	{
+		parent::postCreate($hero);
+
+		// put bionic bonuses in main bonuses list
+		foreach ($this->bionics as $bionic) {
+			foreach ($bionic->bonuses as $bonus) {
+				$bonus->explanation = "Bionic: {$bonus->explanation}";
+				$hero->bonuses[] = $bonus;
+			}
+		}
+	}
+
+
+	/**
      * @throws \Exception
      */
     private function backgroundInformation()
@@ -493,13 +507,13 @@ class Bionics extends BaseClass
 
                 case BionicLocation::BODY_PART_EAR_LEFT:
                 case BionicLocation::BODY_PART_EAR_RIGHT:
-                    $bionic = new Bionic(100000, $location, $bionicLocation, 'simulates normal ear/hearing', []);
+                    $bionic = new Bionic(100000, $location, $bionicLocation, 'Simulates normal ear/hearing', []);
                     $skinnable = $EAR_PERCENT;
                     break;
 
                 case BionicLocation::BODY_PART_EYE_LEFT:
                 case BionicLocation::BODY_PART_EYE_RIGHT:
-                    $bionic = new Bionic(50000, $location, $bionicLocation, 'simulates normal eye in appearance', []);
+                    $bionic = new Bionic(50000, $location, $bionicLocation, 'Simulates normal eye in appearance', []);
                     break;
 
                 case BionicLocation::BODY_PART_FOOT_LEFT:

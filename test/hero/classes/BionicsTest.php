@@ -8,47 +8,52 @@ use Heroes\tests\utilities\TestRoll;
 
 class BionicsTest extends BaseTestRunner
 {
-    public function test_bionics()
-    {
-        $this->testRoller->setTestRolls([
-            (new TestRoll())->dontCareUntil('power category')->andRoll(100, 30, 'power category'),
-            new TestRoll(100, 100, 'Bionic Budget'),
-            new TestRoll(100, 100, 'Body Part Skinnable'),
-            new TestRoll(100, 100, 'Body Part Skinnable: Type'),
-            new TestRoll(100, 100, 'Bionic Location: Multiple Ors'),
-            new TestRoll(100, 100, 'Bionic Location: Multiple Ors'),
-            (new testRoll())->dontCareUntil('Bionic: Conditions for Bionic Reconstruction')->andRoll(100, 1, 'Bionic: Conditions for Bionic Reconstruction'),
-            new TestRoll(100, 1, 'Bionic: Sponsor'),
-            new TestRoll(100, 1, 'Bionic: Sponsor Status'),
-            new TestRoll(100, 1, 'Has Car?'),
-            new TestRoll(6, 3, 'Car Age'),
-            (new TestRoll())->dontCareAnyMore(),
-        ]);
+	public function test_bionics()
+	{
+		$this->testRoller->setTestRolls([
+			(new TestRoll())->dontCareUntil('power category')->andRoll(100, 30, 'power category'),
+			new TestRoll(100, 100, 'Bionic Budget'),
+			new TestRoll(100, 100, 'Body Part Skinnable'),
+			new TestRoll(100, 100, 'Body Part Skinnable: Type'),
+			new TestRoll(100, 100, 'Bionic Location: Multiple Ors'),
+			new TestRoll(100, 100, 'Bionic Location: Multiple Ors'),
+			(new testRoll())->dontCareUntil('Bionic: Conditions for Bionic Reconstruction')->andRoll(100, 1, 'Bionic: Conditions for Bionic Reconstruction'),
+			new TestRoll(100, 1, 'Bionic: Sponsor'),
+			new TestRoll(100, 1, 'Bionic: Sponsor Status'),
+			new TestRoll(100, 1, 'Has Car?'),
+			new TestRoll(6, 3, 'Car Age'),
+			(new TestRoll())->dontCareAnyMore(),
+		]);
 
-        $hero = $this->heroGenerator->generate();
+		$hero = $this->heroGenerator->generate();
 
-        $this->testRoller->verifyTestRolls();
+		$this->testRoller->verifyTestRolls();
 
-        $this->assertTrue($hero->class->budgetRemaining < 8000, 'Should have spent as much as possible; no bionic costs less than this');
-    }
+		$this->assertTrue($hero->class->budgetRemaining < 8000, 'Should have spent as much as possible; no bionic costs less than this');
 
-    public function test_randomBionics()
-    {
-        // way tricky to run all possible bionics combinations, so just run through random cycles to check for problems... ya, sorry if this generates an error
-        $this->testArrayTools = false;
-        for ($x = 0; $x < 10; $x++) {
-            $this->testRoller->setTestRolls([
-                (new TestRoll())->dontCareUntil('power category')->andRoll(100, 30, 'power category'),
-                (new TestRoll())->dontCareAnyMore(),
-            ]);
+		// make sure bonuses from bionic parts are added to overall bonuses list
+		$this->assertTrue(count(array_filter($hero->bonuses, function ($bonus) {
+			return strpos($bonus->explanation, 'Bionic: ') !== false;
+			})) > 0);
+	}
 
-            $hero = $this->heroGenerator->generate();
+	public function test_randomBionics()
+	{
+		// way tricky to run all possible bionics combinations, so just run through random cycles to check for problems... ya, sorry if this generates an error
+		$this->testArrayTools = false;
+		for ($x = 0; $x < 10; $x++) {
+			$this->testRoller->setTestRolls([
+				(new TestRoll())->dontCareUntil('power category')->andRoll(100, 30, 'power category'),
+				(new TestRoll())->dontCareAnyMore(),
+			]);
 
-            $this->testRoller->verifyTestRolls();
+			$hero = $this->heroGenerator->generate();
 
-            $this->assertTrue($hero->class->budgetRemaining < 8000, 'Should have spent as much as possible; no bionic costs less than this');
-        }
+			$this->testRoller->verifyTestRolls();
 
-        $this->testArrayTools = TestArrayTools::DEFAULT_ROTATION;
-    }
+			$this->assertTrue($hero->class->budgetRemaining < 8000, 'Should have spent as much as possible; no bionic costs less than this');
+		}
+
+		$this->testArrayTools = TestArrayTools::DEFAULT_ROTATION;
+	}
 }
