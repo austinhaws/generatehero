@@ -20,17 +20,17 @@ class Robotics extends BaseClass
     const ROBOT_TYPE_ANDROID = 'Android';
 
     /** @var Hero the robot being constructed, null if the hero IS the robot */
-    private $robot;
+    public $robot;
     /** @var bool true if someone has to fly/drive/pilot the robot; false if an artifical intelligence is required */
-    private $requiresPilot;
+	public $requiresPilot;
     /** @var bool true if this robot needs an artifical intelligence */
-    private $requiresAI;
+	public $requiresAI;
     /** @var string sponsor */
-    private $sponsoringOrganization;
+	public $sponsoringOrganization;
     /** @var string Superiority of the Robot System */
-    private $robotSuperiority;
+	public $robotSuperiority;
     /** @var string Status With the Sponsoring Organization */
-    private $sponsorStatus;
+	public $sponsorStatus;
 
     public function __construct(Engine &$engine)
     {
@@ -192,7 +192,8 @@ class Robotics extends BaseClass
         list($cost, $title, $description) = array_pop($aiTypes)->result;
 
         // record the selection
-        $robot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "$title - $description", 'Robotics - AI'));
+		$robot->robotAI = $title;
+		$robot->robotAIDescription = $description;
 
         // education
         $robot->addSkill(BonusTargets::SKILL_MATHEMATICS_BASIC, 'Robot AI', 98);
@@ -212,7 +213,7 @@ class Robotics extends BaseClass
             new TableEntry(90, 'Braggart, cocky, exaggerates, usually cheerful, but annoying.'),
             new TableEntry(100, 'Friendly, courteous, hospitable.'),
         ]);
-        $robot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'AI Personality - ' . $personality, 'Robot AI: Personality'));
+        $robot->robotAIPersonality = $personality;
 
         $budget -= $cost;
     }
@@ -239,10 +240,10 @@ class Robotics extends BaseClass
     private function pickPowerSupply(Hero &$useRobot, &$budget)
     {
         $supplies = array_filter([
-            [250000, 'Liquid Fuel - Uses a consumable fuel that must be continually replaced.'],
-            [1000000, 'Super Solar Energy - Collects sunlight.'],
-            [2500000, 'Fusion Power System - Never needs refueling.'],
-            [3200000, 'Micro-Fusion Power System - Fusion that fits in the smallest robot.'],
+            [250000, 'Liquid Fuel - Uses a consumable fuel that must be continually replaced'],
+            [1000000, 'Super Solar Energy - Collects sunlight'],
+            [2500000, 'Fusion Power System - Never needs refueling'],
+            [3200000, 'Micro-Fusion Power System - Fusion that fits in the smallest robot'],
         ], function ($powerSupply) use ($budget) {
             return $powerSupply[0] <= $budget;
         });
@@ -251,11 +252,10 @@ class Robotics extends BaseClass
             $this->engine->arrayTools->shuffle($supplies);
             $powerSupply = array_pop($supplies);
             $budget -= $powerSupply[0];
-            $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Power Supply: ' . $powerSupply[1], 'Robotics - power source'));
+            $useRobot->robotPowerSupply = $powerSupply[1];
         } else {
-            // no available power supplies within budget so flag as not allowed
-            $budget = -1;
-        }
+        	$useRobot->robotPowerSupply = null;
+		}
     }
 
     /**
@@ -292,11 +292,8 @@ class Robotics extends BaseClass
             $anotherLegOdds -= 5;
         }
         $numberLegs = min($numberLegs, floor($budget / $legCost));
-        if ($numberLegs) {
-            // add legs as bonus to robot
-            $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "Robot has $numberLegs leg" . ($numberLegs > 1 ? 's' : ''), 'Robotics legs'));
-            $budget -= $numberLegs * $legCost;
-        }
+		$useRobot->robotNumberLegs = $numberLegs;
+		$budget -= $numberLegs * $legCost;
     }
 
     /**
@@ -320,14 +317,14 @@ class Robotics extends BaseClass
             return $engine[0] <= $budget;
         });
 
-        if (0 === count($possibles)) {
-            $budget = -1;
-        } else {
+        if (count($possibles)) {
             $this->engine->arrayTools->shuffle($possibles);
             $engine = array_pop($possibles);
             $budget -= $engine[0];
-            $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "Engine: {$engine[1]}", 'Robotic Engine'));
-        }
+            $useRobot->robotEngine = $engine[1];
+        } else {
+            $useRobot->robotEngine = null;
+		}
     }
 
     /**
@@ -358,13 +355,15 @@ class Robotics extends BaseClass
 
         $armCost = 150000;
         $numberArms = min($numberArms, $budget / $armCost);
+		while (($numberArms + 1) * $armCost <= $budget &&
+			$this->engine->roller->rollDice(new Roll('Robotics - Arms: extras', 1, 100)) <= $anotherArmOdds) {
+			$numberArms++;
+		}
         if ($numberArms) {
-            while (($numberArms + 1) * $armCost <= $budget &&
-                $this->engine->roller->rollDice(new Roll('Robotics - Arms: extras', 1, 100)) <= $anotherArmOdds) {
-                $numberArms++;
-            }
             $budget -= $armCost * $numberArms;
-            while ($numberArms-- > 0) {
+			$useRobot->robotArms = [];
+			$useRobot->robotArmsInterchangeableHands = [];
+			while ($numberArms-- > 0) {
                 $this->addArm($useRobot, $budget);
             }
         }
@@ -380,53 +379,53 @@ class Robotics extends BaseClass
     {
         // Detachable Remote Controlled Limb
         if ($budget >= 100000 && 10 >= $this->engine->roller->rollPercent('Robot arm - detachable remote')) {
-            $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Detachable Remote Controlled Limb - flies via hover system.', 'Robotics: Arm'));
+        	$useRobot->robotArms[] = 'Detachable Remote Controlled Limb - flies via hover system';
             $budget -= 100000;
 
             // Interchangeable Hand
         } else if ($budget >= 100000 && 10 >= $this->engine->roller->rollPercent('Robot arm - interchangeable')) {
-            $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Arm with interchangeable hands.', 'Robotics: Arm'));
+        	$useRobot->robotArms[] = 'Arm with interchangeable hands';
 
             $interchangeableOdds = 33;
             // electromagnetic clamp
             if ($interchangeableOdds >= $this->engine->roller->rollPercent('Robot interchangeable arm: Electromagnetic Clamp')) {
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Electromagnetic Clamp via a two finger claw.', 'Robotics: Interchangeable Arm'));
+				$useRobot->robotArmsInterchangeableHands[] = 'Electromagnetic Clamp via a two finger claw';
                 $budget -= 90000;
             }
 
             // buzz - saw
             if ($interchangeableOdds >= $this->engine->roller->rollPercent('Robot interchangeable arm: Buzz-Saw')) {
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Buzz-Saw does 2D6 damage.', 'Robotics: Interchangeable Arm'));
+				$useRobot->robotArmsInterchangeableHands[] = 'Buzz-Saw does 2D6 damage';
                 $budget -= 10000;
             }
 
             // high-powered drill
             if ($interchangeableOdds >= $this->engine->roller->rollPercent('Robot interchangeable arm: High-Powered Drill')) {
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'High-Powered Drill with 40 different bits. Does 1D8 damage.', 'Robotics: Interchangeable Arm'));
+				$useRobot->robotArmsInterchangeableHands[] = 'High-Powered Drill with 40 different bits. Does 1D8 damage';
                 $budget -= 10000;
             }
 
             // police style lock release gun
             if ($interchangeableOdds >= $this->engine->roller->rollPercent('Robot interchangeable arm: Police Style Lock Release Gun')) {
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Police Style Lock Release Gun.', 'Robotics: Interchangeable Arm'));
+				$useRobot->robotArmsInterchangeableHands[] = 'Police Style Lock Release Gun';
                 $budget -= 150000;
             }
 
             // towline
             if ($interchangeableOdds >= $this->engine->roller->rollPercent('Robot interchangeable arm: Towline')) {
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Towline and grappling hook launcher.', 'Robotics: Interchangeable Arm'));
+				$useRobot->robotArmsInterchangeableHands[] = 'Towline and grappling hook launcher';
                 $budget -= 25000;
             }
 
             // acetylene torch
             if ($interchangeableOdds >= $this->engine->roller->rollPercent('Robot interchangeable arm: Acetylene Torch')) {
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Acetylene Torch does 1D6 damage.', 'Robotics: Interchangeable Arm'));
+				$useRobot->robotArmsInterchangeableHands[] = 'Acetylene Torch does 1D6 damage';
                 $budget -= 20000;
             }
 
             // weapon
             if ($interchangeableOdds >= $this->engine->roller->rollPercent('Robot interchangeable arm: Weapon')) {
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Weapon mounted in place of a hand.', 'Robotics: Interchangeable Arm'));
+				$useRobot->robotArmsInterchangeableHands[] = 'Weapon mounted in place of a hand';
                 $budget -= 20000;
             }
 
@@ -434,17 +433,17 @@ class Robotics extends BaseClass
         } else if ($budget >= 100000 && 50 >= $this->engine->roller->rollPercent('Robot Utility Arm')) {
             $budget -= 100000;
             if ($budget >= 25000 && 50 >= $this->engine->roller->rollPercent('Robot Utility Arm - concealed')) {
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Robot Arm - Concealed Utility (small, retractable, concealed)', 'Robotics: Concealed Utility Arm'));
+            	$useRobot->robotArms[] = 'Concealed Utility (small, retractable, concealed)';
                 $budget -= 25000;
             } else {
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Robot Arm - Utility (small, retractable)', 'Robotics: Utility Arm'));
+            	$useRobot->robotArms[] = 'Utility (small, retractable)';
                 $budget -= 25000;
             }
         } else if (10 >= $this->engine->roller->rollPercent('Robot Tentacle Arm')) {
+			$useRobot->robotArms[] = 'Tentacle';
             $budget -= 100000;
-            $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Robot Arm - tentacle', 'Robotics: Tentacle Arm'));
         } else {
-            $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Robot Arm', 'Robotics: Arm'));
+			$useRobot->robotArms[] = 'Standard Arm';
         }
     }
 
@@ -561,7 +560,7 @@ class Robotics extends BaseClass
                 new RoboticsAddOn('Fangs - 1D6 + 4 damage', 8000, true),
                 new RoboticsAddOn('Prehensile Tail', 100000, true),
             ]);
-        };
+        }
 
         return $weapons;
     }
@@ -647,7 +646,7 @@ class Robotics extends BaseClass
             if ($option->cost <= $budget) {
                 // add option to robot
                 $budget -= $option->cost;
-                $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, $option->name, 'Robotics Option'));
+                $useRobot->robotOptions[] = $option->name;
                 if ($option->bonus) {
                     $useRobot->addBonus($option->bonus);
                 }

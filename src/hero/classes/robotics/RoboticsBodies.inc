@@ -4,10 +4,8 @@ namespace Heroes\hero\classes\robotics;
 
 use Heroes\engine\Engine;
 use Heroes\engine\Roll;
-use Heroes\enums\BonusTargets;
-use Heroes\hero\Bonus;
-use Heroes\hero\classes\RoboticsAddOn;
 use Heroes\hero\classes\Robotics;
+use Heroes\hero\classes\RoboticsAddOn;
 use Heroes\hero\classes\RoboticsBody;
 use Heroes\hero\Hero;
 
@@ -29,7 +27,7 @@ class RoboticsBodies
      * @param $hasPilot boolean true if the robot requires a pilot
      * @return RoboticsBody the selected body
      */
-    public function addRobotBody(Hero $robot, &$budget, $robotType, $hasPilot)
+    public function addRobotBody(Hero &$robot, &$budget, $robotType, $hasPilot)
     {
         $possibleBodies = $this->possibleBodies($robotType, $hasPilot);
         $bodies = array_filter($possibleBodies, function($body) use ($budget) {
@@ -41,7 +39,8 @@ class RoboticsBodies
 
         $body = array_pop($bodies);
         $budget -= $body->cost;
-        $robot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, $body->name, 'Robotic: body'));
+        $robot->robotBody = $body->name;
+		$robot->robotBodyAddOns = [];
 
 
         // pick optional addons
@@ -59,7 +58,7 @@ class RoboticsBodies
                 $this->engine->arrayTools->shuffle($possibles);
                 $addOn = array_pop($possibles);
                 $budget -= $addOn->cost;
-                $robot->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, $addOn->name, 'Robotics - Body Add On'));
+				$robot->robotBodyAddOns[] = $addOn->name;
             }
         }
 

@@ -186,6 +186,42 @@ class Hero
     /** @var string notes about the character that don't fit in a single variable */
     public $descriptions = [];
 
+    // ----- Robotics ------ //
+	/** @var null|string type of the robot's ai */
+	public $robotAI = null;
+
+	/** @var null|string description of the robot's ai */
+	public $robotAIDescription = null;
+
+	/** @var null|string personality of the robot's ai */
+	public $robotAIPersonality = null;
+
+	/** @var null|string[] arms  */
+	public $robotArms = null;
+
+	/** @var null|string[] interchangeable hands for an arms */
+	public $robotArmsInterchangeableHands = null;
+
+	/** @var null|string type of the robot's body */
+	public $robotBody = null;
+
+	/** @var null|string[] body addons purchased */
+	public $robotBodyAddOns = null;
+
+	/** @var null|string engine */
+	public $robotEngine = null;
+
+	/** @var null|int # legs */
+	public $robotNumberLegs = null;
+
+	/** @var null|string[] options added to robot */
+	public $robotOptions = null;
+
+	/** @var null|string power supply */
+	public $robotPowerSupply = null;
+
+    // ----- end Robotics ------ //
+
     public function __construct()
     {
         // if not false, then it's already set, so don't recalculate it (mutants set height/weight outside of normal setting rules)

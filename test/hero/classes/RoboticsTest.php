@@ -5,7 +5,6 @@ namespace Heroes\test\hero\classes;
 use Heroes\engine\Roll;
 use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestRoll;
-use Heroes\tests\utilities\TestRoller;
 
 class RoboticsTest extends BaseTestRunner
 {
@@ -107,14 +106,7 @@ class RoboticsTest extends BaseTestRunner
         $this->testRoller->verifyTestRolls();
 
         $this->assertTrue(strpos(get_class($hero->class), 'Robotics') !== false);
-        $found = false;
-        foreach ($hero->bonuses as $bonus) {
-            if ($found = $bonus->value === 'Robot has 4 legs') {
-                break;
-            }
-        }
-        $this->assertTrue($found, 'Robot got legs');
-
+        $this->assertEquals(4, $hero->robotNumberLegs);
     }
 
     public function test_vehicleLocomotion() {
@@ -132,13 +124,7 @@ class RoboticsTest extends BaseTestRunner
         $this->testRoller->verifyTestRolls();
 
         $this->assertTrue(strpos(get_class($hero->class), 'Robotics') !== false);
-        $found = false;
-        foreach ($hero->bonuses as $bonus) {
-            if ($found = $bonus->value === 'Engine: Jet Engine') {
-                break;
-            }
-        }
-        $this->assertTrue($found, 'Robotic car got a jet engine');
+        $this->assertEquals('Jet Engine', $hero->robotEngine);
     }
 
     public function test_armsZero() {
@@ -261,15 +247,7 @@ class RoboticsTest extends BaseTestRunner
             $this->testRoller->verifyTestRolls();
 
             // make sure here got some robotics option added
-            $found = false;
-            foreach ($hero->bonuses as $bonus) {
-                if ($found = $bonus->explanation === 'Robotics Option') {
-                    break;
-                }
-            }
-            if (!$found) {
-                throw new \Exception('Robotics Option not added to robot');
-            }
+			$this->assertTrue(count($hero->robotOptions) > 0);
         }
     }
 }
