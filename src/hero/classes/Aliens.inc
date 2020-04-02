@@ -407,7 +407,7 @@ class Aliens extends BaseClass
                 break;
 
             case 'Low Gravity':
-                $this->physiologicalModification = 'Low Gravity: The alien\'s homeworld had a much lighter gravity than Earth\'s. This has made the alien much taller than a typical human. Although the increased gravitational pull of our planet Earth slows the alien, it also provides him with somehwat greater mass.';
+                $this->physiologicalModification = 'Low Gravity: The alien\'s homeworld had a much lighter gravity than Earth\'s. This has made the alien much taller than a typical human. Although the increased gravitational pull of our planet Earth slows the alien, it also provides him with somewhat greater mass.';
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, $this->engine->roller->rollDice(new Roll('Alien: Low Gravity - SDC', 1, 4)) * 10, 'Alien: Low Gravity'));
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::ATTRIBUTE_PHYSICAL_PROWESS, new Roll('Alien: Low Gravity - PS', 2, 4), 'Alien: Low Gravity'));
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_MULTIPLY, BonusTargets::ATTRIBUTE_SPEED, .5, 'Alien: Low Gravity'));
