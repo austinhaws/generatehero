@@ -4,6 +4,7 @@ namespace Heroes\test\engine;
 use Heroes\engine\TableEntry;
 use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestRoll;
+use RuntimeException;
 
 class TableRollerTest extends BaseTestRunner
 {
@@ -12,7 +13,7 @@ class TableRollerTest extends BaseTestRunner
         try {
             $this->engine->tableRoller->rollTable('no entries test', []);
             $this->assertTrue(false, 'should have got exception about an empty table');
-        } catch (\Exception $exception) {
+        } catch (RuntimeException $exception) {
             $this->assertTrue(strPos($exception->getMessage(), 'empty') !== false);
         }
     }

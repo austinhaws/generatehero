@@ -5,12 +5,14 @@ use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
+use Heroes\enums\UrlParameters;
 use Heroes\hero\Ability;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\hero\Psionic;
 use Heroes\tables\superabilities\TablePsionics;
 use Heroes\tables\superabilities\TableSuperAbilities;
+use RuntimeException;
 
 class Aliens extends BaseClass
 {
@@ -48,7 +50,6 @@ class Aliens extends BaseClass
     /**
      * @param Hero $hero
      * @param bool $options
-     * @throws \Exception
      */
     function create(Hero &$hero, $options = false)
     {
@@ -85,7 +86,6 @@ class Aliens extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function rollMoney(Hero &$hero)
     {
@@ -102,9 +102,6 @@ class Aliens extends BaseClass
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::MONEY, $money * 1000, 'Alien: Money'));
     }
 
-    /**
-     * @throws \Exception
-     */
     private function rollVehicle()
     {
         $this->vehicle = $this->engine->tableRoller->rollTable('Alien: Vehicle', [
@@ -119,9 +116,6 @@ class Aliens extends BaseClass
         ]);
     }
 
-    /**
-     * @throws \Exception
-     */
     private function rollEquipment()
     {
         // clothes
@@ -143,7 +137,6 @@ class Aliens extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function rollFamiliarity(Hero &$hero)
     {
@@ -170,13 +163,10 @@ class Aliens extends BaseClass
                 break;
 
             default:
-                throw new \Exception("Unknown familiarity: $result");
+                throw new RuntimeException("Unknown familiarity: $result");
         }
     }
 
-    /**
-     * @throws \Exception
-     */
     private function rollReason()
     {
         $result = $this->engine->tableRoller->rollTable('Alien: Reason for Coming', [
@@ -241,7 +231,7 @@ class Aliens extends BaseClass
                 break;
 
             default:
-                throw new \Exception("Unknown Alien Reason: $result");
+                throw new RuntimeException("Unknown Alien Reason: $result");
         }
     }
 
@@ -253,7 +243,6 @@ class Aliens extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function rollEducation(Hero &$hero)
     {
@@ -332,7 +321,7 @@ class Aliens extends BaseClass
                 break;
 
             default:
-                throw new \Exception('Unknown Alien Education');
+                throw new RuntimeException('Unknown Alien Education');
         }
 
 
@@ -344,19 +333,23 @@ class Aliens extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function rollSuperAbilities(Hero &$hero)
     {
-        $abilities = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
-            new TableEntry(49, 'Super Abilities'),
-            new TableEntry(60, 'Psionics'),
-            new TableEntry(69, 'Experiment'),
-            new TableEntry(79, 'Robotics'),
-            new TableEntry(89, 'Mystic - wizard/spells only'),
-            new TableEntry(100, 'Bionics'),
-        ]);
+		$abilities = $this->engine->getUrlParam(UrlParameters::CLASS_SUBTYPE);
+		if (!$abilities) {
+			$abilities = $this->engine->tableRoller->rollTable('Alien: Super Abilities', [
+				new TableEntry(49, 'Super Abilities'),
+				new TableEntry(60, 'Psionics'),
+				new TableEntry(69, 'Experiment'),
+				new TableEntry(79, 'Robotics'),
+				new TableEntry(89, 'Mystic - wizard/spells only'),
+				new TableEntry(100, 'Bionics'),
+			]);
+		}
+
         // once robotics are done then all the classes exist and can just plug in to them
+		$this->classSubtype = $abilities;
         switch ($abilities) {
             case 'Experiment':
             case 'Super Abilities':
@@ -378,13 +371,12 @@ class Aliens extends BaseClass
                 $this->bionics->create($hero, ['isAlien' => true]);
                 break;
             default:
-                throw new \Exception("unknown alien superabilities: $abilities");
+                throw new RuntimeException("unknown alien superabilities: $abilities");
         }
     }
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function rollPhysiologicalModification(Hero &$hero)
     {
@@ -445,14 +437,13 @@ class Aliens extends BaseClass
                 break;
 
             default:
-                throw new \Exception("Unknown Physiological Modification: $result");
+                throw new RuntimeException("Unknown Physiological Modification: $result");
         }
 
     }
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function appearanceHumanoid(Hero &$hero)
     {
@@ -597,7 +588,6 @@ class Aliens extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function rollAppearance(Hero &$hero)
     {
@@ -682,7 +672,7 @@ class Aliens extends BaseClass
                 break;
 
             default:
-                throw new \Exception("Unknown Alien Appearance: $appearance");
+                throw new RuntimeException("Unknown Alien Appearance: $appearance");
         }
 
     }

@@ -6,6 +6,7 @@ use Heroes\engine\TableEntry;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\TableEducation;
+use RuntimeException;
 
 class SkillPrograms
 {
@@ -75,7 +76,6 @@ class SkillPrograms
      * @param $hero Hero the hero
      * @param int $percentBonus what bonus the skills will be at. when checking if a character has a skill, if the skill is a lower starting value then this would trump it
      * @return array skills available from the program
-     * @throws \Exception
      */
     public function skillsForProgram($program, $hero, $percentBonus = 0) {
         switch ($program) {
@@ -213,7 +213,7 @@ class SkillPrograms
                 break;
 
             default:
-                throw new \Exception("Unknown skill program: $program");
+                throw new RuntimeException("Unknown skill program: $program");
         }
         return $skills;
     }
@@ -239,7 +239,6 @@ class SkillPrograms
      * @param int $percentBonus how much of a bonus to give to the program skills
      * @param Hero $hero the hero for which to pick a program (some programs select skills so select ones that aren't yet selected)
      * @param bool|String[] $disallowSkills which skills are not pickable
-     * @throws \Exception if program not found
      */
     public function addSkillsForProgram($program, $percentBonus, Hero &$hero, $disallowSkills = false)
     {
@@ -274,7 +273,7 @@ class SkillPrograms
                 break;
 
             default:
-                throw new \Exception("Unknown skill program: $program");
+                throw new RuntimeException("Unknown skill program: $program");
         }
 
         // now that all skills are gathered, apply them

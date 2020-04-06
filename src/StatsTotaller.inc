@@ -6,6 +6,7 @@ use Heroes\engine\Engine;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
+use RuntimeException;
 
 class StatsTotaller
 {
@@ -26,7 +27,6 @@ class StatsTotaller
      * attributes are already totaled, so skip those
      *
      * @param Hero $hero the hero on which to total non-attribute stats
-     * @throws \Exception
      */
     public function calculateNonAttributeTotals(Hero &$hero)
     {
@@ -60,13 +60,12 @@ class StatsTotaller
      *
      * @param Bonus $bonus the bonus to apply
      * @param string|int $field the field to update
-     * @throws \Exception
      */
     private function applyBonusToField(Bonus $bonus, &$field)
     {
         if (!$field && $field !== false && $field !== 0 && $field !== 0.0 && $field !== '') {
             var_dump(['field' => $field, 'bonus' => $bonus]);
-            throw new \Exception('Field should have a starting value: "' . $bonus->bonusTarget . '" : "' . $field . '" - ' . $bonus->getValue($this->engine));
+            throw new RuntimeException('Field should have a starting value: "' . $bonus->bonusTarget . '" : "' . $field . '" - ' . $bonus->getValue($this->engine));
         }
 
         // the value of the bonus
@@ -95,7 +94,7 @@ class StatsTotaller
 
             default:
                 var_dump($bonus);
-                throw new \Exception('Bonus has unknown bonus type:' . $bonus->bonusType);
+                throw new RuntimeException('Bonus has unknown bonus type:' . $bonus->bonusType);
         }
     }
 
@@ -104,14 +103,13 @@ class StatsTotaller
      *
      * @param Hero $hero the hero to update
      * @param Bonus $bonus the bonus to apply to the here
-     * @throws \Exception yep, you'll get this
      */
     private function applyBonus(Hero &$hero, Bonus &$bonus)
     {
         
         if ($bonus->isApplied) {
             var_dump($bonus);
-            throw new \Exception('Bonus already applied');
+            throw new RuntimeException('Bonus already applied');
         }
         
         switch ($bonus->bonusTarget) {
@@ -483,7 +481,7 @@ class StatsTotaller
 
             default:
                 var_dump($bonus);
-                throw new \Exception('Unknown Bonus Target: ' . $bonus->bonusTarget);
+                throw new RuntimeException('Unknown Bonus Target: ' . $bonus->bonusTarget);
         }
         
         // mark bonus as applied so it doesn't get doubled up
@@ -495,7 +493,6 @@ class StatsTotaller
      *
      * @param Hero $hero the hero
      * @param string[] $bonusTargets which BonusTarget::... constants to search for and apply to the hero
-     * @throws \Exception
      */
     public function calculateBonusGroup(Hero &$hero, $bonusTargets)
     {
@@ -514,7 +511,6 @@ class StatsTotaller
      * find all
      *
      * @param Hero $hero the hero on which to total attributes
-     * @throws \Exception
      */
     public function calculateAttributeTotals(Hero &$hero)
     {
@@ -536,7 +532,6 @@ class StatsTotaller
      * @param Bonus $bonus the bonus to apply
      * @param Hero $hero the hero who should get the skill bonus
      * @param bool $includeUnset if true then adds missing skills, if false then only gives bonus if the skill exists
-     * @throws \Exception
      */
     private function applyBonusToSkill(Bonus $bonus, Hero &$hero, $includeUnset)
     {
@@ -561,7 +556,6 @@ class StatsTotaller
      * @param Hero $hero the hero to which to give the skill
      * @param String[] $skills the skills to which to apply the bonus
      * @param bool $includeUnset if true then adds missing skills, if false then only gives bonus if the skill exists
-     * @throws \Exception
      */
     private function applyBonusToSkills(Bonus $bonus, Hero &$hero, $skills, $includeUnset) {
         // save actual target

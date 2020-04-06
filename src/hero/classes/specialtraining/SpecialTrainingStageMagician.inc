@@ -96,7 +96,6 @@ class SpecialTrainingStageMagician extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function pickGimmicks(Hero &$hero)
     {

@@ -35,7 +35,7 @@ class TableSuperAbilitiesMajorTest extends BaseTestRunner
     }
 
     public function testMajorSuperAbilities() {
-        // roden / musteloid
+        // rodent / musteloid
         $this->majorSuperAbilityTest([
             new TestRoll(100, 100, 'Super Abilities'),
             new TestRoll(114, 1, 'Super Ability: Major'),

@@ -102,7 +102,6 @@ class SpecialTrainingHunterVigilante extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function otherStuff(Hero &$hero)
     {

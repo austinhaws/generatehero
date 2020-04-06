@@ -7,6 +7,7 @@ use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
+use RuntimeException;
 
 class Bionics extends BaseClass
 {
@@ -36,7 +37,6 @@ class Bionics extends BaseClass
     /**
      * @param Hero $hero the hero to which to add bonuses
      * @param bool|array $options creation options: isAlien if coming from alien so don't do character stuff, just buy bionics
-     * @throws \Exception
      */
     function create(Hero &$hero, $options = false)
     {
@@ -76,9 +76,6 @@ class Bionics extends BaseClass
 	}
 
 
-	/**
-     * @throws \Exception
-     */
     private function backgroundInformation()
     {
         $this->conditions = $this->engine->tableRoller->rollTable('Bionic: Conditions for Bionic Reconstruction', [
@@ -124,9 +121,6 @@ class Bionics extends BaseClass
         $this->hasCar($hero, 80);
     }
 
-    /**
-     * @throws \Exception
-     */
     private function determineBudget()
     {
         $this->budgetRemaining = $this->startingBudget = $this->engine->tableRoller->rollTable('Bionic Budget', [
@@ -470,7 +464,6 @@ class Bionics extends BaseClass
      * @param $bionicLocation string
      * @param Hero $hero
      * @return bool
-     * @throws \Exception
      */
     private function makeLocationBionic($bionicLocation, Hero &$hero)
     {
@@ -561,7 +554,7 @@ class Bionics extends BaseClass
                     break;
 
                 default:
-                    throw new \Exception("Unknown bionic location: " . $bionicLocation);
+                    throw new RuntimeException("Unknown bionic location: " . $bionicLocation);
             }
 
             $added = $this->addBionicBody($hero, $bionic, true, $skinnable, $increasePP, $increasePS, $increaseSpeed);
@@ -575,7 +568,6 @@ class Bionics extends BaseClass
      *
      * @param Bionic $bionic the part to add
      * @param Hero $hero
-     * @throws \Exception
      */
     private function orLocations(Bionic $bionic, Hero &$hero)
     {
@@ -636,7 +628,6 @@ class Bionics extends BaseClass
      *
      * @param $bionic Bionic  part to add
      * @param Hero $hero
-     * @throws \Exception
      */
     private function andLocations(Bionic $bionic, Hero &$hero)
     {

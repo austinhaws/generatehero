@@ -1,6 +1,8 @@
 <?php
 namespace Heroes\engine;
 
+use RuntimeException;
+
 class TableRoller {
     /** @var Engine the engine! */
     private $engine;
@@ -17,11 +19,10 @@ class TableRoller {
      * @param $name string name of the table being rolled for testing, informational, and debug purposes
      * @param $table array of Table class
      * @return mixed table's specified RESULT
-     * @throws \Exception if result isn't in the table
      */
     public function rollTable($name, $table) {
         if (!count($table)) {
-            throw new \Exception('empty table');
+            throw new RuntimeException('empty table');
         }
 
         $max = $table[count($table) - 1]->max;
@@ -33,7 +34,7 @@ class TableRoller {
 
         // check that the reuslt is in bounds
         if ($x >= count($table)) {
-            throw new \Exception("table location out of bounds: $x, {count($table)}");
+            throw new RuntimeException("table location out of bounds: $x, {count($table)}");
         }
 
         // return the matched value

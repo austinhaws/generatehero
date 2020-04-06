@@ -3,16 +3,24 @@
 namespace Heroes\tests;
 
 use Heroes\engine\Engine;
-use Heroes\HeroGenerator;
+use Heroes\hero\Hero;
 use Heroes\tests\utilities\TestArrayTools;
+use Heroes\tests\utilities\TestHeroGenerator;
 use Heroes\tests\utilities\TestRoll;
 use Heroes\tests\utilities\TestRoller;
 
 abstract class BaseTestRunner extends \PHPUnit_Framework_TestCase
 {
-    protected $engine;
+	/** @var Engine  */
+	protected $engine;
+
+    /** @var TestRoller  */
     protected $testRoller;
+
+    /** @var TestArrayTools  */
     protected $testArrayTools;
+
+    /** @var TestHeroGenerator  */
     protected $heroGenerator;
 
     function __construct($name = NULL, array $data = array(), $dataName = '')
@@ -28,7 +36,7 @@ abstract class BaseTestRunner extends \PHPUnit_Framework_TestCase
         $this->testArrayTools = new TestArrayTools($this->engine);
         $this->engine->arrayTools = $this->testArrayTools;
 
-        $this->heroGenerator = new HeroGenerator($this->engine);
+		$this->heroGenerator = new TestHeroGenerator($this->engine);
     }
 
     /**
@@ -117,7 +125,7 @@ abstract class BaseTestRunner extends \PHPUnit_Framework_TestCase
 	 *
 	 * @param $rolls TestRoll[] the rolls to run
 	 * @param array $urlParams
-	 * @return \Heroes\hero\Hero the hero generated
+	 * @return Hero the hero generated
 	 */
     protected function runGeneration($rolls, $urlParams = []) {
         $this->testRoller->setTestRolls($rolls);

@@ -27,7 +27,6 @@ class RoboticsEducation extends BaseClass
      *
      * @param Hero $robot the robot AI to which to add education
      * @param bool|array $options
-     * @throws \Exception
      */
     public function create(Hero &$robot, $options = false)
     {

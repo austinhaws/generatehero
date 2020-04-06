@@ -46,7 +46,6 @@ class Experiment extends BaseClass
      * create a experiment character
      *
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     function create(Hero &$hero, $options = false)
     {
@@ -73,7 +72,6 @@ class Experiment extends BaseClass
      * pick the hero's powers
      *
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function pickPowers(Hero &$hero)
     {
@@ -92,7 +90,6 @@ class Experiment extends BaseClass
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function createSuperSoldier(Hero &$hero)
     {
@@ -173,7 +170,6 @@ class Experiment extends BaseClass
 
     /**
      * @param Hero $hero the hero duh
-     * @throws \Exception
      */
     private function experimentEffects(Hero &$hero)
     {

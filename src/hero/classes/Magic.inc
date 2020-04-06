@@ -49,7 +49,6 @@ class Magic extends BaseClass
      *
      * @param Hero $hero the hero
      * @param bool|array $options
-     * @throws \Exception
      */
     public function create(Hero &$hero, $options = false)
     {
@@ -77,7 +76,6 @@ class Magic extends BaseClass
     /**
      * @param Hero $hero
      * @param bool $options
-     * @throws \Exception
      */
     private function bestowed(Hero &$hero, $options = false)
     {
@@ -222,7 +220,6 @@ class Magic extends BaseClass
     /**
      * @param Hero $hero
      * @param bool $options
-     * @throws \Exception
      */
     private function object(Hero &$hero, $options = false)
     {
@@ -333,7 +330,6 @@ class Magic extends BaseClass
     /**
      * @param Hero $hero
      * @param bool $options
-     * @throws \Exception
      */
     private function weapon(Hero &$hero, $options = false)
     {

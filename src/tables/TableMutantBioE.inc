@@ -6,6 +6,7 @@ use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\classes\MutantAnimalPsionic;
 use Heroes\hero\Hero;
+use RuntimeException;
 
 class TableMutantBioE extends TableBase
 {
@@ -44,7 +45,6 @@ class TableMutantBioE extends TableBase
      * @param Hero $hero the hero
      * @param int $size how big the hero is
      * @param string $type short, medium, long
-     * @throws \Exception if $type is unknown
      */
     function applySize(Hero &$hero, $size, $type) {
         $bonuses = [
@@ -219,7 +219,7 @@ class TableMutantBioE extends TableBase
                 $heightRollIdx = 2;
                 break;
             default:
-                throw new \Exception("Invalid size type:'$type'");
+                throw new RuntimeException("Invalid size type:'$type'");
         }
         $hero->weight = $this->engine->roller->rollDice($heightWeight[0]);
         $hero->height = $this->engine->roller->rollDice($heightWeight[$heightRollIdx]);

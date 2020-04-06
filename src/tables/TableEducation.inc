@@ -7,6 +7,7 @@ use Heroes\enums\SkillPrograms;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\superabilities\EducationOptions;
+use RuntimeException;
 
 class TableEducation extends TableBase
 {
@@ -121,7 +122,6 @@ class TableEducation extends TableBase
      * @param string|bool $category limit to a specific category or falsey to allow any category
      * @param int $skillBonus bonus to give to picked skills
      * @param null $disallowSkills what skills that can't be picked
-     * @throws \Exception unknown category
      */
     public function pickSecondarySkills($numberSkills, Hero &$hero, $category = false, $skillBonus = 0, $disallowSkills = null)
     {
@@ -230,7 +230,7 @@ class TableEducation extends TableBase
                     ];
                     break;
                 default:
-                    throw new \Exception("Unknown skill category: $category");
+                    throw new RuntimeException("Unknown skill category: $category");
             }
         } else {
             $skills = [
@@ -307,7 +307,6 @@ class TableEducation extends TableBase
      * @param Hero $hero roll for and add education level (pg 27)
      * @param int $skillProgramModifier some classes remove a skill program because the class adds back in skills
      * @param EducationOptions|null $educationOptions modifiers for the education generation
-     * @throws \Exception if hero's education level is invalid
      */
     public function rollEducationLevel(Hero &$hero, $skillProgramModifier = 0, EducationOptions $educationOptions = null)
     {
@@ -406,7 +405,7 @@ class TableEducation extends TableBase
                 break;
 
             default:
-                throw new \Exception("Unknown education level: {$hero->educationLevel}");
+                throw new RuntimeException("Unknown education level: {$hero->educationLevel}");
         }
 
         // modify # of skill programs

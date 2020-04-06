@@ -2,6 +2,8 @@
 
 namespace Heroes\tests\utilities;
 
+use RuntimeException;
+
 class TestRoll
 {
     public $sides;
@@ -107,15 +109,14 @@ class TestRoll
      * @param $name string name of the expected roll
      * @param $index int index of roll in the test rolls
      * @return $this TestRoll the roll being rolled for chaining
-     * @throws \Exception if doesn't validate then gets exception
      */
     public function validate($numberSides, $name, $index)
     {
         if ($this->name != $name) {
-            throw new \Exception("test roll name doesn't match! rolling: '$name'; test roll has: '{$this->name}'  =(index: $index)=; sides={$numberSides}");
+            throw new RuntimeException("test roll name doesn't match! rolling: '$name'; test roll has: '{$this->name}'  =(index: $index)=; sides={$numberSides}");
         }
         if (false !== $this->sides && $this->sides != $numberSides) {
-            throw new \Exception("test roll sides don't match ($name)! expected: '$numberSides'; got: '{$this->sides}'  =(index: $index)=");
+            throw new RuntimeException("test roll sides don't match ($name)! expected: '$numberSides'; got: '{$this->sides}'  =(index: $index)=");
         }
         return $this;
     }

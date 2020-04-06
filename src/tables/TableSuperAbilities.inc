@@ -18,7 +18,6 @@ class TableSuperAbilities extends TableBase
      * @param Hero $hero the hero
      * @param int $numberMajors how many major powers to add, or false for none
      * @param int $numberMinors how many minor powers to add, or false for none
-     * @throws \Exception
      */
     public function randomSuperAbilities(Hero &$hero, $numberMajors = 0, $numberMinors = 0)
     {
@@ -55,11 +54,10 @@ class TableSuperAbilities extends TableBase
      * randomly create a minor super power
      *
      * @return Ability
-     * @throws \Exception
      */
     public function rollMinor()
     {
-        return $this->engine->tableRoller->rollTable('Super Ability: Minor', [
+        $ability = $this->engine->tableRoller->rollTable('Super Ability: Minor', [
             new TableEntry(3, new Ability('Super Vision: Advanced Sight', 'Super sharp, crystal clear vision. Distancing vision is not unlike an eagle\'s. Although not telescopic, the vision is so sharp that the person can read a small sign or recognize a face/costume up to two miles away. Range: Two miles, plus one for every level of experience beyond level two.')),
 
             new TableEntry(6, new Ability('Extraordinary Mental Affinity', 'An aura of likability, confidence, and trust radiates from this character. He or she is so dynamic that they are often the center of attention and make the opposite sex swoon.',
@@ -224,11 +222,22 @@ class TableSuperAbilities extends TableBase
                 ])),
         ]);
 
+        foreach ($ability->bonuses as $bonus) {
+			// selected Bonus value has an array of TableEntry, so roll which value to use
+			if (
+				is_array($bonus->value) &&
+				count($bonus->value) &&
+				$bonus->value[0] instanceof TableEntry
+			) {
+				$bonus->value = $this->engine->tableRoller->rollTable('Ability Bonus Table Entry', $bonus->value);
+			}
+		}
+
+        return $ability;
     }
 
     /**
      * @return Ability the major ability to add to the hero
-     * @throws \Exception
      */
     public function rollMajor()
     {
@@ -669,7 +678,6 @@ class TableSuperAbilities extends TableBase
      * @param string $reason base why reason they are getting these powers
      * @param int $numMajor how many majors to add
      * @param int $numMinor how many minors to add
-     * @throws \Exception
      */
     public function rollAbilities(Hero &$hero, $reason, $numMajor, $numMinor)
     {

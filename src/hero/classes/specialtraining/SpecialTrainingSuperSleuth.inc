@@ -22,7 +22,6 @@ class SpecialTrainingSuperSleuth extends BaseClass
     /**
      * @param Hero $hero
      * @param bool $options
-     * @throws \Exception
      */
     public function create(Hero &$hero, $options = false)
     {
@@ -97,7 +96,6 @@ class SpecialTrainingSuperSleuth extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function earnMoney(Hero &$hero)
     {

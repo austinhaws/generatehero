@@ -13,7 +13,6 @@ class CharacterBasics extends TableBase
      * basics from page 18
      *
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     public function generateCharacterBasics(Hero &$hero)
     {
@@ -50,7 +49,6 @@ class CharacterBasics extends TableBase
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function birthOrder(Hero &$hero)
     {
@@ -67,7 +65,6 @@ class CharacterBasics extends TableBase
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function weight(Hero &$hero)
     {
@@ -85,7 +82,6 @@ class CharacterBasics extends TableBase
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function height(Hero &$hero)
     {
@@ -100,7 +96,6 @@ class CharacterBasics extends TableBase
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function disposition(Hero &$hero)
     {
@@ -124,7 +119,6 @@ class CharacterBasics extends TableBase
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function lifeSavings(Hero &$hero)
     {
@@ -142,7 +136,6 @@ class CharacterBasics extends TableBase
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function landOfOrigin(Hero &$hero)
     {
@@ -159,7 +152,6 @@ class CharacterBasics extends TableBase
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function typeOfEnvironment(Hero &$hero)
     {
@@ -174,7 +166,6 @@ class CharacterBasics extends TableBase
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function socialEconomicBackground(Hero &$hero)
     {
@@ -192,7 +183,6 @@ class CharacterBasics extends TableBase
 
     /**
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function whenManifested(Hero &$hero)
     {

@@ -12,6 +12,7 @@ use Heroes\hero\Hero;
 use Heroes\tables\CharacterBasics;
 use Heroes\tables\TableAttributes;
 use Heroes\tables\TableEducation;
+use RuntimeException;
 
 class HeroGenerator
 {
@@ -32,10 +33,10 @@ class HeroGenerator
 	 *
 	 * @param $urlParams
 	 * @return Hero the hero
-	 * @throws \Exception
 	 */
     public function generate($urlParams = [])
     {
+    	$this->engine->urlParams = $urlParams;
         $hero = new Hero();
 
         /**
@@ -79,7 +80,7 @@ class HeroGenerator
 
 
         // step 3 - determine super abilities
-        $this->generatePowerCategory($hero, $urlParams);
+        $this->generatePowerCategory($hero);
 
         // step 4 - education / skills
         if (!$hero->educationLevel) {
@@ -114,7 +115,6 @@ class HeroGenerator
 
     /**
      * @param Hero $hero the hero to total
-     * @throws \Exception
      */
     public function totalHero(Hero &$hero) {
 
@@ -139,14 +139,11 @@ class HeroGenerator
 	 * apply that category using its class
 	 *
 	 * @param Hero $hero the hero
-	 * @param array $urlParams
-	 * @throws \Exception
 	 */
-    public function generatePowerCategory(Hero &$hero, array $urlParams = [])
+    public function generatePowerCategory(Hero &$hero)
     {
-    	if (isset($urlParams[UrlParameters::POWER_CATEGORY])) {
-    		$class = $urlParams[UrlParameters::POWER_CATEGORY];
-		} else {
+    	$class = $this->engine->getUrlParam(UrlParameters::POWER_CATEGORY);
+    	if (!$class) {
 			$class = $this->engine->tableRoller->rollTable('power category', [
 				new TableEntry(10, 'Experiment'),
 				new TableEntry(20, 'Robotics'),
@@ -176,7 +173,6 @@ class HeroGenerator
      * determine skills, and add bonuses from taking those skills
      *
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function addHeroSkillBonuses(Hero &$hero)
     {
@@ -241,7 +237,6 @@ class HeroGenerator
      *
      * @param Hero $hero the hero
      * @param String[] $takenSkills BonusTarget:: skills taken by this hero
-     * @throws \Exception when a skill is not handled
      */
     private function addSkillBonuses(Hero &$hero, $takenSkills)
     {
@@ -629,7 +624,7 @@ class HeroGenerator
         // add bonuses for taken skills
         foreach ($takenSkills as $skill => $unused) {
             if (!isset($skillBonuses[$skill])) {
-                throw new \Exception('missing skill bonuses for skill: ' . $skill);
+                throw new RuntimeException('missing skill bonuses for skill: ' . $skill);
             }
             $bonuses = $skillBonuses[$skill];
             if ($bonuses) {

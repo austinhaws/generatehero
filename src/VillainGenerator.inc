@@ -29,7 +29,6 @@ class VillainGenerator
      * create a villain!
      *
      * @return Hero the villain
-     * @throws \Exception
      */
     public function generate()
     {
@@ -92,7 +91,6 @@ class VillainGenerator
      * the hero to turn in to a villain
      *
      * @param Hero $hero the criminal elite
-     * @throws \Exception
      */
     private function criminalElite(Hero &$hero)
     {

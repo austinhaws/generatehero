@@ -22,7 +22,6 @@ class PhysicalTraining extends BaseClass
      *
      * @param Hero $hero the hero
      * @param bool $options
-     * @throws \Exception ya ya, whatever
      */
     public function create(Hero &$hero, $options = false)
     {

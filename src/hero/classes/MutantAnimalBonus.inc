@@ -3,6 +3,7 @@ namespace Heroes\hero\classes;
 
 
 use Heroes\hero\Bonus;
+use RuntimeException;
 
 class MutantAnimalBonus
 {
@@ -25,7 +26,7 @@ class MutantAnimalBonus
         }
         if (!is_array($bonuses)) {
             var_dump($bonuses);
-            throw new \Exception('MutantAnimalBonus->bonuses must be an array.');
+            throw new RuntimeException('MutantAnimalBonus->bonuses must be an array.');
         }
         $this->bonuses = $bonuses;
     }

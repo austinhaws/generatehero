@@ -10,6 +10,7 @@ use Heroes\hero\Bonus;
 use Heroes\hero\classes\robotics\RoboticsBodies;
 use Heroes\hero\classes\robotics\RoboticsEducation;
 use Heroes\hero\Hero;
+use RuntimeException;
 
 class Robotics extends BaseClass
 {
@@ -42,7 +43,6 @@ class Robotics extends BaseClass
      *
      * @param Hero $hero the hero
      * @param bool|array $options 'isAlien' means to not do class bonuses, just build a robot
-     * @throws \Exception ya ya, whatever
      */
     public function create(Hero &$hero, $options = false)
     {
@@ -101,7 +101,7 @@ class Robotics extends BaseClass
                 break;
             default:
                 var_dump($robotBody);
-                throw new \Exception('Unknown robotBody type: ' . $robotBody->type);
+                throw new RuntimeException('Unknown robotBody type: ' . $robotBody->type);
         }
 
         $useRobot->addBonus(new Bonus(Bonus::BONUS_TYPE_SET, BonusTargets::SDC, $baseSDC, 'Robotics: Base SDC'));
@@ -124,9 +124,6 @@ class Robotics extends BaseClass
         }
     }
 
-    /**
-     * @throws \Exception
-     */
     private function backgroundData()
     {
         $this->sponsoringOrganization = $this->engine->tableRoller->rollTable('Robotics: Sponsoring organization', [
@@ -157,7 +154,6 @@ class Robotics extends BaseClass
 
     /**
      * @return int budget for building the robot
-     * @throws \Exception
      */
     private function determineBudget() {
         return $this->engine->tableRoller->rollTable('Robotics - budget', [
@@ -174,7 +170,6 @@ class Robotics extends BaseClass
     /**
      * @param Hero $robot the hero/robot to which to add an AI
      * @param int $budget how much money available; how much money left when function is done
-     * @throws \Exception
      */
     private function pickIntelligence(Hero &$robot, &$budget)
     {
@@ -262,7 +257,6 @@ class Robotics extends BaseClass
      * @param $useRobot Hero the robot to which to add legs
      * @param $budget int how much money can be spent (gets updated with money left)
      * @param $robotBody RoboticsBody the body of the robot
-     * @throws \Exception you suck!
      */
     private function pickLegs(Hero &$useRobot, &$budget, $robotBody)
     {
@@ -281,7 +275,7 @@ class Robotics extends BaseClass
                 break;
             default:
                 var_dump($robotBody);
-                throw new \Exception('Unknown robot body type' . $robotBody->type);
+                throw new RuntimeException('Unknown robot body type' . $robotBody->type);
         }
 
         // just doing average 250000 per leg otherwise it gets really weird
@@ -331,7 +325,6 @@ class Robotics extends BaseClass
      * @param Hero $useRobot gimme some arms, baby
      * @param int $budget how much money is available to spend
      * @param RoboticsBody $robotBody the body information
-     * @throws \Exception bad news
      */
     private function pickArmsHands(Hero &$useRobot, &$budget, $robotBody)
     {
@@ -350,7 +343,7 @@ class Robotics extends BaseClass
                 break;
             default:
                 var_dump($robotBody);
-                throw new \Exception('Unknown robot body type' . $robotBody->type);
+                throw new RuntimeException('Unknown robot body type' . $robotBody->type);
         }
 
         $armCost = 150000;

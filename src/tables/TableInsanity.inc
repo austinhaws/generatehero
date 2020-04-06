@@ -1,11 +1,11 @@
 <?php
 namespace Heroes\tables;
 
-use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\hero\Hero;
 use Heroes\hero\insanity\Insanity;
+use RuntimeException;
 
 class TableInsanity extends TableBase
 {
@@ -25,7 +25,6 @@ class TableInsanity extends TableBase
      *
      * @param Hero $hero the her to which to add an insanity
      * @param $type string the type to add (alcohol or drug)
-     * @throws \Exception if type not known
      */
     function addInsanity(Hero &$hero, $type)
     {
@@ -60,14 +59,13 @@ class TableInsanity extends TableBase
                 ]));
                 break;
             default:
-                throw new \Exception("Unknown add Insanity: $type");
+                throw new RuntimeException("Unknown add Insanity: $type");
         }
     }
 
     /**
      * @param Hero $hero
      * @param bool|String $baseType use static class constants to prepick an insanity type or pass false or nothing to have it randomly rolled
-     * @throws \Exception if basetype is not known
      */
     function rollInsanity(Hero &$hero, $baseType = false)
     {
@@ -199,7 +197,7 @@ class TableInsanity extends TableBase
         }
 
         if (!$detail) {
-            throw new \Exception("Unknown baseType: '$baseType'");
+            throw new RuntimeException("Unknown baseType: '$baseType'");
         }
         $hero->insanities[] = new Insanity($baseType, $detail);
     }

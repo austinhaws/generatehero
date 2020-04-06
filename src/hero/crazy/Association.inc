@@ -22,7 +22,6 @@ class Association extends BaseClass
     /**
      * @param Hero $hero
      * @param bool $options
-     * @throws \Exception
      */
     function create(Hero &$hero, $options = false)
     {

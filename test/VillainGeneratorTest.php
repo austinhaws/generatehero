@@ -5,6 +5,7 @@ namespace Heroes\test\utilities;
 use Heroes\tests\BaseTestRunner;
 use Heroes\tests\utilities\TestRoll;
 use Heroes\VillainGenerator;
+use RuntimeException;
 
 class VillainGeneratorTest extends BaseTestRunner
 {
@@ -123,7 +124,7 @@ class VillainGeneratorTest extends BaseTestRunner
                 $rolls[] = TestRoll::doNotCareUntilAndRoll(100, 100, 'Thug Type');
                 break;
             default:
-                throw new \Exception('Unknown thug iteration ' . $i);
+                throw new RuntimeException('Unknown thug iteration ' . $i);
         }
 
         return $i > 6;
@@ -178,7 +179,7 @@ class VillainGeneratorTest extends BaseTestRunner
                 $rolls[] = TestRoll::doNotCareUntilAndRoll(100, 100, 'Criminal Elite Type');
                 break;
             default:
-                throw new \Exception('Unknown criminal elite iteration ' . $i);
+                throw new RuntimeException('Unknown criminal elite iteration ' . $i);
         }
 
         return $i > 6;
@@ -227,7 +228,7 @@ class VillainGeneratorTest extends BaseTestRunner
                 $rolls[] = TestRoll::doNotCareUntilAndRoll(100, 100, 'Villain Criminal Organization');
                 break;
             default:
-                throw new \Exception('Unknown criminal elite iteration ' . $i);
+                throw new RuntimeException('Unknown criminal elite iteration ' . $i);
         }
 
         return $i > 6;

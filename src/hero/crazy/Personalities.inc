@@ -6,6 +6,7 @@ use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\hero\classes\BaseClass;
 use Heroes\hero\Hero;
+use RuntimeException;
 
 class Personality
 {
@@ -45,7 +46,6 @@ class Personalities extends BaseClass
     /**
      * @param Hero $hero
      * @param bool $options
-     * @throws \Exception
      */
     function create(Hero &$hero, $options = false)
     {
@@ -90,7 +90,7 @@ class Personalities extends BaseClass
                     $goodEvil = 'Evil';
                     break;
                 default:
-                    throw new \Exception("invalid personality alignment: {$personality->alignment}");
+                    throw new RuntimeException("invalid personality alignment: {$personality->alignment}");
             }
             $personality->quirk = $this->{'quirk' . $goodEvil}();
 
@@ -100,7 +100,6 @@ class Personalities extends BaseClass
 
     /**
      * @return mixed
-     * @throws \Exception
      */
     private function quirkGood() {
         return $this->engine->tableRoller->rollTable('Quirk Good', [
@@ -119,7 +118,6 @@ class Personalities extends BaseClass
 
     /**
      * @return mixed
-     * @throws \Exception
      */
     private function quirkEvil() {
         return $this->engine->tableRoller->rollTable('Quirk Evil', [

@@ -70,6 +70,7 @@ class TableSuperAbilitiesMinorTest extends BaseTestRunner
             new TestRoll(100, 43, 'Super Ability: Minor'),
             new TestRoll(100, 47, 'Super Ability: Minor'),
             new TestRoll(100, 50, 'Super Ability: Minor'),
+			new TestRoll(100, 33, 'Ability Bonus Table Entry'),
         ]);
 
         $hero = new Hero();
@@ -137,4 +138,28 @@ class TableSuperAbilitiesMinorTest extends BaseTestRunner
 
         $this->engine->roller->verifyTestRolls();
     }
+
+    public function testSuperAbilities_winged()
+	{
+		for ($i = 0; $i < 100; $i++) {
+			$this->engine->roller->setTestRolls(
+				($i >= 48 && $i <= 50) ? [
+					new TestRoll(100, $i, 'Super Ability: Minor'),
+					new TestRoll(100, 33, 'Ability Bonus Table Entry'),
+				] : [
+					new TestRoll(100, $i, 'Super Ability: Minor'),
+				]
+			);
+
+			$ability = (new TableSuperAbilities($this->engine))->rollMinor();
+
+			if ($ability->bonuses) {
+				foreach ($ability->bonuses as $bonus) {
+					$this->assertFalse(is_array($bonus->value));
+				}
+			}
+
+			$this->engine->roller->verifyTestRolls();
+		}
+	}
 }

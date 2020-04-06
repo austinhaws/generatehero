@@ -240,32 +240,32 @@ class MagicTest extends BaseTestRunner
 
     public function bestowed_abilities(&$rolls, $i)
     {
-        return $this->iterationSubRolls($rolls, $i, [
+		return $this->iterationSubRolls($rolls, $i, [
            [new TestRoll(100, 18, 'Magic: Bestowed - abilities'),],
            [new TestRoll(100, 31, 'Magic: Bestowed - abilities'),],
            [
                new TestRoll(100, 47, 'Magic: Bestowed - abilities'),
-               new TestRoll(false, false, 'Super Ability: Major'),
-               new TestRoll(false, false, 'Super Ability: Minor'),
+               new TestRoll(114, 33, 'Super Ability: Major'),
+               new TestRoll(100, 33, 'Super Ability: Minor'),
            ],
            [
                new TestRoll(100, 62, 'Magic: Bestowed - abilities'),
-               new TestRoll(false, false, 'Super Ability: Minor'),
-               new TestRoll(false, false, 'Super Ability: Minor'),
-               new TestRoll(false, false, 'Super Ability: Minor'),
-               new TestRoll(false, false, 'Super Ability: Minor'),
+               new TestRoll(100, 33, 'Super Ability: Minor'),
+               new TestRoll(100, 33, 'Super Ability: Minor'),
+               new TestRoll(100, 33, 'Super Ability: Minor'),
+               new TestRoll(100, 33, 'Super Ability: Minor'),
            ],
            [
                new TestRoll(100, 77, 'Magic: Bestowed - abilities'),
-               new TestRoll(false, false, 'Super Ability: Minor'),
-               new TestRoll(false, false, 'Super Ability: Minor'),
+               new TestRoll(100, 33, 'Super Ability: Minor'),
+               new TestRoll(100, 33, 'Super Ability: Minor'),
            ],
            [new TestRoll(100, 89, 'Magic: Bestowed - abilities'),],
            [
                new TestRoll(100, 100, 'Magic: Bestowed - abilities'),
-               new TestRoll(false, false, 'Super Ability: Major'),
-               new TestRoll(false, false, 'Super Ability: Minor'),
-               new TestRoll(false, false, 'Super Ability: Minor'),
+               new TestRoll(114, 33, 'Super Ability: Major'),
+               new TestRoll(100, 33, 'Super Ability: Minor'),
+               new TestRoll(100, 33, 'Super Ability: Minor'),
            ],
         ]);
     }

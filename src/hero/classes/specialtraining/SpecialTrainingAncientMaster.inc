@@ -95,7 +95,6 @@ class SpecialTrainingAncientMaster extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function basics(Hero &$hero)
     {

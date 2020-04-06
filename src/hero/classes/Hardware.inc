@@ -8,6 +8,7 @@ use Heroes\enums\BonusTargets;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\TableEducation;
+use RuntimeException;
 
 class Hardware extends BaseClass
 {
@@ -28,7 +29,6 @@ class Hardware extends BaseClass
      *
      * @param Hero $hero the hero
      * @param bool $options
-     * @throws \Exception ya ya, whatever
      */
     public function create(Hero &$hero, $options = false)
     {
@@ -52,7 +52,7 @@ class Hardware extends BaseClass
                 $this->classSubtype = 'Weapons';
                 break;
             default:
-                throw new \Exception("Unknown hardware power type: $roll");
+                throw new RuntimeException("Unknown hardware power type: $roll");
         }
 
         // step 4 : experiment effects
@@ -63,7 +63,6 @@ class Hardware extends BaseClass
      * make an electrical hardware character
      *
      * @param Hero $hero the hero
-     * @throws \Exception
      */
     private function electrical(Hero &$hero)
     {
@@ -103,7 +102,6 @@ class Hardware extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function mechanical(Hero &$hero)
     {
@@ -167,7 +165,6 @@ class Hardware extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function weapons(Hero &$hero)
     {

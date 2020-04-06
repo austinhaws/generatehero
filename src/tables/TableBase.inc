@@ -2,6 +2,7 @@
 namespace Heroes\tables;
 
 use Heroes\engine\Engine;
+use RuntimeException;
 
 class TableBase
 {
@@ -11,7 +12,7 @@ class TableBase
     public function __construct(Engine $engine)
     {
         if (!$engine) {
-            throw new Exception('Engine is required in constructor');
+            throw new RuntimeException('Engine is required in constructor');
         }
         $this->engine = $engine;
     }

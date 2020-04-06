@@ -1,7 +1,6 @@
 <?php
 namespace Heroes\hero;
 
-use Exception;
 use Heroes\engine\Engine;
 use Heroes\enums\BonusTargets;
 use Heroes\hero\classes\BaseClass;
@@ -314,7 +313,6 @@ class Hero
      * @param $basePercent int the percent that this skill could be added at
      * @param Engine $engine so that rolls can be made if needed
      * @return true if a skill bonus set is found for the skill that has a percent >= the passed in percent
-     * @throws Exception
      */
     public function hasSkill($skill, $basePercent, Engine $engine)
     {

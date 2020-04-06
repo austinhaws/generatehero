@@ -3,6 +3,7 @@ namespace Heroes\tests\utilities;
 
 use Heroes\engine\Roll;
 use Heroes\engine\Roller;
+use RuntimeException;
 
 class TestRoller extends Roller
 {
@@ -39,17 +40,16 @@ class TestRoller extends Roller
      * @param $name string informational name of why this roll is being made
      * @param $numberSides int how many sides the roll should have
      * @return int the pre-determined roll value
-     * @throws \Exception if roll doesn't match then exception throws
      */
     private function getRoll($name, $numberSides) {
         if (!count($this->testRolls)) {
-            throw new \Exception("out of rolls: ($name); sides: ${numberSides}");
+            throw new RuntimeException("out of rolls: ($name); sides: ${numberSides}");
         }
 
         $roll = array_shift($this->testRolls);
 
         if (!$roll) {
-            throw new \Exception("Test Roll does not exist for: $name ($numberSides)");
+            throw new RuntimeException("Test Roll does not exist for: $name ($numberSides)");
         }
         // the roll was expected & found
         if ($roll->dontCareUntil === $name || $roll->dontCareUntil === true) {
@@ -109,8 +109,6 @@ class TestRoller extends Roller
     /**
      * make sure all the rolls were used
      * @param bool $showRolls show what the rolls where; useful for seeing what was rolled
-     * @return bool true if there are no rolls left
-     * @throws \Exception if there are rolls not yet used then throws exception
      */
     public function verifyTestRolls($showRolls = false) {
         $count = count($this->testRolls);
@@ -118,9 +116,9 @@ class TestRoller extends Roller
             $testRoll = $this->testRolls[0];
             if ($count === 1 && $testRoll->dontCareUntil && !$testRoll->dontCareUntilReached) {
                 var_dump($testRoll);
-                throw new \Exception("'Don't care until' did not find the roll to not care about causing it to spoof all rolls unconditionally: '{$testRoll->name}'");
+                throw new RuntimeException("'Don't care until' did not find the roll to not care about causing it to spoof all rolls unconditionally: '{$testRoll->name}'");
             } else {
-                throw new \Exception("Only used {$this->rollIndex} rolls and there are $count unused test rolls");
+                throw new RuntimeException("Only used {$this->rollIndex} rolls and there are $count unused test rolls");
             }
         }
 

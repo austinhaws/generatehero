@@ -14,6 +14,7 @@ use Heroes\tables\superabilities\TableSuperAbilities;
 use Heroes\tables\TableEducation;
 use Heroes\tables\TableMutantAnimals;
 use Heroes\tables\TableMutantBioE;
+use RuntimeException;
 
 class Mutants extends BaseClass
 {
@@ -64,7 +65,6 @@ class Mutants extends BaseClass
      * create a character's class
      *
      * @param Hero $hero the hero
-     * @throws \Exception ya ya, whatever
      */
     public function create(Hero &$hero, $options = false)
     {
@@ -77,9 +77,6 @@ class Mutants extends BaseClass
         }
     }
 
-    /**
-     * @throws \Exception
-     */
     private function organizationAnimalMutant()
     {
         $this->organization = $this->engine->tableRoller->rollTable('Mutant Animal: Organization', [
@@ -98,7 +95,6 @@ class Mutants extends BaseClass
     /**
      * @param $features
      * @return array
-     * @throws \Exception
      */
     private function animalMutantKeepFeatures($features)
     {
@@ -127,13 +123,13 @@ class Mutants extends BaseClass
                 default:
                     // randomly choose one of the options
                     if (!count($buyables)) {
-                        throw new \Exception('Buyables have no options!');
+                        throw new RuntimeException('Buyables have no options!');
                     }
                     $roll = new Roll('Mutant Animal Feature', 1, count($buyables), 1, false, -1);
                     $optionIdx = $this->engine->roller->rollDice($roll);
                     if ($optionIdx >= count($buyables)) {
                         $count = count($buyables);
-                        throw new \Exception("$optionIdx is larger than $count - {$roll->toString()}");
+                        throw new RuntimeException("$optionIdx is larger than $count - {$roll->toString()}");
                     }
                     $feature = $buyables[$optionIdx];
                     $keptFeatures[$kind] = [$feature];
@@ -145,7 +141,6 @@ class Mutants extends BaseClass
 
     /**
      * @return array
-     * @throws \Exception
      */
     private function animalMutantPickPsionics()
     {
@@ -249,7 +244,6 @@ class Mutants extends BaseClass
     /**
      * @param Hero $hero
      * @param $details
-     * @throws \Exception
      */
     private function applyMutantAnimalDetails(Hero &$hero, $details)
     {
@@ -334,7 +328,7 @@ class Mutants extends BaseClass
                     break;
 
                 default:
-                    throw new \Exception("Unknown animal mutant detail: $key  => $value");
+                    throw new RuntimeException("Unknown animal mutant detail: $key  => $value");
             }
 
             if ($skills) {
@@ -350,7 +344,6 @@ class Mutants extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function causeAnimalMutant(Hero &$hero)
     {
@@ -537,9 +530,6 @@ class Mutants extends BaseClass
         }
     }
 
-    /**
-     * @throws \Exception
-     */
     private function causeHumanMutant()
     {
         $this->cause = $this->engine->tableRoller->rollTable('Mutant: cause', [
@@ -553,7 +543,6 @@ class Mutants extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function unusualCharacteristics(Hero &$hero)
     {

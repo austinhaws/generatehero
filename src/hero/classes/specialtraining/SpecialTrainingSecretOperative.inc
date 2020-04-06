@@ -141,7 +141,6 @@ class SpecialTrainingSecretOperative extends BaseClass
 
     /**
      * @param Hero $hero
-     * @throws \Exception
      */
     private function determineSponsor(Hero &$hero)
     {

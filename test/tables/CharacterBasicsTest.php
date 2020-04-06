@@ -16,9 +16,6 @@ class CharacterBasicsTest extends BaseTestRunner
         $this->characterBasics = new CharacterBasics($this->engine);
     }
 
-    /**
-     * @throws \Exception
-     */
     public function testGenerateCharacterBasics()
     {
         $hero = new Hero();

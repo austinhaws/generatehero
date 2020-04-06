@@ -29,7 +29,6 @@ class Psionics extends BaseClass
      * create a character's class
      *
      * @param Hero $hero the hero
-     * @throws \Exception ya ya, whatever
      */
     public function create(Hero &$hero, $options = false)
     {
