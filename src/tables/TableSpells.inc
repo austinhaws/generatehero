@@ -289,7 +289,7 @@ class TableSpells extends TableBase
                 '12ft',
                 'Instant/permanent',
                 'None',
-                'Change ordinary fresh water into wine, affecting ten gallons per level of the spell caster\'s experience. Tbe wine is of fair to average quality, with the quality increasing by 5% per each level of his experience.'
+                'Change ordinary fresh water into wine, affecting ten gallons per level of the spell caster\'s experience. The wine is of fair to average quality, with the quality increasing by 5% per each level of his experience.'
             ),
             new Spell(
                 'Wisps of Confusion',
