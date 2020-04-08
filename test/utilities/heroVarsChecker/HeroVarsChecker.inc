@@ -13,7 +13,6 @@ class HeroVarsChecker
 	 */
 	public function checkVars(Hero $hero)
 	{
-return;
 		try {
 			$this->checkValue($hero, '');
 		} catch (HeroFieldNotFoundException $re) {

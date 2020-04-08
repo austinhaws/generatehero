@@ -78,7 +78,7 @@ class Aliens extends BaseClass
     public function postCreate(Hero &$hero)
     {
         parent::postCreate($hero);
-        if ($this->psionics) {
+        if ($this->psionics || $hero->psionics) {
             $this->isp = (new TablePsionics($this->engine))->mutantAlienISP($hero, $this->engine);
         }
     }

@@ -622,6 +622,7 @@ class AliensTest extends BaseTestRunner
 
         $hero = $this->runGeneration($rolls);
         $this->assertNotEmpty($hero->psionics);
+        $this->assertNotEquals(0, $hero->class->isp);
     }
 
     public function test_superAbilitiesRobotics() {
