@@ -117,7 +117,7 @@ class TablePsionics extends TableBase
             new Psionic(
                 'See Aura',
                 '120ft (36m)',
-                '4 melees/1 minute',
+                '4 melees / 1 minute',
                 '4',
                 'None',
                 'Seeing an aura will indicate the following: general alignment, estimated level, human/mutant/alien, presence of super power, and overall health.'
@@ -219,7 +219,7 @@ class TablePsionics extends TableBase
             new Psionic(
                 'Hypnosis',
                 '60ft (18.3m)',
-                '8 melees/2 minutes per level of psionic',
+                '8 melees / 2 minutes per level of psionic',
                 '2 per suggestion/command',
                 'Standard',
                 'Implant commands and suggestions in another person\'s mind. The psionic can make two commands or suggestions each melee, and can repeat a command if the opponent saves against it the first or second time. As the psionic develops his hypnotic powers he can influence more than one mind at a time; one per each level of experience.'
@@ -275,7 +275,7 @@ class TablePsionics extends TableBase
             new Psionic(
                 'Presence Sense',
                 '120ft (36m) radius',
-                '8 melees/2 minutes',
+                '8 melees / 2 minutes',
                 '4',
                 'None',
                 'Detect the presence of any corporeal or non-corporeal entity. It will only indicate the general location of the invisible person.'
