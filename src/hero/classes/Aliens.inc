@@ -431,7 +431,7 @@ class Aliens extends BaseClass
                 break;
 
             case 'Abrasive Atmosphere':
-                $this->physiologicalModification = 'Abrasive Atmosphere: High scathing winds or corrosive atmosphere is this alien\'s natural environment. This being has developed a tough thick skin or leathery plating like a rhinoceros. Short in height';
+                $this->physiologicalModification = 'Abrasive Atmosphere: High scathing winds or corrosive atmosphere is this alien\'s natural environment. This being has developed a tough thick skin or leathery plating like a rhinoceros. Short in height.';
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SDC, $this->engine->roller->rollDice(new Roll('Alien: Abrasive - SDC', 3, 6)) * 10, 'Alien: Abrasive Atmosphere'));
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::NATURAL_ARMOR_RATING, 12, 'Alien: Abrasive Atmosphere'));
                 break;
