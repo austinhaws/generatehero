@@ -5,6 +5,7 @@ use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
+use Heroes\enums\UrlParameters;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\TableEducation;
@@ -40,20 +41,23 @@ class Hardware extends BaseClass
         (new TableEducation($this->engine))->rollEducationLevel($hero, -1);
 
         // step 3 : hardware type
-        $roll = $this->engine->roller->rollDice(new Roll('Hardware Power Type', 1, 3));
-        switch ($roll) {
-            case 1:
-                $this->classSubtype = 'Electrical';
-                break;
-            case 2:
-                $this->classSubtype = 'Mechanical';
-                break;
-            case 3:
-                $this->classSubtype = 'Weapons';
-                break;
-            default:
-                throw new RuntimeException("Unknown hardware power type: $roll");
-        }
+		$this->classSubtype = $this->engine->getUrlParam(UrlParameters::CLASS_SUBTYPE);
+		if (!$this->classSubtype) {
+			$roll = $this->engine->roller->rollDice(new Roll('Hardware Power Type', 1, 3));
+			switch ($roll) {
+				case 1:
+					$this->classSubtype = 'Electrical';
+					break;
+				case 2:
+					$this->classSubtype = 'Mechanical';
+					break;
+				case 3:
+					$this->classSubtype = 'Weapons';
+					break;
+				default:
+					throw new RuntimeException("Unknown hardware power type: $roll");
+			}
+		}
 
         // step 4 : experiment effects
         $this->{$this->classSubtype}($hero);
