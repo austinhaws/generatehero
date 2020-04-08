@@ -5,6 +5,7 @@ use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
+use Heroes\enums\UrlParameters;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\hero\Spell;
@@ -56,19 +57,30 @@ class Magic extends BaseClass
         // step 2 : education - normal education
 
         // step 3 : determine type of magic
-        if ($options && $options['isAlien']) {
+		if ($options && $options['isAlien']) {
             list($this->classSubtype, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
                 new TableEntry(50, ['Mystic Study - Wizard', 'studyWizard']),
                 new TableEntry(100, ['Mystic Study - Magician', 'studyMagician']),
             ]);
         } else {
-            list($this->classSubtype, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
-                new TableEntry(25, ['Enchanted Weapon', 'weapon']),
-                new TableEntry(50, ['Enchanted Object', 'object']),
-                new TableEntry(63, ['Mystic Study - Wizard', 'studyWizard']),
-                new TableEntry(75, ['Mystic Study - Magician', 'studyMagician']),
-                new TableEntry(100, ['Bestowed', 'bestowed']),
-            ]);
+			$this->classSubtype = $this->engine->getUrlParam(UrlParameters::CLASS_SUBTYPE);
+			if ($this->classSubtype) {
+				$function = [
+					'Enchanted Weapon' => 'weapon',
+					'Enchanted Object' => 'object',
+					'Mystic Study - Wizard' => 'studyWizard',
+					'Mystic Study - Magician' => 'studyMagician',
+					'Bestowed' => 'bestowed',
+				][$this->classSubtype];
+			} else {
+				list($this->classSubtype, $function) = $this->engine->tableRoller->rollTable('Magic Type', [
+					new TableEntry(25, ['Enchanted Weapon', 'weapon']),
+					new TableEntry(50, ['Enchanted Object', 'object']),
+					new TableEntry(63, ['Mystic Study - Wizard', 'studyWizard']),
+					new TableEntry(75, ['Mystic Study - Magician', 'studyMagician']),
+					new TableEntry(100, ['Bestowed', 'bestowed']),
+				]);
+			}
         }
         $this->$function($hero, $options);
     }
@@ -119,13 +131,13 @@ class Magic extends BaseClass
 
         if ($numIllusionSpells || $numMagicSpells) {
             $this->spellsKnown = [];
+            $this->spellsPerDay = 8;
         }
-
         if ($numIllusionSpells) {
             $this->selectSpells($this->spellsKnown, TableSpells::illusionarySpells(), $numIllusionSpells);
         }
         if ($numMagicSpells) {
-            $this->selectSpells($this->spellsKnown, TableSpells::magicSpells(), $numIllusionSpells);
+            $this->selectSpells($this->spellsKnown, TableSpells::magicSpells(), $numMagicSpells);
         }
         if ($numMajor || $numMinor) {
             (new TableSuperAbilities($this->engine))->rollAbilities($hero, 'Magic: Bestowed', $numMajor, $numMinor);
