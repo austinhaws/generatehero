@@ -569,7 +569,7 @@ class Aliens extends BaseClass
                 break;
 
             case 'Prehensile tail':
-                $this->appearance .= 'Prehensile Tail: Have grown an additional appendage: a tail. While it may be difficult to conceal it, it does have some advantages. Like the prehensile tail of a monkey it can seize and grasp. The tail cannot be sued to untie rope or string, nor fire a weapon. HOwever, it can be used to turn knobs, and press buttons. It is also possible to hold blunt objects and use them as a club. +1 to strike/parry with the tail.';
+                $this->appearance .= 'Prehensile Tail: Have grown an additional appendage: a tail. While it may be difficult to conceal it, it does have some advantages. Like the prehensile tail of a monkey it can seize and grasp. The tail cannot be used to untie rope or string, nor fire a weapon. However, it can be used to turn knobs, and press buttons. It is also possible to hold blunt objects and use them as a club. +1 to strike/parry with the tail.';
                 $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SKILL_CLIMBING, 20, 'Prehensile Tail'));
                 break;
 
