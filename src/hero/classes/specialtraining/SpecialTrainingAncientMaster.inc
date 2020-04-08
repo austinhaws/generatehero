@@ -90,7 +90,9 @@ class SpecialTrainingAncientMaster extends BaseClass
     {
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Feign Death (96%) - Fall in to a death-like trance.', 'Ancient Master - abilities'));
         $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Cleansing Spirit (89%) - mentally will body to destroy disease, drugs or chemicals, and heal.', 'Ancient Master - abilities'));
-        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Positive Energy - instills the character with a super human, physical toughness: energy attacks halved; gases, poisons, drugs, and chemicals 1/2 damage; +5 vs magic, +3 vs psionics.', 'Ancient Master - abilities'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, 'Positive Energy - instills the character with a super human, physical toughness: energy attacks halved; gases, poisons, drugs, and chemicals 1/2 damage.', 'Ancient Master - abilities'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_PSIONICS, 3, 'Ancient Master - Positive Energy'));
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::SAVE_MAGIC, 5, 'Ancient Master - Positive Energy'));
     }
 
     /**
