@@ -7,6 +7,7 @@ use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
 use Heroes\enums\SkillPrograms;
+use Heroes\enums\UrlParameters;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\superabilities\TablePsionics;
@@ -61,19 +62,27 @@ class Mutants extends BaseClass
     }
 
 
-    /**
-     * create a character's class
-     *
-     * @param Hero $hero the hero
-     */
+	/**
+	 * create a character's class
+	 *
+	 * @param Hero $hero the hero
+	 * @param bool $options
+	 */
     public function create(Hero &$hero, $options = false)
     {
-        if ($this->engine->roller->rollDice(new Roll('Mutant Type', 1, 2)) === 1) {
+		$this->classSubtype = $this->engine->getUrlParam(UrlParameters::CLASS_SUBTYPE);
+		if (!$this->classSubtype) {
+        	if ($this->engine->roller->rollDice(new Roll('Mutant Type', 1, 2)) === 1) {
+				$this->classSubtype = 'Mutant Human';
+			} else {
+				$this->classSubtype = 'Animal Mutant';
+			}
+		}
+
+        if ($this->classSubtype === 'Mutant Human') {
             $this->createMutant($hero);
-            $this->classSubtype = 'Mutant Human';
         } else {
             $this->createAnimalMutant($hero);
-            $this->classSubtype = 'Animal Mutant';
         }
     }
 

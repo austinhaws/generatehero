@@ -33,7 +33,7 @@ class TableMutantBioE extends TableBase
             new MutantAnimalPsionic('Hypnotic Suggestion', 'Mental attack that requires eye contact and either verbal or telepathic reinforcement. The suggestion must be a reasonable one.', '12ft', '', 'Standard', 15),
             new MutantAnimalPsionic('Mind Trap', 'A psionic who successfully traps another mind can inflict whatever experience he likes onto that mind.', '6ft', '2D6 minutes', 'Standard', 25),
             new MutantAnimalPsionic('Mind Block', 'Prevents the penetration of all psionic attacks.', 'Self', '10 minutes', 'None', 15),
-            new MutantAnimalPsionic('See Aura', 'See the alignment, estimated level of power, type of creature,, and the physical condition of the creature in their aura.', '120ft', 'duration', 'None', 15),
+            new MutantAnimalPsionic('See Aura', 'See the alignment, estimated level of power, type of creature, and the physical condition of the creature in their aura.', '120ft', 'duration', 'None', 15),
             new MutantAnimalPsionic('Sixth Series', 'Intuition that can be protection for the character.', '90ft / self', '4 melees / 1 minute', 'None', 10),
             new MutantAnimalPsionic('Telepathic Transmission', 'Simple, mind-to-mind, speech substitute.', '150ft', 'Unlimited', 'None', 5),
         ];
