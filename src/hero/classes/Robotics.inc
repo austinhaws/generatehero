@@ -6,6 +6,7 @@ use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
+use Heroes\enums\UrlParameters;
 use Heroes\hero\Bonus;
 use Heroes\hero\classes\robotics\RoboticsBodies;
 use Heroes\hero\classes\robotics\RoboticsEducation;
@@ -46,13 +47,47 @@ class Robotics extends BaseClass
      */
     public function create(Hero &$hero, $options = false)
     {
-        list($this->classSubtype, $this->requiresPilot, $this->requiresAI) = $this->engine->tableRoller->rollTable('Robot Type', [
-            new TableEntry(1, [Robotics::ROBOT_TYPE_MECHANICAL, true, false]),
-            new TableEntry(2, [Robotics::ROBOT_TYPE_ROBOT, false, true]),
-            new TableEntry(3, [Robotics::ROBOT_TYPE_ROBOT, true, true]),
-            new TableEntry(4, [Robotics::ROBOT_TYPE_EXOSKELETON, true, false]),
-            new TableEntry(5, [Robotics::ROBOT_TYPE_ANDROID, false, true]),
-        ]);
+		switch ($this->engine->getUrlParam(UrlParameters::CLASS_SUBTYPE)) {
+			case 'RobotNoPilot':
+				$this->classSubtype = Robotics::ROBOT_TYPE_ROBOT;
+				$this->requiresPilot = false;
+				$this->requiresAI = true;
+				break;
+
+			case 'RobotPilot':
+				$this->classSubtype = Robotics::ROBOT_TYPE_ROBOT;
+				$this->requiresPilot = true;
+				$this->requiresAI = true;
+				break;
+
+			case Robotics::ROBOT_TYPE_MECHANICAL:
+				$this->classSubtype = Robotics::ROBOT_TYPE_MECHANICAL;
+				$this->requiresPilot = true;
+				$this->requiresAI = false;
+				break;
+
+			case Robotics::ROBOT_TYPE_EXOSKELETON:
+				$this->classSubtype = Robotics::ROBOT_TYPE_EXOSKELETON;
+				$this->requiresPilot = true;
+				$this->requiresAI = false;
+				break;
+
+			case Robotics::ROBOT_TYPE_ANDROID:
+				$this->classSubtype = Robotics::ROBOT_TYPE_ANDROID;
+				$this->requiresPilot = false;
+				$this->requiresAI = true;
+				break;
+
+			default:
+				list($this->classSubtype, $this->requiresPilot, $this->requiresAI) = $this->engine->tableRoller->rollTable('Robot Type', [
+					new TableEntry(1, [Robotics::ROBOT_TYPE_MECHANICAL, true, false]),
+					new TableEntry(2, [Robotics::ROBOT_TYPE_ROBOT, false, true]),
+					new TableEntry(3, [Robotics::ROBOT_TYPE_ROBOT, true, true]),
+					new TableEntry(4, [Robotics::ROBOT_TYPE_EXOSKELETON, true, false]),
+					new TableEntry(5, [Robotics::ROBOT_TYPE_ANDROID, false, true]),
+				]);
+				break;
+		}
 
         if ($this->requiresPilot) {
             $this->robot = new Hero();
