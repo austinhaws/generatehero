@@ -5,10 +5,12 @@ use Heroes\engine\Engine;
 use Heroes\engine\Roll;
 use Heroes\engine\TableEntry;
 use Heroes\enums\BonusTargets;
+use Heroes\enums\UrlParameters;
 use Heroes\hero\Bonus;
 use Heroes\hero\Hero;
 use Heroes\tables\superabilities\TableSuperAbilities;
 use Heroes\tables\TableInsanity;
+use RuntimeException;
 
 class SuperSoldierChoice
 {
@@ -61,11 +63,29 @@ class Experiment extends BaseClass
         $this->experimentEffects($hero);
 
         // step 3 : super powers
-        if ($this->engine->roller->rollDice(new Roll('Experiment Power Type', 1, 100)) > 50) {
-            $this->createSuperSoldier($hero);
-        } else {
-            $this->pickPowers($hero);
-        }
+		$this->classSubtype = $this->engine->getUrlParam(UrlParameters::CLASS_SUBTYPE);
+		switch ($this->classSubtype) {
+			case 'Super Abilities':
+			case 'Super Soldier':
+				break;
+			default:
+				if ($this->engine->roller->rollDice(new Roll('Experiment Power Type', 1, 100)) > 50) {
+					$this->classSubtype = 'Super Soldier';
+				} else {
+					$this->classSubtype = 'Super Abilities';
+				}
+				break;
+		}
+		switch ($this->classSubtype) {
+			case 'Super Abilities':
+				$this->pickPowers($hero);
+				break;
+			case 'Super Soldier':
+				$this->createSuperSoldier($hero);
+				break;
+			default:
+				throw new RuntimeException("Should have a class sub type by now: {$this->classSubtype}");
+		}
     }
 
     /**
