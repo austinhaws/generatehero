@@ -3,8 +3,9 @@
 namespace Heroes\tests\utilities\HeroVarsChecker;
 
 use Heroes\hero\Hero;
+use PHPUnit_Framework_Assert;
 
-class HeroVarsChecker
+class HeroVarsChecker extends PHPUnit_Framework_Assert
 {
 	/** @var array  */
 	private static $newFields = [];
@@ -21,7 +22,7 @@ class HeroVarsChecker
 		} catch (HeroFieldNotFoundException $re) {
 			if (!isset(HeroVarsChecker::$newFields[$re->notFoundHeroField])) {
 				HeroVarsChecker::$newFields[$re->notFoundHeroField] = true;
-				var_dump($re->getMessage());
+				$this->fail($re->getMessage());
 			}
 		}
 	}
