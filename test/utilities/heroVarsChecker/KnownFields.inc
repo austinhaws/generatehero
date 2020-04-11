@@ -19,8 +19,6 @@ abstract class KnownFields
 	{
 		return array_merge(
 			[
-				'abilities',
-				'abilities.bonuses',
 				'abilities.bonuses.isApplied',
 				'abilities.bonuses.bonusType',
 				'abilities.bonuses.bonusTarget',
@@ -40,7 +38,6 @@ abstract class KnownFields
 				'birthOrder',
 
 				// Bonuses: isApplied not shown
-				'bonuses',
 				'bonuses.isApplied',
 				'bonuses.bonusType',
 				'bonuses.bonusTarget',
@@ -51,19 +48,26 @@ abstract class KnownFields
 				'charmImpress',
 
 				'class',
-
 				'class.classType',
 				'class.classSubtype',
 
 				// --- Alien --- //
 				'class.appearance',
 				'class.earthClothesDisguise',
+				'class.magic.classType',
+				'class.magic.enchantedWeaponDamage',
+				'class.magic.enchantedWeaponType',
+				'class.magic.objectSpellLevel',
+				'class.magic.objectSpells',
+				'class.magic.objectSpellsPerDay',
+				'class.magic.physicalLimitation',
+				'class.magic.spellsKnown.*',
+				'class.magic.spellsPerDay',
 				'class.familiarity',
-				'class.magic.classSubType',
 				'class.magic.classSubtype',
 				'class.physiologicalModification',
 				'class.reasonForComing',
-				'class.robotics.classSubtype',
+				'class.robotics.*',
 				'class.specialWeapon',
 				'class.vehicle',
 
@@ -108,7 +112,6 @@ abstract class KnownFields
 				'class.spellsKnown.range',
 				'class.spellsKnown.savingThrow',
 				'class.spellsKnown.title',
-				'class.magic',
 
 				// ----- Mutants ----- //
 				'class.animalSize',
@@ -116,6 +119,7 @@ abstract class KnownFields
 				'class.cause',
 				'class.characteristics',
 				'class.isp',
+				'class.organization',
 				'class.organizationRelationship',
 				'class.wildEducationDescription',
 				'class.animal.bonuses.*',
@@ -142,7 +146,6 @@ abstract class KnownFields
 				// ------ Psionics ----- //
 				'class.psionics',
 				'class.ispPoints',
-				'psionics',
 				'psionics.title',
 				'psionics.range',
 				'psionics.duration',
@@ -151,9 +154,7 @@ abstract class KnownFields
 				'psionics.description',
 
 				// ------ Robotics ------ //
-				'class.robot.attacksPerMelee',
-				'class.robot.bonuses.*',
-				'class.robotics',
+				'class.robot.*',
 			],
 			KnownFields::robotField('robotAI'),
 			KnownFields::robotField('requiresAI'),
@@ -169,13 +170,11 @@ abstract class KnownFields
 			KnownFields::robotField('robotOptions'),
 			KnownFields::robotField('robotPowerSupply'),
 			KnownFields::robotField('robotSuperiority'),
-
 			[
 				// ------ Secret Operative ------ //
 				'class.sponsoringOrganization',
 				'class.sponsoringOrganizationStatus',
 
-				'crazy.*',
 				'damageBonus',
 				'disposition',
 				'dodge',
@@ -187,7 +186,6 @@ abstract class KnownFields
 				'hitPoints',
 				'imitateVoices',
 				'initiativeBonus',
-				'insanities',
 				'intelligenceQuotient',
 				'iq',
 				'landOfOrigin',
@@ -224,7 +222,7 @@ abstract class KnownFields
 				'saveSpells',
 				'saveToxins',
 				'sdc',
-				'skillTotals',
+				'skillTotals.*',
 				'socialEconomic',
 				'speed',
 				'strike',
@@ -245,6 +243,16 @@ abstract class KnownFields
 				'physicalStrengthBase',
 				'speedBase',
 			],
+
+			// fields for php side that js didn't need
+			[
+				'class.magic',
+				'class.animal',
+				'class.animalFeatures',
+				'class.animalFeatures.*',
+				'class.objectSpells',
+				'class.spellsKnown',
+			]
 		);
 	}
 

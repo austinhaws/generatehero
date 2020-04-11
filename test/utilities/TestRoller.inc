@@ -111,7 +111,7 @@ class TestRoller extends Roller
      * @param bool $showRolls show what the rolls where; useful for seeing what was rolled
      */
     public function verifyTestRolls($showRolls = false) {
-        $count = count($this->testRolls);
+        $count = count($this->testRolls ?? []);
         if ($count && ($count != 1 || !$this->testRolls[0]->verifyLeftoverRoll())) {
             $testRoll = $this->testRolls[0];
             if ($count === 1 && $testRoll->dontCareUntil && !$testRoll->dontCareUntilReached) {

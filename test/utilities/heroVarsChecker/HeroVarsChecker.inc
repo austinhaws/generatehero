@@ -6,6 +6,9 @@ use Heroes\hero\Hero;
 
 class HeroVarsChecker
 {
+	/** @var array  */
+	private static $newFields = [];
+
 	/**
 	 * override original generator to track all found fields
 	 *
@@ -16,10 +19,11 @@ class HeroVarsChecker
 		try {
 			$this->checkValue($hero, '');
 		} catch (HeroFieldNotFoundException $re) {
-			// print_r($hero);
-			var_dump($re->getMessage());
+			if (!isset(HeroVarsChecker::$newFields[$re->notFoundHeroField])) {
+				HeroVarsChecker::$newFields[$re->notFoundHeroField] = true;
+				var_dump($re->getMessage());
+			}
 		}
-
 	}
 
 	/**
