@@ -56,4 +56,33 @@ class BionicsTest extends BaseTestRunner
 
 		$this->testArrayTools = TestArrayTools::DEFAULT_ROTATION;
 	}
+
+	public function test_bionicPartBonusesApplied()
+	{
+		// generate a bionic that gets a targeting sight
+		// make sure the targeting sight's +1 is showing in bonuses and adding to final value
+
+		$this->testArrayTools->rotation = 9;
+
+		$this->testRoller->setTestRolls([
+			(new TestRoll())->dontCareUntil('power category')->andRoll(100, 30, 'power category'),
+			new TestRoll(100, 100, 'Bionic Budget'),
+			(new TestRoll())->dontCareAnyMore(),
+		]);
+
+		$hero = $this->heroGenerator->generate();
+
+		$this->testRoller->verifyTestRolls();
+
+		$targetingSight = current(array_filter($hero->class->bionics, function ($bionic) {
+			return strcmp($bionic->title, 'Targeting Sight') === 0;
+		}));
+
+		// verify targeting sight bonus is in hero's bonuses list
+		$bonusTargetingSight = array_filter($hero->bonuses, function ($bonus) use ($targetingSight) {
+			return 0 === strcmp($bonus->explanation, $targetingSight->bonuses[0]->explanation);
+		});
+		$this->assertNotNull($bonusTargetingSight);
+		$this->assertGreaterThan(0, $hero->strike, 'Should have had targeting bonus added');
+	}
 }

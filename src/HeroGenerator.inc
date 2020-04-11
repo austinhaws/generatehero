@@ -104,11 +104,12 @@ class HeroGenerator
         $characterBasics = new CharacterBasics($this->engine);
         $characterBasics->generateCharacterBasics($hero);
 
+        // all done, give character's class one last crack at computing
+        $hero->class->postCreate($hero);
+
         // total all bonuses and attributes to get final values
         $this->totalHero($hero);
 
-        // all done, give character's class one last crack at computing
-        $hero->class->postCreate($hero);
 
         return $hero;
     }
