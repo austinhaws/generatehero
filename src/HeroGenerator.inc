@@ -66,13 +66,17 @@ class HeroGenerator
 
 
         // is the hero crazy?
-        if ($this->engine->roller->rollDice(new Roll('is crazy?', 1, 100)) == 100) {
-            $crazy = $this->engine->tableRoller->rollTable('crazy element', [
-                new TableEntry(30, 'Frenzy'),
-                new TableEntry(60, 'Association'),
-                new TableEntry(85, 'Personalities'),
-                new TableEntry(100, 'Crazy'),
-            ]);
+		$heroIsCrazy = $this->engine->getUrlParam(UrlParameters::HERO_IS_CRAZY);
+        if ($heroIsCrazy === 'yes' || ($heroIsCrazy !== 'no' && $this->engine->roller->rollDice(new Roll('is crazy?', 1, 100)) == 100)) {
+			$crazy = $this->engine->getUrlParam(UrlParameters::HERO_CRAZY_TYPE);
+			if (!$crazy) {
+				$crazy = $this->engine->tableRoller->rollTable('crazy element', [
+					new TableEntry(30, 'Frenzy'),
+					new TableEntry(60, 'Association'),
+					new TableEntry(85, 'Personalities'),
+					new TableEntry(100, 'Crazy'),
+				]);
+			}
             $crazy = "Heroes\\hero\\crazy\\$crazy";
             $hero->crazy = new $crazy($this->engine);
             $hero->crazy->create($hero);

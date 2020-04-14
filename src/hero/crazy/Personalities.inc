@@ -40,7 +40,8 @@ class Personalities extends BaseClass
     public function __construct(Engine &$engine)
     {
         parent::__construct($engine, 'Crazy');
-        $this->classSubtype = 'Multiple Personalities';
+        $this->classSubtype = 'Personalities';
+        $this->crazyDescription = 'Each of these different personalities manifest themselves as a completely different person';
     }
 
     /**
@@ -51,11 +52,11 @@ class Personalities extends BaseClass
     {
         // this is in addition to the main personality. a result of 1 here means 2 total personalities.
         $numberPersonalities = $this->engine->tableRoller->rollTable('Personalities: total', [
-            new TableEntry(30, 1),
-            new TableEntry(50, 2),
-            new TableEntry(65, 3),
-            new TableEntry(89, 4),
-            new TableEntry(100, 5),
+            new TableEntry(30, 2),
+            new TableEntry(50, 3),
+            new TableEntry(65, 4),
+            new TableEntry(89, 5),
+            new TableEntry(100, 6),
         ]);
 
         // main personality doesn't know about these other personalities
@@ -104,8 +105,8 @@ class Personalities extends BaseClass
     private function quirkGood() {
         return $this->engine->tableRoller->rollTable('Quirk Good', [
            new TableEntry(10, new PersonalityQuirk('Despondent', 'Withdrawn; curls up in to a fetal position and gurgles. Can not fight or take any action. Can not use powers or even communicate.', '')),
-           new TableEntry(20, new PersonalityQuirk('Coward', 'Afraid of everything: heights, flying, fighting, knives, guns, etc. Will fight only if absolutely necessary, and then only enough to escape. This character will surrender at the slightest hint of trouble Super abilities can be used, but only for self-preservation. He may use the powers to help friends, but would rather stay on the sidelines.', 'Always the last to attack in a melee round. SKills are -10%. Does not know any of the other personalities.')),
-           new TableEntry(30, new PersonalityQuirk('Pacifist', 'Gentle, merciful, and compassionate. This character is a as bright and bold as the main personality (maybe even more sot), but will not fight. This personality is adamant against fighting for any reason. If confronted he will dodge, parry, and try to otherwise incapacitate a foe, all the while delivering a speech against fighting and cruelty. He can use his powers, but will rarely use them against others. Will never kill, torture, or strike ot of anger. There are no power or skill penalties.', '+2 to dodge, +1 to parry and roll. Knows about the dominant personality only. THere is a 40% chance that he can be convinced to let the dominant personality back in to control, but only under extreme protest (too violent).')),
+           new TableEntry(20, new PersonalityQuirk('Coward', 'Afraid of everything: heights, flying, fighting, knives, guns, etc. Will fight only if absolutely necessary, and then only enough to escape. This character will surrender at the slightest hint of trouble. Super abilities can be used, but only for self-preservation. He may use the powers to help friends, but would rather stay on the sidelines.', 'Always the last to attack in a melee round. Skills are -10%. Does not know any of the other personalities.')),
+           new TableEntry(30, new PersonalityQuirk('Pacifist', 'Gentle, merciful, and compassionate. This character is a as bright and bold as the main personality (maybe even more sot), but will not fight. This personality is adamant against fighting for any reason. If confronted he will dodge, parry, and try to otherwise incapacitate a foe, all the while delivering a speech against fighting and cruelty. He can use his powers, but will rarely use them against others. Will never kill, torture, or strike ot of anger. There are no power or skill penalties.', '+2 to dodge, +1 to parry and roll. Knows about the dominant personality only. There is a 40% chance that he can be convinced to let the dominant personality back in to control, but only under extreme protest (too violent).')),
            new TableEntry(40, new PersonalityQuirk('Arrogant Warrior', 'Cold, aloof, snob, but extremely capable and confident (over confident). Tends to be incredibly independent, rude, and insensitive. To this personality there are two points of view to everything; the wrong one and his (the only right and logical opinion). This personality uses his powers and skills as he sees fit; usually cold and calculating. There are no skill penalties.', '+10% on all skills, +1 to parry. Knows all the other personalities, but will not willingly let any of them resurface. After all they are inferior to him.')),
            new TableEntry(50, new PersonalityQuirk('Righteous Indignation', 'A personality that has a black and white view of hte world. Evil must be crushed at all costs. This is a war, thus the end justifies the means. He tends to be judgemental, reactionary, and brutal towards evil. Gentle and compassionate to the good and innocent. A potentially volatile and dangerous character. There are no skill or ability penalties, nor bonuses. He sues his extraordinary abilities well. Knows and despises all the other personalities for one reason or another. There is a 50% chance of convincing him to let any of hte other personalities out, except the arrogant warrior.', '')),
            $this->quirkTableEntry_normal(60),

@@ -39,10 +39,13 @@ class PersonalitiesTest extends BaseTestRunner
 
             // hypochondriac
             new TestRoll(100, 81, 'Quirk Evil'),
+
+			new TestRoll(100, 100, 'Personality: Alignment'),
+            new TestRoll(100, 81, 'Quirk Evil'),
         ]);
         $personalities->create($hero);
         $this->testRoller->verifyTestRolls();
 
-        $this->assertEquals(3, count($personalities->personalities));
+        $this->assertEquals(4, count($personalities->personalities));
     }
 }

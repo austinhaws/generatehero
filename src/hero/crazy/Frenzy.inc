@@ -3,6 +3,8 @@ namespace Heroes\hero\crazy;
 
 use Heroes\engine\Engine;
 use Heroes\engine\TableEntry;
+use Heroes\enums\BonusTargets;
+use Heroes\hero\Bonus;
 use Heroes\hero\classes\BaseClass;
 use Heroes\hero\Hero;
 
@@ -15,6 +17,7 @@ class Frenzy extends BaseClass
     {
         parent::__construct($engine, 'Crazy');
         $this->classSubtype = 'Frenzy';
+        $this->crazyDescription = 'Appears normal most of the time, but will fly into a wild, uncontrolled rage under certain, high pressure, conditions.';
     }
 
     /**
@@ -29,7 +32,7 @@ class Frenzy extends BaseClass
            new TableEntry(80, 'Intense Pain'),
            new TableEntry(100, 'Extreme Tension'),
         ]);
-    }
 
-    // while frenzied: +1 attack per melee, +30 SDC, +1d6 damage, +1 strie/parry/dodge. speed +30%. lasts 15 seconds * Physical Endurance.
+        $hero->addBonus(new Bonus(Bonus::BONUS_TYPE_ADD, BonusTargets::DESCRIPTION, "while frenzied: +1 attack per melee, +30 SDC, +1d6 damage, +1 strie/parry/dodge. speed +30%. lasts 15 seconds * Physical Endurance.", "Crazy - Frenzy"));
+    }
 }

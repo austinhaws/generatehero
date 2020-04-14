@@ -16,7 +16,8 @@ class Association extends BaseClass
     public function __construct(Engine &$engine)
     {
         parent::__construct($engine, 'Crazy');
-        $this->classSubtype = 'by Association';
+        $this->classSubtype = 'Association';
+        $this->crazyDescription = 'The character is convinced that he gains his strength, skills or powers from some sort of object or other worldly source.';
     }
 
     /**
@@ -26,12 +27,12 @@ class Association extends BaseClass
     function create(Hero &$hero, $options = false)
     {
         $this->association = $this->engine->tableRoller->rollTable('Association: association', [
-            new TableEntry(16, 'Daytime Complex'),
-            new TableEntry(30, 'Nighttime Complex'),
-            new TableEntry(50, 'Popeye Syndrome'),
-            new TableEntry(70, 'Magic Object'),
-            new TableEntry(85, 'Power Words'),
-            new TableEntry(100, 'Solar Syndrome'),
+            new TableEntry(16, 'Daytime Complex: character believes powers are only active during daytime'),
+            new TableEntry(30, 'Nighttime Complex: character believes powers are only active during nighttime'),
+            new TableEntry(50, 'Popeye Syndrome: one handful equals 3 hours'),
+            new TableEntry(70, 'Magic Object: magic object bestows powers'),
+            new TableEntry(85, 'Power Words: must speak words to gain super powers'),
+            new TableEntry(100, 'Solar Syndrome: charges powers with solar energy'),
         ]);
 
         // daytime: character believes powers are only active during daytime.
@@ -42,7 +43,7 @@ class Association extends BaseClass
         // solar syndrome: charges powers with solar energy; in full sunlight +10SDC, +5% skills
             // in shadow: abilities are 1/2 and skills -5%; in darkness/night: no super powers, skills -20%
 
-        if ($this->association == 'Popeye Syndrome') {
+        if ($this->association == 'Popeye Syndrome: one handful equals 3 hours') {
             $this->popeye = $this->engine->tableRoller->rollTable('Popeye: power food', [
                 new TableEntry(5, 'Garlic'),
                 new TableEntry(10, 'Asparagus dipped in vanilla yogurt'),

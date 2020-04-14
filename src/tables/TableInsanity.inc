@@ -109,7 +109,7 @@ class TableInsanity extends TableBase
                 break;
 
             case TableInsanity::OBSESSION:
-                $detail = ($this->engine->roller->rollDice(new Roll('Obsession: love/hate', 1, 2)) == 1 ? 'Love ' : 'Hate ')
+                $detail = ($this->engine->roller->rollDice(new Roll('Obsession: love/hate', 1, 2)) == 1 ? 'Loves ' : 'Hates ')
                     . $this->engine->tableRoller->rollTable('Insanity: Obsession', [
                         New TableEntry(5, 'Timelines: '),
                         New TableEntry(12, 'High Technology: Acquire/Use'),
@@ -136,7 +136,7 @@ class TableInsanity extends TableBase
                 $detail = 'Phobia: ' . $this->engine->tableRoller->rollTable('Insanity: Phobia', [
                         new TableEntry(5, 'Insects'),
                         new TableEntry(10, 'Reptiles'),
-                        new TableEntry(15, 'BOats'),
+                        new TableEntry(15, 'Boats'),
                         new TableEntry(18, 'Opposite Sex'),
                         new TableEntry(20, 'Dogs'),
                         new TableEntry(25, 'Darkness'),

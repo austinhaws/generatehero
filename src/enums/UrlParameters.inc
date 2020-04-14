@@ -8,4 +8,8 @@ abstract class UrlParameters
 
     // main class type of the super hero (ie alien)
     const POWER_CATEGORY = 'powerCategory';
+
+	const HERO_IS_CRAZY = 'heroIsCrazy';
+
+	const HERO_CRAZY_TYPE = 'heroCrazyType';
 }

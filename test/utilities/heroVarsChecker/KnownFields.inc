@@ -19,6 +19,8 @@ abstract class KnownFields
 	{
 		return array_merge(
 			[
+				'abilities',
+				'abilities.bonuses',
 				'abilities.bonuses.isApplied',
 				'abilities.bonuses.bonusType',
 				'abilities.bonuses.bonusTarget',
@@ -38,6 +40,7 @@ abstract class KnownFields
 				'birthOrder',
 
 				// Bonuses: isApplied not shown
+				'bonuses',
 				'bonuses.isApplied',
 				'bonuses.bonusType',
 				'bonuses.bonusTarget',
@@ -50,6 +53,19 @@ abstract class KnownFields
 				'class',
 				'class.classType',
 				'class.classSubtype',
+
+				// --- Crazy --- //
+				'crazy',
+				'crazy.association',
+				'crazy.classSubtype',
+				'crazy.classType',
+				'crazy.condition',
+				'crazy.crazyDescription',
+				'crazy.personalities.*',
+				'crazy.popeye',
+				'insanities',
+				'insanities.type',
+				'insanities.description',
 
 				// --- Alien --- //
 				'class.appearance',
@@ -146,6 +162,7 @@ abstract class KnownFields
 				// ------ Psionics ----- //
 				'class.psionics',
 				'class.ispPoints',
+				'psionics',
 				'psionics.title',
 				'psionics.range',
 				'psionics.duration',

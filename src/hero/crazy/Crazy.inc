@@ -14,6 +14,8 @@ class Crazy extends BaseClass
     public function __construct(Engine &$engine)
     {
         parent::__construct($engine, 'Crazy');
+		$this->classSubtype = 'Crazy';
+		$this->crazyDescription = 'Extremely hyper. Laughing, giggling or snickering at the most unusual times. Tend to come up with inane battle cries.';
     }
 
     /**

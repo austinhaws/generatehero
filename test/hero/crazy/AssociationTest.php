@@ -21,7 +21,7 @@ class AssociationTest extends BaseTestRunner
         $association->create($hero);
         $this->testRoller->verifyTestRolls();
 
-        $this->assertEquals('Solar Syndrome', $association->association);
+        $this->assertEquals('Solar Syndrome: charges powers with solar energy', $association->association);
         $this->assertEquals(false, $association->popeye);
     }
 
@@ -37,7 +37,7 @@ class AssociationTest extends BaseTestRunner
         $association->create($hero);
         $this->testRoller->verifyTestRolls();
 
-        $this->assertEquals('Popeye Syndrome', $association->association);
+        $this->assertEquals('Popeye Syndrome: one handful equals 3 hours', $association->association);
         $this->assertEquals('Twinkies', $association->popeye);
 
     }
